@@ -17,7 +17,7 @@ from datetime import datetime
 import time
 import json
 
-def init():
+def date_init():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
@@ -48,7 +48,7 @@ def parseDate(soup):
 
 
 # 드라이버 초기화
-driver = init()
+driver = date_init()
 # def getDate(video_list):
 #     result = []
 #     for i, video in enumerate(video_list):

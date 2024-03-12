@@ -1,17 +1,13 @@
 """
-pip install pymongo
-pip install flask
+!pip install pymongo
+!pip install selenium
+!pip install webdriver-manager
+!pip install pytube
+!pip install beautifulsoup4
+!pip install lxml
+!pip install youtube-transcript-api
+!pip install nltk
 """
-
-from flask import Flask, render_template
-from pymongo import MongoClient
-import configparser
-
-# from crawling.script import *\
-# from keywords import *
-# from category.category import *
-# from category.getData import *
-
 
 from pymongo import MongoClient
 import configparser
@@ -29,8 +25,6 @@ import re
 import nltk
 from nltk.tokenize import sent_tokenize
 from youtube_transcript_api import YouTubeTranscriptApi
-
-app = Flask(__name__)
 
 # DB 인증 정보 가져오기
 config = configparser.ConfigParser()
@@ -126,6 +120,9 @@ def getUrl():
     return video_info
 
 
+
+
+
 def load_script(video_id):
     nltk.download('punkt')
 
@@ -173,6 +170,19 @@ def time_match(script, sentences):
     return sentence_times
 
 
+def date_init():
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-gpu')
+    options.add_argument('disable-dev-shm-usage')
+
+    # 크롬 드라이버 최신 버전 설정
+    service = ChromeService(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+
+    return driver
+
 def parseDate(soup):
     info = soup.findAll('yt-formatted-string', class_='style-scope ytd-video-primary-info-renderer')
 
@@ -207,7 +217,7 @@ def getDate(video_id):
 
 def getScriptDate(video_list):
     result = []
-    for i, video in enumerate(video_list[:10]):
+    for i, video in enumerate(video_list[:50]):
         print(f'=========={i}번째==========')
         # print('load date...')
         date = getDate(video['video_id'])
@@ -223,20 +233,15 @@ def getScriptDate(video_list):
         
     return result
 
+
 # 드라이버 초기화
 driver = init()
-@app.route('/')
-def home():
-    # 영상 리스트 스크롤
-    scroll()
-    # video id 크롤링
-    video_list = getUrl()
-    # 스크립트 및 업로드 날짜 크롤링
-    dataset = getScriptDate(video_list)
-    # db에 저장
-    db['data'].insert_many(dataset)
-    return '완료'
+# 영상 리스트 스크롤
+scroll()
+# video id 크롤링
+video_list = getUrl()
+# 스크립트 및 업로드 날짜 크롤링
+dataset = getScriptDate(video_list)
+# db에 저장
+db['data'].insert_many(dataset)
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=8000, debug=True)
-    
