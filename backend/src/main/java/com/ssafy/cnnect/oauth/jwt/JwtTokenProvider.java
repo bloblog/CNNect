@@ -1,6 +1,7 @@
 package com.ssafy.cnnect.oauth.jwt;
 
-import com.ssafy.cnnect.oauth.dto.JwtTokenDto;
+import com.ssafy.cnnect.oauth.service.RefreshTokenService;
+import com.ssafy.cnnect.oauth.token.JwtToken;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -29,21 +30,28 @@ public class JwtTokenProvider {
     @Value("${jwt.refresh-token.expire-length}")
     private long REFRESH_TOKEN_EXPIRATION_TIME;
 
+
     private final Key key;
 
+    private static final String USER_EMAIL = "userEmail";
+
+    private final RefreshTokenService refreshTokenService;
+
     // application.yml에서 secret 값 가져와서 key에 저장
-    public JwtTokenProvider(@Value("${jwt.token.secret-key}") String secretKey) {
+    public JwtTokenProvider(@Value("${jwt.token.secret-key}") String secretKey, RefreshTokenService refreshTokenService) {
+        this.refreshTokenService = refreshTokenService;
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     // Member 정보를 가지고 AccessToken, RefreshToken을 생성하는 메서드
-    public JwtTokenDto generateToken(Authentication authentication) {
+    public JwtToken generateToken(Authentication authentication) {
         // 권한 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-
+        String userEmail = authentication.getName();
+        System.out.println("userId in jwt : " + authentication.getName());
         long now = (new Date()).getTime();
 
         // Access Token 생성
@@ -57,11 +65,17 @@ public class JwtTokenProvider {
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim("auth", authorities)
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return JwtTokenDto.builder()
+        // Redis에 Refresh Token 저장
+        refreshTokenService.saveTokenInfo(userEmail, refreshToken);
+
+
+        return JwtToken.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
@@ -88,23 +102,26 @@ public class JwtTokenProvider {
     }
 
     // 토큰 정보를 검증하는 메서드
-    public boolean validateToken(String token) {
+    public JwtValidationType validateToken(String token) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token);
-            return true;
+            return JwtValidationType.VALID_JWT_TOKEN;
         } catch (SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT Token", e);
+            return JwtValidationType.INVALID_JWT_TOKEN;
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT Token", e);
+            return JwtValidationType.EXPIRED_JWT_TOKEN;
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT Token", e);
+            return JwtValidationType.UNSUPPORTED_JWT_TOKEN;
         } catch (IllegalArgumentException e) {
             log.info("JWT claims string is empty.", e);
+            return JwtValidationType.EMPTY_JWT_TOKEN;
         }
-        return false;
     }
 
 
@@ -120,4 +137,25 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+
+
+
+    public Authentication getUserFromJwt(String token){
+        Claims claims = parseClaims(token);
+
+        if (claims.get("auth") == null) {
+            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+        }
+
+        // 클레임에서 권한 정보 가져오기
+        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+
+        // UserDetails 객체를 만들어서 Authentication return
+        // UserDetails: interface, User: UserDetails를 구현한 class
+        UserDetails principal = new User(claims.getSubject(), "", authorities);
+        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+    }
+
 }

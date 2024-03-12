@@ -34,4 +34,12 @@ public class UserController {
     public ResponseEntity<ResultResponse> getUserInfo(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.getUser(userId)));
     }
+
+    @Operation(summary = "refreshToken으로 accessToken 재발급")
+    @GetMapping("/refreshtoken")
+    public ResponseEntity<ResultResponse> reissueToken(@RequestParam String refreshToken){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.reissueToken(refreshToken)));
+    }
+
+
 }

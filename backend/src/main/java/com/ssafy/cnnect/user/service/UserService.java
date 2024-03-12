@@ -1,19 +1,23 @@
 package com.ssafy.cnnect.user.service;
 
-import com.ssafy.cnnect.oauth.dto.JwtTokenDto;
+import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
+import com.ssafy.cnnect.oauth.service.RefreshTokenService;
+import com.ssafy.cnnect.oauth.token.JwtToken;
 import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
 import com.ssafy.cnnect.user.dto.InfoResponseDto;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
 import com.ssafy.cnnect.user.dto.LoginRequestDto;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final RefreshTokenService refreshTokenService;
 
     public Long registUser(JoinRequestDto joinRequestDto) {
         // 비밀번호 암호화
@@ -36,9 +41,10 @@ public class UserService {
         return user.getUserId();
     }
 
-    public JwtTokenDto loginUser(LoginRequestDto loginRequestDto){
+    public JwtToken loginUser(LoginRequestDto loginRequestDto){
         String userEmail = loginRequestDto.getUserEmail();
         String userPassword = loginRequestDto.getUserPassword();
+//        Optional<User> user = userRepository.findByUserEmail(userEmail);
         System.out.println(1111111);
         // 1. username + password 를 기반으로 Authentication 객체 생성
         // 이때 authentication 은 인증 여부를 확인하는 authenticated 값이 false
@@ -51,8 +57,8 @@ public class UserService {
 
         System.out.println(3333333);
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        JwtTokenDto jwtToken = jwtTokenProvider.generateToken(authentication);
-
+        JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
+//        refreshTokenService.saveTokenInfo(user.get().getUserId(), jwtToken.getRefreshToken(), jwtToken.getAccessToken());
         return jwtToken;
     }
 
@@ -65,5 +71,16 @@ public class UserService {
                 .userNickname(user.getUserNickname())
                 .userLevel(user.getUserLevel())
                 .build();
+    }
+
+    @Transactional
+    public JwtToken reissueToken(String refreshToken){
+        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
+        JwtValidationType type = jwtTokenProvider.validateToken(refreshToken);
+        System.out.println("reissue : " + authentication.getName());
+        if(type == JwtValidationType.VALID_JWT_TOKEN){
+            return jwtTokenProvider.generateToken(authentication);
+        }
+        return null;
     }
 }
