@@ -3,20 +3,19 @@ pip install pymongo
 pip install flask
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from pymongo import MongoClient
 import configparser
 
-from crawling.videoId import *
 from crawling.script import *
+
 # from keywords import *
-from crawling.date import *
 from category.category import *
 from category.getData import *
 
 app = Flask(__name__)
 
-# 인증 정보 가져오기
+# DB 인증 정보 가져오기
 config = configparser.ConfigParser()
 config.read('config.ini')
 
@@ -34,18 +33,32 @@ db = client.CNNect
 def home():
     # json_data = categorize().to_json()
     # getArticle()
-    return 'home'
+    return render_template('index.html')
 
 dataset = []
+
 @app.route("/getData")
 def getData():
-    # video id 먼저 구해서 객체 배열로 만듦
-    # id 돌면서 script 구한 다음 
-    # DB 에 저장할 형태인 dataset 에 저장
     global dataset
-    dataset = setDate(getScript(getVideoId()))
-    
-    return render_template('index.html')
+    video_list = getVideoId()
+    # dataset = getScript(video_list)
+    dataset = getScriptDate(video_list)
+    # dataset = getDate(dataset)
+
+    # # 카테고리 설정
+    # dataset = await setCategory(dataset)
+
+    # # 레벨 평가
+    # dataset = setLevel(dataset)
+
+    return render_template('done.html')
+
+@app.route("/category")
+async def setCategory():
+    # global dataset
+    df = getCategory()
+    return df.to_json(orient='records', force_ascii=False)
+
 
 @app.route("/addData")
 def addData():
@@ -53,4 +66,5 @@ def addData():
     return 'DB에 데이터 추가 완료'
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=8000, debug=True)
+    

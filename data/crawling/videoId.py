@@ -94,19 +94,9 @@ def getUrl():
 
     return video_info
 
-# def save(result):
-#     # 현재 날짜 가져오기
-#     current_date = datetime.now().strftime("%m%d")
-
-#     # 파일 이름 생성
-#     file_name = f"videolist({current_date}).json"
-#     with open(file_name, 'w', encoding='utf-8') as json_file:
-#       json.dump(result, json_file, ensure_ascii=False, indent=4)
-
 # 드라이버 초기화
 driver = init()
 def getVideoId():
     scroll()
     result = getUrl()
     return result
-    # save(result)
