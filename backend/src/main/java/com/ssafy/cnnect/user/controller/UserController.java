@@ -3,6 +3,7 @@ package com.ssafy.cnnect.user.controller;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
+import com.ssafy.cnnect.user.dto.LoginRequestDto;
 import com.ssafy.cnnect.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,11 @@ public class UserController {
     @PostMapping(value = "/join", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResultResponse> registUser(@RequestBody JoinRequestDto joinRequestDto) {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.registUser(joinRequestDto)));
+    }
+    @Operation(summary = "유저 로그인")
+    @PostMapping(value = "/login")
+    public ResponseEntity<ResultResponse> loginUser(@RequestBody LoginRequestDto loginRequestDto) {
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.loginUser(loginRequestDto)));
     }
 
     // 추후 token 기반으로 변경
