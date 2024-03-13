@@ -48,6 +48,7 @@ def init():
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('disable-dev-shm-usage')
+    options.add_experimental_option("detach", True)
 
     # 크롬 드라이버 최신 버전 설정
     service = ChromeService(executable_path=ChromeDriverManager().install())
@@ -62,7 +63,7 @@ def init():
 
 def scroll():
     # 스크롤 아래로
-    SCROLL_PAUSE_TIME = 0.5
+    SCROLL_PAUSE_TIME = 1
     last_height = driver.execute_script("return document.documentElement.scrollHeight")
 
     while True:
@@ -74,7 +75,8 @@ def scroll():
         print('now: ', new_height)
         # 페이지 길이로 콘텐츠 개수 조정
         # 끝까지 가져오려면 or 뒷부분만
-        if new_height > 100000 or new_height == last_height:
+        if new_height > 2000000 or new_height == last_height:
+        # if new_height > 2000000 or new_height == last_height:
             break
         last_height = new_height
 
@@ -114,12 +116,11 @@ def getUrl():
         
         if image:
             src = image['src']
-
-        video_info.append({'title' : title, 'video_id' : video_id, 'level' : 0, 'category': 'politics', 'time': time, 'img' : src})
+        # 30분 넘으면 넣지 않음
+        if time < 1800:
+            video_info.append({'title' : title, 'video_id' : video_id, 'level' : 0, 'category': 'politics', 'time': time, 'img' : src})
 
     return video_info
-
-
 
 
 
@@ -216,8 +217,8 @@ def getDate(video_id):
     return parseDate(soup)
 
 def getScriptDate(video_list):
-    result = []
-    for i, video in enumerate(video_list[:50]):
+
+    for i, video in enumerate(db['data'].find({})):
         print(f'=========={i}번째==========')
         # print('load date...')
         date = getDate(video['video_id'])
@@ -226,22 +227,38 @@ def getScriptDate(video_list):
         full_script = get_fullscript(script)
         script_sentence = split(full_script)
 
-        video['date'] = date
-        video["sentence"] = time_match(script, script_sentence)
-        video["full_script"] = full_script
-        result.append(video)
+        # 스크립트 없으면 그냥 db 에서 빼버린다
+        if script == '' :
+            db['data'].delete_one({"video_id": video['video_id'],})
+        else :
+            db['data'].update_one(
+                {
+                    "video_id": video['video_id'],
+                },
+                {
+                    "$set": {
+                        "date": date,
+                        "sentence": time_match(script, script_sentence),
+                        "full_script": full_script
+                    }
+                }
+            )
         
-    return result
-
+        
 
 # 드라이버 초기화
 driver = init()
+
 # 영상 리스트 스크롤
 scroll()
+
 # video id 크롤링
 video_list = getUrl()
-# 스크립트 및 업로드 날짜 크롤링
-dataset = getScriptDate(video_list)
 # db에 저장
-db['data'].insert_many(dataset)
+db['data'].insert_many(video_list)
+
+# 스크립트 및 업로드 날짜 크롤링
+# 해당 video 데이터 db 업데이트
+getScriptDate(video_list)
+
 
