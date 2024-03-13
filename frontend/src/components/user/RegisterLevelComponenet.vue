@@ -24,6 +24,7 @@ import {useRouter} from 'vue-router';
 const router = useRouter()
 
 const registerComplete = () => {
+    alert("회원가입이 완료되었습니다!");
     router.push('/');
 }
 

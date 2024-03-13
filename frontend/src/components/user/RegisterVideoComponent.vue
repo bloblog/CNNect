@@ -87,8 +87,16 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import { userStore } from "@/stores/userStore";
+import { storeToRefs } from "pinia";
+import { insertRegistHistory } from "@/api/history";
+
+const uStore = userStore()
+
+const {userId} = storeToRefs(uStore);
 
 const videoList = ref([]); // 전체 영상 목록의 youtube id 저장
+const addList = ref([]); // 유저가 선택한 영상 -> 학습 기록에 저장
 const videoLike = ref([]); // 전체 영상 목록과 동일한 배열 크기 -> true/false로 선택 여부관리
 const isVideoPopup = ref([]);
 // 전체 영상 목록과 동일한 배열 크기 -> 팝업창으로 영상 미리보기 띄울지 여부 -> mousevoer시 true, mouseleave시 false
@@ -114,8 +122,27 @@ onMounted(() => {
 });
 
 const emit = defineEmits(["nextStep"]);
+
+// 다음 단계로 이동
 const nextStep = (input) => {
   emit("nextStep", input);
+  // console.log(videoList.value.length)
+  // for(let i = 0; i < videoList.value.length; i++){
+  //   if(videoLike.value[i]){
+  //     addList.value.push({userId : userId.value, videoId : videoList.value[i],
+  //                       historyStatus : false});
+  //   }
+  // }
+
+  // console.log(addList.value);
+
+  // insertRegistHistory(addList.value, ({data}) => {
+  //   console.log(data);
+  // },
+  // (error) => {
+  //   console.log(error)
+  // })
+
 };
 
 const handleScroll = () => {

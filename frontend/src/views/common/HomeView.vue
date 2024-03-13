@@ -2,6 +2,7 @@
   <div class="flex justify-center items-center">
     <h2 class="flex">HomeView</h2>
     <button
+      v-if="isLogin == false"
       data-modal-target="authentication-modal"
       data-modal-toggle="authentication-modal"
       class="flex text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -59,6 +60,7 @@
                   type="email"
                   name="email"
                   id="email"
+                  v-model="loginData.userEmail"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="name@company.com"
                   required
@@ -74,27 +76,29 @@
                   type="password"
                   name="password"
                   id="password"
+                  v-model="loginData.userPassword"
                   placeholder="••••••••"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
                 />
               </div>
-              <button
-                type="submit"
-                class="w-full text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                로그인
-              </button>
-              <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                회원이 아니신가요?
-                <a      
-                  data-modal-hide="authentication-modal"
-                  @click=register()
-                  class="text-theme-redbrown hover:underline dark:text-blue-500"
-                  >회원가입</a
-                >
-              </div>
             </form>
+            <button
+              type="button"
+              @click="login()"
+              class="w-full text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              로그인
+            </button>
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+              회원이 아니신가요?
+              <a
+                data-modal-hide="authentication-modal"
+                @click="register()"
+                class="text-theme-redbrown hover:underline dark:text-blue-500"
+                >회원가입</a
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -106,14 +110,26 @@
 import { ref, onMounted } from "vue";
 import { initFlowbite, Modal } from "flowbite";
 import { useRoute, useRouter } from "vue-router";
+import { loginUser } from "@/api/user";
+import { userStore } from "@/stores/userStore";
+import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const router = useRouter();
+const uStore = userStore();
+
+const loginData = ref({
+  userEmail: "",
+  userPassword: "",
+});
+
+const { setLogin, setLogout, setNickname, setLevel } = uStore;
+const { isLogin } = storeToRefs(uStore);
 
 onMounted(() => {
-    initFlowbite();
-    console.log(modal.isVisible())
-})
+  initFlowbite();
+  console.log(modal.isVisible());
+});
 
 // set the modal menu element
 const $targetEl = document.getElementById("authentication-modal");
@@ -144,7 +160,23 @@ const instanceOptions = {
 const modal = new Modal($targetEl, options, instanceOptions);
 
 const login = () => {
-  // modal.show();
+  loginUser(
+    loginData.value,
+    ({ data }) => {
+      console.log(data);
+      console.log(data.data.level);
+      localStorage.setItem("refreshToken", data.data.jwtToken.refreshToken);
+      localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
+      setLogin();
+      setLevel(data.data.level);
+      setNickname(data.data.nickName);
+
+      location.href = "/";
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 };
 
 const register = () => {
