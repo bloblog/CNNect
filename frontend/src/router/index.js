@@ -27,7 +27,8 @@ const router = createRouter({
     {
       path : '/study',
       name : 'study',
-      component : StudyView
+      component : StudyView,
+      meta: { hideHeader: true }
     },
     {
       path : '/user',
