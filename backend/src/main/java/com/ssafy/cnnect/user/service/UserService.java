@@ -7,17 +7,26 @@ import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
 import com.ssafy.cnnect.user.dto.InfoResponseDto;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
 import com.ssafy.cnnect.user.dto.LoginRequestDto;
+import com.ssafy.cnnect.user.dto.LoginSuccessResponseDto;
+import com.ssafy.cnnect.user.entity.EmailCode;
 import com.ssafy.cnnect.user.entity.User;
+import com.ssafy.cnnect.user.repository.EmailCodeRepository;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +35,12 @@ public class UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    private final RefreshTokenService refreshTokenService;
+    private final EmailService emailService;
+    @Autowired
+    private final EmailCodeRepository emailCodeRepository;
+
+    private static final String AUTH_CODE_PREFIX = "AuthCode ";
+
 
     public Long registUser(JoinRequestDto joinRequestDto) {
         // 비밀번호 암호화
@@ -41,10 +55,10 @@ public class UserService {
         return user.getUserId();
     }
 
-    public JwtToken loginUser(LoginRequestDto loginRequestDto){
+    public LoginSuccessResponseDto loginUser(LoginRequestDto loginRequestDto){
         String userEmail = loginRequestDto.getUserEmail();
         String userPassword = loginRequestDto.getUserPassword();
-//        Optional<User> user = userRepository.findByUserEmail(userEmail);
+        User user = userRepository.findByUserEmail(userEmail).get();
         System.out.println(1111111);
         // 1. username + password 를 기반으로 Authentication 객체 생성
         // 이때 authentication 은 인증 여부를 확인하는 authenticated 값이 false
@@ -58,8 +72,13 @@ public class UserService {
         System.out.println(3333333);
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
-//        refreshTokenService.saveTokenInfo(user.get().getUserId(), jwtToken.getRefreshToken(), jwtToken.getAccessToken());
-        return jwtToken;
+//        refreshTokenService.saveTokenInfo(user.get().getUserId(), jwtToken.getRefreshToken(), jwtToken.getAccessToken())
+
+        return LoginSuccessResponseDto.builder()
+                .jwtToken(jwtToken)
+                .nickName(user.getUserNickname())
+                .level(user.getUserLevel())
+                .build();
     }
 
     public InfoResponseDto getUser(Long userId) {
@@ -83,4 +102,44 @@ public class UserService {
         }
         return null;
     }
+
+    @Transactional
+    public boolean checkEmail(String email){
+        return userRepository.existsByUserEmail(email);
+    }
+
+    private String createCode() {
+        int lenth = 6;
+        try {
+            Random random = SecureRandom.getInstanceStrong();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < lenth; i++) {
+                builder.append(random.nextInt(10));
+            }
+            return builder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void sendCodeToEmail(String toEmail) {
+        String title = "Cnnect 이메일 인증 번호입니다.";
+        String authCode = createCode();
+        emailService.sendEmail(toEmail, title, authCode);
+        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+        emailCodeRepository.save(new EmailCode(toEmail, authCode));
+    }
+
+    public boolean varifyCode(String email, String authCode){
+        System.out.println("email : ");
+        System.out.println(email);
+        Optional<EmailCode> redisCode = emailCodeRepository.findById(email);
+        System.out.println(redisCode);
+        if(!redisCode.isEmpty()){
+            System.out.println(redisCode.get().getAuthCode());
+        }
+        return (!redisCode.isEmpty()&& redisCode.get().getAuthCode().equals(authCode));
+    }
+
 }
