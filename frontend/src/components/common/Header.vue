@@ -30,6 +30,7 @@
     >
       <img
         alt="profile"
+        :src="imgUrl"
         class="rounded-full w-12 h-12 border-2 border-gray-400 shadow-md mx-3"
       />
       {{ nickName }}님 어서오세요!
@@ -53,7 +54,7 @@
         id="dropdownDivider"
         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md !left-8 !w-36 border"
       >
-        <RouterLink to="/user"
+        <RouterLink to="/mypage"
           ><span class="block px-4 py-2 rounded-lg text-gray-700"
             >마이페이지</span
           ></RouterLink
@@ -76,10 +77,12 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
+import { onMounted, ref } from "vue";
 
 const uStore = userStore();
 
-const { isLogin, nickName } = storeToRefs(uStore);
+const imgUrl = ref("");
+const { isLogin, nickName, level } = storeToRefs(uStore);
 const {setLogout} = uStore;
 
 
@@ -89,10 +92,14 @@ const logout = () => {
     setLogout()
     location.href = "/";
 }
+
+onMounted(() => {
+  imgUrl.value = "/public/level/level" + level.value + ".png";
+})
 </script>
 
 <style scoped>
 .header-frame {
-  @apply h-20 bg-black shadow-md;
+  @apply h-[10%] bg-black shadow-md;
 }
 </style>
