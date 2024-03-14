@@ -4,6 +4,7 @@ import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.service.RefreshTokenService;
 import com.ssafy.cnnect.oauth.token.JwtToken;
 import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
+import com.ssafy.cnnect.oauth.token.RefreshToken;
 import com.ssafy.cnnect.user.dto.InfoResponseDto;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
 import com.ssafy.cnnect.user.dto.LoginRequestDto;
@@ -36,6 +37,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final RefreshTokenService refreshTokenService;
     @Autowired
     private final EmailCodeRepository emailCodeRepository;
 
@@ -94,12 +96,20 @@ public class UserService {
 
     @Transactional
     public JwtToken reissueToken(String refreshToken){
-        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
-        JwtValidationType type = jwtTokenProvider.validateToken(refreshToken);
-        System.out.println("reissue : " + authentication.getName());
-        if(type == JwtValidationType.VALID_JWT_TOKEN){
+        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken); // refresh 보내온 유저 정보
+        String userId = authentication.getName();
+        System.out.println("reissue 요청한 유저 : " + userId);
+
+
+        JwtValidationType type = jwtTokenProvider.validateToken(refreshToken); // refresh 유효한지 체크
+        Optional<RefreshToken> findToken = refreshTokenService.findToken(userId); // redis에 저장된 토큰정보
+        System.out.println(findToken);
+        if(findToken.isEmpty()){
+            return null;
+        }else if(findToken.get().getRefreshToken().equals(refreshToken) && type == JwtValidationType.VALID_JWT_TOKEN){
             return jwtTokenProvider.generateToken(authentication);
         }
+
         return null;
     }
 
