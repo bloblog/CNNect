@@ -4,6 +4,7 @@ import LevelView from '@/views/level/LevelView.vue'
 import HistoryView from '@/views/history/HistoryView.vue'
 import StudyView from '@/views/study/StudyView.vue'
 import UserView from '@/views/user/UserView.vue'
+import RegisterView from '@/views/user/RegisterView.vue'
 
 
 const router = createRouter({
@@ -33,6 +34,11 @@ const router = createRouter({
       path : '/user',
       name : 'user',
       component : UserView
+    },
+    {
+      path : '/register',
+      name : 'register',
+      component : RegisterView
     }
   ]
 })
