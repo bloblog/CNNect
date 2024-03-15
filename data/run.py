@@ -57,7 +57,6 @@ def init():
 
     # 크롬 드라이버 최신 버전 설정
     service = ChromeService(executable_path=ChromeDriverManager().install())
-    
     driver = webdriver.Chrome(service=service, options=options)
 
     # 페이지 접속하기
