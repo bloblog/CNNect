@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLogin == true" class="header-frame top-0 z-20 sticky flex">
+ <div v-if="(isLogin == true) && (!$route.meta.hideHeader)" class="header-frame top-0 z-20 sticky flex">
     <RouterLink to="/"
       ><span class="flex items-start mx-2 my-7 text-white"
         >Home</span
