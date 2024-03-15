@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @Column(name = "user_level")
     private int userLevel;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserBadge> userBadgeList;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
