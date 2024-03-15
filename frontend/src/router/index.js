@@ -3,7 +3,8 @@ import HomeView from '../views/common/HomeView.vue'
 import LevelView from '@/views/level/LevelView.vue'
 import HistoryView from '@/views/history/HistoryView.vue'
 import StudyView from '@/views/study/StudyView.vue'
-import UserView from '@/views/user/UserView.vue'
+import MyPageView from '@/views/user/MyPageView.vue'
+import RegisterView from '@/views/user/RegisterView.vue'
 
 
 const router = createRouter({
@@ -31,9 +32,14 @@ const router = createRouter({
       meta: { hideHeader: true }
     },
     {
-      path : '/user',
-      name : 'user',
-      component : UserView
+      path : '/mypage',
+      name : 'mypage',
+      component : MyPageView
+    },
+    {
+      path : '/register',
+      name : 'register',
+      component : RegisterView
     }
   ]
 })
