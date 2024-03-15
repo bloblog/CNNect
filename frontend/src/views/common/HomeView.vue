@@ -62,7 +62,6 @@
                   id="email"
                   v-model="loginData.userEmail"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="name@company.com"
                   required
                 />
               </div>
@@ -77,7 +76,6 @@
                   name="password"
                   id="password"
                   v-model="loginData.userPassword"
-                  placeholder="••••••••"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
                 />
@@ -174,6 +172,8 @@ const login = () => {
       location.href = "/";
     },
     (error) => {
+      alert("아이디 및 비밀번호를 확인해주세요!")
+      loginData.value.userPassword = "";
       console.log(error);
     }
   );
