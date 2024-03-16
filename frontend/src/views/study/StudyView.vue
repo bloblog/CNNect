@@ -7,13 +7,40 @@ import Voca from '@/components/study/Voca.vue';
 import Buttons from '@/components/study/Buttons.vue';
 
 import { ref, onMounted } from 'vue'
-import { useStudyStore } from '@/stores/studyStore.js'
+import { getStudy } from '@/api/study';
 
-const studyStore = useStudyStore()
+const videoData = ref({
+    videoId: "",
+    videoName: "",
+    url : "",
+    date: "",
+    level: 3,
+    category :  "",
+    sentenceList: [],
+    wordList: []
+})
+
+const curSentence = ref({
+    order: "",
+    startTime: "",
+    content: "",
+    mean: "",
+    score: ""
+})
+
+function setCurSentence (order) {
+    curSentence.value.order = videoData.value.sentenceList[order-1].order;
+    curSentence.value.startTime = videoData.value.sentenceList[order-1].startTime;
+    curSentence.value.content = videoData.value.sentenceList[order-1].content;
+    curSentence.value.mean = videoData.value.sentenceList[order-1].mean;
+    curSentence.value.score = videoData.value.sentenceList[order-1].score;
+}
 
 onMounted(() => {
-    studyStore.requestStudy()
+    videoData.value = getStudy(); 
+    setCurSentence(1);
 })
+
 </script>
 
 <template>
@@ -21,13 +48,13 @@ onMounted(() => {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <body>
-        <Title/>
+        <Title :videoData="videoData"></Title>
 
         <main>
             <div class="section-box">
                 <div class="section1">
-                    <Video/>
-                    <Shadowing/>
+                    <Video :videoData="videoData" :curSentence="curSentence"></Video>
+                    <Shadowing :curSentence="curSentence"></Shadowing>
                 </div>
 
                 <div class="section2">
@@ -37,14 +64,14 @@ onMounted(() => {
                                 <input type="radio" checked name="tabmenu" id="tabmenu1">
                                 <label for="tabmenu1">스크립트</label>
                                 <div class="tabCon">
-                                    <Script/>
+                                    <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                                 </div>
                             </li>
                             <li id="tab2" class="btnCon">
                                 <input type="radio" name="tabmenu" id="tabmenu2">
                                 <label for="tabmenu2">단어장</label>
                                 <div class="tabCon">
-                                    <Voca/>
+                                    <Voca :videoData="videoData"/>
                                 </div>
                             </li>
                         </ul>

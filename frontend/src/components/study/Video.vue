@@ -1,13 +1,12 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStudyStore } from '@/stores/studyStore.js'
-const studyStore = useStudyStore()
-const { videoData, curSentence } = storeToRefs(studyStore)
+defineProps({
+    videoData: Object,
+    curSentence: Object
+})
 
 const getVideoUrl = (videoId, startTime) => {
     return `https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1&rel=0`
 }
-
 </script>
 
 <template>

@@ -1,26 +1,17 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStudyStore } from '@/stores/studyStore.js'
-
-const studyStore = useStudyStore()
-const { videoData } = storeToRefs(studyStore)
-
-const handleClick = (order) => {
-    studyStore.curSentence.order = order;
-    studyStore.curSentence.startTime = videoData.value.sentenceList[order-1].startTime
-    studyStore.curSentence.content = videoData.value.sentenceList[order-1].content
-    studyStore.curSentence.mean = videoData.value.sentenceList[order-1].mean
-    studyStore.curSentence.score = videoData.value.sentenceList[order-1].score
-};
+defineProps({
+    videoData: Object,
+    curSentence: Object
+})
 </script>
 
 <template>
     <ul>
         <li v-for="sentence in videoData.sentenceList" :key="sentence.order" 
-            :class="{ 'active': studyStore.curSentence.order === sentence.order }"
-            @click="handleClick(sentence.order)">
+            @click="$emit('changeCurOrder', sentence.order)"
+            :class="{ 'active': curSentence.order === sentence.order }">
                 <div class="content"> {{ sentence.content }} </div>
-                <div class="score" :class="{ 'noScore': sentence.score === null}"> {{ sentence.score != null ?  sentence.score : "도전"}}  </div>
+                <div class="score" :class="{'noScore': sentence.score === null}"> {{ sentence.score != null ?  sentence.score : "도전"}}  </div>
         </li>
     </ul>
 </template>

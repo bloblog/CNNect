@@ -1,9 +1,7 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStudyStore } from '@/stores/studyStore.js'
-const studyStore = useStudyStore()
-const { curSentence } = storeToRefs(studyStore)
-
+defineProps({
+    curSentence: Object
+})
 </script>
 
 <template>
@@ -26,7 +24,7 @@ const { curSentence } = storeToRefs(studyStore)
                 </div>
             </div>
             <div class="below-right-box">
-                <div class="score"  :class="{ 'noScore': curSentence.score === null}">
+                <div class="score" :class="{'noScore': curSentence.score === null}">
                     {{ curSentence.score != null ?  curSentence.score : "도전"}}
                 </div>
             </div>
@@ -91,7 +89,7 @@ const { curSentence } = storeToRefs(studyStore)
     color: #CC0000;
     font-weight: 600;
 }
-.noScore{
+.shadowing .below-right-box .noScore {
     color: #b3b3b3;
 }
 </style>
