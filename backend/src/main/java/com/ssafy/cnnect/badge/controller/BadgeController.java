@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.transform.Result;
@@ -33,8 +34,8 @@ public class BadgeController {
 
     @Operation(summary = "학습완료 후 새로 얻은 뱃지 확인")
     @GetMapping(value = "/newbadge")
-    public ResponseEntity<ResultResponse> getNewBadge(){
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, badgeService.getNewBadge()));
+    public ResponseEntity<ResultResponse> getNewBadge(@RequestParam Long categoryId, @RequestParam Long newSentence ){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, badgeService.getNewBadge(categoryId, newSentence)));
     }
 
 }

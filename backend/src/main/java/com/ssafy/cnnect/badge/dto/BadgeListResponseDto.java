@@ -12,6 +12,6 @@ public class BadgeListResponseDto {
     private String badgeName;
     private String badgeCondition;
     private String badgeCategory;
-    private int badgeCount;
-    private int badgeScore;
+    private Long badgeCount;
+    private Long badgeScore;
 }

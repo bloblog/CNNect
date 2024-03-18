@@ -48,6 +48,9 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
 //    implementation 'javax.mail:javax.mail-api:1.6.2'
 //    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+
+    // MongoDB Starter
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 }
 
 tasks.named('test') {

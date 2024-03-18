@@ -24,7 +24,10 @@ public class Badge {
     private BadgeCondition badgeCondition;
 
     @Column(name = "badge_count")
-    private int badgeCount;
+    private Long badgeCount;
+
+    @Column(name = "badge_score")
+    private Long badgeScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
