@@ -112,11 +112,7 @@ const colorChange = (index) => {
         break;
     }
 
-    if (steps.value[index]) {
-      return ["bg-red-600", "text-white"]; // 활성 상태일 때 클래스
-    } else {
-      return ["bg-white", "text-gray-500"]; // 비활성 상태일 때 클래스
-    }
+    return `${bgColor} ${textColor}`;
   }).value;
 };
 
