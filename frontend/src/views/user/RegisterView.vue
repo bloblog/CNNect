@@ -86,47 +86,14 @@
               </svg>
             </button>
             <ul :class="{ hidden: !isDropdownOpen }" class="py-2 space-y-2">
-              <li>
+              <li v-for="i in 6" :key="i">
                 <a
                   href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.1</a
+                  class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  :class="{ 'text-red-700': level === i }"
                 >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.2</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.3</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.4</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.5</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Lv.6</a
-                >
+                  Lv.{{ i }}
+                </a>
               </li>
             </ul>
           </li>
@@ -135,20 +102,24 @@
     </div>
     <!--stepper end-->
     <div class="w-3/4 h-full">
-      <component :is="registerSwitch" @nextStep="nextStep"></component>
+      <component
+        :is="registerSwitch"
+        @nextStep="nextStep"
+        @updateLevel="handleUpdateLevel"
+      ></component>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, shallowRef } from "vue";
-import RegisterInfo from "@/components/user/RegisterInfoComponenet.vue";
-import RegisterLevel from "@/components/user/RegisterLevelComponenet.vue";
+import RegisterInfo from "@/components/user/RegisterInfoComponent.vue";
+import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
 import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
 
 const isDropdownOpen = ref(false);
 const steps = ref([true, false, false]);
-
+const level = ref(1);
 const registerSwitch = shallowRef(RegisterInfo);
 
 const nextStep = (input) => {
@@ -161,6 +132,10 @@ const nextStep = (input) => {
     registerSwitch.value = RegisterLevel;
     steps.value[2] = true;
   }
+};
+
+const handleUpdateLevel = (newLevel) => {
+  level.value = newLevel;
 };
 </script>
 
