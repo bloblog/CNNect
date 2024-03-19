@@ -7,7 +7,7 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "cnnect")
+@Document(collection = "data")
 @Getter
 @Builder(toBuilder = true)
 @AllArgsConstructor
@@ -16,9 +16,7 @@ public class Video {
     @Id
     private String id;
 
-    @Column(name = "video_id")
-    private String videoId;
+    private String video_id;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    private Long category_id;
 }

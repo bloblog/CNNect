@@ -11,4 +11,5 @@ import java.util.List;
 public interface UserBadgeRepository extends CrudRepository <UserBadge, Long> {
 
     List<UserBadge> findAllByUser(User user);
+    Long countByUser(User user);
 }

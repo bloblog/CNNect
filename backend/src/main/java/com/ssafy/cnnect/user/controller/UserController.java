@@ -31,10 +31,10 @@ public class UserController {
     }
 
     // 추후 token 기반으로 변경
-    @Operation(summary = "유저 정보")
-    @GetMapping(value = "/info/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResultResponse> getUserInfo(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.getUser(userId)));
+    @Operation(summary = "마이페이지 유저 정보 조회")
+    @GetMapping(value = "/mypage/info", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResultResponse> getUserInfo() {
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.getUser()));
     }
 
     @Operation(summary = "refreshToken으로 accessToken 재발급")

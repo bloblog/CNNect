@@ -10,7 +10,7 @@ import lombok.Getter;
 public class InfoResponseDto {
     private Long userId;
     private String userNickname;
-    private String userEmail;
-    private String userPassword;
+    private Long userBadgeCount;
+    private Long userVideoCount;
     private int userLevel;
 }

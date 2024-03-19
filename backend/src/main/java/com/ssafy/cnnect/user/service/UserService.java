@@ -1,5 +1,7 @@
 package com.ssafy.cnnect.user.service;
 
+import com.ssafy.cnnect.badge.repository.BadgeRepository;
+import com.ssafy.cnnect.history.repository.HistoryRepository;
 import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.service.RefreshTokenService;
 import com.ssafy.cnnect.oauth.token.JwtToken;
@@ -12,6 +14,7 @@ import com.ssafy.cnnect.user.dto.LoginSuccessResponseDto;
 import com.ssafy.cnnect.user.entity.EmailCode;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.EmailCodeRepository;
+import com.ssafy.cnnect.user.repository.UserBadgeRepository;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +35,11 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final CustomUserDetailsService customUserDetailsService;
+
     private final UserRepository userRepository;
+    private final HistoryRepository historyRepository;
+    private final UserBadgeRepository userBadgeRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
@@ -83,18 +90,18 @@ public class UserService {
                 .build();
     }
 
-    public InfoResponseDto getUser(Long userId) {
-        User user = userRepository.findById(userId).get();
+    public InfoResponseDto getUser() {
+        User user = customUserDetailsService.getUserByAuthentication();
         return InfoResponseDto.builder()
                 .userId(user.getUserId())
-                .userEmail(user.getUserEmail())
-                .userPassword(user.getUserPassword())
                 .userNickname(user.getUserNickname())
                 .userLevel(user.getUserLevel())
-                .build();
-    }
+                .userVideoCount(historyRepository.countByUser(user))
+                .userBadgeCount(userBadgeRepository.countByUser(user))
+            .build();
+}
 
-    @Transactional
+@Transactional
     public JwtToken reissueToken(String refreshToken){
         Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken); // refresh 보내온 유저 정보
         String userId = authentication.getName();
