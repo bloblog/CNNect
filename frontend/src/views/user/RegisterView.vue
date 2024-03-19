@@ -1,9 +1,9 @@
 <template>
-  <div class="flex w-full h-screen">
+  <div class="flex w-full h-screen relative">
     <!--stepper start-->
     <div
       id="sidebar-multi-level-sidebar"
-      class="flex-shrink-0 top-0 left-0 z-40 w-1/4 h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
+      class="fixed top-0 left-0 z-40 w-[25vw] h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -101,7 +101,7 @@
       </div>
     </div>
     <!--stepper end-->
-    <div class="w-3/4 h-full">
+    <div class="ml-auto w-3/4 h-full">
       <component
         :is="registerSwitch"
         @nextStep="nextStep"

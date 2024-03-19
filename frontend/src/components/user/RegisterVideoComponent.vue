@@ -106,6 +106,8 @@ const isVideoPopup = ref([]);
 const videoBox = ref(null); // 스크롤 인식을 위한 컨테이너
 let flag = false;
 
+let maxScrollCount = 2; // 스크롤 횟수 임시 제한
+
 onMounted(() => {
   videoList.value = [
     "mtptFuBAg9Q",
@@ -121,7 +123,8 @@ onMounted(() => {
 
   videoLike.value = Array(videoList.value.length).fill(false);
   isVideoPopup.value = Array(videoList.value.length).fill(false);
-  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+  document.addEventListener("scroll", handleScroll);
 });
 
 const emit = defineEmits(["nextStep"]);
@@ -147,7 +150,7 @@ const nextStep = (input) => {
   // })
 };
 
-const handleScroll = () => {
+const handleScroll = (e) => {
   let scrollPosition =
     window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
   let pageHeight = document.documentElement.scrollHeight;
@@ -157,21 +160,24 @@ const handleScroll = () => {
     document.body.clientHeight;
 
   // console.log("before : " + scrollPosition + " : " + pageHeight + " : " + windowHeight)
-  if (scrollPosition + windowHeight + 100 >= pageHeight && !flag) {
+  const newVideo = [
+    "eT9E4zRwuGY",
+    "4JrhaZrpKBc",
+    "wFqG62O9kYI",
+    "DGjSzIhmXRk",
+    "BBvsr9_2TaU",
+    "Ab-1ElJurBw",
+    "2IXl4qJGrRk",
+    "W47cFRJ2iI4",
+    "xxvKKR-haTE",
+  ]; // 추후 api response로 대체
+
+  if (scrollPosition + windowHeight + 100 >= pageHeight && maxScrollCount > 0) {
     // 페이지가 맨 아래로 스크롤되었을 때 실행할 동작
     console.log("맨 아래로 스크롤됨");
-    const newVideo = [
-      "eT9E4zRwuGY",
-      "4JrhaZrpKBc",
-      "wFqG62O9kYI",
-      "DGjSzIhmXRk",
-      "BBvsr9_2TaU",
-      "Ab-1ElJurBw",
-      "2IXl4qJGrRk",
-      "W47cFRJ2iI4",
-      "xxvKKR-haTE",
-    ];
     const newArr = [...videoList.value, ...newVideo];
+    // flag = true;
+    maxScrollCount--;
     videoList.value = newArr;
     scrollPosition =
       window.scrollY ||
@@ -182,7 +188,7 @@ const handleScroll = () => {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight;
-    flag = true;
+    // flag = false;
     // console.log("after : " + scrollPosition + " : " + pageHeight + " : " + windowHeight)
   }
 };
