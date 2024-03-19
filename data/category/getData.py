@@ -20,6 +20,7 @@ from datetime import datetime
 import time
 import json
 import re
+import pandas as pd
 
 def init():
     options = webdriver.ChromeOptions()
@@ -58,14 +59,9 @@ def format(text):
     return processed_text
 
 def getText(category, urls):
-    print("len : ", len(urls))
 
-    for url in urls:
-        # if url.startswith('https://'):
-        #     driver.get(url)
-        # else:
-        #     driver.get(f'https://edition.cnn.com{url}')
-        print("url : ", url)
+    for url in urls.values:
+        print(url)
         try: 
             driver.get(f'https://edition.cnn.com{url}')
 
@@ -109,14 +105,23 @@ def saveUrls(category, result):
 driver = init()
 # 결과 리스트
 result = []
-def getArticle():
-    # 페이지 접속하기
-    # 'opinions' 일단 제외
-    categories = ['us', 'world', 'politics', 'business', 'health', 'entertainment', 'style', 'travel', 'sports']
-    for cat in categories:
-        url = f'https://edition.cnn.com/{cat}'
-        driver.get(url)
-        urls = getUrl()
-        saveUrls(cat, urls)
-        getText(cat, urls)
-    save(result)
+
+# def getArticle():
+#     # 페이지 접속하기
+#     # 'us', 'world', 'opinions' 일단 제외
+categories = ['politics', 'business', 'health', 'entertainment', 'style', 'travel', 'sports']
+for cat in categories:
+    # url = f'https://edition.cnn.com/{cat}'
+    # driver.get(url)
+    # urls = getUrl()
+    # saveUrls(cat, urls)
+    
+    # urls 가져와서 text 가져와
+    file_path = f'url_{cat}(0319).json'
+
+    # JSON 파일을 DataFrame으로 읽어오기
+    urls = pd.read_json(file_path)
+
+    getText(cat, urls)
+
+save(result)
