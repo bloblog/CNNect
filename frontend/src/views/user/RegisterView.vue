@@ -1,9 +1,9 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full h-screen">
     <!--stepper start-->
-    <aside
+    <div
       id="sidebar-multi-level-sidebar"
-      class="fixed top-0 left-0 z-40 w-1/5 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      class="flex-shrink-0 top-0 left-0 z-40 w-1/4 h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -11,17 +11,51 @@
           <li>
             <a
               href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              class="flex items-center p-2 mb-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-              <span class="ms-3">정보입력</span>
+              <span class="flex-1 p-1 ms-3 whitespace-nowrap">정보입력</span>
+              <svg
+                v-if="steps[0]"
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                id="check"
+              >
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
+              </svg>
             </a>
           </li>
           <li>
             <a
               href="#"
-              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              class="flex items-center p-2 mb-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-              <span class="flex-1 ms-3 whitespace-nowrap">관심영상</span>
+              <span class="flex-1 p-1 ms-3 whitespace-nowrap">관심영상</span>
+              <svg
+                v-if="steps[1]"
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                id="check"
+              >
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
+              </svg>
             </a>
           </li>
           <li>
@@ -30,24 +64,25 @@
               class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <span
-                class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
+                class="flex-1 p-1 ms-3 text-left rtl:text-right whitespace-nowrap"
                 >레벨테스트</span
               >
               <svg
-                :class="{ hidden: !isDropdownOpen }"
-                class="w-3 h-3"
-                aria-hidden="true"
+                v-if="steps[2]"
+                class="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
+                viewBox="0 0 256 256"
+                id="check"
               >
-                <path
-                  stroke="currentColor"
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 4 4 4-4"
-                />
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
               </svg>
             </button>
             <ul :class="{ hidden: !isDropdownOpen }" class="py-2 space-y-2">
@@ -72,49 +107,47 @@
                   >Lv.3</a
                 >
               </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >Lv.4</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >Lv.5</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >Lv.6</a
+                >
+              </li>
             </ul>
           </li>
         </ul>
       </div>
-    </aside>
+    </div>
     <!--stepper end-->
-    <component
-      class="w-4/5"
-      :is="registerSwitch"
-      @nextStep="nextStep"
-    ></component>
+    <div class="w-3/4 h-full">
+      <component :is="registerSwitch" @nextStep="nextStep"></component>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, shallowRef } from "vue";
+import { ref, shallowRef } from "vue";
 import RegisterInfo from "@/components/user/RegisterInfoComponenet.vue";
 import RegisterLevel from "@/components/user/RegisterLevelComponenet.vue";
 import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
 
 const isDropdownOpen = ref(false);
 const steps = ref([true, false, false]);
-
-const colorChange = (index) => {
-  return computed(() => {
-    let bgColor = "";
-    let textColor = "";
-    let state = steps.value[index];
-    console.log(state);
-    switch (state) {
-      case true:
-        bgColor = "bg-red-600";
-        textColor = "text-white";
-        break;
-      case false:
-        bgColor = "bg-white";
-        textColor = "text-gray-500";
-        break;
-    }
-
-    return `${bgColor} ${textColor}`;
-  }).value;
-};
 
 const registerSwitch = shallowRef(RegisterInfo);
 
