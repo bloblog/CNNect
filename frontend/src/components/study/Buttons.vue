@@ -6,8 +6,8 @@ const router = useRouter()
 
 <template>
     <div class="btn-box">
-        <button @click="router.go(-1)" class="btn back">나가기</button>
-        <button @click="router.go(-1)" class="btn finish">학습완료</button>
+        <button @click="router.push('/')" class="btn back">나가기</button>
+        <button @click="router.push('/')" class="btn finish">학습완료</button>
     </div>
 </template>
 

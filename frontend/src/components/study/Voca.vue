@@ -1,8 +1,7 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStudyStore } from '@/stores/studyStore.js'
-const studyStore = useStudyStore()
-const { videoData } = storeToRefs(studyStore)
+defineProps({
+    videoData: Object
+})
 </script>
 
 <template>

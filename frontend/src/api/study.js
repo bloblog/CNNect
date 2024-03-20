@@ -1,3 +1,8 @@
+import { localAxios } from "./http";
+
+const local = localAxios();
+const url = "/study";
+
 const studyData = {
   videoId: "X_5IXAEebo4",
   videoName: "Mayorkas responds to Gov. Abbott's criticism of Biden's border actions",
@@ -18,9 +23,10 @@ const studyData = {
   wordList: ["hello", "world", "my", "security", "homeland", "secretary"],
 };
 
-const getStudy = function (videoId) {
+function getStudy(videoId, success, fail) {
   // 이곳에서 API를 호출하겠지만, 현재는 임시로 가상의 데이터를 사용합니다.
-    return studyData
+  // local.get(`${url}/${videoId}`).then(success).catch(fail);
+  return studyData 
 }
 
-export { studyData, getStudy };
+export { getStudy };
