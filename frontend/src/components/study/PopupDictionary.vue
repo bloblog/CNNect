@@ -1,10 +1,13 @@
 <script setup>
+defineProps({
+    selectedText: String
+})
 </script>
 
 <template>
     <div class="popup" ref="popup">
         <div class="origin">
-            <strong class="ENword">security</strong>
+            <strong class="ENword">{{ selectedText }}</strong>
             <button type="button" class="add_wordbook">
                 <span class="material-symbols-outlined">add</span>
             </button>

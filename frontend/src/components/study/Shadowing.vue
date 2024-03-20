@@ -1,14 +1,32 @@
 <script setup>
+import PopupDictionary from "@/components/study/PopupDictionary.vue"
+
+import { ref } from 'vue'
+
 defineProps({
     curSentence: Object
 })
+
+const selectedText = ref('');
+const isShowPopup = ref(false);
+
+const handleMouseUp = () => {
+    selectedText.value = window.getSelection().toString().trim();
+    if (selectedText.value.length > 0 ) {
+        isShowPopup.value = true;
+    }
+};
+
 </script>
 
 <template>
     <div class="shadowing">
         <div class="above-box">
             <div class="korean">{{ curSentence.mean }}</div>
-            <div class="english">{{ curSentence.content }}</div>
+            <div class="english" @dblclick="handleMouseUp">
+                {{ curSentence.content }}
+                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText"></PopupDictionary>
+            </div>
         </div>
         <div class="below-box">
             <div class="below-left-box">
@@ -33,13 +51,16 @@ defineProps({
 </template>
 
 <style scoped>
+::selection {
+    background: rgba(204, 0, 0, 0.15);
+}
 .shadowing {
     width: 100%;
     height: 100%;
     background-color: #ffffff;
     border: #0F1B4F 2px solid;
     border: 1px solid #CDCDCD;
-    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25));
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
