@@ -17,6 +17,11 @@ const handleMouseUp = () => {
     }
 };
 
+const hidePopup = () => {
+    selectedText.value = '';
+    isShowPopup.value = false;
+};
+
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const handleMouseUp = () => {
             <div class="korean">{{ curSentence.mean }}</div>
             <div class="english" @dblclick="handleMouseUp">
                 {{ curSentence.content }}
-                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText"></PopupDictionary>
+                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" @close-popup="hidePopup"></PopupDictionary>
             </div>
         </div>
         <div class="below-box">

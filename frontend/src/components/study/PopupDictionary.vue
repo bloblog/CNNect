@@ -1,7 +1,26 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
 defineProps({
     selectedText: String
 })
+
+const popup = ref(null);
+const emit = defineEmits(['closePopup'])
+
+const checkOutsideClick = (e) => {
+    if (!popup.value.contains(e.target)) {
+        emit('closePopup')
+    }
+};
+
+onMounted(() => {
+    document.addEventListener('mouseup', checkOutsideClick);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('mouseup', checkOutsideClick);
+});
 </script>
 
 <template>
