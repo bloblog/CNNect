@@ -1,102 +1,142 @@
 <template>
-  <div class="flex justify-between items-center">
-    <ol
-      class="flex items-center w-full pl-56 pr-56 pt-8 text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base"
+  <div class="flex w-full h-screen relative">
+    <!--stepper start-->
+    <div
+      id="sidebar-multi-level-sidebar"
+      class="fixed top-0 left-0 z-40 w-[25vw] h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
+      aria-label="Sidebar"
     >
-      <!-- 회원가입 단계 stepper(각 단계 progress : true면 background-color 변경하기)-->
-      <li
-        class="flex md:w-full items-center sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
-      >
-        <span
-          :class="colorChange(0)"
-          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-blue-500"
-        >
-          1
-        </span>
-        <span
-          class="flex items-center ml-3 whitespace-nowrap after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500"
-        >
-          정보입력
-        </span>
-      </li>
-      <li
-        class="flex md:w-full items-center whitespace-nowrap after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
-      >
-      <span
-          :class="colorChange(1)"
-          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 "
-        >
-          2
-        </span>
-        <span
-          class="flex items-center ml-3 after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500"
-        >
-          관심영상
-        </span>
-      </li>
-      <li class="flex items-center whitespace-nowrap">
-        <span
-          :class="colorChange(2)"
-          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 "
-        >
-          3
-        </span>
-        <span
-          class="flex items-center ml-3 after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500"
-        >
-          레벨테스트
-        </span>
-      </li>
-    </ol>
+      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <ul class="space-y-2 font-medium">
+          <li>
+            <a
+              href="#"
+              class="flex items-center p-2 mb-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+              <span class="flex-1 p-1 ms-3 whitespace-nowrap">정보입력</span>
+              <svg
+                v-if="steps[0]"
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                id="check"
+              >
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center p-2 mb-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+              <span class="flex-1 p-1 ms-3 whitespace-nowrap">관심영상</span>
+              <svg
+                v-if="steps[1]"
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                id="check"
+              >
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              <span
+                class="flex-1 p-1 ms-3 text-left rtl:text-right whitespace-nowrap"
+                >레벨테스트</span
+              >
+              <svg
+                v-if="steps[2]"
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                id="check"
+              >
+                <rect width="256" height="256" fill="none"></rect>
+                <polyline
+                  fill="none"
+                  stroke="#CC0000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="24"
+                  points="216 72.005 104 184 48 128.005"
+                ></polyline>
+              </svg>
+            </button>
+            <ul :class="{ hidden: !isDropdownOpen }" class="py-2 space-y-2">
+              <li v-for="i in 6" :key="i">
+                <a
+                  href="#"
+                  class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  :class="{ 'text-red-700': level === i }"
+                >
+                  Lv.{{ i }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--stepper end-->
+    <div class="ml-auto w-3/4 h-full">
+      <component
+        :is="registerSwitch"
+        @nextStep="nextStep"
+        @updateLevel="handleUpdateLevel"
+      ></component>
+    </div>
   </div>
-  <!--stepper end-->
-  <component :is="registerSwitch" @nextStep="nextStep"></component>
-
 </template>
 
 <script setup>
-import {ref, computed, shallowRef} from 'vue';
-import RegisterInfo from '@/components/user/RegisterInfoComponenet.vue';
-import RegisterLevel from '@/components/user/RegisterLevelComponenet.vue';
-import RegisterVideo from '@/components/user/RegisterVideoComponent.vue';
+import { ref, shallowRef } from "vue";
+import RegisterInfo from "@/components/user/RegisterInfoComponent.vue";
+import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
+import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
 
-const steps = ref([
-  true, false, false
-])
+const isDropdownOpen = ref(false);
+const steps = ref([true, false, false]);
+const level = ref(1);
+const registerSwitch = shallowRef(RegisterInfo);
 
-const colorChange = (index) => {
-  return computed(() => {
-    let bgColor = ''
-    let textColor = ''
-    let state = steps.value[index]
-    console.log(state)
-    switch(state) {
-      case true:
-        bgColor = 'bg-red-600'
-        textColor = 'text-white'
-        break
-      case false:
-        bgColor = 'bg-white'
-        textColor = 'text-gray-500'
-        break
-    }
-
-    return `${bgColor} ${textColor}`
-  }).value
-}
-
-const registerSwitch = shallowRef(RegisterInfo)
-
-const nextStep = input => {
-  if(input == 1){
-    registerSwitch.value = RegisterVideo
+const nextStep = (input) => {
+  if (input == 1) {
+    registerSwitch.value = RegisterVideo;
     steps.value[1] = true;
-  }else if(input == 2){
-    registerSwitch.value = RegisterLevel
+  } else if (input == 2) {
+    isDropdownOpen.value = !isDropdownOpen.value;
+    console.log(isDropdownOpen.value);
+    registerSwitch.value = RegisterLevel;
     steps.value[2] = true;
   }
-}
+};
 
+const handleUpdateLevel = (newLevel) => {
+  level.value = newLevel;
+};
 </script>
 
 <style></style>
