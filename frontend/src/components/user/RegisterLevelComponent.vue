@@ -94,24 +94,26 @@ import RegisterLevelDetail from "@/components/user/RegisterLevelDetailComponent.
 const steps = ref(["A1", "A2", "B1", "B2", "C1", "C2"]);
 const level = ref(1);
 const registerLevelDetail = ref(null);
-const emit = defineEmits(["updateLevel"]);
+const emit = defineEmits(["updateLevel", "finishRegister"]);
 
 watch(level, (newValue) => {
   // 'updateLevel' 이벤트를 발생시키고, 새로운 level 값을 전달합니다.
   emit("updateLevel", newValue);
 });
 
+const finishRegister = () => {
+  emit("finishRegister");
+};
+
 const nextLevel = () => {
   const wrongCount = registerLevelDetail.value.checkAnswers();
 
   if (wrongCount > 2) {
-    alert("통과 불가");
-    // updateLevel() <- 유저의 레벨 업데이트
+    finishRegister();
   } else {
     console.log(level.value);
     if (level.value == 6) {
-      alert("최종 레벨");
-      // updateLevel() <- 유저의 레벨 업데이트
+      finishRegister();
     } else {
       level.value++;
     }
@@ -152,6 +154,6 @@ const instanceOptions = {
 const modal = new Modal($targetEl, options, instanceOptions);
 
 const register = () => {
-  alert("레벨 결과 창 이동");
+  finishRegister();
 };
 </script>
