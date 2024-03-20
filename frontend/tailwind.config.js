@@ -10,10 +10,10 @@ export default {
   ],
   theme: {
     extend: {
-      grayscale : {
-        50 : '50%',
-        30 : '30%',
-        10 : '10%'
+      grayscale: {
+        50: "50%",
+        30: "30%",
+        10: "10%",
       },
       colors: {
         "theme-red": "#CC0000",
@@ -23,5 +23,7 @@ export default {
       },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    require("tailwind-accent-color", "tailwind-scrollbar-hide", "flowbite/plugin"),
+  ],
 };

@@ -18,7 +18,7 @@
           <input
             type="radio"
             :name="'word-meaning-' + item.word_id"
-            class="form-radio accent-red"
+            class="accent-red-500"
             :value="mean"
             v-model="selectedAnswers[item.word_id]"
           />
@@ -77,8 +77,4 @@ data.value.forEach((item) => {
 });
 </script>
 
-<style>
-.accent-red {
-  accent-color: #cc0000;
-}
-</style>
+<style></style>
