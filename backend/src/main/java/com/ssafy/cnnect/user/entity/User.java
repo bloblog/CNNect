@@ -1,5 +1,6 @@
 package com.ssafy.cnnect.user.entity;
 
+import com.ssafy.cnnect.history.entity.History;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
@@ -33,6 +34,12 @@ public class User implements UserDetails {
 
     @Column(name = "user_level")
     private int userLevel;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserBadge> userBadgeList;
+
+    @OneToMany(mappedBy = "user")
+    private List<History> userHistoryList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

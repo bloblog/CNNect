@@ -1,14 +1,12 @@
 package com.ssafy.cnnect.oauth.service;
 
-import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
-import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.repository.RefreshTokenRepository;
-import com.ssafy.cnnect.oauth.token.JwtToken;
 import com.ssafy.cnnect.oauth.token.RefreshToken;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +21,14 @@ public class RefreshTokenService {
     }
 
     @Transactional
-    public void removeRefreshToken(String accessToken) {
-        refreshTokenRepository.findByAccessToken(accessToken)
-                .ifPresent(refreshToken -> refreshTokenRepository.delete(refreshToken));
+    public Optional<RefreshToken> findToken(String userId){
+        return refreshTokenRepository.findById(userId);
+    }
+
+    @Transactional
+    public void removeRefreshToken(String refreshToken) {
+        refreshTokenRepository.findByRefreshToken(refreshToken)
+                .ifPresent(deleteToken -> refreshTokenRepository.delete(deleteToken));
     }
 
 //    @Transactional

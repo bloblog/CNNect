@@ -1,9 +1,12 @@
 package com.ssafy.cnnect.user.service;
 
+import com.ssafy.cnnect.badge.repository.BadgeRepository;
+import com.ssafy.cnnect.history.repository.HistoryRepository;
 import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.service.RefreshTokenService;
 import com.ssafy.cnnect.oauth.token.JwtToken;
 import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
+import com.ssafy.cnnect.oauth.token.RefreshToken;
 import com.ssafy.cnnect.user.dto.InfoResponseDto;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
 import com.ssafy.cnnect.user.dto.LoginRequestDto;
@@ -11,6 +14,7 @@ import com.ssafy.cnnect.user.dto.LoginSuccessResponseDto;
 import com.ssafy.cnnect.user.entity.EmailCode;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.EmailCodeRepository;
+import com.ssafy.cnnect.user.repository.UserBadgeRepository;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +35,16 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final CustomUserDetailsService customUserDetailsService;
+
     private final UserRepository userRepository;
+    private final HistoryRepository historyRepository;
+    private final UserBadgeRepository userBadgeRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final RefreshTokenService refreshTokenService;
     @Autowired
     private final EmailCodeRepository emailCodeRepository;
 
@@ -81,25 +90,33 @@ public class UserService {
                 .build();
     }
 
-    public InfoResponseDto getUser(Long userId) {
-        User user = userRepository.findById(userId).get();
+    public InfoResponseDto getUser() {
+        User user = customUserDetailsService.getUserByAuthentication();
         return InfoResponseDto.builder()
                 .userId(user.getUserId())
-                .userEmail(user.getUserEmail())
-                .userPassword(user.getUserPassword())
                 .userNickname(user.getUserNickname())
                 .userLevel(user.getUserLevel())
-                .build();
-    }
+                .userVideoCount(historyRepository.countByUser(user))
+                .userBadgeCount(userBadgeRepository.countByUser(user))
+            .build();
+}
 
-    @Transactional
+@Transactional
     public JwtToken reissueToken(String refreshToken){
-        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
-        JwtValidationType type = jwtTokenProvider.validateToken(refreshToken);
-        System.out.println("reissue : " + authentication.getName());
-        if(type == JwtValidationType.VALID_JWT_TOKEN){
+        Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken); // refresh 보내온 유저 정보
+        String userId = authentication.getName();
+        System.out.println("reissue 요청한 유저 : " + userId);
+
+
+        JwtValidationType type = jwtTokenProvider.validateToken(refreshToken); // refresh 유효한지 체크
+        Optional<RefreshToken> findToken = refreshTokenService.findToken(userId); // redis에 저장된 토큰정보
+        System.out.println(findToken);
+        if(findToken.isEmpty()){
+            return null;
+        }else if(findToken.get().getRefreshToken().equals(refreshToken) && type == JwtValidationType.VALID_JWT_TOKEN){
             return jwtTokenProvider.generateToken(authentication);
         }
+
         return null;
     }
 
