@@ -1,7 +1,5 @@
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 
 def fetch_news_from_mongodb():
     client = MongoClient('mongodb://localhost:27017/')
@@ -12,38 +10,28 @@ def fetch_news_from_mongodb():
 
     news_texts = []
     for news in all_news:
-        if 'sentenceList' in news:
-            full_text = ' '.join([sentence['content'] for sentence in news['sentenceList']])
-            news_texts.append(full_text)
+        if 'senteceList' in news:
+            full_text = ' '.join([sentence['text'] for sentence in news['senteceList']])
+            if full_text:  
+                news_texts.append(full_text)
 
     return news_texts
 
-class NewsRecommender:
-    def __init__(self):
-        self.vectorizer = TfidfVectorizer
-        self.news_vectors = None
-        self.similarities = None
-
-    def fit(self, news_texts):
-        self.news_vectors = self.vectorizer.fit_transform(news_texts)
-
-    def update_recommendations(self, user_history_text, top_n=10):
-        user_history_vector = self.vectorizer.transform([user_history_text])
-        self.similarities = cosine_similarity(self.news_vectors, user_history_vector)
-        top_similar_indices = np.argsort(-self.similarities, axis=0)[:top_n]
-
-        return top_similar_indices
-
 def main():
-    news_recommender = NewsRecommender()
-
+    # MongoDB에서 뉴스 데이터 가져오기
     news_texts = fetch_news_from_mongodb()
-    news_recommender.fit(news_texts)
+    
+    
+    # TfidfVectorizer를 사용하여 벡터화
+    vectorizer = TfidfVectorizer(stop_words=None)
+    news_vectors = vectorizer.fit_transform(news_texts)
 
-    user_history_text = ""
 
-    recommended_indices = news_recommender.update_recommendations(user_history_text, top_n=10)
-    print("Recommended News Indices:", recommended_indices)
+    for idx, news_text in enumerate(news_texts):
+        print(f"Vector: {news_vectors[idx]}")
+        print()
+
+
 
 if __name__ == "__main__":
     main()
