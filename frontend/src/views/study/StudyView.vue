@@ -137,11 +137,12 @@ onMounted(() => {
 }
 .tabCon{
     background-color: #ffffff;
-    display:none; 
+    display: none; 
     width: 100%;
-    text-align:left; 
-    position:absolute; 
-    left:0; top:40px; 
+    text-align: left; 
+    position: absolute; 
+    left: 0;
+    top: 40px; 
     box-sizing: border-box; 
     border : 1px solid #e6e6e6;
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25));
