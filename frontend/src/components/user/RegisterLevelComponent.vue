@@ -1,9 +1,11 @@
 <template>
   <div class="flex flex-col justify-center h-full w-full items-center">
-    <h3>Lv. {{ level }} 제시 된 단어의 의미를 선택해주세요</h3>
+    <h3 class="font-bold mb-6 text-lg">
+      [ Lv.{{ level }} ] 제시 된 단어의 의미를 선택해주세요
+    </h3>
     <RegisterLevelDetail :stage="steps[level - 1]" ref="registerLevelDetail" />
 
-    <div class="flex items-center w-full justify-center">
+    <div class="flex items-center w-full justify-center mt-4">
       <button
         data-modal-target="stop-modal"
         data-modal-toggle="stop-modal"
@@ -54,7 +56,7 @@
                   <div class="font-bold text-lg mb-5">
                     정말 그만두시겠습니까?
                   </div>
-                  <div class="mb-5">종료 시 지금 레벨로 확정됩니다</div>
+                  <div class="mb-5">종료 시 지금 레벨로 확정됩니다.</div>
                   <div>
                     <button
                       class="mr-4 text-gray-400 border-b-2"
@@ -108,7 +110,7 @@ const finishRegister = () => {
 const nextLevel = () => {
   const wrongCount = registerLevelDetail.value.checkAnswers();
 
-  if (wrongCount > 2) {
+  if (wrongCount > 1) {
     finishRegister();
   } else {
     console.log(level.value);
