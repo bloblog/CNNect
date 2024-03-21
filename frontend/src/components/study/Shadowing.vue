@@ -39,9 +39,11 @@ const hidePopup = () => {
     isShowPopup.value = false;
 };
 
+//Google Translate API Key
+const accessKey = 'ABCDE';
 
 function translateText(textToTranslate) {
-    fetch("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAwQaqzrgQv89XtgPun4Vr1gRINB6nrCJA", {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${accessKey}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
