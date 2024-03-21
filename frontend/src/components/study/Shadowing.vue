@@ -1,6 +1,7 @@
 <script setup>
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { ref, onMounted, defineProps, watch } from 'vue'
+import axios from 'axios';
 
 const props = defineProps({
     curSentence: Object
@@ -40,10 +41,10 @@ const hidePopup = () => {
 };
 
 //Google Translate API Key
-const accessKey = 'ABCDE';
+const GTaccessKey = process.env.VUE_APP_GT_ACCESS_KEY;
 
 function translateText(textToTranslate) {
-    fetch(`https://translation.googleapis.com/language/translate/v2?key=${accessKey}`, {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${GTaccessKey}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -60,6 +61,94 @@ function translateText(textToTranslate) {
     })
     .catch(error => console.error("번역 오류:", error));
 }
+
+//발음 API
+const audioFile = ref(null);
+const mediaRecorder = ref(null);
+const audioChunks = ref([]);
+const pronunciationScore = ref(null);
+const isRecording = ref(false);
+
+const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
+const ETRIaccessKey = process.env.VUE_APP_ETRI_ACCESS_KEY;
+const languageCode = 'english';
+const script = props.curSentence.content;
+
+
+const startRecording = async () => {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    console.log('녹음 시작');
+    isRecording.value = true;
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder.value = new MediaRecorder(stream);
+    audioChunks.value = [];
+    
+    mediaRecorder.value.ondataavailable = (event) => {
+      audioChunks.value.push(event.data);
+    };
+    
+    mediaRecorder.value.start();
+
+  } else {
+    console.error('브라우저가 오디오 녹음을 지원하지 않습니다.');
+  }
+};
+
+const stopRecording = () => {
+  mediaRecorder.value.stop();
+  mediaRecorder.value.onstop = async () => {
+    const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
+    const audioData = await fileToBase64(audioBlob);
+    sendPronunciationRequest(audioData);
+  };
+  console.log('녹음 중지');
+    isRecording.value = false;
+};
+
+const toggleRecording = () => {
+  if (isRecording.value) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+};
+
+// Base64로 변환
+const fileToBase64 = (blob) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(blob);
+  });
+};
+
+const sendPronunciationRequest = (audioData) => {
+  const requestJson = {
+    argument: {
+      language_code: languageCode,
+      script: script,
+      audio: audioData.split(',')[1], 
+    },
+  };
+
+  axios.post(openApiURL, requestJson, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': ETRIaccessKey
+    },
+  })
+  .then((response) => {
+    console.log('responseCode = ', response.status);
+    console.log('responseBody = ', response.data);
+    pronunciationScore.value = response.data.return_object.score;
+    console.log('발음 점수 : ', pronunciationScore.value)
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
+
 </script>
 
 
@@ -81,15 +170,15 @@ function translateText(textToTranslate) {
                         volume_up
                     </span>
                 </div>
-                <div class="speack">
+                <div class="speack" @dblclick="toggleRecording">
                     <span class="material-symbols-outlined">
-                        mic
+                        {{ isRecording ? 'stop' : 'mic' }}
                     </span>
                 </div>
             </div>
             <div class="below-right-box">
-                <div class="score" :class="{'noScore': curSentence.score === null}">
-                    {{ curSentence.score != null ?  curSentence.score : "도전"}}
+                <div class="score" :class="{'noScore': pronunciationScore === null}">
+                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
                 </div>
             </div>
         </div>
