@@ -5,6 +5,7 @@ import HistoryView from '@/views/history/HistoryView.vue'
 import StudyView from '@/views/study/StudyView.vue'
 import MyPageView from '@/views/user/MyPageView.vue'
 import RegisterView from '@/views/user/RegisterView.vue'
+import MainView from '@/views/common/MainView.vue'
 
 
 const router = createRouter({
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/main',
+      name: 'main',
+      component: MainView
     },
     {
       path : '/history',

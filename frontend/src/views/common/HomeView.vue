@@ -1,17 +1,17 @@
 <template>
   <div id="background">
     <div>
-      <img src="@/assets/logo.png" class="w-28 absolute top-10 left-10">
+      <img src="@/assets/logo.png" class="w-52 absolute top-10 left-10">
     </div>
 
     <div class="relative overflow-hidden flex flex-col items-center justify-center" id="main-item-container" >
       <div class="flex pb-5">
-        <h2 class="text-3xl font-bold text-white">나에게 맞는</h2>
-        <span class="text-3xl font-bold text-theme-red">CNN 뉴스</span>
-        <h2 class="z-10 text-3xl font-bold text-white">로 영어를 배울 수 있습니다.</h2>
+        <h2 class="text-4xl font-bold text-white">나에게 맞는</h2>
+        <span class="text-4xl font-bold text-theme-red">CNN 뉴스</span>
+        <h2 class="z-10 text-4xl font-bold text-white">로 영어를 배울 수 있습니다.</h2>
         
       </div>
-      <h4 class="z-10 text-lg text-white pb-10">당신의 관심사와 영어 수준을 바탕으로 추천해드립니다.</h4>
+      <h4 class="z-10 text-2xl text-white pb-10">당신의 관심사와 영어 수준을 바탕으로 추천해드립니다.</h4>
       <!-- <img src="@/assets/thumbnail.png" id="background-img" class="absolute max-w-none inset-y-80"> -->
       <div id="slider">
         <div class="image-box">
@@ -25,7 +25,7 @@
         v-if="isLogin == false"
         data-modal-target="authentication-modal"
         data-modal-toggle="authentication-modal"
-        class="flex z-10 text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="flex z-10 text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-2xl px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
         로그인하기
@@ -237,7 +237,7 @@ const imagePaths = [
 
 </script>
 
-<style>
+<style scoped>
 #background {
   height: 100vh;
   background-image: linear-gradient(45deg, #80112F, #0F1B4F);
