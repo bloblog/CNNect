@@ -1,7 +1,13 @@
 <template>
-    <div>
-        <h2>HistoryView</h2>
-    </div>
+    <body>
+        <div>
+            
+        </div>
+        <div>
+
+        </div>
+
+    </body>
 </template>
 
 <script setup>
