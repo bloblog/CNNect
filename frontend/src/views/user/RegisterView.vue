@@ -24,8 +24,8 @@
                 <rect width="256" height="256" fill="none"></rect>
                 <polyline
                   fill="none"
-                  stroke="#CC0000"
-                  stroke-linecap="round"
+                stroke="#CC0000"
+                  stroke-  linecap="round"
                   stroke-linejoin="round"
                   stroke-width="24"
                   points="216 72.005 104 184 48 128.005"
