@@ -1,14 +1,31 @@
 <script setup>
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
+import { ref, onMounted, defineProps, watch } from 'vue'
 
-import { ref } from 'vue'
-
-defineProps({
+const props = defineProps({
     curSentence: Object
-})
+});
+
+onMounted(() => {
+    try {
+        if (props.curSentence && props.curSentence.content) {
+            translateText(props.curSentence.content);
+        }
+    } catch (error) {
+        console.error("Mounted hook error:", error);
+    }
+});
+
+watch(() => props.curSentence.content, (newContent) => {
+    if (newContent) {
+        translateText(newContent);
+    }
+}, { immediate: true });
 
 const selectedText = ref('');
 const isShowPopup = ref(false);
+const translatedContent = ref('');
+
 
 const handleMouseUp = () => {
     selectedText.value = window.getSelection().toString().trim();
@@ -22,12 +39,34 @@ const hidePopup = () => {
     isShowPopup.value = false;
 };
 
+
+function translateText(textToTranslate) {
+    fetch("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAwQaqzrgQv89XtgPun4Vr1gRINB6nrCJA", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            q: textToTranslate,
+            source: "en",
+            target: "ko"
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        translatedContent.value = data.data.translations[0].translatedText;
+    })
+    .catch(error => console.error("번역 오류:", error));
+}
 </script>
+
 
 <template>
     <div class="shadowing">
         <div class="above-box">
-            <div class="korean">{{ curSentence.mean }}</div>
+            <div class="korean">
+            {{ translatedContent }}
+            </div>
             <div class="english" @dblclick="handleMouseUp">
                 {{ curSentence.content }}
                 <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" @close-popup="hidePopup"></PopupDictionary>
