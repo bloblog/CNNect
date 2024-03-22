@@ -7,7 +7,11 @@
     @apply h-[85%] mx-5 mt-5 mb-10 p-3 w-auto border border-gray-200 shadow rounded-lg;
   }
 
+  .search-frame {
+    @apply h-[40%] mx-5 mt-5 mb-5 p-3 w-auto border border-gray-200 shadow rounded-lg;
+  }
+
   .nav-title {
-    @apply text-xl mt-10 ml-10 mb-3 mr-5 font-extrabold inline-block;
+    @apply text-xl mt-10 mb-3 mr-5 font-extrabold inline-block;
   }
 }

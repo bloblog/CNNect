@@ -24,8 +24,8 @@
                 <rect width="256" height="256" fill="none"></rect>
                 <polyline
                   fill="none"
-                  stroke="#CC0000"
-                  stroke-linecap="round"
+                stroke="#CC0000"
+                  stroke-  linecap="round"
                   stroke-linejoin="round"
                   stroke-width="24"
                   points="216 72.005 104 184 48 128.005"
@@ -104,8 +104,10 @@
     <div class="ml-auto w-3/4 h-full">
       <component
         :is="registerSwitch"
+        :level="level"
         @nextStep="nextStep"
         @updateLevel="handleUpdateLevel"
+        @finishRegister="handleFinishRegister"
       ></component>
     </div>
   </div>
@@ -116,6 +118,7 @@ import { ref, shallowRef } from "vue";
 import RegisterInfo from "@/components/user/RegisterInfoComponent.vue";
 import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
 import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
+import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
 const isDropdownOpen = ref(false);
 const steps = ref([true, false, false]);
@@ -132,6 +135,10 @@ const nextStep = (input) => {
     registerSwitch.value = RegisterLevel;
     steps.value[2] = true;
   }
+};
+
+const handleFinishRegister = () => {
+  registerSwitch.value = RegisterResult;
 };
 
 const handleUpdateLevel = (newLevel) => {

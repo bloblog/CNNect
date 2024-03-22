@@ -137,34 +137,42 @@ const formData = ref({
 
 const emit = defineEmits(["nextStep"]);
 const nextStep = (input) => {
-  // 1. 다음 단계 이동
-  emit("nextStep", input);
+  if (!dupliCheck) {
+    alert("이메일 중복 확인을 해주세요!");
+  } else {
+    // 1. 다음 단계 이동
+    emit("nextStep", input);
 
-  // 2. 기본 user 정보 insert api 호출
-  console.log(formData);
-  registUser(
-    formData.value,
-    ({ data }) => {
-      console.log(data);
-      setUserId(data.data);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+    // 2. 기본 user 정보 insert api 호출
+    console.log(formData);
+    registUser(
+      formData.value,
+      ({ data }) => {
+        console.log(data);
+        setUserId(data.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 };
 
 const emailDuplCheck = () => {
-  emailCheck(formData.value.userEmail, ({ data }) => {
-    console.log(data);
-    if (data) {
-      alert("중복된 이메일입니다!");
-      formData.value.userEmail = "";
-    } else {
-      alert("가능한 이메일입니다!");
-      dupliCheck.value = true;
-    }
-  });
+  if (formData.value.userEmail.length == 0) {
+    alert("이메일을 입력해주세요!");
+  } else {
+    emailCheck(formData.value.userEmail, ({ data }) => {
+      console.log(data);
+      if (data.data) {
+        alert("중복된 이메일입니다!");
+        formData.value.userEmail = "";
+      } else {
+        alert("가능한 이메일입니다!");
+        dupliCheck.value = true;
+      }
+    });
+  }
 };
 
 const codeSend = () => {
