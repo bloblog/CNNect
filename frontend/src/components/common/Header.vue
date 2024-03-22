@@ -82,8 +82,6 @@ const search = () => {
 onMounted(() => {
   imgUrl.value = "/public/level/level" + level.value + ".png";
   currentURL.value = window.location.href;
-    console.log("url: " + currentURL.value);
-  
 });
 
 
