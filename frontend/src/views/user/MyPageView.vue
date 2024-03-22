@@ -1,6 +1,6 @@
 <template>
-  <div class="view-frame flex items-start overflow-y-auto">
-    <div id="profile" class="w-1/2 sticky top-0">
+  <div class="view-frame flex items-start overflow-y-scroll scrollbar-hide">
+    <div id="profile" class="w-1/3 sticky top-0">
       <!-- <span class="nav-title"> 프로필 </span> -->
       <div
         class="dark:!bg-navy-800 shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full max-w-[550px] flex-col items-center bg-white bg-cover bg-clip-border p-[16px] dark:text-white dark:shadow-none"
@@ -35,6 +35,7 @@
         <!--프로필카드끝나따-->
         <button
           type="button"
+          @click="goToLevel"
           class="text-white justify-center mt-5 bg-theme-redbrown hover:bg-theme-red focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           레벨 재측정
@@ -56,18 +57,61 @@
         </button>
       </div>
     </div>
-    <div id="badge" class="w-1/2 flex flex-col items-center justify-center">
+    <div id="badge" class="w-2/3 flex flex-col items-center justify-center">
       <span class="nav-title mb-5"> 획득 뱃지 </span>
-      <div class="flex-container items-center justify-center">
-        <div v-for="badge in badgeList" :key="badge.badgeId" class="flex-item items-center justify-center">
+
+      <div class="flex-container relative z-10 items-center justify-center">
+        <div
+          v-for="(badge, index) in badgeList"
+          :key="index"
+          class="relative flex-item items-center justify-center"
+          @mouseover="changeOpacity(index, true)" @mouseleave="changeOpacity(index, false)"
+        >
+
           <div
-            class="flex border rounded-full w-32 h-32 justify-center items-center "
-            :class="{'filter grayscale bg-gray-200 opacity-40' : badge.check == false,
-                      'border-4 border-yellow-500 bg-yellow-300' : badge.tier == 1
-                    }"
+            class="flex border rounded-full w-32 h-32 justify-center items-center"
+            :class="{
+              'filter grayscale bg-gray-200 opacity-40': badge.check == false,
+              'border-4 border-badge-bronze-line bg-badge-bronze':
+                badge.tier == 1 && badge.check == true,
+              'border-4 border-badge-silver-line bg-badge-silver':
+                badge.tier == 2 && badge.check == true,
+              'border-4 border-badge-gold-line bg-badge-gold':
+                badge.tier == 3 && badge.check == true,
+            }"
           >
-            <img class="flex" :src="badge.url" 
-            />
+
+          <img class="flex" :src="badge.url" />
+          </div>
+          <div
+            :style="{opacity : hoverList[index], transition: 'opacity 0.5s'}">
+            <div
+              class="absolute -top-20 -left-5 z-30 w-48 h-28 text-sm font-light text-gray-500 bg-gray-200 rounded-lg border border-gray-200 shadow-sm duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
+            >
+              <div
+                class="py-2 px-3 bg-gray-200 z-30 rounded-t-lg border-b border-gray-400 dark:border-gray-600 darkbg-gray-700"
+              >
+                <h3 class="font-bold text-gray-900 dark:text-white">
+                  {{ badge.badgeName }}
+                </h3>
+              </div>
+              <div class="py-2 px-3">
+                <p class="font-semibold text-sm">
+                  [{{ badge.badgeCondition == "SPEAKING" ? "스피킹 " + badge.badgeScore + "점 이상 문장": badge.badgeCategory + " 카테고리의 영상"}}]
+                </p>
+                
+                <p class="font-semibold">
+                  {{ badge.badgeCount }}개 달성
+                </p>
+              </div>
+            </div>
+            <div
+              class="absolute top-4 left-[35%] z-20 transform -translate-x-1/2"
+            >
+              <div
+                class="w-6 h-6 z-20 bg-gray-200 border border-gray-200 rotate-45"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,11 +122,13 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
+import { useRouter } from 'vue-router';
 import { onMounted, ref } from "vue";
 import { userInfo } from "@/api/user";
 import { allBadges, myBadges } from "@/api/badge";
 
 const uStore = userStore();
+const router = useRouter();
 
 const imgUrl = ref("");
 const { nickName, level } = storeToRefs(uStore);
@@ -90,9 +136,13 @@ const badge = ref(0);
 const video = ref(0);
 
 const badgeList = ref([]);
+const hoverList = ref([]); // 각 뱃지 idx별 hover 여부 저장
 const userBadge = ref([]);
 
+const showTooltip = ref(false);
+
 onMounted(() => {
+
   imgUrl.value = "/public/level/level" + level.value + ".png";
   userInfo(
     ({ data }) => {
@@ -122,13 +172,19 @@ onMounted(() => {
             let check = userBadge.value.some((badge) => {
               return JSON.stringify(badge) === JSON.stringify(data.data[i]);
             });
-            let tier = data.data[i].badgeId % 3 == 1 ? 1 : (data.data[i].badgeId % 3 == 2 ? 2 : 3);
+            let tier =
+              data.data[i].badgeId % 3 == 1
+                ? 1
+                : data.data[i].badgeId % 3 == 2
+                ? 2
+                : 3;
             console.log(check);
             data.data[i].url = url;
             data.data[i].check = check;
             data.data[i].tier = tier;
             badgeList.value.push(data.data[i]);
             console.log(data.data[i]);
+            hoverList.value = Array(badgeList.value.length).fill(0);
           }
         },
         (error) => {
@@ -141,6 +197,14 @@ onMounted(() => {
     }
   );
 });
+
+const changeOpacity = (index, isHover) => {
+  hoverList.value[index] = isHover ? 0.8 : 0;
+}
+
+const goToLevel = () => {
+  router.push('/level')
+}
 </script>
 
 <style>
@@ -152,7 +216,7 @@ onMounted(() => {
 
 .flex-item {
   flex-basis: calc(
-    25% - 10px
+    21% - 5px
   ); /* 한 줄에 4개씩 배치하므로 각 항목의 너비는 25%로 설정 */
   margin-bottom: 20px; /* 이미지 아래에 여백 추가 */
 }

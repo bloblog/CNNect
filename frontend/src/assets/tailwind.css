@@ -8,6 +8,6 @@
   }
 
   .nav-title {
-    @apply text-xl mt-10 ml-10 mb-3 mr-5 font-extrabold inline-block;
+    @apply text-xl mt-10 mb-3 mr-5 font-extrabold inline-block;
   }
 }
