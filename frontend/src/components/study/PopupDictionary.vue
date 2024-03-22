@@ -2,7 +2,8 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 defineProps({
-    selectedText: String
+    selectedText: String,
+    selectedWordMeanings: Object
 })
 
 const popup = ref(null);
@@ -31,27 +32,10 @@ onUnmounted(() => {
                 <span class="material-symbols-outlined">add</span>
             </button>
         </div>
-        <ul class="mean_list">
-            <li class="mean_item">
-                <span class="num">1</span>.
-                <p class="mean">
-                    <span class="word_class">명사</span>
-                    보안, 경비, 안보, 방위 (→high-security)
-                </p>
-            </li>
-            <li class="mean_item">
-                <span class="num">2</span>. 
-                <p class="mean">
-                    <span class="word_class">명사</span>
-                    (큰 기업·조직의) 경비 담당 부서
-                </p>
-            </li>
-            <li class="mean_item">
-                <span class="num">3</span>.
-                <p class="mean">
-                    <span class="word_class">명사</span>
-                    (미래를 위한) 보장
-                </p>
+        <ul class="mean_list" >
+            <li class="mean_item" v-for="meaning in selectedWordMeanings" :key="meaning.num">
+                <span class="num">{{ meaning.num }}. </span>
+                <p class="mean">{{ meaning.mean }}</p>
             </li>
         </ul>
     </div>
@@ -63,9 +47,10 @@ onUnmounted(() => {
     position: absolute;
     padding: 10px 15px;
     line-height: 25px;
-    box-shadow: 0 0 5px rgba(145, 53, 53, 0.5);
     border-radius: 10px;
-    background-color: #fffbfb;
+    border: rgb(232, 209, 209) 1px solid;
+    box-shadow: 0 0 10px rgba(217, 105, 105, 0.3);
+    background-color: #ffefef;
     width: 400px;
 }
 
@@ -75,22 +60,22 @@ onUnmounted(() => {
 }
 .origin .ENword {
     font-weight: 600;
-    font-size: 16px;
-    background: rgba(204, 0, 0, 0.15);
+    font-size: 18px;
+    color: #cc0000;
 }
 .origin button.add_wordbook {
     border-radius: 50%;
-    background-color: #CC0000;
-    color: #fff;
+    border: #cc0000 solid 1px;
+    color: #cc0000;
     margin-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 2px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    padding: 0 1px;
 }
 .origin button.add_wordbook:hover {
-    background-color: #a50000;
+    background-color: #cc0000;
+    color: #fff;
 }
 .origin button.close-button {
     color: #8e8e8e
@@ -100,14 +85,15 @@ onUnmounted(() => {
 }
 
 .mean_list {
-    font-size: 14px;
+    margin-top: 5px;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    color: #281212;
 }
-.mean_item .mean {
+.mean_list .mean_item .mean {
     display: inline;
-    
-}
-.mean_item .mean .word_class {
-    color: #6881a1;
+    margin-right: 15px;
 }
 
 </style>

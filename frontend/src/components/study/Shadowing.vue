@@ -1,5 +1,6 @@
 <script setup>
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
+import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch } from 'vue'
 import axios from 'axios';
 
@@ -28,12 +29,19 @@ watch(() => props.curSentence.content, (newContent) => {
 const selectedText = ref('');
 const isShowPopup = ref(false);
 const translatedContent = ref('');
+const selectedWordMeanings = ref([]);
 
 
 const handleMouseUp = () => {
     selectedText.value = window.getSelection().toString().trim();
     if (selectedText.value.length > 0 ) {
-        isShowPopup.value = true;
+        getDict(selectedText.value).then(meanList => {
+            selectedWordMeanings.value = meanList;
+            console.log(meanList);
+            isShowPopup.value = true;
+        }).catch(error => {
+            console.error(error);
+        })
     }
 };
 
@@ -169,7 +177,7 @@ const sendPronunciationRequest = (audioData) => {
             </div>
             <div class="english" @dblclick="handleMouseUp">
                 {{ curSentence.content }}
-                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" @close-popup="hidePopup"></PopupDictionary>
+                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" @close-popup="hidePopup"></PopupDictionary>
             </div>
         </div>
         <div class="below-box">
