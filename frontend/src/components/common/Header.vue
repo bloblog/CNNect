@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!$route.meta.hideHeader" class="header-frame top-0 z-20 sticky flex">
+  <div v-if="(isLogin == true || currentURL.includes('register')) && !$route.meta.hideHeader" class="header-frame top-0 z-20 sticky flex">
     <RouterLink to="/"><span class="flex items-start mx-2 my-7 text-white">Home</span></RouterLink>
     <RouterLink v-if="isLogin" to="/history"><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
     </RouterLink>
@@ -78,6 +78,9 @@ const search = () => {
 
 onMounted(() => {
   imgUrl.value = "/public/level/level" + level.value + ".png";
+
+  const currentURL = window.location.href;
+  console.log(currentURL);
 });
 
 const toggleSearch = () => {

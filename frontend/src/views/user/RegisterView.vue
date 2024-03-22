@@ -2,7 +2,7 @@
   <div class="flex w-full h-screen relative">
     <!--stepper start-->
     <div
-      id="sidebar-multi-%level-sidebar"
+      id="sidebar-multi-level-sidebar"
       class="fixed top-[] left-0 z-40 w-[25vw] h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
