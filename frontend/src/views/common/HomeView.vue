@@ -17,7 +17,7 @@ import { loginUser } from "@/api/user";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 
-import NonloginHome from '@/components/common/NonloginHome.vue'
+import NonloginHome from '@/components/common/NonLoginHome.vue'
 import DefaultHome from '@/components/common/DefaultHome.vue'
 
 const route = useRoute();

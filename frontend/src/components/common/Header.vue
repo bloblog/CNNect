@@ -79,10 +79,10 @@ const search = () => {
 onMounted(() => {
   imgUrl.value = "/public/level/level" + level.value + ".png";
 
-  const currentURL = window.location.href;
-  console.log(currentURL);
 });
 
+const currentURL = window.location.href;
+  console.log(currentURL);
 const toggleSearch = () => {
   if (isSearchOpen.value) {
     // 검색바 열린 상태일때
