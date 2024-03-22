@@ -3,6 +3,8 @@ import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { ref, onMounted, defineProps, watch } from 'vue'
 import axios from 'axios';
 
+const { GT_ACCESS_KEY, ETRI_ACCESS_KEY } = import.meta.env;
+
 const props = defineProps({
     curSentence: Object
 });
@@ -40,11 +42,10 @@ const hidePopup = () => {
     isShowPopup.value = false;
 };
 
-//Google Translate API Key
-const GTaccessKey = process.env.VUE_APP_GT_ACCESS_KEY;
 
+//Google Translate API Key
 function translateText(textToTranslate) {
-    fetch(`https://translation.googleapis.com/language/translate/v2?key=${GTaccessKey}`, {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${GT_ACCESS_KEY}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -70,7 +71,6 @@ const pronunciationScore = ref(null);
 const isRecording = ref(false);
 
 const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
-const ETRIaccessKey = process.env.VUE_APP_ETRI_ACCESS_KEY;
 const languageCode = 'english';
 const script = props.curSentence.content;
 
@@ -135,7 +135,7 @@ const sendPronunciationRequest = (audioData) => {
   axios.post(openApiURL, requestJson, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': ETRIaccessKey
+      'Authorization': ETRI_ACCESS_KEY
     },
   })
   .then((response) => {
