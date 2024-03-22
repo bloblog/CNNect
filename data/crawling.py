@@ -1,62 +1,45 @@
+#### 자동 크롤링 코드 ####
+
 """
-pip install pymongo
-pip install flask
+!pip install pymongo
+!pip install selenium
+!pip install webdriver-manager
+!pip install pytube
+!pip install beautifulsoup4
+!pip install lxml
+!pip install youtube-transcript-api
+!pip install py_youtube
+!pip install nltk
 """
 
-from flask import Flask, render_template
 from pymongo import MongoClient
 import configparser
-
-# from crawling.script import *\
-# from keywords import *
-# from category.category import *
-# from category.getData import *
-
-
-from pymongo import MongoClient
-import configparser
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-
-from datetime import datetime
+import nltk
 import time
 import re
-import nltk
+from datetime import datetime
 from nltk.tokenize import sent_tokenize
 from youtube_transcript_api import YouTubeTranscriptApi
 
-app = Flask(__name__)
-
-# DB 인증 정보 가져오기
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-host = config['MongoDB']['DB_HOST']
-port = config['MongoDB']['DB_PORT']
-dbname = config['MongoDB']['DB_NAME']
-user = config['MongoDB']['DB_USER']
-password = config['MongoDB']['DB_PASSWORD']
-
-# DB 연결
-mongo_url = f"mongodb://{user}:{password}@{host}:{port}/{dbname}"
-client = MongoClient(mongo_url)
-db = client.CNNect
-
-# 크롤링 시작
+import concurrent.futures
+from py_youtube import Data
 
 def init():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('disable-dev-shm-usage')
+    options.add_experimental_option("detach", True)
 
     # 크롬 드라이버 최신 버전 설정
     service = ChromeService(executable_path=ChromeDriverManager().install())
+    
     driver = webdriver.Chrome(service=service, options=options)
 
     # 페이지 접속하기
@@ -65,68 +48,43 @@ def init():
 
     return driver
 
-def scroll():
-    # 스크롤 아래로
+# def scroll():
     SCROLL_PAUSE_TIME = 0.5
-    last_height = driver.execute_script("return document.documentElement.scrollHeight")
+    # last_height = driver.execute_script("return document.documentElement.scrollHeight")
 
     while True:
         driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-
         time.sleep(SCROLL_PAUSE_TIME)
 
         new_height = driver.execute_script("return document.documentElement.scrollHeight;")
         print('now: ', new_height)
-        # 페이지 길이로 콘텐츠 개수 조정
-        # 끝까지 가져오려면 or 뒷부분만
-        if new_height > 100000 or new_height == last_height:
-            break
-        last_height = new_height
 
-def parse_time_to_seconds(time_str):
-    total_seconds = 0
-    time_parts = time_str.split(' ')
+        # if new_height >= end_height or new_height == last_height:
+        #     break
+        # last_height = new_height
 
-    for part in time_parts:
-        if '시간' in part:
-            total_seconds += int(part.replace('시간', '')) * 3600
-        elif '분' in part:
-            total_seconds += int(part.replace('분', '')) * 60
-        elif '초' in part:
-            total_seconds += int(part.replace('초', ''))
-
-    return total_seconds
-
-
-def getUrl():
+def get_url():
     # 페이지 파싱
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
 
     # url 뽑아서 리스트에 저장
     videoList = soup.findAll('div', class_='style-scope ytd-rich-item-renderer')
-    print(len(videoList))
 
     video_info = []
-    for video in videoList:
+    for video_id in db['data'].find({}):
         info = video.find('a', {'id': 'video-title-link'})
         if info:
             video_id = info['href'].split('?v=')[1]
-            title = info['aria-label'].split(' 게시자:')[0]
-            time = parse_time_to_seconds(info['aria-label'].split(' 전 ')[1])
 
-        image = video.find('img', class_= 'yt-core-image yt-core-image--fill-parent-height yt-core-image--fill-parent-width yt-core-image--content-mode-scale-aspect-fill yt-core-image--loaded')
-        
-        if image:
-            src = image['src']
-
-        video_info.append({'title' : title, 'video_id' : video_id, 'level' : 0, 'category': 'politics', 'time': time, 'img' : src})
+        # 30분 넘는 영상과 중복 로우는 넣지 않음
+        existing_video = db['data'].find_one({'video_id': video_id})
+        if existing_video is None and time < 1800:
+            video_info.append({'video_id' : video_id, 'video_level' : 0, 'time': time})
 
     return video_info
 
-
 def load_script(video_id):
-    nltk.download('punkt')
 
     try:
         script = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
@@ -171,15 +129,24 @@ def time_match(script, sentences):
 
     return sentence_times
 
+# def get_date(video_id):
 
-def parseDate(soup):
+    # 페이지 접속
+    url = f'https://www.youtube.com/watch?v={video_id}'
+    driver.get(url)
+
+    time.sleep(2)
+
+    # 페이지 파싱
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'lxml')
+
     info = soup.findAll('yt-formatted-string', class_='style-scope ytd-video-primary-info-renderer')
 
     formatted_date = ''
     
     for i in info:
         try:
-            print(i.text)
             original_date = datetime.strptime(i.text, "%Y. %m. %d.")
             formatted_date = original_date.strftime("%Y-%m-%d")
             break
@@ -188,54 +155,90 @@ def parseDate(soup):
 
     return formatted_date
 
+def set_script(video):
+    print(f"=========={video['video_id']} script 처리 시작==========")
+    script = load_script(video['video_id'])
+    full_script = get_fullscript(script)
+    script_sentence = split(full_script)
 
+    # 스크립트 없으면 그냥 db 에서 빼버린다
+    if script == '' :
+        db['data'].delete_one({"video_id": video['video_id'],})
+    else :
+        db['data'].update_one(
+            {
+                "video_id": video['video_id'],
+            },
+            {
+                "$set": {
+                    "senteceList": time_match(script, script_sentence),
+                    "full_script": full_script
+                }
+            }
+        )
 
-def getDate(video_id):
+def set_info(video):
+    print(f"=========={video['video_id']} data 처리 시작==========")
+    data = Data(f"https://youtu.be/{video['video_id']}").data()
 
-    # 페이지 접속
-    url = f'https://www.youtube.com/watch?v={video_id}'
-    driver.get(url)
+    title = data['title']
+    src = data['thumbnails']
+    date = data['publishdate']
+    category = data['category'].split(' ')[-1]
 
-    time.sleep(1)
+    db['data'].update_one(
+        {
+            "video_id": video['video_id'],
+        },
+        {
+            "$set": {
+                "video_name" : title,
+                "video_thumbnail" : src,
+                "category_name" : category,
+                "video_date": date,
+            }
+        }
+    )
 
-    # 페이지 파싱
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'lxml')
+# DB 인증 정보 가져오기
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-    return parseDate(soup)
+host = config['MongoDB']['DB_HOST']
+port = config['MongoDB']['DB_PORT']
+dbname = config['MongoDB']['DB_NAME']
+user = config['MongoDB']['DB_USER']
+password = config['MongoDB']['DB_PASSWORD']
 
-def getScriptDate(video_list):
-    result = []
-    for i, video in enumerate(video_list[:10]):
-        print(f'=========={i}번째==========')
-        # print('load date...')
-        date = getDate(video['video_id'])
-        # print('load script...')
-        script = load_script(video['video_id'])
-        full_script = get_fullscript(script)
-        script_sentence = split(full_script)
+# DB 연결
+mongo_url = f"mongodb://{user}:{password}@{host}:{port}/{dbname}"
+client = MongoClient(mongo_url)
+db = client.CNNect
 
-        video['date'] = date
-        video["sentence"] = time_match(script, script_sentence)
-        video["full_script"] = full_script
-        result.append(video)
-        
-    return result
+nltk.download('punkt')
 
 # 드라이버 초기화
 driver = init()
-@app.route('/')
-def home():
-    # 영상 리스트 스크롤
-    scroll()
-    # video id 크롤링
-    video_list = getUrl()
-    # 스크립트 및 업로드 날짜 크롤링
-    dataset = getScriptDate(video_list)
-    # db에 저장
-    db['data'].insert_many(dataset)
-    return '완료'
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=8000, debug=True)
-    
+# 비디오 리스트 가져오기
+video_list = get_url()
+
+# 비디오 리스트 DB에 저장
+db['data'].insert_many(video_list)
+
+video_list = db['data'].find({})
+
+# 멀티프로세싱을 위한 실행 함수 정의
+def process_video_script(video):
+    set_script(video)
+
+def process_video_info(video):
+    set_info(video)
+
+# 멀티프로세싱 실행
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    executor.map(process_video_script, video_list)
+    executor.map(process_video_info, video_list)
+
+# 크롬 드라이버 종료
+driver.quit()

@@ -8,25 +8,24 @@ pip install nltk
 import nltk
 import json
 import re
+import asyncio
+
 from datetime import datetime
 from nltk.tokenize import sent_tokenize
 from youtube_transcript_api import YouTubeTranscriptApi
 
-def init():
-    nltk.download('punkt')
-    
-    # # JSON 파일 로드
-    # file_name = './videolist(0308).json'
-    # with open(file_name, 'r', encoding='utf-8') as file:
-    #     data = json.load(file)
+from crawling.videoId import *
+from crawling.date import *
 
-    # return data
+
 
 def load_script(video_id):
-    # 안 불러와짐 = 스크립트 없음
+    nltk.download('punkt')
+
     try:
         script = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
     except:
+        # 안 불러와짐 = 스크립트 없음
         script = ''
 
     return script
@@ -66,27 +65,33 @@ def time_match(script, sentences):
 
     return sentence_times
 
-# def save(result):
-#     # 현재 날짜 가져오기
-#     current_date = datetime.now().strftime("%m%d")
+# def getScript(video_list):
+#     result = []
+#     for i, video in enumerate(video_list[:50]):
+#         script = load_script(video['video_id'])
+#         full_script = get_fullscript(script)
+#         script_sentence = split(full_script)
+        
+#         video["sentence"] = time_match(script, script_sentence)
+#         video["full_script"] = full_script
+#         result.append(video)
+#         print(f'{i}/{len(video_list)} loading script...')
+#     return result
 
-#     # 파일 이름 생성
-#     file_name = f"script({current_date}).json"
-#     with open(file_name, 'w', encoding='utf-8') as json_file:
-#       json.dump(result, json_file, ensure_ascii=False, indent=4)
-
-def getScript(video_list):
-    init()
+def getScriptDate(video_list):
     result = []
-    for video in video_list[:10]:
+    for i, video in enumerate(video_list[:50]):
+        print(f'=========={i}번째==========')
+        print('load date...')
+        date = getDate(video['video_id'])
+        print('load script...')
         script = load_script(video['video_id'])
         full_script = get_fullscript(script)
         script_sentence = split(full_script)
-        
+
+        video['date'] = date
         video["sentence"] = time_match(script, script_sentence)
         video["full_script"] = full_script
         result.append(video)
-
-    # save(result)
-    print(result)
+        
     return result

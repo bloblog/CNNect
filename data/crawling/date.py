@@ -3,7 +3,6 @@
 """
 pip install selenium
 pip install webdriver-manager
-pip install pytube
 pip install beautifulsoup4
 pip install lxml
 """
@@ -18,7 +17,7 @@ from datetime import datetime
 import time
 import json
 
-def init():
+def date_init():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
@@ -31,7 +30,7 @@ def init():
 
     return driver
 
-def getDate(soup):
+def parseDate(soup):
     info = soup.findAll('yt-formatted-string', class_='style-scope ytd-video-primary-info-renderer')
 
     formatted_date = ''
@@ -49,22 +48,38 @@ def getDate(soup):
 
 
 # 드라이버 초기화
-driver = init()
-def setDate(video_list):
-    result = []
-    for video in video_list:
+driver = date_init()
+# def getDate(video_list):
+#     result = []
+#     for i, video in enumerate(video_list):
 
-        # 페이지 접속
-        url = f'https://www.youtube.com/watch?v={video["video_id"]}'
-        driver.get(url)
+#         # 페이지 접속
+#         url = f'https://www.youtube.com/watch?v={video["video_id"]}'
+#         driver.get(url)
 
-        time.sleep(1)
+#         time.sleep(1)
 
-        # 페이지 파싱
-        html = driver.page_source
-        soup = BeautifulSoup(html, 'lxml')
+#         # 페이지 파싱
+#         html = driver.page_source
+#         soup = BeautifulSoup(html, 'lxml')
 
-        video['date'] = getDate(soup)
-        result.append(video)
+#         video['date'] = parseDate(soup)
+#         result.append(video)
+
+#         print(f'{i}/{len(video_list)} loading date...')
     
-    return result
+#     return result
+
+def getDate(video_id):
+
+    # 페이지 접속
+    url = f'https://www.youtube.com/watch?v={video_id}'
+    driver.get(url)
+
+    time.sleep(1)
+
+    # 페이지 파싱
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'lxml')
+
+    return parseDate(soup)
