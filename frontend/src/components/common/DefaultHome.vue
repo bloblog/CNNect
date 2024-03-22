@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col items-center p-10">
       <div id="now-video" class="mb-10">
-        <h1 class="text-4xl font-bold p-5">학습 진행중인 뉴스</h1>
+        <h1 class="text-2xl font-bold p-3">학습 진행중인 뉴스</h1>
+      
         <div 
           @click="goToStudy"
           @mouseover="handleMouseOver"
@@ -12,19 +13,19 @@
           >
   
           <div id="container-layer" class="rounded-xl"></div>
-          <div class="">
-            <img id="now-video-img" src="" alt="Now Video Image">
+          <div class="bg-black" id="video-img-container">
+            <img id="now-video-img" :src=now_video.video_thumbnail alt="Now Video Image">
           </div>
-          <div class="p-10 flex flex-col justify-around col-span-3 sm:col-span-2">
-            <div class="text-4xl font-bold" id="video-name"></div>
+          <div class="p-10 flex flex-col justify-between col-span-3 sm:col-span-2 mb-3" id="now-video-info">
+            <div class="text-3xl font-bold" id="video-name">[ Lv.3 ] {{ now_video.video_name }}</div>
             <div>
               <div class="flex">
-                <div class="text-2xl font-bold text-white z-10">문장 수</div>
-                <div class="relative text-2xl left-16" id="sentence-count"></div>
+                <div class="text-xl font-bold text-white z-10">문장 수</div>
+                <div class="relative text-xl left-16" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
               </div>
               <div class="flex">
-                <div class="text-2xl whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
-                <div id="last-sentence" class="relative text-2xl left-5 whitespace-nowrap text-ellipsis overflow-hidden"></div>
+                <div class="text-xl whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
+                <div id="last-sentence" class="relative text-xl left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
               </div>
   
             </div>
@@ -32,11 +33,13 @@
         </div>
       </div>
       <div id="recomm-video">
-        <h1 class="text-4xl font-bold p-5">추천 뉴스</h1>
+        <h1 class="text-2xl font-bold p-3">추천 뉴스</h1>
         <div id="recomm-video-container">
           <RecommVideoList/>
         </div>
       </div>
+      <!-- 공백용 -->
+      <div class="h-10"></div>
   
       
     </div>
@@ -68,19 +71,17 @@
   onMounted(() => {
     initFlowbite();
     console.log(modal.isVisible());
-    
+
   });
   
   const hovered = ref(false);
   
   const handleMouseOver = () => {
     hovered.value = true;
-    console.log(hovered.value);
   };
   
   const handleMouseLeave = () => {
     hovered.value = false;
-    console.log(hovered.value);
   
   }
   
@@ -100,14 +101,7 @@
     video_name: "Don Lemon speaks out after Elon Musk cancelled his show on X",
     video_thumbnail : "https://i.ytimg.com/vi/pgVZnVTKqMw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCt-mOsWO1EQ4iRQiBnoCrAg1G3Ww"
   }
-  
-  // 페이지가 로드된 후에 이미지 태그의 src 속성에 변수 값을 할당
-  window.onload = function() {
-    document.getElementById("now-video-img").src = now_video.video_thumbnail;
-    document.getElementById("video-name").innerText = now_video.video_name;
-    document.getElementById("sentence-count").innerText = `1 / ${now_video.sentenceList.length}`;
-    document.getElementById("last-sentence").innerText = now_video.sentenceList[1].text;
-  };
+
   
   
   // set the modal menu element
@@ -171,11 +165,14 @@
   #now-video, #recomm-video {
     width: 80vw;
   }
+
   
   #now-video-img{
     width:70rem;
+    height: 100%;
     border-radius: 10px;
     object-fit: contain;
+    
   }
   
   #container-layer {
@@ -184,15 +181,47 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(90deg, #00000037 10%, #000000);
+      background-image: linear-gradient(-90deg, #000000, #000000);
       pointer-events: none; /* 이벤트를 통과시킴 */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
       
   }
   
+  #now-video-info {
+    height: 100%;
+  }
+
   #video-name, #sentence-count, #last-sentence {
     color: white;
     z-index: 2;
+  }
+
+ #video-img-container{
+    position: relative;
+    border-radius: 10px;
+
+  }
+
+  #video-img-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30%;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.708));
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  #video-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;
+    height: 2.8em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   
   </style>
