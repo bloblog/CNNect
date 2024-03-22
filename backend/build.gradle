@@ -51,6 +51,10 @@ dependencies {
 
     // MongoDB Starter
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // Elasticsearch
+    implementation 'org.springframework.data:spring-data-elasticsearch:5.2.4'
+
 }
 
 tasks.named('test') {

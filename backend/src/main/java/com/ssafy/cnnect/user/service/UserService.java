@@ -29,8 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Duration;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +59,7 @@ public class UserService {
                 .userPassword(encodePassword)
                 .userNickname(joinRequestDto.getUserNickname())
                 .userLevel(0) // default 레벨 0
+                .roles(new ArrayList<>(Arrays.asList("USER")))
                 .build());
         return user.getUserId();
     }
