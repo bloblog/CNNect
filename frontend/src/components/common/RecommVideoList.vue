@@ -8,18 +8,19 @@
           </svg>
         </button>
         <div class="flex">
-          <div class="grid-cols-3 flex space-x-1 " ref="imageContainer">
+          <div class="grid-cols-3 flex space-x-2 " ref="imageContainer">
             <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
               <div class="flex flex-col" @click="goToStudy">
-                <img :src="video.video_thumbnail" alt="video-image" class="h-60 object-cover">
+                <img :src="video.video_thumbnail" alt="video-image" class="object-fit rounded-md video-img-item img-container">
                 <span class="badge absolute top-1 left-1">
-                  <div id="badge" class="bg-white border-theme-red border-2 rounded-md font-bold text-theme-red text-xl p-1 pr-2 pl-2">
+                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
                     Lv. 3
                   </div>
                 </span>
-                <div class="text-xl font-bold">
+                <div class="text-xl font-bold mt-2" id="video-name">
                   {{video.video_name}}
                 </div>
+
 
               </div>
 
@@ -219,6 +220,25 @@
 
   </script>
   <style scoped>
+  #video-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;
+    height: 2.8em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 20vw;
+  }
+
+  .img-container {
+    overflow: hidden;
+    height: 25vh;
+    object-fit: cover;
+  }
+  
+
+
 
   </style>
   

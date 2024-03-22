@@ -6,7 +6,7 @@
   
       <div class="relative overflow-hidden flex flex-col items-center justify-center" id="main-item-container" >
         <div class="flex pb-5">
-          <h2 class="text-4xl font-bold text-white">나에게 맞는</h2>
+          <h2 class="text-4xl font-bold text-white whitespace-pre">나에게 맞는 </h2>
           <span class="text-4xl font-bold text-theme-red">CNN 뉴스</span>
           <h2 class="z-10 text-4xl font-bold text-white">로 영어를 배울 수 있습니다.</h2>
           
