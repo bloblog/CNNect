@@ -3,7 +3,7 @@ import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { ref, onMounted, defineProps, watch } from 'vue'
 import axios from 'axios';
 
-const { GT_ACCESS_KEY, ETRI_ACCESS_KEY } = import.meta.env;
+const { VITE_GT_ACCESS_KEY, VITE_ETRI_ACCESS_KEY } = import.meta.env;
 
 const props = defineProps({
     curSentence: Object
@@ -45,7 +45,7 @@ const hidePopup = () => {
 
 //Google Translate API Key
 function translateText(textToTranslate) {
-    fetch(`https://translation.googleapis.com/language/translate/v2?key=${GT_ACCESS_KEY}`, {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${VITE_GT_ACCESS_KEY}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -56,12 +56,18 @@ function translateText(textToTranslate) {
             target: "ko"
         })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         translatedContent.value = data.data.translations[0].translatedText;
     })
     .catch(error => console.error("번역 오류:", error));
 }
+
 
 //발음 API
 const audioFile = ref(null);
@@ -73,7 +79,6 @@ const isRecording = ref(false);
 const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
 const languageCode = 'english';
 const script = props.curSentence.content;
-
 
 const startRecording = async () => {
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -95,14 +100,17 @@ const startRecording = async () => {
 };
 
 const stopRecording = () => {
-  mediaRecorder.value.stop();
+  if (!mediaRecorder.value) return;
+
   mediaRecorder.value.onstop = async () => {
     const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
     const audioData = await fileToBase64(audioBlob);
     sendPronunciationRequest(audioData);
   };
+
+  mediaRecorder.value.stop();
   console.log('녹음 중지');
-    isRecording.value = false;
+  isRecording.value = false;
 };
 
 const toggleRecording = () => {
@@ -135,7 +143,7 @@ const sendPronunciationRequest = (audioData) => {
   axios.post(openApiURL, requestJson, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': ETRI_ACCESS_KEY
+      'Authorization': VITE_ETRI_ACCESS_KEY
     },
   })
   .then((response) => {
@@ -150,6 +158,7 @@ const sendPronunciationRequest = (audioData) => {
 };
 
 </script>
+
 
 
 <template>
