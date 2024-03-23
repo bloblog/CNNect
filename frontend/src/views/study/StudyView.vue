@@ -8,6 +8,7 @@ import Buttons from '@/components/study/Buttons.vue';
 
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
+import { getDict } from '@/api/scraping.js'
 
 const videoData = ref({
     videoId: "",
@@ -36,9 +37,23 @@ function setCurSentence (order) {
     curSentence.value.score = videoData.value.sentenceList[order-1].score;
 }
 
+const wordMeanings = ref({})
+const isFinishedFetching = ref(false)
+
+const fetchWordMeanings = async () => {
+    for (const word of videoData.value.wordList) {
+        const result = await getDict(word);
+        if (result !== null) {
+            wordMeanings.value[word] = result;
+        }
+    }
+    isFinishedFetching.value = true;
+};
+
 onMounted(() => {
     videoData.value = getStudy(); 
     setCurSentence(1);
+    fetchWordMeanings();
 })
 
 </script>
@@ -71,7 +86,7 @@ onMounted(() => {
                                 <input type="radio" name="tabmenu" id="tabmenu2">
                                 <label for="tabmenu2">단어장</label>
                                 <div class="tabCon">
-                                    <Voca :videoData="videoData"/>
+                                    <Voca :wordMeanings="wordMeanings" :isFinishedFetching="isFinishedFetching"/>
                                 </div>
                             </li>
                         </ul>
