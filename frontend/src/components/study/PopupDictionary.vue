@@ -32,6 +32,9 @@ onUnmounted(() => {
                 <span class="material-symbols-outlined">add</span>
             </button>
         </div>
+        <div class="loader-container" v-if="selectedWordMeanings.length === 0">
+            <div class="loader"></div>
+        </div>
         <ul class="mean_list" >
             <li class="mean_item" v-for="meaning in selectedWordMeanings" :key="meaning.num">
                 <span class="num">{{ meaning.num }}. </span>
@@ -64,6 +67,11 @@ onUnmounted(() => {
     color: #cc0000;
 }
 .origin button.add_wordbook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
     border: #cc0000 solid 1px;
     color: #cc0000;
@@ -71,7 +79,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 1px;
 }
 .origin button.add_wordbook:hover {
     background-color: #cc0000;
@@ -89,5 +96,22 @@ onUnmounted(() => {
     display: inline;
     margin-right: 15px;
 }
-
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+.loader {
+    border: 5px solid #ffd5d5;
+    border-top: 5px solid #cc0000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 </style>
