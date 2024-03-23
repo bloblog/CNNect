@@ -28,13 +28,10 @@ const curSentence = ref({
     score: ""
 })
 
-function setCurSentence (order) {
-    curSentence.value.order = videoData.value.sentenceList[order-1].order;
-    curSentence.value.startTime = videoData.value.sentenceList[order-1].startTime;
-    curSentence.value.content = videoData.value.sentenceList[order-1].content;
-    curSentence.value.mean = videoData.value.sentenceList[order-1].mean;
-    curSentence.value.score = videoData.value.sentenceList[order-1].score;
-}
+const setCurSentence = (curOrder) => {
+    const { order, startTime, content, mean, score } = videoData.value.sentenceList[curOrder-1];
+    curSentence.value = { order, startTime, content, mean, score };
+};
 
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
