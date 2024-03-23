@@ -43,7 +43,8 @@ ul li:hover {
 }
 ul li .content {
     flex-grow: 1;
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: auto 0 ;
 }
 ul li .score {
     border: #c8c8c8 1px solid;
