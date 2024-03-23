@@ -175,32 +175,30 @@ const sendPronunciationRequest = (audioData) => {
 
 <template>
     <div class="shadowing">
-        <div class="above-box">
+        <div class="top-box">
+            <div class="top-left-box">
+                <div class="listen">
+                    <span class="material-symbols-outlined">volume_up</span>
+                </div>
+                <div class="speack" @click="toggleRecording" :class="{'recording': isRecording}">
+                    <span class="material-symbols-outlined">
+                        {{ isRecording ? 'stop' : 'mic' }}
+                    </span>
+                </div>
+            </div>
+            <div class="top-right-box">
+                <div class="score" :class="{'noScore': pronunciationScore === null}">
+                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
+                </div>
+            </div>
+        </div>
+        <div class="bottom-box">
             <div class="korean">
             {{ translatedContent }}
             </div>
             <div class="english" @dblclick="showPopup">
                 {{ curSentence.content }}
                 <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" @close-popup="hidePopup"></PopupDictionary>
-            </div>
-        </div>
-        <div class="below-box">
-            <div class="below-left-box">
-                <div class="listen">
-                    <span class="material-symbols-outlined">
-                        volume_up
-                    </span>
-                </div>
-                <div class="speack" @dblclick="toggleRecording">
-                    <span class="material-symbols-outlined">
-                        {{ isRecording ? 'stop' : 'mic' }}
-                    </span>
-                </div>
-            </div>
-            <div class="below-right-box">
-                <div class="score" :class="{'noScore': pronunciationScore === null}">
-                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
-                </div>
             </div>
         </div>
     </div>
@@ -210,6 +208,7 @@ const sendPronunciationRequest = (audioData) => {
 ::selection {
     background: rgba(204, 0, 0, 0.15);
 }
+/* shadowing */
 .shadowing {
     width: 100%;
     height: 100%;
@@ -220,45 +219,49 @@ const sendPronunciationRequest = (audioData) => {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
-.shadowing .above-box {
-    margin: 10px;
-}
-.shadowing .above-box .korean {
-    color: #8A8A8A;
-    padding: 15px;
 
-}
-.shadowing .above-box .english {
-    color: #000000;
-    font-weight: 600;
-    font-size: 18px;
-    padding: 15px;
-}
-.shadowing .below-box {
-    border-top: #E3E3E3 solid 1px;
+/* shadowing / top-box */
+.top-box {
+    border-bottom: #E3E3E3 solid 1px;
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.shadowing .below-left-box {
+.top-left-box {
     display: flex;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #797979;
 }
-
-.shadowing .below-left-box .listen span {
-    box-sizing: border-box;
-    padding: 10px 20px;
-    height: 50px;
-    border-right: #E3E3E3 1px solid;
-}
-.shadowing .below-left-box .speack {
+.listen {
     padding: 10px 20px;
     border-right: #E3E3E3 1px solid;
-
 }
-.shadowing .below-right-box .score {
+.listen:hover {
+    color: #10193e;
+}
+.listening {
+    color: #10193e;
+}
+.speack {
+    padding: 10px 20px;
+    border-right: #E3E3E3 1px solid;
+}
+.speack:hover {
+    color: #cc0000;
+}
+.recording {
+    color: #cc0000;
+}
+.listen span,
+.speack span {
+    font-size: 25px;
+}
+.top-right-box .score {
     border: #c8c8c8 1px solid;
     border-radius: 20px;
     padding: 7px 20px;
@@ -266,7 +269,28 @@ const sendPronunciationRequest = (audioData) => {
     color: #CC0000;
     font-weight: 600;
 }
-.shadowing .below-right-box .noScore {
+.top-right-box .noScore {
     color: #b3b3b3;
+}
+
+/* shadowing / bottom-box */
+.bottom-box {
+    margin: 10px;
+    line-height: 1.5;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.bottom-box .korean {
+    color: #8A8A8A;
+    padding: 15px;
+}
+.bottom-box .english {
+    flex-grow: 1;
+    background-color: #f2f2f2;
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 15px;
 }
 </style>
