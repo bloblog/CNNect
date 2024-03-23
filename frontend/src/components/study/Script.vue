@@ -17,7 +17,19 @@ defineProps({
 </template>
 
 <style scoped>
-
+ul {
+    opacity: 0;
+    transform: translateY();
+    opacity: 0;
+    transform: translateY(20px);
+    animation: scriptAppear 0.5s forwards ease-out;
+}
+@keyframes scriptAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 ul li {
     border-bottom: #E3E3E3 solid 1px;
     padding: 15px;
