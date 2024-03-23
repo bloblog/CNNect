@@ -26,19 +26,23 @@ watch(() => props.curSentence.content, (newContent) => {
     }
 }, { immediate: true });
 
+
+// 다음 영어사전 팝업창
 const selectedText = ref('');
 const isShowPopup = ref(false);
-const translatedContent = ref('');
 const selectedWordMeanings = ref([]);
+let latestRequestTime = 0;
 
-
-const handleMouseUp = () => {
+const showPopup = () => {
     selectedText.value = window.getSelection().toString().trim();
     if (selectedText.value.length > 0 ) {
+        isShowPopup.value = true;
+        const currentTime = Date.now();
+        latestRequestTime = currentTime;
         getDict(selectedText.value).then(meanList => {
-            selectedWordMeanings.value = meanList;
-            console.log(meanList);
-            isShowPopup.value = true;
+            if (currentTime === latestRequestTime) {
+                selectedWordMeanings.value = meanList;
+            }
         }).catch(error => {
             console.error(error);
         })
@@ -48,10 +52,13 @@ const handleMouseUp = () => {
 const hidePopup = () => {
     selectedText.value = '';
     isShowPopup.value = false;
+    selectedWordMeanings.value = [];
 };
 
 
-//Google Translate API Key
+// Google Translate API
+const translatedContent = ref('');
+
 function translateText(textToTranslate) {
     fetch(`https://translation.googleapis.com/language/translate/v2?key=${VITE_GT_ACCESS_KEY}`, {
         method: "POST",
@@ -77,7 +84,7 @@ function translateText(textToTranslate) {
 }
 
 
-//발음 API
+// 발음 평가 API
 const audioFile = ref(null);
 const mediaRecorder = ref(null);
 const audioChunks = ref([]);
@@ -89,85 +96,82 @@ const languageCode = 'english';
 const script = props.curSentence.content;
 
 const startRecording = async () => {
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    console.log('녹음 시작');
-    isRecording.value = true;
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder.value = new MediaRecorder(stream);
-    audioChunks.value = [];
-    
-    mediaRecorder.value.ondataavailable = (event) => {
-      audioChunks.value.push(event.data);
-    };
-    
-    mediaRecorder.value.start();
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log('녹음 시작');
+        isRecording.value = true;
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder.value = new MediaRecorder(stream);
+        audioChunks.value = [];
+        
+        mediaRecorder.value.ondataavailable = (event) => {
+        audioChunks.value.push(event.data);
+        };
+        
+        mediaRecorder.value.start();
 
-  } else {
-    console.error('브라우저가 오디오 녹음을 지원하지 않습니다.');
-  }
+    } else {
+        console.error('브라우저가 오디오 녹음을 지원하지 않습니다.');
+    }
 };
 
 const stopRecording = () => {
-  if (!mediaRecorder.value) return;
+    if (!mediaRecorder.value) return;
 
-  mediaRecorder.value.onstop = async () => {
-    const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
-    const audioData = await fileToBase64(audioBlob);
-    sendPronunciationRequest(audioData);
-  };
+    mediaRecorder.value.onstop = async () => {
+        const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
+        const audioData = await fileToBase64(audioBlob);
+        sendPronunciationRequest(audioData);
+    };
 
-  mediaRecorder.value.stop();
-  console.log('녹음 중지');
-  isRecording.value = false;
-};
+    mediaRecorder.value.stop();
+    console.log('녹음 중지');
+    isRecording.value = false;
+    };
 
-const toggleRecording = () => {
-  if (isRecording.value) {
-    stopRecording();
-  } else {
-    startRecording();
-  }
+    const toggleRecording = () => {
+    if (isRecording.value) {
+        stopRecording();
+    } else {
+        startRecording();
+    }
 };
 
 // Base64로 변환
 const fileToBase64 = (blob) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-    reader.readAsDataURL(blob);
-  });
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(blob);
+    });
 };
 
 const sendPronunciationRequest = (audioData) => {
-  const requestJson = {
-    argument: {
-      language_code: languageCode,
-      script: script,
-      audio: audioData.split(',')[1], 
-    },
-  };
+    const requestJson = {
+        argument: {
+        language_code: languageCode,
+        script: script,
+        audio: audioData.split(',')[1], 
+        },
+    };
 
-  axios.post(openApiURL, requestJson, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': VITE_ETRI_ACCESS_KEY
-    },
-  })
-  .then((response) => {
-    console.log('responseCode = ', response.status);
-    console.log('responseBody = ', response.data);
-    pronunciationScore.value = response.data.return_object.score;
-    console.log('발음 점수 : ', pronunciationScore.value)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+    axios.post(openApiURL, requestJson, {
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': VITE_ETRI_ACCESS_KEY
+        },
+    })
+    .then((response) => {
+        console.log('responseCode = ', response.status);
+        console.log('responseBody = ', response.data);
+        pronunciationScore.value = response.data.return_object.score;
+        console.log('발음 점수 : ', pronunciationScore.value)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 };
-
 </script>
-
-
 
 <template>
     <div class="shadowing">
@@ -175,7 +179,7 @@ const sendPronunciationRequest = (audioData) => {
             <div class="korean">
             {{ translatedContent }}
             </div>
-            <div class="english" @dblclick="handleMouseUp">
+            <div class="english" @dblclick="showPopup">
                 {{ curSentence.content }}
                 <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" @close-popup="hidePopup"></PopupDictionary>
             </div>
