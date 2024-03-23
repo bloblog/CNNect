@@ -77,12 +77,6 @@ onUnmounted(() => {
     background-color: #cc0000;
     color: #fff;
 }
-.origin button.close-button {
-    color: #8e8e8e
-}
-.origin button.close-button:hover {
-    color: #2a2a2a
-}
 
 .mean_list {
     margin-top: 5px;
