@@ -9,7 +9,12 @@ defineProps({
     <div>
         <ul class="card_list">
             <li class="card" v-for="(meanings, word) in wordMeanings" :key="word">
-                <div class="word"> {{ word }} </div>
+                <div class="word-and-btn">
+                    <div class="word"> {{ word }} </div>
+                    <button type="button" class="add_wordbook">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
                 <ul class="mean_list" v-if="meanings">
                     <li class="mean_item" v-for="(meaning, idx) in meanings" :key="idx">
                         <span class="num">{{ meaning.num }}. </span>
@@ -39,6 +44,30 @@ li.card {
         opacity: 1;
         transform: translateY(0);
     }
+}
+.word-and-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button.add_wordbook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: #cc0000 solid 1px;
+    color: #cc0000;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1px;
+}
+button.add_wordbook:hover {
+    background-color: #cc0000;
+    color: #fff;
 }
 .word {
     color: #CC0000;
