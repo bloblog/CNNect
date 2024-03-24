@@ -3,7 +3,7 @@ import cheerio from "cheerio";
 
 const getDict = async (searchWord, retryCount = 0) => {
     try {
-        const html = await axios.get(`http://cors-anywhere.herokuapp.com/https://dic.daum.net/search.do?q=${searchWord}`);
+        const html = await axios.get(`/daum/search.do?q=${searchWord}`);
         let list = [];
         const $ = cheerio.load(html.data);
         const elements = $("ul.list_search").first().find("span.txt_search");
