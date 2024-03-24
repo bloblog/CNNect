@@ -50,26 +50,31 @@ def fetch_news_from_mongodb(video_ids=None):
         news_collection = db.news
 
         news_sentences = []
+        news_titles = {}  # 뉴스 제목을 저장할 딕셔너리
         if video_ids:
             for video_id in video_ids:
                 news_document = news_collection.find_one({'video_id': video_id})
                 if news_document and 'senteceList' in news_document:
                     full_text = ' '.join([sentence['text'] for sentence in news_document['senteceList']])
-                    if full_text:  
+                    if full_text:
+                        index = len(news_sentences)
                         news_sentences.append(full_text)
+                        news_titles[index] = news_document.get('video_name', 'No Title')  # 뉴스 제목 저장
         else:
             all_news = news_collection.find()
             for news_document in all_news:
                 if 'senteceList' in news_document:
                     full_text = ' '.join([sentence['text'] for sentence in news_document['senteceList']])
-                    if full_text:  
+                    if full_text:
+                        index = len(news_sentences)
                         news_sentences.append(full_text)
+                        news_titles[index] = news_document.get('video_name', 'No Title')  # 뉴스 제목 저장
 
         print("Number of news sentences fetched from MongoDB:", len(news_sentences))
-        return news_sentences
+        return news_sentences, news_titles  # 뉴스 제목도 반환
     except Exception as e:
         print("Error fetching news from MongoDB:", e)
-        return []
+        return [], {}
 
 
 
@@ -106,8 +111,8 @@ def main():
     news_recommender = NewsRecommender()
 
     user_history_video_ids = fetch_user_history_news_from_file()
-    user_news_sentences = fetch_news_from_mongodb(user_history_video_ids)
-    news_sentences = fetch_news_from_mongodb()
+    user_news_sentences, _ = fetch_news_from_mongodb(user_history_video_ids)  # 뉴스 제목은 여기서 필요 없음
+    news_sentences, news_titles = fetch_news_from_mongodb()  # 뉴스 제목 가져오기
     
     if not user_news_sentences or not news_sentences:
         print("필요한 데이터가 없어 프로세스를 진행할 수 없습니다.")
@@ -117,7 +122,10 @@ def main():
 
     recommended_indices = news_recommender.update_recommendations(user_news_sentences, top_n=10)
     if recommended_indices.size > 0:
-        print("Recommended News Indices:", recommended_indices)
+        print("Recommended News Titles:")
+        for index_array in recommended_indices:
+            for index in index_array:
+                print(news_titles[index])  # 추천된 뉴스의 제목 출력
     else:
         print("추천할 뉴스가 없습니다.")
 
