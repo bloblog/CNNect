@@ -32,20 +32,22 @@ const selectedText = ref('');
 const isShowPopup = ref(false);
 const selectedWordMeanings = ref([]);
 let latestRequestTime = 0;
+const isFinishedFetchingPopup = ref(false);
 
-const showPopup = () => {
+const showPopup = async () => {
+    isFinishedFetchingPopup.value = false;
     selectedText.value = window.getSelection().toString().trim();
+    
     if (selectedText.value.length > 0 ) {
         isShowPopup.value = true;
         const currentTime = Date.now();
         latestRequestTime = currentTime;
-        getDict(selectedText.value).then(meanList => {
-            if (currentTime === latestRequestTime) {
-                selectedWordMeanings.value = meanList;
-            }
-        }).catch(error => {
-            console.error(error);
-        })
+        const meanList = await getDict(selectedText.value);
+
+        if (meanList !== null && currentTime === latestRequestTime) {
+            selectedWordMeanings.value = meanList;
+        }
+        isFinishedFetchingPopup.value = true;
     }
 };
 
@@ -198,7 +200,7 @@ const sendPronunciationRequest = (audioData) => {
             </div>
             <div class="english" @dblclick="showPopup">
                 {{ curSentence.content }}
-                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" @close-popup="hidePopup"></PopupDictionary>
+                <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" :isFinishedFetchingPopup="isFinishedFetchingPopup" @close-popup="hidePopup"></PopupDictionary>
             </div>
         </div>
     </div>

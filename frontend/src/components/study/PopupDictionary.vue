@@ -3,7 +3,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 defineProps({
     selectedText: String,
-    selectedWordMeanings: Object
+    selectedWordMeanings: Object,
+    isFinishedFetchingPopup: Boolean
 })
 
 const popup = ref(null);
@@ -28,12 +29,9 @@ onUnmounted(() => {
     <div class="popup" ref="popup">
         <div class="origin">
             <strong class="ENword">{{ selectedText }}</strong>
-            <button type="button" class="add_wordbook">
+            <button type="button" class="add_wordbook" v-if="selectedWordMeanings.length > 0">
                 <span class="material-symbols-outlined">add</span>
             </button>
-        </div>
-        <div class="loader-container" v-if="selectedWordMeanings.length === 0">
-            <div class="loader"></div>
         </div>
         <ul class="mean_list" >
             <li class="mean_item" v-for="meaning in selectedWordMeanings" :key="meaning.num">
@@ -41,6 +39,13 @@ onUnmounted(() => {
                 <p class="mean">{{ meaning.mean }}</p>
             </li>
         </ul>
+        <div class="loader-container" v-if="!isFinishedFetchingPopup">
+            <div class="loader"></div>
+        </div>
+        <div class="notConnected" v-if="isFinishedFetchingPopup && selectedWordMeanings.length === 0">
+            <span class="material-symbols-outlined">error</span>
+            <div class="failText">검색 결과가 없습니다.</div>
+        </div>
     </div>
 </template>
 
@@ -113,5 +118,21 @@ onUnmounted(() => {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+.notConnected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.notConnected span {
+    font-size: 30px;
+    color: #CC0000;
+}
+.failText {
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 400;
 }
 </style>

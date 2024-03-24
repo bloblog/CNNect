@@ -47,7 +47,7 @@ const getDict = async (searchWord, retryCount = 0) => {
 
         saveToCache(searchWord, list, 86400); // 캐시 만료 시간 1일
 
-        return list;
+        return list.length > 0 ? list : null;
 
     } catch (error) {
         if (retryCount < 3) {
