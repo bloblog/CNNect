@@ -26,12 +26,23 @@ const getDict = async (searchWord, retryCount = 0) => {
         const html = await axios.get(`/daum/search.do?q=${searchWord}`);
         let list = [];
         const $ = cheerio.load(html.data);
-        const elements = $("ul.list_search").first().find("span.txt_search");
-        elements.each((i, element) => {
-            list[i] = {
-                num: i + 1,
-                mean: $(element).text(),
-            };
+
+        $('ul.list_search').each(function() {
+            const $prevDiv = $(this).prev('div');
+            const $a = $prevDiv.find('strong > a');
+            const aText = $a.clone().children().remove().end().text().trim();
+            const spanText = $a.find('span').text().trim();
+
+            if (aText === '' && aText !== spanText) {
+                $(this).find('span.txt_search').each((i, element) => {
+                    list.push({
+                        num: i + 1,
+                        mean: $(element).text(),
+                    });
+                });
+                return false;
+            }
+            
         });
 
         saveToCache(searchWord, list, 86400); // 캐시 만료 시간 1일
