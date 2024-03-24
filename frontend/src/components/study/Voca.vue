@@ -26,6 +26,10 @@ defineProps({
         <div class="loader-container" v-if="!isFinishedFetching">
             <div class="loader"></div>
         </div>
+        <div class="notConnected" v-if="isFinishedFetching && Object.keys(wordMeanings).length === 0">
+            <span class="material-symbols-outlined">error</span>
+            <div class="failText">단어장 조회 실패</div>
+        </div>
     </div>
 </template>
 
@@ -101,5 +105,20 @@ button.add_wordbook:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+.notConnected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 20px;
+}
+.notConnected span {
+    font-size: 30px;
+    color: #CC0000;
+}
+.failText {
+    margin: 10px;
 }
 </style>
