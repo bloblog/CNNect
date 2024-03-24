@@ -61,9 +61,8 @@ def format(text):
 def getText(category, urls):
 
     for url in urls.values:
-        print(url)
         try: 
-            driver.get(f'https://edition.cnn.com{url}')
+            driver.get(f'https://edition.cnn.com{url[0]}')
 
             time.sleep(1)
 
@@ -117,7 +116,7 @@ for cat in categories:
     # saveUrls(cat, urls)
     
     # urls 가져와서 text 가져와
-    file_path = f'url_{cat}(0319).json'
+    file_path = f'url_{cat}(0324).json'
 
     # JSON 파일을 DataFrame으로 읽어오기
     urls = pd.read_json(file_path)
