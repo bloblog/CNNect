@@ -18,16 +18,16 @@ def get_mysql_connection():
         return connection
     except pymysql.err.OperationalError as e:
         print("Operational error connecting to MySQL:", e)
-        # 사용자 이름, 암호, 호스트 주소, 데이터베이스 이름 등을 확인하고 문제를 해결합니다.
+        # 사용자 이름, 암호, 호스트 주소, 데이터베이스 이름 등을 확인하고 문제를 해결
     except pymysql.err.ProgrammingError as e:
         print("Programming error connecting to MySQL:", e)
-        # SQL 문장이나 데이터베이스 관련 설정 등이 잘못된 경우를 처리합니다.
+        # SQL 문장이나 데이터베이스 관련 설정 등이 잘못된 경우를 처리
     except pymysql.err.DatabaseError as e:
         print("Database error connecting to MySQL:", e)
-        # 데이터베이스에 액세스할 수 없는 경우를 처리합니다.
+        # 데이터베이스에 액세스할 수 없는 경우를 처리
     except Exception as e:
         print("Error connecting to MySQL:", e)
-        # 기타 예외 상황을 처리합니다.
+        # 기타 예외 상황을 처리
 
 
 def fetch_user_history_news_from_file():
@@ -50,7 +50,7 @@ def fetch_news_from_mongodb(video_ids=None):
         news_collection = db.news
 
         news_sentences = []
-        news_titles = {}  # 뉴스 제목을 저장할 딕셔너리
+        news_titles = {} 
         if video_ids:
             for video_id in video_ids:
                 news_document = news_collection.find_one({'video_id': video_id})
@@ -59,7 +59,7 @@ def fetch_news_from_mongodb(video_ids=None):
                     if full_text:
                         index = len(news_sentences)
                         news_sentences.append(full_text)
-                        news_titles[index] = news_document.get('video_name', 'No Title')  # 뉴스 제목 저장
+                        news_titles[index] = news_document.get('video_name', 'No Title') 
         else:
             all_news = news_collection.find()
             for news_document in all_news:
@@ -68,22 +68,20 @@ def fetch_news_from_mongodb(video_ids=None):
                     if full_text:
                         index = len(news_sentences)
                         news_sentences.append(full_text)
-                        news_titles[index] = news_document.get('video_name', 'No Title')  # 뉴스 제목 저장
+                        news_titles[index] = news_document.get('video_name', 'No Title') 
 
         print("Number of news sentences fetched from MongoDB:", len(news_sentences))
-        return news_sentences, news_titles  # 뉴스 제목도 반환
+        return news_sentences, news_titles 
     except Exception as e:
         print("Error fetching news from MongoDB:", e)
         return [], {}
 
 
-
+    
 class NewsRecommender:
-
     def __init__(self):
         self.vectorizer = TfidfVectorizer(stop_words=None)
         self.news_vectors = None
-        self.similarities = None
 
     def fit(self, news_sentences):
         if news_sentences:
@@ -96,38 +94,46 @@ class NewsRecommender:
         if not user_history_sentences:
             print("User history sentences are empty.")
             return []
+
         try:
             user_history_vector = self.vectorizer.transform(user_history_sentences)
-            print(f"User history sentences have been successfully vectorized.")
-            
-            self.similarities = cosine_similarity(self.news_vectors, user_history_vector)
-            top_similar_indices = np.argsort(-self.similarities, axis=0)[:top_n]
+            similarities = cosine_similarity(self.news_vectors, user_history_vector)
+
+            aggregate_scores = similarities.sum(axis=1)
+
+            # 상위 10개의 가장 유사한 뉴스 인덱스 추출
+            top_similar_indices = np.argsort(-aggregate_scores, axis=0)[:top_n].flatten()
+
             return top_similar_indices
         except Exception as e:
             print(f"Error during recommendation update: {e}")
             return []
 
+
 def main():
     news_recommender = NewsRecommender()
 
     user_history_video_ids = fetch_user_history_news_from_file()
-    user_news_sentences, _ = fetch_news_from_mongodb(user_history_video_ids)  # 뉴스 제목은 여기서 필요 없음
-    news_sentences, news_titles = fetch_news_from_mongodb()  # 뉴스 제목 가져오기
-    
-    if not user_news_sentences or not news_sentences:
+    all_news_sentences, news_titles = fetch_news_from_mongodb() 
+
+    # 사용자의 학습 기록에서 최신 10개
+    latest_user_news_sentences, _ = fetch_news_from_mongodb(user_history_video_ids[-10:])
+
+    if not all_news_sentences or not latest_user_news_sentences:
         print("필요한 데이터가 없어 프로세스를 진행할 수 없습니다.")
         return
-    
-    news_recommender.fit(news_sentences)
 
-    recommended_indices = news_recommender.update_recommendations(user_news_sentences, top_n=10)
+    news_recommender.fit(all_news_sentences)
+
+    recommended_indices = news_recommender.update_recommendations(latest_user_news_sentences, top_n=10)
     if recommended_indices.size > 0:
         print("Recommended News Titles:")
-        for index_array in recommended_indices:
-            for index in index_array:
-                print(news_titles[index])  # 추천된 뉴스의 제목 출력
+        for index in recommended_indices:
+            print(news_titles[index])
     else:
         print("추천할 뉴스가 없습니다.")
 
 if __name__ == "__main__":
     main()
+
+
