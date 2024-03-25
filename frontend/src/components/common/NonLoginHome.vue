@@ -69,7 +69,7 @@
               </div>
               <!-- Modal body -->
               <div class="p-4 md:p-5">
-                <form class="space-y-4" action="#">
+                <div class="space-y-4">
                   <div>
                     <label
                       for="email"
@@ -100,7 +100,7 @@
                       required
                     />
                   </div>
-                </form>
+                </div>
                 <button
                   type="button"
                   @click="login()"
