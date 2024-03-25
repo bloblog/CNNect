@@ -145,6 +145,7 @@ const showTooltip = ref(false);
 
 onMounted(() => {
   imgUrl.value = "/level/level" + level.value + ".png";
+  console.log(level.value + " " + imgUrl.value);
   userInfo(
     ({ data }) => {
       console.log(data);

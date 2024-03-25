@@ -140,6 +140,7 @@ const search = () => {
 
 onMounted(() => {
   imgUrl.value = "/level/level" + level.value + ".png";
+  console.log(level.value + " " + imgUrl.value);
   currentURL.value = window.location.href;
 });
 
