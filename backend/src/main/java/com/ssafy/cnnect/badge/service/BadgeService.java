@@ -91,7 +91,7 @@ public class BadgeService {
         }
 
         Long cnt = videoList.stream()
-                .filter(video -> video.getCategory_id().equals(categoryId))
+                .filter(video -> video.getCategory_id() == categoryId)
                 .count();
 
         // 2. 해당 카테고리를 갖고 있는 뱃지를 낮은 count부터 돌면서 아직 못얻은 단계의 뱃지 찾기
