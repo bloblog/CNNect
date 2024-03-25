@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-center min-h-screen">
-    <form class="w-2/4 mx-4">
+    <div class="w-2/4 mx-4">
       <div class="flex items-center mb-5">
         <div class="w-1/4">
           <label
@@ -114,7 +114,7 @@
           다음
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
