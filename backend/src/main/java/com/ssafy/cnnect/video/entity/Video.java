@@ -21,10 +21,10 @@ public class Video {
     private String video_id;
     private long category_id;
     private String video_name;
-//    private int video_level;
+    private int video_level;
     private String video_thumbnail;
     private String video_date;
-    private List<String> senteceList;
+    private List<String> sentence_list;
 //    private String full_script;
 
 //    private List<String> wordList;
