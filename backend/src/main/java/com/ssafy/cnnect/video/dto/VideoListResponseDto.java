@@ -16,7 +16,7 @@ public class VideoListResponseDto {
 //    private String videoUrl;
     private int videoLevel;
     private String videoThumbnail;
-    private Date videoDate;
+    private String videoDate;
     private List<String> sentenceList;
     private List<String> wordList;
     private int categoryId;

@@ -24,7 +24,7 @@ public class Video {
 //    private int video_level;
     private String video_thumbnail;
     private String video_date;
-    private List<String> sentenceList;
+    private List<String> senteceList;
 //    private String full_script;
 
 //    private List<String> wordList;

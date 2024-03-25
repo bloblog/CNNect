@@ -22,7 +22,7 @@ public class VideoService {
     }
 
     @Transactional
-    public List<Video> getCatVideo(int categoryId){
+    public List<Video> getCatVideo(Long categoryId){
         List<Video> videolist = videoRepository.findByCategoryId(categoryId);
         return videolist;
     }
