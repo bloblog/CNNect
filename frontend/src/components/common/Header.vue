@@ -6,7 +6,7 @@
     class="header-frame top-0 z-20 sticky flex items-center"
   >
     <RouterLink to="/">
-      <img src="@/assets/logo.png" class="h-12 m-5" />
+      <img src="@/assets/logo.png" class="h-6 m-5" />
     </RouterLink>
     <RouterLink v-if="isLogin" to="/history"
       ><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
@@ -121,6 +121,7 @@ const { setLogout } = uStore;
 const currentURL = ref("");
 
 const isSearchOpen = ref(false);
+
 const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
@@ -138,7 +139,7 @@ const search = () => {
 };
 
 onMounted(() => {
-  imgUrl.value = "/public/level/level" + level.value + ".png";
+  imgUrl.value = "/level/level" + level.value + ".png";
   currentURL.value = window.location.href;
 });
 

@@ -144,7 +144,7 @@ const userBadge = ref([]);
 const showTooltip = ref(false);
 
 onMounted(() => {
-  imgUrl.value = "/level" + level.value + ".png";
+  imgUrl.value = "/level/level" + level.value + ".png";
   userInfo(
     ({ data }) => {
       console.log(data);
