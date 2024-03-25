@@ -1,6 +1,6 @@
 <script setup>
 import { EventBus } from '@/api/eventBus.js';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
     videoData: Object
@@ -38,6 +38,8 @@ onUnmounted (() => {
     EventBus.off('seek-to', handleSeek);
 })
 
+let currentSentenceOrder;
+
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         const checkTime = () => {
@@ -46,13 +48,17 @@ function onPlayerStateChange(event) {
             const nextSentence = props.videoData.sentenceList.find(sentence => {
                 return currentTime < sentence.startTime;
             });
+            
+            let checkedCurrentSentenceOrder;
 
             if (nextSentence) {
-                const currentSentenceOrder = (nextSentence.order - 1) === 0 ? 1 : nextSentence.order - 1;
-                emit('changeCurSentence', currentSentenceOrder);
+                checkedCurrentSentenceOrder = (nextSentence.order - 1) === 0 ? 1 : nextSentence.order - 1;
             } else {
-                const lastSentenceOrder = props.videoData.sentenceList[props.videoData.sentenceList.length - 1].order;
-                emit('changeCurSentence', lastSentenceOrder)
+                checkedCurrentSentenceOrder = props.videoData.sentenceList[props.videoData.sentenceList.length - 1].order;
+            }
+            if (currentSentenceOrder !== checkedCurrentSentenceOrder) {
+                currentSentenceOrder = checkedCurrentSentenceOrder;
+                emit('changeCurSentence', checkedCurrentSentenceOrder);
             }
         };
         

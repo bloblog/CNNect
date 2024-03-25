@@ -31,6 +31,7 @@ const curSentence = ref({
 const setCurSentence = (curOrder) => {
     const { order, startTime, content, mean, score } = videoData.value.sentenceList[curOrder-1];
     curSentence.value = { order, startTime, content, mean, score };
+    ensureActiveSentenceVisible();
 };
 
 const wordMeanings = ref({})
@@ -45,6 +46,15 @@ const fetchWordMeanings = async () => {
     }
     isFinishedFetching.value = true;
 };
+
+const refScript = ref(null);
+
+const ensureActiveSentenceVisible = () => {
+    const activeSentence = refScript.value.querySelector('.active');
+    if (activeSentence) {
+        activeSentence.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
 
 onMounted(() => {
     videoData.value = getStudy(); 
@@ -71,14 +81,14 @@ onMounted(() => {
                         <li id="tab1" class="btnCon">
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
                             <label for="tabmenu1">스크립트</label>
-                            <div class="tabCon">
+                            <div class="tabCon tabCon1" ref="refScript">
                                 <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                             </div>
                         </li>
                         <li id="tab2" class="btnCon">
                             <input type="radio" name="tabmenu" id="tabmenu2">
                             <label for="tabmenu2">단어장</label>
-                            <div class="tabCon">
+                            <div class="tabCon tabCon2">
                                 <Voca :wordMeanings="wordMeanings" :isFinishedFetching="isFinishedFetching"/>
                             </div>
                         </li>

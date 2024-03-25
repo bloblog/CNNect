@@ -1,7 +1,7 @@
 <script setup>
 import { EventBus } from '@/api/eventBus.js';
 
-defineProps({
+const props = defineProps({
     videoData: Object,
     curSentence: Object
 })
@@ -12,18 +12,18 @@ const seekTo = (startTime) => {
     EventBus.emit('seek-to', startTime);
 }
 
-const handleClick = (curSentence) => {
-    seekTo(curSentence.startTime);
-    emit('changeCurOrder', curSentence.order);
+const handleClick = (sentence) => {
+    seekTo(sentence.startTime);
+    emit('changeCurOrder', sentence.order);
 };
 
 </script>
 
 <template>
     <ul>
-        <li v-for="sentence in videoData.sentenceList" :key="sentence.order"
+        <li v-for="sentence in props.videoData.sentenceList" :key="sentence.order"
             @click="handleClick(sentence)"
-            :class="{ 'active': curSentence.order === sentence.order }">
+            :class="{ 'active': props.curSentence.order === sentence.order }">
                 <div class="content"> {{ sentence.content }} </div>
         </li>
     </ul>
