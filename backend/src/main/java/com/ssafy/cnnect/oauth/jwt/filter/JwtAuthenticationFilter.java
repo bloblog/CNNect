@@ -1,5 +1,6 @@
 package com.ssafy.cnnect.oauth.jwt.filter;
 
+import co.elastic.clients.elasticsearch.nodes.Http;
 import com.ssafy.cnnect.exception.code.ExceptionCode;
 import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
 import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
@@ -26,6 +27,12 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        // preflight 요청 처리
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        if(httpServletRequest.getMethod().equals("OPTIONS")){
+            return;
+        }
+
         // 1. Request Header에서 JWT 토큰 추출
         String token = resolveToken((HttpServletRequest) request);
         String url = ((HttpServletRequest) request).getRequestURI();
