@@ -1,22 +1,12 @@
+# 대량 데이터 가져오기 위해 이미 있는 모듈 활용
+# 맨 처음 한 번만 사용
+
 import scrapetube
 import configparser
 from pymongo import MongoClient
+from crawling import *
 
-
-# DB 인증 정보 가져오기
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-host = config['MongoDB']['DB_HOST']
-port = config['MongoDB']['DB_PORT']
-dbname = config['MongoDB']['DB_NAME']
-user = config['MongoDB']['DB_USER']
-password = config['MongoDB']['DB_PASSWORD']
-
-# DB 연결
-mongo_url = f"mongodb://{user}:{password}@{host}:{port}/{dbname}"
-client = MongoClient(mongo_url)
-db = client.CNNect
+db = setDB()
 
 videos = scrapetube.get_channel(channel_id="UCupvZG-5ko_eiXAupbDfxWw", sleep=1.5)
 

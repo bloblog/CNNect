@@ -1,15 +1,15 @@
-#### 자동 크롤링 코드 ####
-
 """
-!pip install pymongo
-!pip install selenium
-!pip install webdriver-manager
-!pip install pytube
-!pip install beautifulsoup4
-!pip install lxml
-!pip install youtube-transcript-api
-!pip install py_youtube
-!pip install nltk
+pip install pymongo
+pip install flask
+pip install selenium
+pip install pytube
+pip install webdriver-manager
+pip install beautifulsoup4
+pip install lxml
+pip install youtube-transcript-api
+pip install py_youtube
+pip install nltk
+pip install apscheduler
 """
 
 from pymongo import MongoClient
@@ -30,16 +30,33 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import concurrent.futures
 from py_youtube import Data
 
+# DB 인증 정보 가져오기
+def setDB():
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+
+    host = config['MongoDB']['DB_HOST']
+    port = config['MongoDB']['DB_PORT']
+    dbname = config['MongoDB']['DB_NAME']
+    user = config['MongoDB']['DB_USER']
+    password = config['MongoDB']['DB_PASSWORD']
+
+    # DB 연결
+    mongo_url = f"mongodb://{user}:{password}@{host}:{port}/{dbname}"
+    client = MongoClient(mongo_url)
+    db = client.CNNect
+
+    return db
+
+# 크롬드라이버 세팅
 def init():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('disable-dev-shm-usage')
     options.add_experimental_option("detach", True)
-
-    # 크롬 드라이버 최신 버전 설정
-    service = ChromeService(executable_path=ChromeDriverManager().install())
     
+    service = ChromeService(executable_path=ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
     # 페이지 접속하기
@@ -48,44 +65,44 @@ def init():
 
     return driver
 
-# def scroll():
-    SCROLL_PAUSE_TIME = 0.5
-    # last_height = driver.execute_script("return document.documentElement.scrollHeight")
-
-    while True:
-        driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-        time.sleep(SCROLL_PAUSE_TIME)
-
-        new_height = driver.execute_script("return document.documentElement.scrollHeight;")
-        print('now: ', new_height)
-
-        # if new_height >= end_height or new_height == last_height:
-        #     break
-        # last_height = new_height
-
 def get_url():
+    global new_data
+
+    # 24일 기준 새로운 영상 많아서 스크롤 2번 더 수행
+    # 실제 적용시는 필요 없음
+    # 한 번 스크롤 = 30개 영상
+    driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
+    time.sleep(1)
+    driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
+    time.sleep(1)
+
     # 페이지 파싱
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
 
     # url 뽑아서 리스트에 저장
-    videoList = soup.findAll('div', class_='style-scope ytd-rich-item-renderer')
+    element = soup.findAll('div', class_='style-scope ytd-rich-item-renderer')
+    print('len : ', len(element))
 
-    video_info = []
-    for video_id in db['data'].find({}):
+    for video in element:
         info = video.find('a', {'id': 'video-title-link'})
         if info:
             video_id = info['href'].split('?v=')[1]
+            if not is_video_exist(video_id):
+                new_data.append({'video_id': video_id})
+            else:
+                # 이미 존재하는 videoid가 발견되면 break
+                print("이미 있는 비디오입니다.")
+                break
+    return new_data
 
-        # 30분 넘는 영상과 중복 로우는 넣지 않음
-        existing_video = db['data'].find_one({'video_id': video_id})
-        if existing_video is None and time < 1800:
-            video_info.append({'video_id' : video_id, 'video_level' : 0, 'time': time})
-
-    return video_info
+def is_video_exist(video_id):
+    result = db['data'].find_one({'video_id': video_id})
+    # result2 = db['test'].find_one({'video_id': video_id})
+    # isExist = result1 is not None or result2 is not None
+    return result is not None
 
 def load_script(video_id):
-
     try:
         script = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
     except:
@@ -103,7 +120,6 @@ def format(sentence):
 
 def get_fullscript(script):
     full_script = ' '.join(obj['text'] for obj in script)
-    
     return full_script
 
 def split(full_script):
@@ -129,104 +145,51 @@ def time_match(script, sentences):
 
     return sentence_times
 
-# def get_date(video_id):
-
-    # 페이지 접속
-    url = f'https://www.youtube.com/watch?v={video_id}'
-    driver.get(url)
-
-    time.sleep(2)
-
-    # 페이지 파싱
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'lxml')
-
-    info = soup.findAll('yt-formatted-string', class_='style-scope ytd-video-primary-info-renderer')
-
-    formatted_date = ''
-    
-    for i in info:
-        try:
-            original_date = datetime.strptime(i.text, "%Y. %m. %d.")
-            formatted_date = original_date.strftime("%Y-%m-%d")
-            break
-        except:
-            continue
-
-    return formatted_date
-
 def set_script(video):
-    print(f"=========={video['video_id']} script 처리 시작==========")
+    global new_data
     script = load_script(video['video_id'])
-    full_script = get_fullscript(script)
-    script_sentence = split(full_script)
+    
+    if script == '':
+        # 스크립트가 없으면 video_id 삭제
+        new_data = [data for data in new_data if data['video_id'] != video['video_id']]
+        
+    else:
+        full_script = get_fullscript(script)
+        script_sentence = split(full_script)
+        
+        for data in new_data:
+            if data['video_id'] == video['video_id']:
+                data['sentenceList'] = time_match(script, script_sentence)
+                data['full_script'] = full_script
+                break
 
-    # 스크립트 없으면 그냥 db 에서 빼버린다
-    if script == '' :
-        db['data'].delete_one({"video_id": video['video_id'],})
-    else :
-        db['data'].update_one(
-            {
-                "video_id": video['video_id'],
-            },
-            {
-                "$set": {
-                    "senteceList": time_match(script, script_sentence),
-                    "full_script": full_script
-                }
-            }
-        )
 
 def set_info(video):
-    print(f"=========={video['video_id']} data 처리 시작==========")
+    global new_data
     data = Data(f"https://youtu.be/{video['video_id']}").data()
 
     title = data['title']
     src = data['thumbnails']
     date = data['publishdate']
-    category = data['category'].split(' ')[-1]
 
-    db['data'].update_one(
-        {
-            "video_id": video['video_id'],
-        },
-        {
-            "$set": {
-                "video_name" : title,
-                "video_thumbnail" : src,
-                "category_name" : category,
-                "video_date": date,
-            }
-        }
-    )
+    for data in new_data:
+        if data['video_id'] == video['video_id']:
+            data['video_name'] = title
+            data['video_thumbnail'] = src
+            data['video_date'] = date
+            break
 
-# DB 인증 정보 가져오기
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-host = config['MongoDB']['DB_HOST']
-port = config['MongoDB']['DB_PORT']
-dbname = config['MongoDB']['DB_NAME']
-user = config['MongoDB']['DB_USER']
-password = config['MongoDB']['DB_PASSWORD']
-
-# DB 연결
-mongo_url = f"mongodb://{user}:{password}@{host}:{port}/{dbname}"
-client = MongoClient(mongo_url)
-db = client.CNNect
+###########################
+    
+db = setDB()
+driver = init()
 
 nltk.download('punkt')
 
-# 드라이버 초기화
-driver = init()
-
+# 새로 수집한 데이터
+new_data = []
 # 비디오 리스트 가져오기
-video_list = get_url()
-
-# 비디오 리스트 DB에 저장
-db['data'].insert_many(video_list)
-
-video_list = db['data'].find({})
+get_url()
 
 # 멀티프로세싱을 위한 실행 함수 정의
 def process_video_script(video):
@@ -235,10 +198,24 @@ def process_video_script(video):
 def process_video_info(video):
     set_info(video)
 
+def process_video_category(video):
+    # set_info(video)
+    # 카테고리 처리
+    return
+
+def process_video_level(video):
+    # set_info(video)
+    # 레벨 처리
+    return
+
 # 멀티프로세싱 실행
 with concurrent.futures.ThreadPoolExecutor() as executor:
-    executor.map(process_video_script, video_list)
-    executor.map(process_video_info, video_list)
+    # video_list = [data['video_id'] for data in new_data]
+    executor.map(process_video_script, new_data)
+    executor.map(process_video_info, new_data)
+
+if new_data: 
+    db['data'].insert_many(new_data)
 
 # 크롬 드라이버 종료
 driver.quit()
