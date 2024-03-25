@@ -65,9 +65,9 @@
           v-for="(badge, index) in badgeList"
           :key="index"
           class="relative flex-item items-center justify-center"
-          @mouseover="changeOpacity(index, true)" @mouseleave="changeOpacity(index, false)"
+          @mouseover="changeOpacity(index, true)"
+          @mouseleave="changeOpacity(index, false)"
         >
-
           <div
             class="flex border rounded-full w-32 h-32 justify-center items-center"
             :class="{
@@ -80,11 +80,11 @@
                 badge.tier == 3 && badge.check == true,
             }"
           >
-
-          <img class="flex" :src="badge.url" />
+            <img class="flex" :src="badge.url" />
           </div>
           <div
-            :style="{opacity : hoverList[index], transition: 'opacity 0.5s'}">
+            :style="{ opacity: hoverList[index], transition: 'opacity 0.5s' }"
+          >
             <div
               class="absolute -top-20 -left-5 z-30 w-48 h-28 text-sm font-light text-gray-500 bg-gray-200 rounded-lg border border-gray-200 shadow-sm duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
             >
@@ -97,12 +97,14 @@
               </div>
               <div class="py-2 px-3">
                 <p class="font-semibold text-sm">
-                  [{{ badge.badgeCondition == "SPEAKING" ? "스피킹 " + badge.badgeScore + "점 이상 문장": badge.badgeCategory + " 카테고리의 영상"}}]
+                  [{{
+                    badge.badgeCondition == "SPEAKING"
+                      ? "스피킹 " + badge.badgeScore + "점 이상 문장"
+                      : badge.badgeCategory + " 카테고리의 영상"
+                  }}]
                 </p>
-                
-                <p class="font-semibold">
-                  {{ badge.badgeCount }}개 달성
-                </p>
+
+                <p class="font-semibold">{{ badge.badgeCount }}개 달성</p>
               </div>
             </div>
             <div
@@ -122,7 +124,7 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import { userInfo } from "@/api/user";
 import { allBadges, myBadges } from "@/api/badge";
@@ -142,8 +144,7 @@ const userBadge = ref([]);
 const showTooltip = ref(false);
 
 onMounted(() => {
-
-  imgUrl.value = "/src/assets/level/level" + level.value + ".png";
+  imgUrl.value = "/level" + level.value + ".png";
   userInfo(
     ({ data }) => {
       console.log(data);
@@ -167,8 +168,8 @@ onMounted(() => {
             let category = data.data[i].badgeCategory;
             let url =
               condition == "VIDEO"
-                ? "/src/asset/badge/" + condition + "/" + category + ".png"
-                : "/src/assets/badge/" + condition + "/" + condition + ".png";
+                ? "/badge/" + condition + "/" + category + ".png"
+                : "/badge/" + condition + "/" + condition + ".png";
             let check = userBadge.value.some((badge) => {
               return JSON.stringify(badge) === JSON.stringify(data.data[i]);
             });
@@ -200,11 +201,11 @@ onMounted(() => {
 
 const changeOpacity = (index, isHover) => {
   hoverList.value[index] = isHover ? 0.8 : 0;
-}
+};
 
 const goToLevel = () => {
-  router.push('/level')
-}
+  router.push("/level");
+};
 </script>
 
 <style>
