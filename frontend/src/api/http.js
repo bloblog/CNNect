@@ -9,8 +9,8 @@ const { VITE_VUE_API_URL } = import.meta.env
 
 // local vue api axios instance
 function localAxios() {
-  console.log(VITE_VUE_API_URL);
-  console.log(import.meta.env);
+  // console.log(VITE_VUE_API_URL);
+  // console.log(import.meta.env);
   const instance = axios.create({
     baseURL: VITE_VUE_API_URL,
     headers: {

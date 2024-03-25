@@ -12,16 +12,14 @@
             <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
               <div class="flex flex-col" @click="goToStudy">
                 <img :src="video.video_thumbnail" alt="video-image" class="object-fit rounded-md video-img-item img-container">
-                <span class="badge absolute top-1 left-1">
-                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
+                <span class="badge absolute top-3 left-3">
+                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1">
                     Lv. 3
                   </div>
                 </span>
-                <div class="text-xl font-bold mt-2" id="video-name">
+                <div class="text-md font-bold mt-2" id="video-name">
                   {{video.video_name}}
                 </div>
-
-
               </div>
 
             </div>
