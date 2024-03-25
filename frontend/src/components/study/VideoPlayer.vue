@@ -41,28 +41,28 @@ onUnmounted (() => {
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         const checkTime = () => {
-        const currentTime = player.getCurrentTime();
+            const currentTime = player.getCurrentTime();
 
-        const nextSentence = props.videoData.sentenceList.find(sentence => {
-            return currentTime < sentence.startTime;
-        });
+            const nextSentence = props.videoData.sentenceList.find(sentence => {
+                return currentTime < sentence.startTime;
+            });
 
-        if (nextSentence) {
-            const currentSentenceOrder = (nextSentence.order - 1) === 0 ? 1 : nextSentence.order - 1;
-            emit('changeCurSentence', currentSentenceOrder);
-        } else {
-            const lastSentenceOrder = props.videoData.sentenceList[props.videoData.sentenceList.length - 1].order;
-            emit('changeCurSentence', lastSentenceOrder)
-        }
-    };
+            if (nextSentence) {
+                const currentSentenceOrder = (nextSentence.order - 1) === 0 ? 1 : nextSentence.order - 1;
+                emit('changeCurSentence', currentSentenceOrder);
+            } else {
+                const lastSentenceOrder = props.videoData.sentenceList[props.videoData.sentenceList.length - 1].order;
+                emit('changeCurSentence', lastSentenceOrder)
+            }
+        };
         
-    const interval = setInterval(checkTime, 250);
+        const interval = setInterval(checkTime, 250);
 
-    event.target.addEventListener('onStateChange', function(e) {
-        if (e.data != YT.PlayerState.PLAYING) {
-            clearInterval(interval);
-        }
-    });
+        event.target.addEventListener('onStateChange', function(e) {
+            if (e.data != YT.PlayerState.PLAYING) {
+                clearInterval(interval);
+            }
+        });
     }
 }
 
