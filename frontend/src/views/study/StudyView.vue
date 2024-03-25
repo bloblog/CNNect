@@ -1,9 +1,9 @@
 <script setup>
 import Title from '@/components/study/Title.vue';
 import Script from '@/components/study/Script.vue';
-import Video from '@/components/study/Video.vue';
 import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
+import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
@@ -48,7 +48,6 @@ const fetchWordMeanings = async () => {
 
 onMounted(() => {
     videoData.value = getStudy(); 
-    setCurSentence(1);
     fetchWordMeanings();
 })
 
@@ -62,7 +61,7 @@ onMounted(() => {
         <Title :videoData="videoData"></Title>
         <main class="section-box">
             <div class="section1">
-                <Video :videoData="videoData" :curSentence="curSentence"></Video>
+                <VideoPlayer :videoData="videoData" @change-cur-sentence="setCurSentence"/>
                 <Shadowing :curSentence="curSentence"></Shadowing>
             </div>
 

@@ -1,17 +1,30 @@
 <script setup>
+import { EventBus } from '@/api/eventBus.js';
+
 defineProps({
     videoData: Object,
     curSentence: Object
 })
+
+const emit = defineEmits(['changeCurOrder'])
+
+const seekTo = (startTime) => {
+    EventBus.emit('seek-to', startTime);
+}
+
+const handleClick = (curSentence) => {
+    seekTo(curSentence.startTime);
+    emit('changeCurOrder', curSentence.order);
+};
+
 </script>
 
 <template>
     <ul>
-        <li v-for="sentence in videoData.sentenceList" :key="sentence.order" 
-            @click="$emit('changeCurOrder', sentence.order)"
+        <li v-for="sentence in videoData.sentenceList" :key="sentence.order"
+            @click="handleClick(sentence)"
             :class="{ 'active': curSentence.order === sentence.order }">
                 <div class="content"> {{ sentence.content }} </div>
-                <div class="score" :class="{'noScore': sentence.score === null}"> {{ sentence.score != null ?  sentence.score : "도전"}}  </div>
         </li>
     </ul>
 </template>
