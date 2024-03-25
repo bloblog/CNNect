@@ -46,7 +46,7 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
 const uStore = userStore();
@@ -59,7 +59,7 @@ const { isLogin, nickName, level } = storeToRefs(uStore);
 const { setLogout } = uStore;
 
 const isSearchOpen = ref(false);
-
+const currentURL = ref("");
 const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
@@ -77,12 +77,11 @@ const search = () => {
 }
 
 onMounted(() => {
-  imgUrl.value = "/public/level/level" + level.value + ".png";
+  imgUrl.value = "/src/assets/level/level" + level.value + ".png";
 
+  currentURL.value = window.location.href;
+  console.log(currentURL.value);
 });
-
-const currentURL = window.location.href;
-  console.log(currentURL);
 const toggleSearch = () => {
   if (isSearchOpen.value) {
     // 검색바 열린 상태일때
