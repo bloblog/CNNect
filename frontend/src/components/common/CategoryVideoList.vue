@@ -94,7 +94,7 @@
 
   document.addEventListener('scroll', () => {
     const scrollPosition = window.innerHeight + window.scrollY;
-    const pageHeight = document.documentElement.scrollHeight;
+    const pageHeight = document.documentElement.scrollHeight - 1;
 
     if (scrollPosition >= pageHeight) {
       fetchMoreVideos();
@@ -103,10 +103,7 @@
 
 // 추가적인 비디오 가져오기
 const fetchMoreVideos = async () => {
-  console.log('비디오 로드')
   const startIndex = videoList.value.length;
-
-  console.log('start : ', startIndex, 'cat : ', props.category)
 
   // 추가적인 비디오 가져오기
   videoPaging(
