@@ -143,7 +143,7 @@ const showTooltip = ref(false);
 
 onMounted(() => {
 
-  imgUrl.value = "/public/level/level" + level.value + ".png";
+  imgUrl.value = "/src/assets/level/level" + level.value + ".png";
   userInfo(
     ({ data }) => {
       console.log(data);
@@ -167,8 +167,8 @@ onMounted(() => {
             let category = data.data[i].badgeCategory;
             let url =
               condition == "VIDEO"
-                ? "/public/badge/" + condition + "/" + category + ".png"
-                : "/public/badge/" + condition + "/" + condition + ".png";
+                ? "/src/asset/badge/" + condition + "/" + category + ".png"
+                : "/src/assets/badge/" + condition + "/" + condition + ".png";
             let check = userBadge.value.some((badge) => {
               return JSON.stringify(badge) === JSON.stringify(data.data[i]);
             });

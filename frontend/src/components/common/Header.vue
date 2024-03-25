@@ -62,7 +62,7 @@ const { setLogout } = uStore;
 const currentURL = ref("");
 
 const isSearchOpen = ref(false);
-
+const currentURL = ref("");
 const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");

@@ -129,6 +129,8 @@ const { setUserId } = uStore;
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
 const autoCheck = ref(false); // 이메일 인증 여부
 
+const authCode = ref("")
+
 const formData = ref({
   userEmail: "",
   userPassword: "",
