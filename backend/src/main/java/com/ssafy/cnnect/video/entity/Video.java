@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @Document(collection = "data")
 @Getter
@@ -19,4 +21,20 @@ public class Video {
     private String video_id;
 
     private Long category_id;
+
+    private String full_script;
+
+    private List<Sentence> senteceList;
+
+    private String video_date;
+
+    private String video_name;
+
+    private String video_thumbnail;
+
+    private Long video_level;
+
+    private List<String> wordList;
+
+
 }
