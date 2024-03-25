@@ -69,11 +69,25 @@ function onPlayerStateChange(event) {
 </script>
 
 <template>
-    <div>
+    <div id=player-container>
         <div id="player"></div>
     </div>
 </template>
 
 <style scope>
-
+#player-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+#player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
 </style>

@@ -110,6 +110,7 @@ body {
     flex-basis: 480px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 /* section-box / section2 */
 .section2 {
