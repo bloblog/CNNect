@@ -19,6 +19,17 @@ public class VideoController {
     private final VideoService videoService;
     private final VideoRepository videoRepository;
 
+    @GetMapping("/entities")
+    @Operation(summary = "비디오 페이징 처리")
+    public ResponseEntity<Page<Video>> getEntities(
+            @RequestParam(defaultValue = "") int categoryId,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        Page<Video> entities = videoService.findByCategory_idAndPage(categoryId, pageNo, pageSize);
+        return ResponseEntity.ok(entities);
+    }
+    
     @Operation(summary = "전체 비디오 조회")
     @GetMapping(value = "/all")
     public ResponseEntity<ResultResponse> getAllVideo(){
@@ -30,12 +41,4 @@ public class VideoController {
     public ResponseEntity<ResultResponse> getCatVideo(@PathVariable Long categoryId){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, videoService.getCatVideo(categoryId)));
     }
-
-//    @Operation(summary = "카테고리별 비디오 페이징")
-//    @GetMapping(value = "/category")
-//    public Page<Video> getVideos(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//        return videoRepository.findByCategoryId(PageRequest.of(page, size));
-//    }
 }

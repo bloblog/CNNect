@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface VideoRepository extends MongoRepository<Video, String> {
+    @Query("{'category_id' : ?0}")
+    Page<Video> findByCategoryId(int categoryId, Pageable pageable);
+
     @Query("{}")
     List<Video> findAllVideo();
 
