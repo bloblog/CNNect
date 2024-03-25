@@ -6,6 +6,7 @@ import StudyView from "@/views/study/StudyView.vue";
 import MyPageView from "@/views/user/MyPageView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
 import SearchView from "@/views/common/SearchView.vue";
+import VideoView from "@/views/common/VideoView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,12 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/video",
+      name: "video",
+      component: VideoView,
+
     },
     {
       path: "/search",
@@ -45,6 +52,8 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: RegisterView,
+      meta: { isRegister: true },
+
     },
   ],
 });

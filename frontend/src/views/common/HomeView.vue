@@ -38,44 +38,6 @@ onMounted(() => {
   
 });
 
-const hovered = ref(false);
-
-const handleMouseOver = () => {
-  hovered.value = true;
-  console.log(hovered.value);
-};
-
-const handleMouseLeave = () => {
-  hovered.value = false;
-  console.log(hovered.value);
-
-}
-
-const now_video = {
-  sentenceList: [
-    {
-      "start": 0.033,
-      "text": "Elon musk tells don lemon, quote, contract is canceled, end quote."
-    },
-    {
-      "start": 4.904,
-      "text": "Now, in a moment, i'm going to speak exclusively with don lemon and he has clips of the nearly hour and a half interview with musk, clips like this one that we received from don's production team."
-    },
-  ],
-  category_name: "Politics",
-  video_date: "2024-03-13",
-  video_name: "Don Lemon speaks out after Elon Musk cancelled his show on X",
-  video_thumbnail : "https://i.ytimg.com/vi/pgVZnVTKqMw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCt-mOsWO1EQ4iRQiBnoCrAg1G3Ww"
-}
-
-// 페이지가 로드된 후에 이미지 태그의 src 속성에 변수 값을 할당
-window.onload = function() {
-  document.getElementById("now-video-img").src = now_video.video_thumbnail;
-  document.getElementById("video-name").innerText = now_video.video_name;
-  document.getElementById("sentence-count").innerText = `1 / ${now_video.sentenceList.length}`;
-  document.getElementById("last-sentence").innerText = now_video.sentenceList[1].text;
-};
-
 
 // set the modal menu element
 const $targetEl = document.getElementById("authentication-modal");

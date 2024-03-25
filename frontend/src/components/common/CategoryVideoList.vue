@@ -1,46 +1,31 @@
 <template>
     <div>
-      <div class="flex justify-between items-center">
-        <button @click="prevPage" id="prevButton" class="text-gray-500 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M15 6l-6 6l6 6" />
-          </svg>
-        </button>
-        <div class="flex">
-          <div class="grid-cols-3 flex space-x-2 " ref="imageContainer">
-            <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
-              <div class="flex flex-col" @click="goToStudy">
-                <img :src="video.video_thumbnail" alt="video-image" class="object-fit rounded-md video-img-item img-container">
-                <span class="badge absolute top-1 left-1">
-                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
-                    Lv. 3
-                  </div>
-                </span>
-                <div class="text-xl font-bold mt-2" id="video-name">
-                  {{video.video_name}}
+      <div class="flex mt-5 justify-around" id="video-container">
+        <div v-if="selected_videos.length != 0" class="grid grid-cols-3 space-x-2 p-5" ref="imageContainer">
+          
+          <div v-for="(video, index) in selected_videos" :key="index" class="relative">
+            <div class="flex flex-col mb-3" id="content-area" @click="goToStudy">
+              <img :src="video.video_thumbnail" alt="video-image" class="object-fit rounded-md video-img-item img-container">
+              <span class="badge absolute top-1 left-1">
+                <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
+                  Lv. 3
                 </div>
-
-
+              </span>
+              <div class="text-xl font-bold mt-2" id="video-name">
+                {{video.video_name}}
               </div>
-
             </div>
           </div>
-
         </div>
-
-        <button @click="nextPage" id="nextButton" class="text-gray-500 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M9 6l6 6l-6 6" />
-          </svg>
-        </button>
+        <div v-else>
+          <div class="font-bold text-lg" id="no-content-area">해당 카테고리의 뉴스가 없습니다.</div>
+        </div>
       </div>
     </div>
   </template>
   
   <script setup>
-  import { ref, onMounted, nextTick } from 'vue';
+  import { ref, watch, onMounted, nextTick, defineProps } from 'vue';
   import { useRoute, useRouter } from "vue-router";
 
   const route = useRoute();
@@ -52,34 +37,13 @@
   const currentIndex = ref(0);
   const imageContainer = ref(null); // ref를 사용하여 DOM 요소에 접근할 변수 선언
   
-  const prevPage = () => {
-    currentIndex.value = Math.max(currentIndex.value - 1, 0);
-    console.log(currentIndex.value)
-    updateImagePosition();
-  };
-  
-  const nextPage = () => {      
-    const maxIndex = videoList.length - 3;
-    currentIndex.value = Math.min(currentIndex.value + 1, maxIndex);
-    console.log(currentIndex.value)
-    updateImagePosition();
-  };
-  
-  const updateImagePosition = () => {
-    nextTick(() => {
-        startIndex.value = currentIndex.value;
-        endIndex.value = currentIndex.value + 3;
-        console.log("startIndex: " + startIndex.value + " endIndex: " + endIndex.value);
-    });
-  };
-  
-  onMounted(() => {
-    updateImagePosition();
-  });
-
   const goToStudy = () => {
     router.push("/study");
   };
+
+  const props = defineProps({
+    category: Number
+  });
 
   const videoList = [
     {
@@ -156,7 +120,7 @@
           "text": "Did you know where you were going?"
         },
       ],
-      "category_name": "Politics",
+      "category_name": "Sports",
       "video_date": "2022-05-22",
       "video_name": "Trevor Reed describes his release from Russian prison",
       "video_thumbnail": "https://i.ytimg.com/vi/0NBxIkXTSUo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLBtNCwmbcgHwIYOcNlka1RePcpwyw"
@@ -185,7 +149,7 @@
           "text": "Exclusive to cnn, a russian junior officer who speaks that he is anonymous to protect the safety and the identity speaking to cnn saying he was a part of the unit february 22nd the troop build-up along the border with ukraine and that evening that they were order ds to give over the cell phones and lost communication with the world and ordered to paint the \"zs\" on the vehicles to symbolize the invasion and no idea that that was in fact the mission."
         },
       ],
-      "category_name": "Politics",
+      "category_name": "Health",
       "video_date": "2022-05-22",
       "video_name": "Russian officer reveals why he quit Putin's war",
       "video_thumbnail": "https://i.ytimg.com/vi/Mbwls1iJLWw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLDHWKf_SdnMPb0HASxTKJ0NrVQnOg"
@@ -210,16 +174,60 @@
           "text": "Thank you for joining."
         },
       ],
-      "category_name": "Politics",
+      "category_name": "Business",
       "video_date": "2022-05-22",
       "video_name": "Son urges for help for father detained in China",
       "video_thumbnail": "https://i.ytimg.com/vi/lwjjBDUoHWw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLB_xpA4cFNN2ORNW0Otp5zm91ydzA"
     },
   ]
 
+  // prop으로 전달받은 카테고리의 video 만 필터링
+  const catMapping = {
+    0: "Politics",
+    1: "Health",
+    2: "Business",
+    3: "sports",
+    4: "travel",
+    5: "style",
+  }
+
+  const selected_videos = ref([]);
+
+  onMounted(() => {
+    updateVideoList(props.category)
+
+  });
+
+  watch(() => props.category, (newValue,) => {
+      updateVideoList(newValue);
+  });
+
+  const updateVideoList = (category) => {
+    selected_videos.value = [];
+
+    for (const video of videoList) {
+        if (video["category_name"] == catMapping[category]) {
+            selected_videos.value.push(video);
+        }
+    }
+  }
+
 
   </script>
   <style scoped>
+  #video-container {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 80vw;
+    
+  }
+
+  .img-container {
+    overflow: hidden;
+    height: 25vh;
+    object-fit: cover;
+  }
+
   #video-name {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -228,15 +236,15 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    width: 20vw;
+    width: 23vw;
   }
 
-  .img-container {
-    overflow: hidden;
-    height: 25vh;
-    object-fit: cover;
+  #no-content-area, #content-area {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+
   }
-  
 
 
 

@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios from "axios"
 
-const { VITE_VUE_API_URL } = import.meta.env;
-console.log(VITE_VUE_API_URL)
+const { VITE_VUE_API_URL } = import.meta.env
 
 // api 호출할 파일에서 아래 설정 후 호출
 // import { localAxios } from "./http";
@@ -10,6 +9,8 @@ console.log(VITE_VUE_API_URL)
 
 // local vue api axios instance
 function localAxios() {
+  console.log(VITE_VUE_API_URL);
+  console.log(import.meta.env);
   const instance = axios.create({
     baseURL: VITE_VUE_API_URL,
     headers: {

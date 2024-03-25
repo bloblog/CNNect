@@ -3,7 +3,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 defineProps({
     selectedText: String,
-    selectedWordMeanings: Object
+    selectedWordMeanings: Object,
+    isFinishedFetchingPopup: Boolean
 })
 
 const popup = ref(null);
@@ -28,7 +29,7 @@ onUnmounted(() => {
     <div class="popup" ref="popup">
         <div class="origin">
             <strong class="ENword">{{ selectedText }}</strong>
-            <button type="button" class="add_wordbook">
+            <button type="button" class="add_wordbook" v-if="selectedWordMeanings.length > 0">
                 <span class="material-symbols-outlined">add</span>
             </button>
         </div>
@@ -38,6 +39,13 @@ onUnmounted(() => {
                 <p class="mean">{{ meaning.mean }}</p>
             </li>
         </ul>
+        <div class="loader-container" v-if="!isFinishedFetchingPopup">
+            <div class="loader"></div>
+        </div>
+        <div class="notConnected" v-if="isFinishedFetchingPopup && selectedWordMeanings.length === 0">
+            <span class="material-symbols-outlined">error</span>
+            <div class="failText">검색 결과가 없습니다.</div>
+        </div>
     </div>
 </template>
 
@@ -64,6 +72,11 @@ onUnmounted(() => {
     color: #cc0000;
 }
 .origin button.add_wordbook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
     border: #cc0000 solid 1px;
     color: #cc0000;
@@ -71,17 +84,10 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 1px;
 }
 .origin button.add_wordbook:hover {
     background-color: #cc0000;
     color: #fff;
-}
-.origin button.close-button {
-    color: #8e8e8e
-}
-.origin button.close-button:hover {
-    color: #2a2a2a
 }
 
 .mean_list {
@@ -95,5 +101,38 @@ onUnmounted(() => {
     display: inline;
     margin-right: 15px;
 }
-
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+.loader {
+    border: 5px solid #ffd5d5;
+    border-top: 5px solid #cc0000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.notConnected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.notConnected span {
+    font-size: 30px;
+    color: #CC0000;
+}
+.failText {
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 400;
+}
 </style>

@@ -1,6 +1,8 @@
 <template>
-  <div v-if="(isLogin == true || currentURL.includes('register')) && !$route.meta.hideHeader" class="header-frame top-0 z-20 sticky flex">
-    <RouterLink to="/"><span class="flex items-start mx-2 my-7 text-white">Home</span></RouterLink>
+  <div v-if="(isLogin == true && !$route.meta.hideHeader) || $route.meta.isRegister" class="header-frame top-0 z-20 sticky flex items-center">
+    <RouterLink to="/">
+      <img src="@/assets/logo.png" class="h-12 m-5">
+    </RouterLink>
     <RouterLink v-if="isLogin" to="/history"><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
     </RouterLink>
     <RouterLink v-if="isLogin" to="/study"><span class="flex items-start mx-2 my-7 text-white">학습진행</span></RouterLink>
@@ -46,8 +48,8 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+import { useRouter, onBeforeRouteUpdate } from "vue-router";
 
 const uStore = userStore();
 const router = useRouter();
@@ -57,6 +59,7 @@ const customInput = ref(null);
 const searchInput = ref("");
 const { isLogin, nickName, level } = storeToRefs(uStore);
 const { setLogout } = uStore;
+const currentURL = ref("");
 
 const isSearchOpen = ref(false);
 const currentURL = ref("");
@@ -77,11 +80,11 @@ const search = () => {
 }
 
 onMounted(() => {
-  imgUrl.value = "/src/assets/level/level" + level.value + ".png";
-
+  imgUrl.value = "/public/level/level" + level.value + ".png";
   currentURL.value = window.location.href;
-  console.log(currentURL.value);
 });
+
+
 const toggleSearch = () => {
   if (isSearchOpen.value) {
     // 검색바 열린 상태일때

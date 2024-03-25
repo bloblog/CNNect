@@ -13,5 +13,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  server: {
+    proxy: {
+      '/daum': {
+        target: 'https://dic.daum.net',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/daum/, '')
+      },
+    },
+  },
 })
