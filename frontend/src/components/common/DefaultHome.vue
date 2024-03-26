@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col items-center p-10">
+    <div class="flex flex-col items-center p-5">
       <div id="now-video" class="mb-10">
-        <h1 class="text-2xl font-bold p-3">학습 진행중인 뉴스</h1>
+        <h1 class="text-xl font-bold p-3">학습 진행중인 뉴스</h1>
       
         <div 
           @click="goToStudy"
@@ -17,15 +17,15 @@
             <img id="now-video-img" :src=now_video.video_thumbnail alt="Now Video Image">
           </div>
           <div class="p-10 flex flex-col justify-between col-span-3 sm:col-span-2 mb-3" id="now-video-info">
-            <div class="text-3xl font-bold" id="video-name">[ Lv.3 ] {{ now_video.video_name }}</div>
+            <div class="text-2xl font-bold" id="video-name">[ Lv.3 ] {{ now_video.video_name }}</div>
             <div>
               <div class="flex">
-                <div class="text-xl font-bold text-white z-10">문장 수</div>
-                <div class="relative text-xl left-16" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
+                <div class="text-lg font-bold text-white z-10">문장 수</div>
+                <div class="relative text-lg left-14" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
               </div>
               <div class="flex">
-                <div class="text-xl whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
-                <div id="last-sentence" class="relative text-xl left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
+                <div class="text-lg whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
+                <div id="last-sentence" class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
               </div>
   
             </div>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div id="recomm-video">
-        <h1 class="text-2xl font-bold p-3">추천 뉴스</h1>
+        <h1 class="text-xl font-bold p-3">추천 뉴스</h1>
         <div id="recomm-video-container">
           <RecommVideoList/>
         </div>
