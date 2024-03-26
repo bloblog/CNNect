@@ -1,10 +1,8 @@
 <template>
-  <div v-if="isLogin == true">
+  <div >
     <DefaultHome/>
   </div>
-  <div v-else>
-    <NonloginHome/>
-  </div>
+
   
   
 </template>
