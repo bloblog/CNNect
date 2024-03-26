@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Recommender</title>
+</head>
+<body>
+    <h1>News Recommender</h1>
+
+    <h2>사용자가 읽은 뉴스:</h2>
+    <ul>
+        {% for news in user_news_data %}
+        <li>{{ news }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>추천된 뉴스:</h2>
+    <ul>
+        {% for news in recommendations %}
+        <li>{{ news }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>뉴스 추가하기:</h2>
+    <form method="post">
+        <input type="checkbox" name="user_news" value="Biden's State of the Union address highlights key policies"> Biden's State of the Union address highlights key policies<br>
+        <input type="checkbox" name="user_news" value="US imposes new sanctions on Russia over Ukraine conflict"> US imposes new sanctions on Russia over Ukraine conflict<br>
+        <input type="checkbox" name="user_news" value="Discussion of Ukraine"> Discussion of Ukraine<br>
+        <button type="submit">추가</button>
+    </form>
+</body>
+</html>
