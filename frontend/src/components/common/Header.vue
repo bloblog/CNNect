@@ -6,16 +6,12 @@
     class="header-frame top-0 z-20 sticky flex items-center"
   >
     <RouterLink to="/">
-      <img src="@/assets/logo.png" class="h-6 m-5" />
+      <img src="@/assets/logo.png" class="h-6 m-5">
     </RouterLink>
     <RouterLink v-if="isLogin" to="/history"
       ><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
     </RouterLink>
-    <RouterLink v-if="isLogin" to="/study"
-      ><span class="flex items-start mx-2 my-7 text-white"
-        >학습진행</span
-      ></RouterLink
-    >
+    <RouterLink v-if="isLogin" to="/video"><span class="flex items-start mx-2 my-7 text-white">둘러보기</span></RouterLink>
 
     <RouterLink v-if="isLogin" to="/level"
       ><span class="flex items-start mx-2 my-7 text-white"
@@ -23,15 +19,8 @@
       </span></RouterLink
     >
     <!-- Search button -->
-    <div class="search-area c-height absolute right-[15%] top-1">
-      <input
-        class="custom-input"
-        @keyup.enter="search()"
-        v-model="searchInput"
-        type="text"
-        name=""
-        ref="customInput"
-      />
+    <div class="search-area c-height absolute right-[20%]">
+      <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
       <button class="single-search icon-area">
         <a @click="toggleSearch()" class="icon-area"
           ><svg
@@ -52,18 +41,9 @@
     </div>
 
     <!-- Dropdown button -->
-    <button
-      v-if="isLogin"
-      id="dropdownDividerButton"
-      data-dropdown-toggle="dropdownDivider"
-      class="text-white font-semibold text-center inline-flex items-center absolute top-4 right-3"
-      type="button"
-    >
-      <img
-        alt="profile"
-        :src="imgUrl"
-        class="rounded-full w-12 h-12 border-2 border-gray-400 shadow-md mx-3"
-      />
+    <button v-if="isLogin" id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider"
+      class="text-white font-semibold text-center inline-flex items-center absolute right-3" type="button">
+      <img alt="profile" :src="imgUrl" class="rounded-full w-10 h-10 border-2 border-gray-400 shadow-md mx-3" />
       {{ nickName }}님 어서오세요!
       <svg
         class="w-2.5 h-2.5 ms-3 my-1"
