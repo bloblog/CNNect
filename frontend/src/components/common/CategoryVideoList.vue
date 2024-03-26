@@ -21,7 +21,7 @@
                   </div>
                 </span>
                 <div class="text-md font-bold m-2" id="video-name">
-                  {{video.video_name}}
+                  {{video.video_id}}
                 </div>
               </div>
             </div>
@@ -103,9 +103,8 @@
 
 // 추가적인 비디오 가져오기
 const fetchMoreVideos = async () => {
-  const startIndex = videoList.value.length;
+  const startIndex = videoList.value.length + 1;
 
-  // 추가적인 비디오 가져오기
   videoPaging(
     props.category,
     startIndex, 9,

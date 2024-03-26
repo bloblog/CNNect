@@ -5,7 +5,7 @@
     </RouterLink>
     <RouterLink v-if="isLogin" to="/history"><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
     </RouterLink>
-    <RouterLink v-if="isLogin" to="/study"><span class="flex items-start mx-2 my-7 text-white">학습진행</span></RouterLink>
+    <RouterLink v-if="isLogin" to="/video"><span class="flex items-start mx-2 my-7 text-white">둘러보기</span></RouterLink>
 
     <RouterLink v-if="isLogin" to="/level"><span class="flex items-start mx-2 my-7 text-white">레벨테스트
       </span></RouterLink>
