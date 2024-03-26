@@ -1,9 +1,9 @@
 <script setup>
 import Title from '@/components/study/Title.vue';
 import Script from '@/components/study/Script.vue';
-import Video from '@/components/study/Video.vue';
 import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
+import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
@@ -31,6 +31,7 @@ const curSentence = ref({
 const setCurSentence = (curOrder) => {
     const { order, startTime, content, mean, score } = videoData.value.sentenceList[curOrder-1];
     curSentence.value = { order, startTime, content, mean, score };
+    ensureActiveSentenceVisible();
 };
 
 const wordMeanings = ref({})
@@ -46,9 +47,17 @@ const fetchWordMeanings = async () => {
     isFinishedFetching.value = true;
 };
 
+const refScript = ref(null);
+
+const ensureActiveSentenceVisible = () => {
+    const activeSentence = refScript.value.querySelector('.active');
+    if (activeSentence) {
+        activeSentence.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
+
 onMounted(() => {
     videoData.value = getStudy(); 
-    setCurSentence(1);
     fetchWordMeanings();
 })
 
@@ -62,7 +71,7 @@ onMounted(() => {
         <Title :videoData="videoData"></Title>
         <main class="section-box">
             <div class="section1">
-                <Video :videoData="videoData" :curSentence="curSentence"></Video>
+                <VideoPlayer :videoData="videoData" @change-cur-sentence="setCurSentence"/>
                 <Shadowing :curSentence="curSentence"></Shadowing>
             </div>
 
@@ -72,14 +81,14 @@ onMounted(() => {
                         <li id="tab1" class="btnCon">
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
                             <label for="tabmenu1">스크립트</label>
-                            <div class="tabCon">
+                            <div class="tabCon tabCon1" ref="refScript">
                                 <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                             </div>
                         </li>
                         <li id="tab2" class="btnCon">
                             <input type="radio" name="tabmenu" id="tabmenu2">
                             <label for="tabmenu2">단어장</label>
-                            <div class="tabCon">
+                            <div class="tabCon tabCon2">
                                 <Voca :wordMeanings="wordMeanings" :isFinishedFetching="isFinishedFetching"/>
                             </div>
                         </li>
@@ -111,6 +120,7 @@ body {
     flex-basis: 480px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 /* section-box / section2 */
 .section2 {
