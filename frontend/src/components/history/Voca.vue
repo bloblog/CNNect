@@ -61,11 +61,35 @@
         const endPage = Math.min(totalPages.value, currentPageValue + 2); // 현재 페이지를 중심으로 뒷쪽에 최대 2개의 페이지를 보여줍니다.
        
 
+        if(currentPageValue === totalPages.value ){
+            if(totalPages.value >= 5){
+                pages.push(totalPages.value-4);
+                pages.push(totalPages.value-3);
+            }else if(totalPages.value===4){
+                pages.push(totalPages.value-3);
+            }
+        }else if(currentPageValue === totalPages.value-1){
+            if(totalPages.value >= 5){
+                pages.push(totalPages.value-4);
+            }
+        }
 
         for (let i = startPage; i <= endPage; i++) {
             pages.push(i);
         }
-
+        
+        if(currentPageValue === 1 ){
+            if(totalPages.value >= 5){
+                pages.push(currentPageValue+3);
+                pages.push(currentPageValue+4);
+            }else if(totalPages.value===4){
+                pages.push(currentPageValue+3);
+            }
+        }else if(currentPageValue === 2 ){
+            if(totalPages.value >= 5){
+                pages.push(currentPageValue+3);
+            }
+        }
         return pages;
     });
 

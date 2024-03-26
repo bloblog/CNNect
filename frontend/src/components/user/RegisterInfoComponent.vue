@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-center min-h-screen">
-    <form class="w-2/4 mx-4">
+    <div class="w-2/4 mx-4">
       <div class="flex items-center mb-5">
         <div class="w-1/4">
           <label
@@ -114,7 +114,7 @@
           다음
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -128,6 +128,8 @@ const { setUserId } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
 const autoCheck = ref(false); // 이메일 인증 여부
+
+const authCode = ref("")
 
 const formData = ref({
   userEmail: "",

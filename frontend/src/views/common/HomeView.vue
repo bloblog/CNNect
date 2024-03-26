@@ -1,11 +1,12 @@
 <template>
+
   <div v-if="isLogin == true">
     <DefaultHome/>
   </div>
   <div v-else>
     <NonloginHome/>
   </div>
-  
+
   
 </template>
 
