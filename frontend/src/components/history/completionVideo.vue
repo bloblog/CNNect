@@ -4,11 +4,7 @@
       <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
         <div class="w-5/6 grid grid-cols-3 gap-4">
           <div :key="index" class="relative" v-for="(video, index) in completionVideoList">
-            <div
-              class="relative"
-              @mouseover="showVideoPopup(index)"
-              @mouseleave="hideVideoPopup(index)"
-            >
+            <div class="video-img">
               <img
                 class="w-full h-auto"
                 :src="`https://img.youtube.com/vi/${video.videoUrl}/maxresdefault.jpg`"
@@ -18,18 +14,6 @@
                     Lv. {{video.videoLevel}}
                   </div>
               </span>
-              <div
-                v-if="isVideoPopup[index]"
-                class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
-              >
-                <iframe
-                  :src="`https://www.youtube.com/embed/${video.videoUrl}?autoplay=1`"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                  class="absolute top-0 left-0 w-full h-full"
-                ></iframe>
-              </div>
             </div>
             <!-- @click="gotostudy(video.videoUrl)" -->
             <div class="title text-1xl font-bold " id="video-title" >
@@ -42,33 +26,20 @@
   </template>
 
 <script setup>
-    import { ref , onMounted , defineProps } from 'vue';
+    import { defineProps } from 'vue';
 
     const props = defineProps({
         completionVideoList: Object
     })
 
-    onMounted(() => {
-        isVideoPopup.value = Array(props.completionVideoList.length).fill(false);
-    });
-    
-    const isVideoPopup = ref([]);
-
-    
-    const showVideoPopup = (index) => {
-        isVideoPopup.value[index] = true;
-    };
-
-    const hideVideoPopup = (index) => {
-        isVideoPopup.value[index] = false;
-    };
 
 
 
 </script>
 
 <style scoped>
-.title{
+.video-img,
+.title {
   cursor: pointer;
 }
 #video-title {

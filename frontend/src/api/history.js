@@ -4,7 +4,7 @@ const local = localAxios();
 const url = "/history";
 
 const videoHistory ={
-    learningViedeoList: [
+    learningVideoList: [
         {order: 1, videoTitle: "start", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 2, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 3, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
