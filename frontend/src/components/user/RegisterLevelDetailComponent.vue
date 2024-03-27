@@ -30,11 +30,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const props = defineProps({
   stage: String,
 });
 const emit = defineEmits(["wrongCountUpdated"]);
+
+onMounted(() => {
+  console.log("hi");
+});
 
 const data = ref([
   {
