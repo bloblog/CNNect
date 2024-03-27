@@ -33,5 +33,4 @@ public class History {
     @JoinColumn(name = "user_id")
     private User user;
 
-
 }
