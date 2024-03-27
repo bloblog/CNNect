@@ -1,10 +1,8 @@
 <template>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <body>
-        <div class="section-box">
-            <div class="section2">
+        <div class="section-box" >
+            <div class="section">
                 <div class="tabmenu out-tabmenu">
                     <ul>
                         <li id="tab1" class="btnCon">
@@ -14,17 +12,17 @@
                                 <h1 class="text-2xl font-bold p-3">학습 진행중인 뉴스</h1>
                                 <div class="learning-video">
                                     <div class="Carousel-btn">
-                                        <span class="material-symbols-outlined" @click="changeVideoOrder('backward')">
-                                            arrow_back_ios
-                                        </span>
+                                        <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('backward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                                            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+                                        </svg>
                                     </div>   
                                     <div >
                                         <learningVideo :curVideo="curVideo" />
                                     </div>
                                     <div class="Carousel-btn">
-                                        <span class="material-symbols-outlined" @click="changeVideoOrder('foreward')">
-                                            arrow_forward_ios
-                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('foreward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                                            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+                                        </svg>
                                     </div>
                                 </div>
                                 <div >
@@ -56,7 +54,7 @@ import { onMounted } from 'vue';
 import { insertVideoHistory, insertWordHistory } from '@/api/history';
 
 const videoHistory = ref({
-    learningViedeoList: [],
+    learningVideoList: [],
     completionVideoList: []
 })
 
@@ -79,13 +77,13 @@ const curVideo = ref({
 })
 
 function setCurVideo (idx) {
-    curVideo.value.order = videoHistory.value.learningViedeoList[idx].order;
-    curVideo.value.videoTitle = videoHistory.value.learningViedeoList[idx].videoTitle;
-    curVideo.value.videoUrl = videoHistory.value.learningViedeoList[idx].videoUrl;
-    curVideo.value.lastSentence = videoHistory.value.learningViedeoList[idx].lastSentence;
-    curVideo.value.videoLevel = videoHistory.value.learningViedeoList[idx].videoLevel;
-    curVideo.value.completedSentenceNum = videoHistory.value.learningViedeoList[idx].completedSentenceNum;
-    curVideo.value.totalSentenceNum = videoHistory.value.learningViedeoList[idx].totalSentenceNum;
+    curVideo.value.order = videoHistory.value.learningVideoList[idx].order;
+    curVideo.value.videoTitle = videoHistory.value.learningVideoList[idx].videoTitle;
+    curVideo.value.videoUrl = videoHistory.value.learningVideoList[idx].videoUrl;
+    curVideo.value.lastSentence = videoHistory.value.learningVideoList[idx].lastSentence;
+    curVideo.value.videoLevel = videoHistory.value.learningVideoList[idx].videoLevel;
+    curVideo.value.completedSentenceNum = videoHistory.value.learningVideoList[idx].completedSentenceNum;
+    curVideo.value.totalSentenceNum = videoHistory.value.learningVideoList[idx].totalSentenceNum;
 }
 
 function changeVideoOrder(direction) {
@@ -112,7 +110,7 @@ function changeVideoOrder(direction) {
 onMounted(async () => {
     videoHistory.value = await insertVideoHistory();
     wordHistory.value = insertWordHistory();
-    totalVideos = videoHistory.value.learningViedeoList.length;
+    totalVideos = videoHistory.value.learningVideoList.length;
     setCurVideo(0);
 })
 
@@ -125,21 +123,10 @@ onMounted(async () => {
     flex-flow: wrap;
 }
 
-/* section-box / section1 */
-.section1 {
-    padding: 20px;
-    flex-grow: 1;
-    flex-basis: 480px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* section-box / section2 */
-.section2 {
+.section {
     flex-grow: 1;
     flex-basis: 300px;
-    height: 600px;
+    height: 500px;
     padding: 20px;
 }
 .tabmenu{ 
@@ -183,7 +170,7 @@ onMounted(async () => {
     border : 1px solid #e6e6e6;
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25));
     border-radius: 0 10px 10px 10px;
-    height: 500px;
+    height: 400px;
     overflow-y: scroll;
 }
 .learning-video{
@@ -211,14 +198,11 @@ onMounted(async () => {
 .tabmenu input:checked ~ .tabCon{
     display:block;
 }
-.material-symbols-outlined{
-    color: #CC0000;
-    cursor: pointer;
-    padding: 10px;
-}
+
 .Carousel-btn{
     display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
+    padding: 10px;
 }
 </style>
