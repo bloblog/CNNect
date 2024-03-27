@@ -43,6 +43,7 @@
   import { ref, onMounted, nextTick } from 'vue';
   import { useRoute, useRouter } from "vue-router";
   import axios from 'axios';
+  import { sendTokenToGetRM, sendTokenToSaveRM } from './userApi.js';
 
   const route = useRoute();
   const router = useRouter();
@@ -55,16 +56,29 @@
   
   const videoList = ref([]);
 
-  const fetchRecommendations = async () => {
-  try {
-    const response = await axios.get('백 서버URL/recommendations');
-    videoList.value = response.data.recommended_news || []; 
-  } catch (error) {
-    console.error("서버 응답 오류:", error.response ? error.response.status : 'Unknown', error.response ? error.response.data : 'Unknown');
-    console.error("서버로부터 응답이 없습니다.", error.request);
-    console.error("요청 설정 오류:", error.message);
-    console.error("에러 설정 정보:", error.config);
-  }
+  async function fetchRecommendations() {
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+        const response = await sendTokenToGetRM(accessToken); // 백엔드의 get_recommendations 함수 호출
+        videoList.value = response.recommended_news || [];
+    } catch (error) {
+        console.error("서버 응답 오류:", error.response ? error.response.status : 'Unknown', error.response ? error.response.data : 'Unknown');
+        console.error("서버로부터 응답이 없습니다.", error.request);
+        console.error("요청 설정 오류:", error.message);
+        console.error("에러 설정 정보:", error.config);
+    }
+};
+
+const handleVideoClick = async () => {
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            throw new Error('로그인이 필요합니다.');
+        }
+        await sendTokenToSaveRM(accessToken); // 백엔드의 save_recommendations 함수 호출
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 const prevPage = () => {
@@ -92,6 +106,7 @@ const updateImagePosition = () => {
   });
 
   const goToStudy = () => {
+    handleVideoClick()
     router.push("/study");
   };
 
