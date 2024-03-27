@@ -12,11 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Document(indexName = "search")
-@Setting(replicas = 0)
+@Document(indexName = "cnnect.data")
+@Setting
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchDocument { // 출력되는 제목 검색 결과 document
+public class SearchDocument {
     @Id
     private String id;
 
@@ -32,8 +32,19 @@ public class SearchDocument { // 출력되는 제목 검색 결과 document
     @Field(name = "video_level", type = FieldType.Long, index = false)
     private Long videoLevel;
 
-    @Field(name = "senteceList", type = FieldType.Object)
+    @Field(name = "video_date", type = FieldType.Text)
+    private String videoDate;
+
+    @Field(name = "sentence_list", type = FieldType.Object)
     private List<SentenceDocument> sentenceList;
 
+    @Field(name = "full_script", type = FieldType.Text)
+    private String fullScript;
+
+    @Field(name = "category_id", type = FieldType.Long)
+    private Long categoryId;
+
+    @Field(name = "word_list", type = FieldType.Object)
+    private List<String> wordList;
 
 }

@@ -30,7 +30,7 @@ public class Badge {
     private Long badgeScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name ="category_id")
     private Category category;
 
 }

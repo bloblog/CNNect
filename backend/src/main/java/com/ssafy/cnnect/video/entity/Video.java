@@ -24,7 +24,7 @@ public class Video {
 
     private String full_script;
 
-    private List<Sentence> senteceList;
+    private List<Sentence> sentence_list;
 
     private String video_date;
 

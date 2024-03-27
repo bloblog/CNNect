@@ -12,6 +12,7 @@ import com.ssafy.cnnect.user.repository.UserBadgeRepository;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.video.entity.Category;
+import com.ssafy.cnnect.video.entity.Sentence;
 import com.ssafy.cnnect.video.entity.Video;
 import com.ssafy.cnnect.video.repository.CategoryRepository;
 import com.ssafy.cnnect.video.repository.VideoRepository;
@@ -58,6 +59,7 @@ public class BadgeService {
 
     @Transactional
     public List<BadgeListResponseDto> getAllBadge(){
+
         Iterable<Badge> badges = badgeRepository.findAll();
 
         List<BadgeListResponseDto> list = new ArrayList<>();
@@ -79,6 +81,7 @@ public class BadgeService {
     @Transactional
     public List<Badge> getNewBadge(Long categoryId, Long newSentence){
         List<Badge> newBadges = new ArrayList<>(); // 새로 획득한 뱃지 list
+
 
         // <1> - 1. 방금 학습한 영상의 카테고리 받기 -> 해당 카테고리의 유저가 기존에 학습한 영상 갯수 구하기
         User user = customUserDetailsService.getUserByAuthentication();

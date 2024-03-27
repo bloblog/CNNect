@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SearchElasticsearchRepository extends ElasticsearchRepository<SearchDocument, String> {
     List<SearchDocument> findByVideoName(String videoName);
+
+    List<SearchDocument> findBySentenceListTextContaining(String keyword);
 }
