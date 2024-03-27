@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask
 import recommendation.recommendedNewsByScript
 import test.leveltest
+import test.videotest
 import subprocess
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -20,7 +21,8 @@ scheduler.start()
 
 app = Flask(__name__)
 app.register_blueprint(recommendation.recommendedNewsByScript.recommendation_bp)
-app.register_blueprint(test.leveltest.level_bp)
+app.register_blueprint(test.leveltest.user_level_bp)
+app.register_blueprint(test.videotest.video_level_bp)
 
 @app.route('/')
 def hello_world():  # put application's code here
