@@ -167,7 +167,7 @@ def set_info(video):
     date = data['publishdate']
 
     for data in new_data:
-        print(f"{video['video_id']} 작업 시작")
+
 
         if data['video_id'] == video['video_id']:
             data['video_name'] = title
