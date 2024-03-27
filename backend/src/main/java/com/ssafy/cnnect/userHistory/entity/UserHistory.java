@@ -1,10 +1,11 @@
-package com.ssafy.cnnect.history.entity;
+package com.ssafy.cnnect.userHistory.entity;
 
 import com.ssafy.cnnect.user.entity.User;
+import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder(toBuilder = true)
@@ -12,8 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="user_history")
-public class History {
+public class UserHistory {
     @Id
+    @Column(name = "history_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyId;
 
@@ -23,8 +25,8 @@ public class History {
     @Column(name = "history_sentence")
     private String historySentence;
 
-    @Column(name = "history_date", nullable = false)
-    private LocalDate historyDate;
+    @Column(name = "history_time")
+    private Double historyTime;
 
     @Column(name = "video_id", nullable = false)
     private String videoId;
@@ -33,5 +35,11 @@ public class History {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "userHistory", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<UserSentence> userSentenceList;
 
+    public void addUserSentence(UserSentence userSentence) {
+        userSentence.setUserHistory(this);
+        userSentenceList.add(userSentence);
+    }
 }

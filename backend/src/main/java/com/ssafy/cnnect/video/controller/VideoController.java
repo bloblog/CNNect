@@ -41,4 +41,10 @@ public class VideoController {
     public ResponseEntity<ResultResponse> getCatVideo(@PathVariable Long categoryId){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, videoService.getCatVideo(categoryId)));
     }
+
+    @Operation(summary = "학습할 비디오 조회")
+    @GetMapping(value = "/study/{videoId}")
+    public ResponseEntity<ResultResponse> getStudyVideo(@PathVariable String videoId){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, videoService.getStudyVideo(videoId)));
+    }
 }

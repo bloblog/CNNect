@@ -1,7 +1,7 @@
-package com.ssafy.cnnect.history.controller;
+package com.ssafy.cnnect.userHistory.controller;
 
-import com.ssafy.cnnect.history.dto.HistoryRegisterRequestDto;
-import com.ssafy.cnnect.history.service.HistoryService;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/api/history")
 @RequiredArgsConstructor
 @RestController
-public class HistoryController {
-    private final HistoryService historyService;
+public class UserHistoryController {
+    private final UserHistoryService userHistoryService;
     @Operation(summary = "유저 회원가입 시 관심 영상 등록")
     @PostMapping(value = "")
-    public ResponseEntity<ResultResponse> insertHistory(@RequestBody List<HistoryRegisterRequestDto> historyList){
-        historyService.saveRegistHistory(historyList);
+    public ResponseEntity<ResultResponse> insertHistory(@RequestBody List<UserHistoryRegisterRequestDto> historyList){
+        userHistoryService.saveRegistHistory(historyList);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 

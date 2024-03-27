@@ -1,6 +1,6 @@
 package com.ssafy.cnnect.user.entity;
 
-import com.ssafy.cnnect.history.entity.History;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Table(name="user")
 public class User implements UserDetails {
     @Id
+    @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -38,8 +39,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<UserBadge> userBadgeList;
 
-    @OneToMany(mappedBy = "user")
-    private List<History> userHistoryList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<UserHistory> userHistoryList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
