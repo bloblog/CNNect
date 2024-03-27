@@ -1,6 +1,7 @@
 package com.ssafy.cnnect.userHistory.service;
 
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.user.entity.User;
@@ -10,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,5 +37,16 @@ public class UserHistoryService {
                     .build();
             userHistoryRepository.save(saveUserHistory);
         }
+    }
+
+    @Transactional
+    public void createUserHistory(UserHistoryRequestDto userHistoryRequestDto) {
+        UserHistory history = UserHistory.builder()
+                .videoId(userHistoryRequestDto.getVideoId())
+                .historyStatus(false)
+                .user(userHistoryRequestDto.getUser())
+                .userSentenceList(new ArrayList<>())
+                .build();
+        userHistoryRepository.save(history);
     }
 }

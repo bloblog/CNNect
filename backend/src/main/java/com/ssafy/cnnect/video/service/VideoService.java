@@ -1,9 +1,11 @@
 package com.ssafy.cnnect.video.service;
 
-import com.ssafy.cnnect.userHistory.entity.UserHistory;
-import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
+import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
+import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import com.ssafy.cnnect.video.dto.StudySentenceResponseDto;
 import com.ssafy.cnnect.video.dto.StudyVideoResponseDto;
 import com.ssafy.cnnect.video.entity.Sentence;
@@ -16,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +28,8 @@ public class VideoService {
 
     private final CustomUserDetailsService customUserDetailsService;
     private final VideoRepository videoRepository;
-//    private final CategoryRepository categoryRepository;
     private final UserHistoryRepository userHistoryRepository;
+    private final UserHistoryService userHistoryService;
 
     public Page<Video> findByCategory_idAndPage(int categoryId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -69,13 +70,11 @@ public class VideoService {
 //            History History = userHistory.get();
 
         } else {
-            UserHistory history = UserHistory.builder()
+            UserHistoryRequestDto userHistoryRequestDto = UserHistoryRequestDto.builder()
                     .videoId(videoId)
-                    .historyStatus(false)
                     .user(user)
-                    .userSentenceList(new ArrayList<>())
                     .build();
-            userHistoryRepository.save(history);
+            userHistoryService.createUserHistory(userHistoryRequestDto);
         }
 
         StudyVideoResponseDto studyVideoResponseDto = StudyVideoResponseDto.builder()
