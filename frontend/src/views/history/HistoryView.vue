@@ -17,7 +17,7 @@
                                         </svg>
                                     </div>   
                                     <div >
-                                        <learningVideo :curVideo="curVideo" />
+                                        <LearningVideo :curVideo="curVideo" />
                                     </div>
                                     <div class="Carousel-btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('foreward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <div >
-                                   <completionVideo :completionVideoList = "videoHistory.completionVideoList" />
+                                   <CompletedVideo :completedVideoList = "videoHistory.completedVideoList" />
                                 </div>
                             </div>
                         </li>
@@ -46,16 +46,17 @@
 
 <script setup>
 import Voca from '@/components/history/Voca.vue';
-import completionVideo from '@/components/history/completionVideo.vue';
-import learningVideo from '@/components/history/learningVideo.vue';
+import CompletedVideo from '@/components/history/CompletedVideo.vue';
+import LearningVideo from '@/components/history/LearningVideo.vue';
 
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { insertVideoHistory, insertWordHistory } from '@/api/history';
 
+
 const videoHistory = ref({
     learningVideoList: [],
-    completionVideoList: []
+    completedVideoList: []
 })
 
 const wordHistory = ref({
