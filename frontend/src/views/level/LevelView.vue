@@ -22,26 +22,24 @@
     </div>
     <!--stepper end-->
     <div class="ml-[20vw] w-3/4 h-full">
-      <RegisterLevel
+      <component
+        :is="registerSwitch"
         :level="level"
         @nextStep="nextStep"
         @updateLevel="handleUpdateLevel"
         @finishRegister="handleFinishRegister"
-      ></RegisterLevel>
+      ></component>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, shallowRef } from "vue";
-import RegisterInfo from "@/components/user/RegisterInfoComponent.vue";
 import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
-import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
 import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
-const isDropdownOpen = ref(false);
 const level = ref(1);
-const registerSwitch = shallowRef(RegisterInfo);
+const registerSwitch = shallowRef(RegisterLevel);
 
 const handleFinishRegister = () => {
   registerSwitch.value = RegisterResult;
