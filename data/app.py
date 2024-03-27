@@ -6,11 +6,6 @@ import test.leveltest
 import subprocess
 from apscheduler.schedulers.background import BackgroundScheduler
 
-app = Flask(__name__)
-app.register_blueprint(recommendation.recommendedNewsByScript.recommendation_bp)
-app.register_blueprint(test.leveltest.level_bp)
-
-
 def job_function():
     print("크롤링 실행")
     subprocess.run(["python", "./data/py/crawling.py"])
@@ -20,18 +15,16 @@ def job_function():
 scheduler = BackgroundScheduler(daemon=True)
 
 # 1일마다 실행
-# scheduler.add_job(job_function, 'interval', days=1)
+scheduler.add_job(job_function, 'interval', days=1)
+scheduler.start()
 
-# # (테스트용)10분마다 실행
-# scheduler.add_job(job_function, 'interval', minutes=10, next_run_time=datetime.now())
-
-# scheduler.start()
-
+app = Flask(__name__)
+app.register_blueprint(recommendation.recommendedNewsByScript.recommendation_bp)
+app.register_blueprint(test.leveltest.level_bp)
 
 @app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'
-
 
 if __name__ == '__main__':
     app.run()
