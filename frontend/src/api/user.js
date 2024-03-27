@@ -28,11 +28,42 @@ function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
 
+async function sendTokenToGetRM(token) {
+    try {
+      const response = await local.get('/user/recommendations', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error('추천 뉴스를 가져오는 중 오류가 발생했습니다.');
+    }
+}
+
+async function sendTokenToSaveRM(token) {
+    try {
+      const response = await local.get('/recommendations', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error('추천 뉴스를  중 오류가 발생했습니다.');
+    }
+}
 
 export {
     registUser,
     loginUser,
     emailCheck,
     emailSend,
-    userInfo
+    userInfo,
+    sendTokenToGetRM,
+    sendTokenToSaveRM
 }
