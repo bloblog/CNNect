@@ -42,10 +42,8 @@ import { userLevelTestList, getUserLevelTestList } from "@/api/test";
 watch(
   () => props.stage,
   async (newValue) => {
-    console.log(newValue);
-    // 필요한 경우 여기에서 데이터를 다시 로드하거나 관련 로직을 실행할 수 있습니다.
-    // await getUserLevelTestList(newStage);
-    // data.value = userLevelTestList.value;
+    await getUserLevelTestList(newValue);
+    data.value = userLevelTestList.value;
   }
 );
 
