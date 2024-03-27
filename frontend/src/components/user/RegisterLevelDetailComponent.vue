@@ -1,4 +1,5 @@
 <template>
+  <div>{{ stage }}</div>
   <div
     v-for="item in data"
     :key="item.word_id"
@@ -30,15 +31,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 const props = defineProps({
   stage: String,
 });
 const emit = defineEmits(["wrongCountUpdated"]);
+const level = ["A1", "A2", "B1", "B2", "C1", "C2"];
+import { userLevelTestList, getUserLevelTestList } from "@/api/test";
 
-onMounted(() => {
-  console.log("hi");
-});
+watch(
+  () => props.stage,
+  async (newValue) => {
+    console.log(newValue);
+    // 필요한 경우 여기에서 데이터를 다시 로드하거나 관련 로직을 실행할 수 있습니다.
+    // await getUserLevelTestList(newStage);
+    // data.value = userLevelTestList.value;
+  }
+);
 
 const data = ref([
   {
