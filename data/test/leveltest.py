@@ -36,7 +36,7 @@ def generate_translation_lists(df, level):
 
 @level_bp.route('/user/<level>')  # 3
 def showUserId(level):  # 4
-    df = pd.read_csv('C:/Users/SSAFY/PycharmProjects/flaskProject2/data/csv/result.csv')
+    df = pd.read_csv('./data/csv/result.csv')
     translation_lists = generate_translation_lists(df, level)
 
     # 결과를 저장할 리스트 초기화
