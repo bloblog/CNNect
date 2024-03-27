@@ -10,12 +10,12 @@
         <img src="@/assets/logo.png" class="h-6 m-5">
       </RouterLink>
       <RouterLink v-if="isLogin" to="/history"
-        ><span class="flex items-start mx-2 my-7 text-white">학습기록</span>
+        ><span class="flex items-start mx-2 text-white">학습기록</span>
       </RouterLink>
-      <RouterLink v-if="isLogin" to="/video"><span class="flex items-start mx-2 my-7 text-white">둘러보기</span></RouterLink>
+      <RouterLink v-if="isLogin" to="/video"><span class="flex items-start mx-2 text-white">둘러보기</span></RouterLink>
 
       <RouterLink v-if="isLogin" to="/level"
-        ><span class="flex items-start mx-2 my-7 text-white"
+        ><span class="flex items-start mx-2 text-white"
           >레벨테스트
         </span></RouterLink
       >
@@ -23,7 +23,7 @@
     
     <div class="flex items-center">
       <!-- Search button -->
-      <div class="search-area c-height">
+      <div class="search-area relative">
         <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 25 25" stroke-width="3" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -36,7 +36,7 @@
 
       <!-- Dropdown button -->
       <button v-if="isLogin" id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider"
-        class="text-white font-semibold text-center inline-flex items-center p-5 relative" type="button">
+        class="text-white font-semibold text-center inline-flex items-center pl-3 relative" type="button">
         <img alt="profile" :src="imgUrl" class="rounded-full w-10 h-10 border-2 border-gray-400 shadow-md mx-3" />
         {{ nickName }}님 어서오세요!
         
@@ -142,8 +142,14 @@ const toggleSearch = () => {
     const iconArea = document.querySelector(".icon-area");
     iconArea.style.background = "white";
     iconArea.style.color = "#262626";
-    iconArea.style.borderTopLeftRadius = "30px";
-    iconArea.style.borderBottomLeftRadius = "30px";
+    iconArea.style.borderTopLeftRadius = "0px";
+    iconArea.style.borderBottomLeftRadius = "0px";
+
+    // 서치 영역이 닫힐 때 서치 아이콘의 radius를 변경하는 부분을 setTimeout으로 감싸서 일정 시간이 지난 후에 원래 radius로 복원
+    setTimeout(() => {
+      iconArea.style.borderTopLeftRadius = "30px";
+      iconArea.style.borderBottomLeftRadius = "30px";
+    }, 400);
   } else {
     const input = customInput.value;
     const currentOffsetLeft = input.offsetLeft;
@@ -164,12 +170,15 @@ const toggleSearch = () => {
     iconArea.style.borderBottomLeftRadius = "0";
   }
   isSearchOpen.value = !isSearchOpen.value;
+
+  
 };
 </script>
 
 <style scoped>
 .header-frame {
-  @apply h-[10%] bg-black shadow-md;
+  @apply h-[] bg-black shadow-md;
+  min-height: fit-content;
 }
 
 .single-search {
@@ -183,7 +192,7 @@ const toggleSearch = () => {
 
 .search-area {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .c-height {
@@ -191,7 +200,6 @@ const toggleSearch = () => {
 }
 
 .custom-input {
-  left: 10px;
   border-radius: 30px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
