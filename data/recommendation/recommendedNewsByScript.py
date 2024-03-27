@@ -8,7 +8,7 @@ from module.config_reader import read_config, get_database_config, get_mongodb_c
 from flask_cors import CORS
 
 app = Flask(__name__)
-recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/recommendation')
+recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 CORS(app)
 
 # config.ini 파일에서 설정 읽어오기

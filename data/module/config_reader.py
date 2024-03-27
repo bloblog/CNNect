@@ -4,7 +4,6 @@ import configparser
 def read_config(filename="config.ini"):
     config = configparser.ConfigParser()
     config.read(filename)
-    print(config.sections())
     return config
 
 

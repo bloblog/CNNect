@@ -3,7 +3,7 @@ import random
 
 from flask import Flask, Blueprint, jsonify
 
-level_bp = Blueprint('level', __name__, url_prefix='/level')
+level_bp = Blueprint('level', __name__, url_prefix='/data/level')
 app = Flask(__name__)
 
 if __name__ == '__main__':
