@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from module.config_reader import read_config, get_database_config, get_mongodb_config
+from conf.config_reader import read_config, get_database_config, get_mongodb_config
 from flask_cors import CORS
 
 app = Flask(__name__)

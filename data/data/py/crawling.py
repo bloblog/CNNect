@@ -1,17 +1,3 @@
-"""
-pip install pymongo
-pip install flask
-pip install selenium
-pip install pytube
-pip install webdriver-manager
-pip install beautifulsoup4
-pip install lxml
-pip install youtube-transcript-api
-pip install py_youtube
-pip install nltk
-pip install apscheduler
-"""
-
 from pymongo import MongoClient
 import configparser
 from selenium import webdriver
@@ -26,7 +12,7 @@ import re
 from datetime import datetime
 from nltk.tokenize import sent_tokenize
 from youtube_transcript_api import YouTubeTranscriptApi
-from module.config_reader import read_config, get_database_config, get_mongodb_config
+from conf.config_reader import read_config, get_database_config, get_mongodb_config
 
 import concurrent.futures
 from py_youtube import Data
@@ -78,7 +64,6 @@ def get_url():
 
     # url 뽑아서 리스트에 저장
     element = soup.findAll('div', class_='style-scope ytd-rich-item-renderer')
-    print('len : ', len(element))
 
     for video in element:
         info = video.find('a', {'id': 'video-title-link'})
@@ -87,16 +72,15 @@ def get_url():
             if not is_video_exist(video_id):
                 new_data.append({'video_id': video_id})
             else:
-                # 이미 존재하는 videoid가 발견되면 break
                 print("이미 있는 비디오입니다.")
                 break
-    return new_data
+    print("새로운 데이터 : ", new_data)
+
+    # return new_data
 
 
 def is_video_exist(video_id):
     result = db['data'].find_one({'video_id': video_id})
-    # result2 = db['test'].find_one({'video_id': video_id})
-    # isExist = result1 is not None or result2 is not None
     return result is not None
 
 
@@ -131,7 +115,8 @@ def split(full_script):
 
 
 def time_match(script, sentences):
-    sentence_times = []  # 문장과 해당 문장의 시작 시간을 저장
+    # 문장과 해당 문장의 시작 시간을 저장
+    sentence_times = []  
 
     for sentence in sentences:
         for obj in script:
@@ -163,7 +148,6 @@ def set_script(video):
         word_list = find_word_list(full_script, level)
 
         for data in new_data:
-            print(f"{video['video_id']} 작업 시작")
 
             if data['video_id'] == video['video_id']:
                 data['sentenceList'] = time_match(script, script_sentence)
@@ -199,38 +183,29 @@ driver = init()
 
 nltk.download('punkt')
 
-# 새로 수집한 데이터
+# 데이터 새로 수집
 new_data = []
-# 비디오 리스트 가져오기
 get_url()
 
-
-# 멀티프로세싱을 위한 실행 함수 정의
-def process_video_script(video):
+for video in new_data:
     set_script(video)
-
-
-def process_video_info(video):
     set_info(video)
+    print(f"{video['video_id']} 완료")
+
+# # 멀티프로세싱을 위한 실행 함수 정의
+# def process_video_script(video):
+#     set_script(video)
 
 
-def process_video_category(video):
-    # set_info(video)
-    # 카테고리 처리
-    return
+# def process_video_info(video):
+#     set_info(video)
 
 
-def process_video_level(video):
-    # set_info(video)
-    # 레벨 처리
-    return
-
-
-# 멀티프로세싱 실행
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    # video_list = [data['video_id'] for data in new_data]
-    executor.map(process_video_script, new_data)
-    executor.map(process_video_info, new_data)
+# # 멀티프로세싱 실행
+# with concurrent.futures.ThreadPoolExecutor() as executor:
+#     # video_list = [data['video_id'] for data in new_data]
+#     executor.map(process_video_script, new_data)
+#     executor.map(process_video_info, new_data)
 
 if new_data:
     db['data'].insert_many(new_data)

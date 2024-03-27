@@ -1,12 +1,5 @@
 # 초기 데이터 세팅
 
-"""
-!pip install pymongo
-!pip install youtube-transcript-api
-!pip install py_youtube
-!pip install nltk
-"""
-
 import concurrent.futures
 from crawling import *
 
