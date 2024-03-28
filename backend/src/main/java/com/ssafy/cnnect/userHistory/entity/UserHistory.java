@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="user_history")
 public class UserHistory {
     @Id
-    @Column(name = "history_id", nullable = false)
+    @Column(name = "history_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyId;
 
