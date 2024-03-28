@@ -38,7 +38,7 @@
 import { defineProps, ref, computed } from 'vue';
 
 const props = defineProps({
-  completionVideoList: Object
+  completedVideoList: Object
 });
 
 // const currentPage = ref(1);
@@ -47,10 +47,10 @@ const props = defineProps({
 // const paginatedVideos = computed(() => {
 //   const startIndex = (currentPage.value - 1) * videosPerPage;
 //   const endIndex = startIndex + videosPerPage;
-//   return props.completionVideoList.slice(startIndex, endIndex);
+//   return props.completedVideoList.slice(startIndex, endIndex);
 // });
 
-// const totalPages = computed(() => Math.ceil(props.completionVideoList.length / videosPerPage));
+// const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videosPerPage));
 
 // function nextPage() {
 //   if (currentPage.value < totalPages.value) {
@@ -67,11 +67,11 @@ const props = defineProps({
   const currentPage = ref(0);
     const videodPerPage = 9;
 
-    const totalPages = computed(() => Math.ceil(props.completionVideoList.length / videodPerPage));
+    const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videodPerPage));
 
     const paginatedVideos = computed(() => {
         const startIndex = currentPage.value * videodPerPage;
-        return props.completionVideoList.slice(startIndex, startIndex + videodPerPage);
+        return props.completedVideoList.slice(startIndex, startIndex + videodPerPage);
     });
 
 
