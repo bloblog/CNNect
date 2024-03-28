@@ -5,7 +5,6 @@ from conf.config_reader import read_config, get_database_config, get_mongodb_con
 
 app = Flask(__name__)
 # recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/recommendation')
-CORS(app)
 
 # config.ini 파일에서 설정 읽어오기
 config = read_config()
