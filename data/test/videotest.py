@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint
 from pymongo import MongoClient
-from conf.config_reader import read_config, get_database_config, get_mongodb_config
+from data.data.py.config_reader import read_config, get_database_config, get_mongodb_config
 from flask_cors import CORS
 
 
