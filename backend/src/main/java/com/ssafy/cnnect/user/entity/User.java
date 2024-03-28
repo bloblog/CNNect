@@ -43,6 +43,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<History> userHistoryList;
 
+    public void updateUserLevel(int userLevel){
+        this.userLevel = userLevel;
+    }
+
     @OneToMany(mappedBy = "user")
     private List<Voca> userVocaList;
 
@@ -85,4 +89,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
