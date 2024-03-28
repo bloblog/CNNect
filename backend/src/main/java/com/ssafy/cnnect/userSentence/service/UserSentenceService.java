@@ -4,7 +4,7 @@ import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
-import com.ssafy.cnnect.userSentence.controller.UserSentenceRequestDto;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceRequestDto;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.transaction.Transactional;

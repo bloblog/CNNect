@@ -2,6 +2,7 @@ package com.ssafy.cnnect.userSentence.controller;
 
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceRequestDto;
 import com.ssafy.cnnect.userSentence.service.UserSentenceService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
