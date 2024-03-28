@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
@@ -123,9 +124,16 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserLevel(LevelRequestDto levelRequestDto){
-        User user = userRepository.findById(levelRequestDto.getUserId()).get();
-        user.updateUserLevel(levelRequestDto.getLevel());
+    public void updateUserLevel(LevelRequestDto levelRequestDto) {
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(userRepository.findByUserEmail(authentication.getName()));
+        if(userRepository.findByUserEmail(authentication.getName()).isEmpty()){
+            User user = userRepository.findById(levelRequestDto.getUserId()).get();
+            user.updateUserLevel(levelRequestDto.getLevel());
+        }else{
+            User user = customUserDetailsService.getUserByAuthentication();
+            user.updateUserLevel(levelRequestDto.getLevel());
+        }
     }
     private String createCode() {
         int lenth = 6;
