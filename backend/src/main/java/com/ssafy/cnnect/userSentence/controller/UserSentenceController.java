@@ -4,6 +4,7 @@ import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceCreateRequestDto;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceGetRequestDto;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceUpdateRequestDto;
 import com.ssafy.cnnect.userSentence.service.UserSentenceService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,11 @@ public class UserSentenceController {
     @GetMapping(value = "")
     public ResponseEntity<ResultResponse> getUserSentence(UserSentenceGetRequestDto userSentenceGetRequestDto){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userSentenceService.getUserSentence(userSentenceGetRequestDto)));
+    }
+
+    @Operation(summary = "학습 문장의 발음 점수 수정")
+    @PatchMapping(value = "")
+    public ResponseEntity<ResultResponse> updateUserSentence(@RequestBody UserSentenceUpdateRequestDto userSentenceUpdateRequestDto){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userSentenceService.updateUserSentence(userSentenceUpdateRequestDto)));
     }
 }

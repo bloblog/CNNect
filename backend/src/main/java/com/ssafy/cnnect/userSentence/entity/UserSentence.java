@@ -29,4 +29,9 @@ public class UserSentence {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "history_id", nullable = false)
     private UserHistory userHistory;
+
+    public void updateUserSentenceScore(Double sentenceScore) {
+        this.sentenceScore = sentenceScore;
+    }
+
 }

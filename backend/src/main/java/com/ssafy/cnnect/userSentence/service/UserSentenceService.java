@@ -7,6 +7,7 @@ import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceCreateRequestDto;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceGetRequestDto;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceUpdateRequestDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import com.ssafy.cnnect.userSentence.repository.UserSentenceRepository;
 import jakarta.transaction.Transactional;
@@ -70,4 +71,26 @@ public class UserSentenceService {
 
         return userSentenceResponseDto;
     }
+
+    @Transactional
+    public UserSentenceResponseDto updateUserSentence(UserSentenceUpdateRequestDto userSentenceUpdateRequestDto) {
+        UserHistory userHistory = userHistoryRepository.findById(userSentenceUpdateRequestDto.getHistoryId())
+                .orElseThrow(() -> new ExecutionException("User history not found"));
+
+        UserSentence userSentence = userSentenceRepository.findByUserHistoryAndSentenceOrder(userHistory, userSentenceUpdateRequestDto.getSentenceOrder())
+                .orElseThrow(() -> new ExecutionException("User sentence not found"));
+
+        userSentence.updateUserSentenceScore(userSentenceUpdateRequestDto.getSentenceScore());
+
+        UserSentenceResponseDto userSentenceResponseDto = UserSentenceResponseDto.builder()
+                .sentenceOrder(userSentence.getSentenceOrder())
+                .sentenceContent(userSentence.getSentenceContent())
+                .sentenceScore(userSentence.getSentenceScore())
+                .userHistoryId(userSentence.getUserHistory().getHistoryId())
+                .build();
+
+        return userSentenceResponseDto;
+    }
+
+
 }
