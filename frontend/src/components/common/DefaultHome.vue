@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col items-center p-5">
-      <div id="now-video" class="mb-10">
+      <div id="now-video" class="mb-5">
         <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">학습 진행중인 뉴스</h1>
         <div class="flex justify-center">
           <div 
@@ -38,10 +38,6 @@
           <RecommVideoList/>
         </div>
       </div>
-      <!-- 공백용 -->
-      <div class="h-10"></div>
-  
-      
     </div>
     
   </template>
