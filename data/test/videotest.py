@@ -1,13 +1,10 @@
 from flask import Flask, Blueprint
 from pymongo import MongoClient
 from conf.config_reader import read_config, get_database_config, get_mongodb_config
-from flask_cors import CORS
-import random
 
 video_level_bp = Blueprint('videoLevel', __name__, url_prefix='/data/level/video')
 
 app = Flask(__name__)
-CORS(app)
 
 # config.ini 파일에서 설정 읽어오기
 config = read_config()

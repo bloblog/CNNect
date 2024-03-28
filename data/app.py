@@ -6,6 +6,7 @@ import test.leveltest
 import test.videotest
 import subprocess
 from apscheduler.schedulers.background import BackgroundScheduler
+from flask_cors import CORS
 
 def job_function():
     print("크롤링 실행")
@@ -23,6 +24,7 @@ app = Flask(__name__)
 app.register_blueprint(recommendation.recommendedNewsByScript.recommendation_bp)
 app.register_blueprint(test.leveltest.user_level_bp)
 app.register_blueprint(test.videotest.video_level_bp)
+CORS(app)
 
 @app.route('/')
 def hello_world():  # put application's code here
