@@ -1,82 +1,124 @@
 <template>
-    <div>
-      <div class="flex justify-between items-center">
-        <button @click="prevPage" id="prevButton" class="text-gray-500 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M15 6l-6 6l6 6" />
-          </svg>
-        </button>
-        <div class="flex">
-          <div class="grid-cols-3 flex space-x-2 " ref="imageContainer">
-            <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
-              <div class="flex flex-col" @click="goToStudy">
-                <img :src="video.video_thumbnail" alt="video-image" class="object-fit rounded-md video-img-item img-container">
-                <span class="badge absolute top-3 left-3">
-                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1">
-                    Lv. 3
-                  </div>
-                </span>
-                <div class="text-md font-bold mt-2" id="video-name">
-                  {{video.video_name}}
+  <div>
+    <div class="flex justify-between items-center">
+      <button
+        @click="prevPage"
+        id="prevButton"
+        class="text-gray-500 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-chevron-left"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#CC0000"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M15 6l-6 6l6 6" />
+        </svg>
+      </button>
+      <div class="flex">
+        <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
+          <div
+            v-for="(video, index) in videoList.slice(startIndex, endIndex)"
+            :key="index"
+            class="relative"
+          >
+            <div class="flex flex-col" @click="goToStudy">
+              <img
+                :src="video.video_thumbnail"
+                alt="video-image"
+                class="object-fit rounded-md video-img-item img-container"
+              />
+              <span class="badge absolute top-3 left-3">
+                <div
+                  id="badge"
+                  class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1"
+                >
+                  Lv. 3
                 </div>
+              </span>
+              <div class="text-md font-bold mt-2" id="video-name">
+                {{ video.video_name }}
               </div>
-
             </div>
           </div>
-
         </div>
-
-        <button @click="nextPage" id="nextButton" class="text-gray-500 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M9 6l6 6l-6 6" />
-          </svg>
-        </button>
       </div>
+
+      <button
+        @click="nextPage"
+        id="nextButton"
+        class="text-gray-500 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-chevron-right"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#CC0000"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 6l6 6l-6 6" />
+        </svg>
+      </button>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted, nextTick } from 'vue';
-  import { useRoute, useRouter } from "vue-router";
-  import axios from 'axios';
-  import { sendTokenToGetRM, sendTokenToSaveRM } from './userApi.js';
+  </div>
+</template>
 
-  const route = useRoute();
-  const router = useRouter();
+<script setup>
+import { ref, onMounted, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { sendTokenToGetRM, sendTokenToSaveRM } from "@/user.js";
 
-  const startIndex = ref(0);
-  const endIndex = ref(3);
+const route = useRoute();
+const router = useRouter();
 
-  const currentIndex = ref(0);
-  const imageContainer = ref(null); // ref를 사용하여 DOM 요소에 접근할 변수 선언
-  
-  const videoList = ref([]);
+const startIndex = ref(0);
+const endIndex = ref(3);
 
-  async function fetchRecommendations() {
-    try {
-        const accessToken = localStorage.getItem('accessToken');
-        const response = await sendTokenToGetRM(accessToken); // 백엔드의 get_recommendations 함수 호출
-        videoList.value = response.recommended_news || [];
-    } catch (error) {
-        console.error("서버 응답 오류:", error.response ? error.response.status : 'Unknown', error.response ? error.response.data : 'Unknown');
-        console.error("서버로부터 응답이 없습니다.", error.request);
-        console.error("요청 설정 오류:", error.message);
-        console.error("에러 설정 정보:", error.config);
-    }
-};
+const currentIndex = ref(0);
+const imageContainer = ref(null); // ref를 사용하여 DOM 요소에 접근할 변수 선언
+
+const videoList = ref([]);
+
+async function fetchRecommendations() {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await sendTokenToGetRM(accessToken); // 백엔드의 get_recommendations 함수 호출
+    videoList.value = response.recommended_news || [];
+  } catch (error) {
+    console.error(
+      "서버 응답 오류:",
+      error.response ? error.response.status : "Unknown",
+      error.response ? error.response.data : "Unknown"
+    );
+    console.error("서버로부터 응답이 없습니다.", error.request);
+    console.error("요청 설정 오류:", error.message);
+    console.error("에러 설정 정보:", error.config);
+  }
+}
 
 const handleVideoClick = async () => {
-    try {
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
-            throw new Error('로그인이 필요합니다.');
-        }
-        await sendTokenToSaveRM(accessToken); // 백엔드의 save_recommendations 함수 호출
-    } catch (error) {
-        console.error(error);
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      throw new Error("로그인이 필요합니다.");
     }
+    await sendTokenToSaveRM(accessToken); // 백엔드의 save_recommendations 함수 호출
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const prevPage = () => {
@@ -97,38 +139,32 @@ const updateImagePosition = () => {
     console.log("startIndex:", startIndex.value, "endIndex:", endIndex.value);
   });
 };
-  
-  onMounted(() => {
-    fetchRecommendations();
-    updateImagePosition();
-  });
 
-  const goToStudy = () => {
-    handleVideoClick()
-    router.push("/study");
-  };
+onMounted(() => {
+  fetchRecommendations();
+  updateImagePosition();
+});
 
-  </script>
-  <style scoped>
-  #video-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.4em;
-    height: 2.8em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    width: 20vw;
-  }
+const goToStudy = () => {
+  handleVideoClick();
+  router.push("/study");
+};
+</script>
+<style scoped>
+#video-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  height: 2.8em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 20vw;
+}
 
-  .img-container {
-    overflow: hidden;
-    height: 25vh;
-    object-fit: cover;
-  }
-  
-
-
-
-  </style>
-  
+.img-container {
+  overflow: hidden;
+  height: 25vh;
+  object-fit: cover;
+}
+</style>
