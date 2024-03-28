@@ -23,14 +23,14 @@ public class VocaController {
 
     @Operation(summary = "단어장 커스텀 단어 추가")
     @PostMapping(value = "")
-    public ResponseEntity<ResultResponse> insertWord(@RequestParam VocaRequestDto wordId){
-        wordHistoryService.saveWord(wordId);
+    public ResponseEntity<ResultResponse> insertWord(@RequestParam VocaRequestDto word){
+        wordHistoryService.saveWord(word);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
     @Operation(summary = "단어장에서 단어 삭제하기")
-    @DeleteMapping(value = "")
-    public ResponseEntity<ResultResponse> deleteWord(@RequestParam Long wordId){
+    @DeleteMapping(value = "/{wordId}")
+    public ResponseEntity<ResultResponse> deleteWord(@PathVariable Long wordId){
         wordHistoryService.deleteWord(wordId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }

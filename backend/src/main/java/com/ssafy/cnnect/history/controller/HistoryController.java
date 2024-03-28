@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 public class HistoryController {
     private final HistoryService historyService;
-    private final VocaService wordHistoryService;
     @Operation(summary = "유저 회원가입 시 관심 영상 등록")
     @PostMapping(value = "")
     public ResponseEntity<ResultResponse> insertHistory(@RequestBody List<HistoryRegisterRequestDto> historyList){
@@ -28,7 +27,6 @@ public class HistoryController {
     @Operation(summary = "학습중인 영상 조회")
     @GetMapping(value = "/proceeding")
     public ResponseEntity<ResultResponse> getLearningVideo(){
-
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
