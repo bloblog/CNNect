@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 import pymysql.cursors
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -8,6 +8,8 @@ from conf.config_reader import read_config, get_database_config, get_mongodb_con
 import jwt
 from http import HTTPStatus
 from flask_cors import CORS
+
+recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 
 app = Flask(__name__)
 CORS(app)
@@ -218,7 +220,7 @@ def save_recommendations():
     return jsonify({"message": "추천된 뉴스를 MySQL에 저장했습니다."}), HTTPStatus.OK
 
 
-@app.route('/user/recommendations', methods=['GET'])
+@recommendation_bp.route('/script', methods=['GET'])
 def get_recommendations():
     user_id = extract_user_id_from_token()
     
