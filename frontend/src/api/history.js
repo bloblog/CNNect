@@ -4,7 +4,7 @@ const local = localAxios();
 const url = "/history";
 
 const videoHistory ={
-    learningViedeoList: [
+    learningVideoList: [
         {order: 1, videoTitle: "start", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 2, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 3, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
@@ -16,7 +16,7 @@ const videoHistory ={
         {order: 9, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 10, videoTitle: "end", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32}
     ],
-    completionVideoList: [
+    completedVideoList: [
         {order: 11, videoTitle: "He said Russia's wardningnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnHe said Russia's wardningnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 12, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
         {order: 13, videoTitle: "Here Russia's warning after Macron said Western", videoUrl: "zsBZ_WEIuJ4",  lastSentence: "He said Russia's wardning", videoLevel: 3, completedSentenceNum: 10, totalSentenceNum: 32},
