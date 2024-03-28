@@ -26,5 +26,4 @@ tqdm==4.66.2
 webdriver-manager==4.0.1
 youtube-transcript-api==0.6.2
 
-keras~=3.1.1
 tensorflow~=2.16.1
