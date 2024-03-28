@@ -86,11 +86,10 @@ public class UserHistoryService {
 
         List<UserSentenceResponseDto> userSentenceResponseDtoList = userSentenceList.stream()
                 .map(userSentence -> UserSentenceResponseDto.builder()
-                        .userSentenceId(userSentence.getUserSentenceId())
                         .sentenceOrder(userSentence.getSentenceOrder())
                         .sentenceContent(userSentence.getSentenceContent())
                         .sentenceScore(userSentence.getSentenceScore())
-                        .userHistory(userSentence.getUserHistory())
+                        .userHistoryId(userSentence.getUserHistory().getHistoryId())
                         .build())
                 .toList();
 

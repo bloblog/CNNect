@@ -1,6 +1,5 @@
-package com.ssafy.cnnect.userSentence.dto;
+package com.ssafy.cnnect.userSentence.controller;
 
-import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,9 +7,9 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class UserSentenceResponseDto {
+public class UserSentenceRequestDto {
     private int sentenceOrder;
     private String sentenceContent;
     private Double sentenceScore;
-    private Long userHistoryId;
+    private String videoId;
 }
