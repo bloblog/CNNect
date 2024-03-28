@@ -24,7 +24,7 @@
       </button>
       <div class="flex">
         <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
-          <div v-if="videoList.length != 0"
+          <div v-if="videoList && videoList.length != 0"
             v-for="(video, index) in videoList.slice(startIndex, endIndex)"
             :key="index"
             class="relative"
@@ -40,7 +40,7 @@
                   id="badge"
                   class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1"
                 >
-                  Lv. 3
+                  Lv. {{ video.video_level }}
                 </div>
               </span>
               <div class="text-md font-bold mt-2" id="video-name">
@@ -51,13 +51,13 @@
           <div v-else class="grid-cols-3 flex space-x-2">
             
               <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-52 h-52 bg-gray-200"></div>
+                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
               </div>
               <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-52 h-52 bg-gray-200"></div>
+                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
               </div>
               <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-52 h-52 bg-gray-200"></div>
+                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
               </div>
           </div>
         </div>
