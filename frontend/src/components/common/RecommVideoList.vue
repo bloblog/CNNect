@@ -79,7 +79,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { sendTokenToGetRM, sendTokenToSaveRM } from "@/user.js";
+import { sendTokenToGetRM, sendTokenToSaveRM } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
