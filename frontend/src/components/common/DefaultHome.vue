@@ -50,9 +50,10 @@
   import { ref, onMounted } from "vue";
   import { initFlowbite, Modal } from "flowbite";
   import { useRoute, useRouter } from "vue-router";
-  import { loginUser } from "@/api/user";
   import { userStore } from "@/stores/userStore";
   import { storeToRefs } from "pinia";
+
+
   
   import RecommVideoList from '@/components/common/RecommVideoList.vue'
   
@@ -131,33 +132,12 @@
   };
   
   const modal = new Modal($targetEl, options, instanceOptions);
-  
-  const login = () => {
-    loginUser(
-      loginData.value,
-      ({ data }) => {
-        console.log(data);
-        console.log(data.data.level);
-        localStorage.setItem("refreshToken", data.data.jwtToken.refreshToken);
-        localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
-        setLogin();
-        setLevel(data.data.level);
-        setNickname(data.data.nickName);
-  
-        location.href = "/";
-      },
-      (error) => {
-        alert("아이디 및 비밀번호를 확인해주세요!")
-        loginData.value.userPassword = "";
-        console.log(error);
-      }
-    );
-  };
-  
-  
+
   const goToStudy = () => {
     router.push("/study");
   };
+
+
   
   </script>
   
