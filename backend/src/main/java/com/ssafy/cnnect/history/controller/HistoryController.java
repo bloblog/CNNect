@@ -3,12 +3,15 @@ package com.ssafy.cnnect.history.controller;
 import com.ssafy.cnnect.history.dto.HistoryRegisterRequestDto;
 import com.ssafy.cnnect.history.dto.HistoryResponseDto;
 import com.ssafy.cnnect.history.service.HistoryService;
+import com.ssafy.cnnect.user.entity.User;
+import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.voca.service.VocaService;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,20 +32,13 @@ public class HistoryController {
     @Operation(summary = "학습중인 영상 조회")
     @GetMapping(value = "/proceeding")
     public ResponseEntity<ResultResponse> getLearningVideo(){
-        List<HistoryResponseDto> vocaList = new ArrayList<>();
-        HistoryResponseDto a = HistoryResponseDto.builder()
-                .videoName("가가가")
-                .videoId("zsBZ_WEIuJ4")
-                .historyId(1l)
-                .videoLevel(3)
-                .lastSentence("lalala")
-                .completedSentenceNum(3)
-                .totalSentenceNum(10)
-                .build();
-        vocaList.add(a);
-        vocaList.add(a);
-        vocaList.add(a);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , vocaList));
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , historyService.getLearningVideo()));
+    }
+
+    @Operation(summary = "학습완료 영상 조회")
+    @GetMapping(value = "/done")
+    public ResponseEntity<ResultResponse> getCompletedVideo(){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , historyService.getCompletedVideo()));
     }
 
 }
