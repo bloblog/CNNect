@@ -1,16 +1,11 @@
 import axios from "axios";
 import { ref } from "vue";
 
-const REST_DATA_API = `https:/j10a507.p.ssafy.io/data/level`;
-const userLevelTestList = ref([]);
+// const REST_DATA_API = `https:/j10a507.p.ssafy.io/data/level`;
+const REST_DATA_API = `http://localhost:5000/data/level`;
 
-const getUserLevelTestList = async function (level) {
-  try {
-    const response = await axios.get(`${REST_DATA_API}/user/${level}`);
-    userLevelTestList.value = response.data.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+async function getUserLevelTestList(level, success, fail) {
+  axios.get(`${REST_DATA_API}/user/${level}`).then(success).catch(fail);
+}
 
-export { userLevelTestList, getUserLevelTestList };
+export { getUserLevelTestList };
