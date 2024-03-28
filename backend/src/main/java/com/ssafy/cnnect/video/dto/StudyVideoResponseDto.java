@@ -1,6 +1,5 @@
 package com.ssafy.cnnect.video.dto;
 
-import com.ssafy.cnnect.video.entity.Sentence;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
