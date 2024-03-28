@@ -50,7 +50,7 @@ function insertVideoHistory(param, success, fail){
 
 function getLearningVideo(success, fail){
     local.get(`${url}/proceeding`,config).then(success).catch(fail);
-    // return learningVideoList
+    return learningVideoList
 }
 
 function getCompletedVideo(param, success, fail){

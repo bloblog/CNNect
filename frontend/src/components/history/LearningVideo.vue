@@ -1,16 +1,12 @@
 <template>
-  <div class="Carousel-btn">
-     <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('backward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
-     </svg>
-  </div>  
+  
   <div id="now-video" >
     <div
       @click="goToStudy"
       @mouseover="handleMouseOver"
       @mouseleave="handleMouseLeave"
       id="now-video-container"
-      class="relative rounded-xl grid grid-cols-3"
+      class="relative rounded-xl grid grid-cols-3 w-[70vw]"
       :class="{ 'opacity-80': hovered }"
     >
       <div id="container-layer" class="rounded-xl"></div>
@@ -25,8 +21,8 @@
         class="p-10 flex flex-col justify-between col-span-3 sm:col-span-2 mb-3"
         id="now-video-info"
       >
-        <div class="text-3xl font-bold" id="video-name">
-          [Lv. {{ curVideo.videoLevel }}] {{ curVideo.videoName }}
+        <div class="text-3xl font-bold font-[GmarketSansMedium]" id="video-name">
+          [ Lv. {{ curVideo.videoLevel }} ] {{ curVideo.videoName }}
         </div>
         <div>
           <div class="flex">
@@ -50,12 +46,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="Carousel-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('foreward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-    </svg>
-  </div>    
+  </div>   
 </template>
 
 <script setup>
@@ -65,15 +56,20 @@ const props = defineProps({
   curVideo: Object,
 });
 
+const hovered = ref(false);
+  
+const handleMouseOver = () => {
+  hovered.value = true;
+};
 
+const handleMouseLeave = () => {
+  hovered.value = false;
+
+}
 
 </script>
 
 <style scoped>
-#now-video,
-#recomm-video {
-  width: 80vw;
-}
 
 #now-video-img {
   width: 70rem;

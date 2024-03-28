@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1 class="text-2xl font-bold p-3">학습 완료한 뉴스</h1>
+    <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 완료한 뉴스</h1>
+
     <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
       <div class="w-5/6 grid grid-cols-3 gap-4">
         <div :key="index" class="relative" v-for="(video, index) in paginatedVideos">
