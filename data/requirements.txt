@@ -25,5 +25,3 @@ tensorflow==2.13.1
 tqdm==4.66.2
 webdriver-manager==4.0.1
 youtube-transcript-api==0.6.2
-
-tensorflow~=2.16.1
