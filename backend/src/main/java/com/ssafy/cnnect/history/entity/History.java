@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Table(name="user_history")
 public class History {
     @Id
+    @Column(name = "history_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyId;
 
@@ -32,6 +33,5 @@ public class History {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
 
 }

@@ -1,6 +1,7 @@
 package com.ssafy.cnnect.user.entity;
 
 import com.ssafy.cnnect.history.entity.History;
+import com.ssafy.cnnect.voca.entity.Voca;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
@@ -45,6 +46,9 @@ public class User implements UserDetails {
     public void updateUserLevel(int userLevel){
         this.userLevel = userLevel;
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<Voca> userVocaList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
