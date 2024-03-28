@@ -2,15 +2,13 @@ package com.ssafy.cnnect.history.controller;
 
 import com.ssafy.cnnect.history.dto.HistoryRegisterRequestDto;
 import com.ssafy.cnnect.history.service.HistoryService;
+import com.ssafy.cnnect.voca.service.VocaService;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,12 @@ public class HistoryController {
     @PostMapping(value = "")
     public ResponseEntity<ResultResponse> insertHistory(@RequestBody List<HistoryRegisterRequestDto> historyList){
         historyService.saveRegistHistory(historyList);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
+
+    @Operation(summary = "학습중인 영상 조회")
+    @GetMapping(value = "/proceeding")
+    public ResponseEntity<ResultResponse> getLearningVideo(){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
