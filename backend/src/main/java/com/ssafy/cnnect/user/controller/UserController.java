@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @Operation(summary = "가입 후 레벨 업데이트")
-    @PatchMapping("/update/level/")
+    @PatchMapping("/update/level")
     public ResponseEntity<ResultResponse> setUserLevel(@RequestBody LevelRequestDto levelRequestDto){
         userService.updateUserLevel(levelRequestDto);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
