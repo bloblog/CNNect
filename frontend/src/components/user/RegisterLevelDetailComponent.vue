@@ -1,32 +1,5 @@
 <template>
-  <div
-    v-for="item in data"
-    :key="item.word_id"
-    class="w-[60%] flex mb-4 border border-gray-300 rounded-lg p-4"
-  >
-    <div class="w-1/2 text-center text-lg font-bold">
-      {{ item.word_content }}
-    </div>
-    <div class="w-1/2 flex items-center justify-center">
-      <p class="w-3/8 h-1"></p>
-      <div class="w-5/8 text-center">
-        <label
-          class="block items-center mr-2 text-start mb-2"
-          v-for="(mean, meanIndex) in item.word_mean"
-          :key="meanIndex"
-        >
-          <input
-            type="radio"
-            :name="'word-meaning-' + item.word_id"
-            class="accent-red-500"
-            :value="mean"
-            v-model="selectedAnswers[item.word_id]"
-          />
-          <span class="ml-2">{{ mean }}</span>
-        </label>
-      </div>
-    </div>
-  </div>
+  <div>hi</div>
 </template>
 
 <script setup>
