@@ -57,7 +57,7 @@ watch(
       newValue,
       (response) => {
         data.value = response.data;
-        selectedAnswers = {};
+        selectedAnswers.value = {};
       },
       (error) => {
         console.error(error);
