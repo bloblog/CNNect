@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserHistoryService {
+    private final CustomUserDetailsService customUserDetailsService;
     private final UserHistoryRepository userHistoryRepository;
     private final UserRepository userRepository;
     private final CustomUserDetailsService userDetailsService;
@@ -40,13 +41,16 @@ public class UserHistoryService {
     }
 
     @Transactional
-    public void createUserHistory(UserHistoryRequestDto userHistoryRequestDto) {
+    public void createUserHistory(String videoId) {
+        User user = customUserDetailsService.getUserByAuthentication();
+
         UserHistory history = UserHistory.builder()
-                .videoId(userHistoryRequestDto.getVideoId())
+                .videoId(videoId)
                 .historyStatus(false)
-                .user(userHistoryRequestDto.getUser())
+                .user(user)
                 .userSentenceList(new ArrayList<>())
                 .build();
+
         userHistoryRepository.save(history);
     }
 }

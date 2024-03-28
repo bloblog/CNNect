@@ -1,16 +1,14 @@
 package com.ssafy.cnnect.userHistory.controller;
 
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +24,10 @@ public class UserHistoryController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
+    @Operation(summary = "새로운 영상 학습 시 학습 기록 생성")
+    @PostMapping(value = "/{videoId}")
+    public ResponseEntity<ResultResponse> createUserHistory(@PathVariable String videoId){
+        userHistoryService.createUserHistory(videoId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
 }

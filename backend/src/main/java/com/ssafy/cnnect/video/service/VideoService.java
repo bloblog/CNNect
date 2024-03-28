@@ -70,11 +70,7 @@ public class VideoService {
 //            History History = userHistory.get();
 
         } else {
-            UserHistoryRequestDto userHistoryRequestDto = UserHistoryRequestDto.builder()
-                    .videoId(videoId)
-                    .user(user)
-                    .build();
-            userHistoryService.createUserHistory(userHistoryRequestDto);
+            userHistoryService.createUserHistory(videoId);
         }
 
         StudyVideoResponseDto studyVideoResponseDto = StudyVideoResponseDto.builder()

@@ -12,6 +12,5 @@ import java.util.Optional;
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> {
     List<UserHistory> findAllByUser(User user);
     Long countByUser(User user);
-
     Optional<UserHistory> findByVideoIdAndUser(String videoId, User user);
 }

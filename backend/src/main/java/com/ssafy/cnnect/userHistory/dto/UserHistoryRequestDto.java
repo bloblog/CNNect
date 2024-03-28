@@ -10,5 +10,4 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserHistoryRequestDto {
     private String videoId;
-    private User user;
 }
