@@ -3,7 +3,7 @@ import random
 
 from flask import Flask, Blueprint, jsonify
 
-level_bp = Blueprint('level', __name__, url_prefix='/data/level')
+user_level_bp = Blueprint('level', __name__, url_prefix='/data/level/user')
 app = Flask(__name__)
 
 if __name__ == '__main__':
@@ -34,7 +34,7 @@ def generate_translation_lists(df, level):
     return results
 
 
-@level_bp.route('/user/<level>')  # 3
+@user_level_bp.route('/<level>')  # 3
 def showUserId(level):  # 4
     df = pd.read_csv('./data/csv/result.csv')
     translation_lists = generate_translation_lists(df, level)
