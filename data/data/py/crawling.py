@@ -12,7 +12,7 @@ import re
 from datetime import datetime
 from nltk.tokenize import sent_tokenize
 from youtube_transcript_api import YouTubeTranscriptApi
-from conf.config_reader import read_config, get_database_config, get_mongodb_config
+from config_reader import read_config, get_database_config, get_mongodb_config
 
 import concurrent.futures
 from py_youtube import Data
@@ -192,14 +192,11 @@ get_url()
 for video in new_data:
     set_script(video)
     set_info(video)
-    print(f"{video['video_id']} 완료 (카테고리 제외)")
 
 categories = get_category(scripts)
-print("카테고리 배열 : ", len(categories))
-print("데이터 배열 : ", len(new_data))
 
-for idx, cat in categories:
-    new_data[idx]['category_id'] = cat
+for idx, cat in enumerate(categories):
+    new_data[idx]['category_id'] = int(cat)
 
 if new_data:
     db['data'].insert_many(new_data)
