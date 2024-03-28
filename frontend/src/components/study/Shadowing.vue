@@ -1,7 +1,7 @@
 <script setup>
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { getDict } from '@/api/scraping';
-import { ref, onMounted, defineProps, watch } from 'vue'
+import { ref, onMounted, defineProps, watch, computed } from 'vue'
 import axios from 'axios';
 
 const { VITE_GT_ACCESS_KEY, VITE_ETRI_ACCESS_KEY } = import.meta.env;
@@ -23,20 +23,27 @@ onMounted(() => {
 watch(() => props.curSentence.content, (newContent) => {
     if (newContent) {
         translateText(newContent);
+        hidePopup();
     }
 }, { immediate: true });
 
 
 // 다음 영어사전 팝업창
+const words = computed(() => {
+  return props.curSentence.content.split(' ');
+});
+const hover = ref(null)
 const selectedText = ref('');
+const selectedWordIndex = ref(null);
 const isShowPopup = ref(false);
 const selectedWordMeanings = ref([]);
 let latestRequestTime = 0;
 const isFinishedFetchingPopup = ref(false);
 
-const showPopup = async () => {
+const showPopup = async (word, index) => {
     isFinishedFetchingPopup.value = false;
-    selectedText.value = window.getSelection().toString().trim();
+    selectedText.value = word;
+    selectedWordIndex.value = index;
     
     if (selectedText.value.length > 0 ) {
         isShowPopup.value = true;
@@ -53,6 +60,7 @@ const showPopup = async () => {
 
 const hidePopup = () => {
     selectedText.value = '';
+    selectedWordIndex.value = null;
     isShowPopup.value = false;
     selectedWordMeanings.value = [];
 };
@@ -198,8 +206,11 @@ const sendPronunciationRequest = (audioData) => {
             <div class="korean">
             {{ translatedContent }}
             </div>
-            <div class="english" @dblclick="showPopup">
-                {{ curSentence.content }}
+            <div class="english">
+                <span class="space-separated-word" v-for="(word, index) in words" :key="index" @click="showPopup(word, index)" @mouseover="hover = index" @mouseleave="hover = null" :class="{'highlight-hover': hover === index, 'highlight-selected': selectedWordIndex === index}">
+                    {{ word }}
+                    <span class="space" v-if="index < words.length - 1"> </span>
+                </span>
                 <PopupDictionary v-if="isShowPopup" :selectedText="selectedText" :selectedWordMeanings="selectedWordMeanings" :isFinishedFetchingPopup="isFinishedFetchingPopup" @close-popup="hidePopup"></PopupDictionary>
             </div>
         </div>
@@ -207,9 +218,6 @@ const sendPronunciationRequest = (audioData) => {
 </template>
 
 <style scoped>
-::selection {
-    background: rgba(204, 0, 0, 0.15);
-}
 /* shadowing */
 .shadowing {
     width: 100%;
@@ -294,5 +302,14 @@ const sendPronunciationRequest = (audioData) => {
     font-weight: 600;
     font-size: 18px;
     padding: 15px;
+}
+.english .space-separated-word {
+    cursor: pointer;
+}
+.highlight-hover {
+  background: rgba(204, 0, 0, 0.15);
+}
+.highlight-selected {
+  background: rgba(204, 0, 0, 0.15);
 }
 </style>

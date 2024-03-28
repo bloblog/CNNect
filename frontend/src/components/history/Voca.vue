@@ -33,6 +33,7 @@
 
 <script setup>
     import { ref , computed , defineProps } from 'vue';
+    import { getWordHistory } from '@/api/voca';
 
     const props = defineProps({
         wordHistory: Object

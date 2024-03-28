@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <div >
-                                   <CompletedVideo :completedVideoList = "videoHistory.completedVideoList" />
+                                   <CompletedVideo :completedVideoList = "completedVideoHistory.completedVideoHistory" />
                                 </div>
                             </div>
                         </li>
@@ -51,12 +51,14 @@ import LearningVideo from '@/components/history/LearningVideo.vue';
 
 import { ref } from 'vue';
 import { onMounted } from 'vue';
-import { insertVideoHistory, insertWordHistory } from '@/api/history';
+import { getLearningVideo, getCompletedVideo} from '@/api/history';
+import { getWordHistory } from '@/api/voca';
 
 
-const videoHistory = ref({
-    learningVideoList: [],
-    completedVideoList: []
+const learningVideoHistory = ref([])
+
+const completedVideoHistory = ref({
+    completedVideoHistory: []
 })
 
 const wordHistory = ref({
@@ -78,13 +80,13 @@ const curVideo = ref({
 })
 
 function setCurVideo (idx) {
-    curVideo.value.order = videoHistory.value.learningVideoList[idx].order;
-    curVideo.value.videoTitle = videoHistory.value.learningVideoList[idx].videoTitle;
-    curVideo.value.videoUrl = videoHistory.value.learningVideoList[idx].videoUrl;
-    curVideo.value.lastSentence = videoHistory.value.learningVideoList[idx].lastSentence;
-    curVideo.value.videoLevel = videoHistory.value.learningVideoList[idx].videoLevel;
-    curVideo.value.completedSentenceNum = videoHistory.value.learningVideoList[idx].completedSentenceNum;
-    curVideo.value.totalSentenceNum = videoHistory.value.learningVideoList[idx].totalSentenceNum;
+    curVideo.value.order = learningVideoHistory.value.learningVideoHistory[idx].order;
+    curVideo.value.videoTitle = learningVideoHistory.value.learningVideoHistory[idx].videoTitle;
+    curVideo.value.videoUrl = learningVideoHistory.value.learningVideoHistory[idx].videoUrl;
+    curVideo.value.lastSentence = learningVideoHistory.value.learningVideoHistory[idx].lastSentence;
+    curVideo.value.videoLevel = learningVideoHistory.value.learningVideoHistory[idx].videoLevel;
+    curVideo.value.completedSentenceNum = learningVideoHistory.value.learningVideoHistory[idx].completedSentenceNum;
+    curVideo.value.totalSentenceNum = learningVideoHistory.value.learningVideoHistory[idx].totalSentenceNum;
 }
 
 function changeVideoOrder(direction) {
@@ -109,9 +111,10 @@ function changeVideoOrder(direction) {
 
 
 onMounted(async () => {
-    videoHistory.value = await insertVideoHistory();
-    wordHistory.value = insertWordHistory();
-    totalVideos = videoHistory.value.learningVideoList.length;
+    learningVideoHistory.value = await  getLearningVideo();
+    completedVideoHistory.value = await getCompletedVideo();
+    wordHistory.value = getWordHistory();
+    totalVideos = learningVideoHistory.value.learningVideoHistory.length;
     setCurVideo(0);
 })
 

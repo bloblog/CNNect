@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen">
+  <div class="flex items-center justify-center min-h-[90vh]">
     <div class="w-2/4 mx-4">
       <div class="flex items-center mb-5">
         <div class="w-1/4">
           <label
             for="email"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
             >이메일</label
           >
         </div>
@@ -14,14 +14,14 @@
             type="email"
             id="email"
             v-model="formData.userEmail"
-            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="name@google.com"
+            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5 "
+            placeholder="example@google.com"
             required
           />
           <button
             type="button"
             @click="emailDuplCheck()"
-            class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             중복확인
           </button>
@@ -40,13 +40,13 @@
             type="text"
             id="authCode"
             v-model="authCode"
-            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
             required
           />
           <button
             type="button"
             @click="codeSend()"
-            class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             인증전송
           </button>
@@ -56,7 +56,7 @@
         <div class="w-1/4">
           <label
             for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
             >비밀번호</label
           >
         </div>
@@ -65,7 +65,7 @@
             type="password"
             id="password"
             v-model="formData.userPassword"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
             required
           />
         </div>
@@ -74,7 +74,7 @@
         <div class="w-1/4">
           <label
             for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
             >비밀번호 확인</label
           >
         </div>
@@ -82,7 +82,7 @@
           <input
             type="password"
             id="passworConfirm"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
             required
           />
         </div>
@@ -91,7 +91,7 @@
         <div class="w-1/4">
           <label
             for="nickname"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
             >닉네임</label
           >
         </div>
@@ -100,7 +100,7 @@
             type="text"
             id="nickname"
             v-model="formData.userNickname"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5 "
             required
           />
         </div>
@@ -109,7 +109,7 @@
         <button
           type="button"
           @click="nextStep(1)"
-          class="items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          class="min-w-fit items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           다음
         </button>
