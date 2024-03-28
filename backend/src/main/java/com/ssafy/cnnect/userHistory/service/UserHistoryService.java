@@ -5,12 +5,14 @@ import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.exec.ExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -103,7 +105,13 @@ public class UserHistoryService {
                 .build();
     }
 
+    @Transactional
+    public void updateUserHistory(UserHistoryUpdateRequestDto userHistoryUpdateRequestDto) {
+        User user = customUserDetailsService.getUserByAuthentication();
 
+        UserHistory userHistory = userHistoryRepository.findByVideoIdAndUser(userHistoryUpdateRequestDto.getVideoId(), user)
+                .orElseThrow(() -> new ExecutionException("User history not found"));
 
-
+        userHistory.updateUserHistoryLast(userHistoryUpdateRequestDto.getHistorySentence(), userHistoryUpdateRequestDto.getHistoryTime());
+    }
 }

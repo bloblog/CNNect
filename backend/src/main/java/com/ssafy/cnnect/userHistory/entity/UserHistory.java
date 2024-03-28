@@ -47,4 +47,9 @@ public class UserHistory {
         userSentence.setUserHistory(this);
         userSentenceList.add(userSentence);
     }
+
+    public void updateUserHistoryLast(String historySentence, Double historyTime) {
+        this.historySentence = historySentence;
+        this.historyTime = historyTime;
+    }
 }

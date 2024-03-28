@@ -3,6 +3,7 @@ package com.ssafy.cnnect.userHistory.controller;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,12 @@ public class UserHistoryController {
     @GetMapping(value = "/{videoId}")
     public ResponseEntity<ResultResponse> getUserHistory(@PathVariable String videoId){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userHistoryService.getUserHistory(videoId)));
+    }
+
+    @Operation(summary = "학습 기록의 마지막 학습문장과 마지막 학습시간 수정")
+    @PatchMapping(value = "")
+    public ResponseEntity<ResultResponse> updateUserSentence(@RequestBody UserHistoryUpdateRequestDto userHistoryUpdateRequestDto){
+        userHistoryService.updateUserHistory(userHistoryUpdateRequestDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 }
