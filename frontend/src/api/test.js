@@ -21,11 +21,12 @@ async function getUserLevelTestList(level, success, fail) {
 }
 
 function setUserLevelToken(param, success, fail) {
+  console.log(param);
   local.patch(`user/update/level`, param, config).then(success).catch(fail);
 }
 
 function setUserLevelNotToken(param, success, fail) {
-  local.patch(`user/update/level`, param, config2).then(success).catch(fail);
+  local.patch(`user/update/level/register`, param).then(success).catch(fail);
 }
 
 export { getUserLevelTestList, setUserLevelToken, setUserLevelNotToken };

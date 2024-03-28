@@ -154,7 +154,7 @@ const handleFinishRegister = () => {
   } else {
     console.log(userId.value);
     setUserLevelNotToken({
-      userId: userId,
+      userId: userId.value,
       level: level.value,
     });
   }
