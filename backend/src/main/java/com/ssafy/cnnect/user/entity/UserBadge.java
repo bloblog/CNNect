@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class UserBadge {
 
     @Id
+    @Column(name="user_badge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userBadgeId;
 
