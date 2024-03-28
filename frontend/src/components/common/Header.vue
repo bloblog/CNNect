@@ -5,7 +5,7 @@
     "
     class="header-frame top-0 z-20 sticky flex justify-between"
   >
-    <div class="flex items-center">
+    <div class="flex items-center font-[GmarketSansMedium]">
       <RouterLink to="/">
         <img src="@/assets/logo.png" class="h-6 m-5">
       </RouterLink>
@@ -58,9 +58,9 @@
         <!-- Dropdown menu -->
         <div
           id="dropdownDivider"
-          class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md absolute !top-[-30%] !left-[10%] !w-36 border"
+          class="font-[GmarketSansMedium] hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md absolute !top-[-10%] !left-[10%] !w-36 border"
         >
-          <div class="hover:bg-gray-300 rounded-t-lg">
+          <div class="hover:bg-red-300 rounded-t-lg ">
             <RouterLink to="/mypage"
               ><span class=" block px-5 py-3 text-gray-700"
                 >마이페이지</span
@@ -68,7 +68,7 @@
             >
           </div>
   
-          <div class="rounded-b-lg hover:bg-gray-300">
+          <div class="rounded-b-lg hover:bg-red-300">
             <a
               @click="logout()"
               class="block px-5 py-3 text-sm text-theme-red "
@@ -154,7 +154,7 @@ const toggleSearch = () => {
     const input = customInput.value;
     const currentOffsetLeft = input.offsetLeft;
     //클릭 시 .custom-input에 스타일 적용
-    customInput.value.style.padding = "0 10px";
+    customInput.value.style.padding = "0 20px";
     customInput.value.style.caretColor = "#262626";
 
     input.style.width = `${input.offsetWidth + 200}px`; // 예시에 맞게 변경 가능
