@@ -6,7 +6,7 @@ import numpy as np
 
 
 def set_model():
-    model = load_model('category_model.h5')
+    model = load_model('data/py/category_model.h5')
     return model
 
 def make_lower_case(text):

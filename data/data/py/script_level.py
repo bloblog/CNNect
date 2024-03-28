@@ -4,7 +4,7 @@ import pandas as pd
 sentence_cutline = [42.13323525303835, 45.31457886044376, 50.02139772682483, 53.98793352312772, 56.91700066393434]
 word_cutline = [1.75, 1.85, 1.92, 1.96, 2.00]
 cefr_levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
-word_csv = pd.read_csv('C:/Users/SSAFY/PycharmProjects/flaskProject2/data/csv/result.csv')
+word_csv = pd.read_csv('./data/csv/result.csv')
 
 
 # 문장 기반 난이도 추출
