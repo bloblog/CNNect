@@ -14,7 +14,7 @@
             type="email"
             id="email"
             v-model="formData.userEmail"
-            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5 "
+            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
             placeholder="example@google.com"
             required
           />
@@ -100,7 +100,7 @@
             type="text"
             id="nickname"
             v-model="formData.userNickname"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5 "
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
             required
           />
         </div>
@@ -129,7 +129,7 @@ const { setUserId } = uStore;
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
 const autoCheck = ref(false); // 이메일 인증 여부
 
-const authCode = ref("")
+const authCode = ref("");
 
 const formData = ref({
   userEmail: "",

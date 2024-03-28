@@ -3,7 +3,7 @@
     <h3 class="font-bold mb-6 text-lg">
       [ Lv.{{ level }} ] 제시 된 단어의 의미를 선택해주세요
     </h3>
-    <RegisterLevelDetail :stage="steps[level - 1]" ref="registerLevelDetail" />
+    <RegisterLevelDetail :stage="currentStage" ref="registerLevelDetail" />
 
     <div class="flex items-center w-full justify-center mt-4">
       <button
@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, computed } from "vue";
 import { initFlowbite, Modal } from "flowbite";
 import RegisterLevelDetail from "@/components/user/RegisterLevelDetailComponent.vue";
 
@@ -97,6 +97,11 @@ const steps = ref(["A1", "A2", "B1", "B2", "C1", "C2"]);
 const level = ref(1);
 const registerLevelDetail = ref(null);
 const emit = defineEmits(["updateLevel", "finishRegister"]);
+
+// 현재 레벨에 해당하는 stage 값을 반환하는 computed property
+const currentStage = computed(() => {
+  return steps.value[level.value - 1];
+});
 
 watch(level, (newValue) => {
   // 'updateLevel' 이벤트를 발생시키고, 새로운 level 값을 전달합니다.
@@ -113,7 +118,7 @@ const nextLevel = () => {
   if (wrongCount > 1) {
     finishRegister();
   } else {
-    console.log(level.value);
+    // console.log(level.value);
     if (level.value == 6) {
       finishRegister();
     } else {

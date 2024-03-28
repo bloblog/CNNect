@@ -30,32 +30,43 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 const props = defineProps({
   stage: String,
 });
 const emit = defineEmits(["wrongCountUpdated"]);
+const level = ["A1", "A2", "B1", "B2", "C1", "C2"];
+import { getUserLevelTestList } from "@/api/test";
 
-const data = ref([
-  {
-    word_id: 1,
-    word_content: "apple",
-    word_answer: "사과",
-    word_mean: ["사과", "오렌지", "복숭아", "수박"],
-  },
-  {
-    word_id: 2,
-    word_content: "dog",
-    word_answer: "개",
-    word_mean: ["개", "고양이", "토끼", "호랑이"],
-  },
-  {
-    word_id: 3,
-    word_content: "apple",
-    word_answer: "사과",
-    word_mean: ["사과", "오렌지", "복숭아", "수박"],
-  },
-]);
+onMounted(() => {
+  getUserLevelTestList(
+    props.stage,
+    (response) => {
+      data.value = response.data;
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+});
+
+watch(
+  () => props.stage,
+  async (newValue) => {
+    getUserLevelTestList(
+      newValue,
+      (response) => {
+        data.value = response.data;
+        selectedAnswers.value = {};
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+);
+
+const data = ref([]);
 
 const selectedAnswers = ref({});
 

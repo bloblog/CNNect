@@ -7,6 +7,7 @@ import MyPageView from "@/views/user/MyPageView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
 import SearchView from "@/views/common/SearchView.vue";
 import VideoView from "@/views/common/VideoView.vue";
+import QuizView from "@/views/study/QuizView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,11 @@ const router = createRouter({
       name: "study",
       component: StudyView,
       meta: { hideHeader: true },
+    },
+    {
+      path: "/quiz",
+      name: "quiz",
+      component: QuizView,
     },
     {
       path: "/mypage",
