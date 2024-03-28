@@ -26,3 +26,8 @@ def get_mongodb_config(config):
         'USERNAME': mongodb_config['USERNAME'],
         'PASSWORD': mongodb_config['PASSWORD']
     }
+
+def get_jwt_secret_key(config):
+    jwt_config = config['JWT']
+    return jwt_config['SECRET_KEY']
+

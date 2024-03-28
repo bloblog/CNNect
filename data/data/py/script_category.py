@@ -1,4 +1,4 @@
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 from nltk.tokenize import RegexpTokenizer
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
