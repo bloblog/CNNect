@@ -41,34 +41,10 @@ const props = defineProps({
   completedVideoList: Object
 });
 
-// const currentPage = ref(1);
-// const videosPerPage = 9;
-
-// const paginatedVideos = computed(() => {
-//   const startIndex = (currentPage.value - 1) * videosPerPage;
-//   const endIndex = startIndex + videosPerPage;
-//   return props.completedVideoList.slice(startIndex, endIndex);
-// });
-
-// const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videosPerPage));
-
-// function nextPage() {
-//   if (currentPage.value < totalPages.value) {
-//     currentPage.value++;
-//   }
-// }
-
-// function previousPage() {
-//   if (currentPage.value > 1) {
-//     currentPage.value--;
-//   }
-// }
-
   const currentPage = ref(0);
     const videodPerPage = 9;
 
     const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videodPerPage));
-
     const paginatedVideos = computed(() => {
         const startIndex = currentPage.value * videodPerPage;
         return props.completedVideoList.slice(startIndex, startIndex + videodPerPage);
@@ -79,8 +55,8 @@ const props = defineProps({
         const pages = [];
         const currentPageValue = currentPage.value + 1;
 
-        const startPage = Math.max(1, currentPageValue - 2); // 현재 페이지를 중심으로 앞쪽에 최대 2개의 페이지를 보여줍니다.
-        const endPage = Math.min(totalPages.value, currentPageValue + 2); // 현재 페이지를 중심으로 뒷쪽에 최대 2개의 페이지를 보여줍니다.
+        const startPage = Math.max(1, currentPageValue - 2); 
+        const endPage = Math.min(totalPages.value, currentPageValue + 2); 
        
 
         if(currentPageValue === totalPages.value ){
@@ -135,6 +111,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
+
 .video-img,
 .title {
   cursor: pointer;

@@ -2,6 +2,11 @@ import { localAxios } from "./http";
 
 const local = localAxios();
 const url = "/history";
+const config = {
+    headers : {
+        "Authorization" : "Bearer " + localStorage.getItem("accessToken")
+    }
+}
 
 const learningVideoList ={
     learningVideoHistory: [
@@ -43,9 +48,9 @@ function insertVideoHistory(param, success, fail){
     return videoHistory
 }
 
-function getLearningVideo(param, success, fail){
-    // local.get(`${url}`, JSON.stringify(param)).then(success).catch(fail);
-    return learningVideoList
+function getLearningVideo(success, fail){
+    local.get(`${url}/proceeding`,config).then(success).catch(fail);
+    // return learningVideoList
 }
 
 function getCompletedVideo(param, success, fail){

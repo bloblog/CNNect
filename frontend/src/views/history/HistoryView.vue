@@ -50,7 +50,7 @@ import CompletedVideo from '@/components/history/CompletedVideo.vue';
 import LearningVideo from '@/components/history/LearningVideo.vue';
 
 import { ref } from 'vue';
-import { onMounted } from 'vue';
+import { watch, onMounted } from 'vue';
 import { getLearningVideo, getCompletedVideo} from '@/api/history';
 import { getWordHistory } from '@/api/voca';
 
@@ -65,26 +65,32 @@ const wordHistory = ref({
     wordList: []
 })
 
-let totalVideos = 0;
+let totalVideos = ref(0);
 
-let currentOrder = 0;
+let currentOrder = ref(0);
 
 const curVideo = ref({
-    order: "",
-    videoTitle: "",
-    videoUrl: "",
-    lastSentence: "",
+    historyId: "",
+    videoId: "",
+    videoName: "",
     videoLevel: "",
+    lastSentence: "",
     completedSentenceNum: "",
     totalSentenceNum: ""
 })
 
+watch(() => currentOrder, (newValue) => {
+    setCurVideo(newValue);
+    console.log(curVideo.value)
+});
+
 function setCurVideo (idx) {
-    curVideo.value.order = learningVideoHistory.value.learningVideoHistory[idx].order;
-    curVideo.value.videoTitle = learningVideoHistory.value.learningVideoHistory[idx].videoTitle;
-    curVideo.value.videoUrl = learningVideoHistory.value.learningVideoHistory[idx].videoUrl;
-    curVideo.value.lastSentence = learningVideoHistory.value.learningVideoHistory[idx].lastSentence;
+    console.log("functionStart")
+    curVideo.value.historyId = learningVideoHistory.value[idx].historyId;
+    curVideo.value.videoId = learningVideoHistory.value.learningVideoHistory[idx].videoId;
+    curVideo.value.videoName = learningVideoHistory.value.learningVideoHistory[idx].videoName;
     curVideo.value.videoLevel = learningVideoHistory.value.learningVideoHistory[idx].videoLevel;
+    curVideo.value.lastSentence = learningVideoHistory.value.learningVideoHistory[idx].lastSentence;
     curVideo.value.completedSentenceNum = learningVideoHistory.value.learningVideoHistory[idx].completedSentenceNum;
     curVideo.value.totalSentenceNum = learningVideoHistory.value.learningVideoHistory[idx].totalSentenceNum;
 }
@@ -93,29 +99,40 @@ function changeVideoOrder(direction) {
     if (direction === 'backward') {
         if (currentOrder > 0) {
             currentOrder -= 1;
-            setCurVideo(currentOrder);
+            // setCurVideo(currentOrder);
         } else {
             currentOrder = totalVideos-1;
-            setCurVideo(totalVideos-1);
+            // setCurVideo(currentOrder);
         }
     } else if (direction === 'foreward') {
         if (currentOrder < totalVideos-1) {
             currentOrder += 1;
-            setCurVideo(currentOrder);
+            // setCurVideo(currentOrder);
         } else {
             currentOrder = 0;
-            setCurVideo(0);
+            // setCurVideo(currentOrder);
         }
     }
 }
 
 
-onMounted(async () => {
-    learningVideoHistory.value = await  getLearningVideo();
-    completedVideoHistory.value = await getCompletedVideo();
+onMounted(() => {
+    getLearningVideo(
+    ({ data }) => {
+        learningVideoHistory.value = data.data;
+        currentOrder = 0;
+        totalVideos = learningVideoHistory.value.length;
+        console.log(data.data)
+        console.log(totalVideos)
+    },
+    (error) => {
+      console.log(error);
+    }
+    );
+
+    completedVideoHistory.value = getCompletedVideo();
     wordHistory.value = getWordHistory();
-    totalVideos = learningVideoHistory.value.learningVideoHistory.length;
-    setCurVideo(0);
+
 })
 
 </script>

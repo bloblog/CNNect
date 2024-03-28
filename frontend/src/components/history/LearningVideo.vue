@@ -1,4 +1,9 @@
 <template>
+  <div class="Carousel-btn">
+     <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('backward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+     </svg>
+  </div>  
   <div id="now-video" >
     <div
       @click="goToStudy"
@@ -12,7 +17,7 @@
       <div class="bg-black" id="video-img-container">
         <img
           id="now-video-img"
-          :src="`https://img.youtube.com/vi/${curVideo.videoUrl}/maxresdefault.jpg`"
+          :src="`https://img.youtube.com/vi/${curVideo.videoId}/maxresdefault.jpg`"
           alt="Now Video Image"
         />
       </div>
@@ -21,7 +26,7 @@
         id="now-video-info"
       >
         <div class="text-3xl font-bold" id="video-name">
-          [Lv. {{ curVideo.videoLevel }}] {{ curVideo.videoTitle }}
+          [Lv. {{ curVideo.videoLevel }}] {{ curVideo.videoName }}
         </div>
         <div>
           <div class="flex">
@@ -46,6 +51,11 @@
       </div>
     </div>
   </div>
+  <div class="Carousel-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('foreward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+    </svg>
+  </div>    
 </template>
 
 <script setup>
@@ -54,6 +64,9 @@ import { ref, computed, defineProps } from "vue";
 const props = defineProps({
   curVideo: Object,
 });
+
+
+
 </script>
 
 <style scoped>
