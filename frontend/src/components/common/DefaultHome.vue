@@ -38,6 +38,8 @@
           <RecommVideoList/>
         </div>
       </div>
+      <!-- 여백용 -->
+      <div class="h-10"></div>
     </div>
     
   </template>
