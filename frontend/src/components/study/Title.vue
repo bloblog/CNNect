@@ -1,11 +1,22 @@
 <script setup>
+import { defineProps, watch  } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-defineProps({
+const props = defineProps({
     videoData: Object
 })
+
+
+const goToQuiz = () => {
+    if (props.videoData.videoId != '') {
+        router.push({ path: '/quiz', query: { videoId: props.videoData.videoId } });
+    }
+  }
+
+
+
 </script>
 
 <template>
@@ -16,7 +27,7 @@ defineProps({
         </div>
         <div class="btn-box">
             <button @click="router.push('/')" class="btn back">나가기</button>
-            <button @click="router.push('/')" class="btn finish">학습완료</button>
+            <button @click="goToQuiz" class="btn finish">학습완료</button>
         </div>
     </header>
 </template>

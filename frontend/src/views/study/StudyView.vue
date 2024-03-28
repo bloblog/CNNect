@@ -57,7 +57,7 @@ const ensureActiveSentenceVisible = () => {
 }
 
 onMounted(() => {
-    videoData.value = getStudy(); 
+    videoData.value = getStudy();
     fetchWordMeanings();
 })
 
