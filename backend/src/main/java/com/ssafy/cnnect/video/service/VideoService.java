@@ -3,9 +3,13 @@ package com.ssafy.cnnect.video.service;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceGetRequestDto;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
+import com.ssafy.cnnect.userSentence.service.UserSentenceService;
 import com.ssafy.cnnect.video.dto.StudySentenceResponseDto;
 import com.ssafy.cnnect.video.dto.StudyVideoResponseDto;
 import com.ssafy.cnnect.video.entity.Sentence;
@@ -18,9 +22,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +36,7 @@ public class VideoService {
     private final VideoRepository videoRepository;
     private final UserHistoryRepository userHistoryRepository;
     private final UserHistoryService userHistoryService;
+    private final UserSentenceService userSentenceService;
 
     public Page<Video> findByCategory_idAndPage(int categoryId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -50,31 +57,38 @@ public class VideoService {
 
     @Transactional
     public StudyVideoResponseDto getStudyVideo(String videoId){
+        User user = customUserDetailsService.getUserByAuthentication(); // 유저 정보
+        Video video = videoRepository.findByVideoId(videoId); // 영상 정보
+        List<Sentence> script = video.getSentence_list(); // 스크립트 (문장별 startTime, content 리스트)
+        UserHistoryResponseDto userHistory = userHistoryService.getUserHistory(videoId); // 학습 기록 (없으면 null 반환)
+        Long historyId = userHistory.getHistoryId(); // 학습 기록 id
 
-        User user = customUserDetailsService.getUserByAuthentication();
-        Optional<UserHistory> userHistory = userHistoryRepository.findByVideoIdAndUser(videoId, user);
+        if (userHistory == null) { // 새로운 영상을 학습 시작하는 경우 (학습 기록이 없는 경우)
+            userHistoryService.createUserHistory(videoId); // 학습 기록 생성
+        }
 
-        Video video = videoRepository.findByVideoId(videoId);
-        List<Sentence> sentenceList = video.getSentence_list();
+        List<StudySentenceResponseDto> studySentenceResponseDtoList = new ArrayList<>();
 
-        List<StudySentenceResponseDto> studySentenceResponseDtoList = sentenceList.stream()
-                .map(sentence -> StudySentenceResponseDto.builder()
-//                        .sentenceId(Long.parseLong(sentence.getSentenceId().toString(), 16))
-                        .start(sentence.getStart())
-                        .text(sentence.getText())
-                        .score(null)
-                        .build())
-                .collect(Collectors.toList());
+        for (int i = 0; i < script.size(); i++) {
+            // i+1번째 문장 조회 (없으면 null 반환)
+            UserSentenceGetRequestDto userSentenceGetRequestDto = UserSentenceGetRequestDto.builder()
+                    .sentenceOrder(i + 1)
+                    .historyId(historyId)
+                    .build();
+            UserSentenceResponseDto userSentenceResponseDto = userSentenceService.getUserSentence(userSentenceGetRequestDto);
 
-        if (userHistory.isPresent()) {
-//            History History = userHistory.get();
+            StudySentenceResponseDto studySentenceResponseDto = StudySentenceResponseDto.builder()
+                    .order(i + 1)
+                    .start(script.get(i).getStart())
+                    .text(script.get(i).getText())
+                    .score(userSentenceResponseDto != null ? userSentenceResponseDto.getSentenceScore() : null)
+                    .build();
 
-        } else {
-            userHistoryService.createUserHistory(videoId);
+            studySentenceResponseDtoList.add(studySentenceResponseDto);
         }
 
         StudyVideoResponseDto studyVideoResponseDto = StudyVideoResponseDto.builder()
-                .videoId(video.getVideo_id())
+                .videoId(videoId)
                 .videoName(video.getVideo_name())
                 .videoLevel(video.getVideo_level())
                 .sentenceList(studySentenceResponseDtoList)
