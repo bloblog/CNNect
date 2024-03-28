@@ -1,12 +1,14 @@
 package com.ssafy.cnnect.userHistory.service;
 
-import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
-import com.ssafy.cnnect.userHistory.entity.UserHistory;
-import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
+import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
+import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
+import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,16 +43,69 @@ public class UserHistoryService {
     }
 
     @Transactional
-    public void createUserHistory(String videoId) {
+    public UserHistoryResponseDto createUserHistory(String videoId) {
         User user = customUserDetailsService.getUserByAuthentication();
 
-        UserHistory history = UserHistory.builder()
-                .videoId(videoId)
+        Optional<UserHistory> OptionalUserHistory = userHistoryRepository.findByVideoIdAndUser(videoId, user);
+
+        if (OptionalUserHistory.isPresent()) {
+            throw new RuntimeException("User history for the specified video already exists.");
+        }
+
+        UserHistory userHistory = UserHistory.builder()
                 .historyStatus(false)
+                .historySentence(null)
+                .historyTime(null)
+                .videoId(videoId)
                 .user(user)
                 .userSentenceList(new ArrayList<>())
                 .build();
 
-        userHistoryRepository.save(history);
+        userHistoryRepository.save(userHistory);
+
+        return UserHistoryResponseDto.builder()
+                .historyId(userHistory.getHistoryId())
+                .historyStatus(userHistory.isHistoryStatus())
+                .historySentence(userHistory.getHistorySentence())
+                .historyTime(userHistory.getHistoryTime())
+                .videoId(userHistory.getVideoId())
+                .userId(userHistory.getUser().getUserId())
+                .userSentenceList(new ArrayList<>())
+                .build();
     }
+
+    @Transactional
+    public UserHistoryResponseDto getUserHistory(String videoId) {
+        User user = customUserDetailsService.getUserByAuthentication();
+        Optional<UserHistory> OptionalUserHistory = userHistoryRepository.findByVideoIdAndUser(videoId, user);
+
+        if (OptionalUserHistory.isEmpty()) return null;
+
+        UserHistory userHistory = OptionalUserHistory.get();
+        List<UserSentence> userSentenceList = userHistory.getUserSentenceList();
+
+        List<UserSentenceResponseDto> userSentenceResponseDtoList = userSentenceList.stream()
+                .map(userSentence -> UserSentenceResponseDto.builder()
+                        .userSentenceId(userSentence.getUserSentenceId())
+                        .sentenceOrder(userSentence.getSentenceOrder())
+                        .sentenceContent(userSentence.getSentenceContent())
+                        .sentenceScore(userSentence.getSentenceScore())
+                        .userHistory(userSentence.getUserHistory())
+                        .build())
+                .toList();
+
+        return UserHistoryResponseDto.builder()
+                .historyId(userHistory.getHistoryId())
+                .historyStatus(userHistory.isHistoryStatus())
+                .historySentence(userHistory.getHistorySentence())
+                .historyTime(userHistory.getHistoryTime())
+                .videoId(userHistory.getVideoId())
+                .userId(userHistory.getUser().getUserId())
+                .userSentenceList(userSentenceResponseDtoList)
+                .build();
+    }
+
+
+
+
 }

@@ -5,6 +5,7 @@ import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -12,7 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="user_history")
+@Table(name = "user_history", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"videoId", "userId"})
+})
+
 public class UserHistory {
     @Id
     @Column(name = "history_id")
@@ -32,11 +36,12 @@ public class UserHistory {
     private String videoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Builder.Default
     @OneToMany(mappedBy = "userHistory", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<UserSentence> userSentenceList;
+    private List<UserSentence> userSentenceList = new ArrayList<>();
 
     public void addUserSentence(UserSentence userSentence) {
         userSentence.setUserHistory(this);

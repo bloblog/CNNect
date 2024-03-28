@@ -1,7 +1,7 @@
 package com.ssafy.cnnect.userHistory.repository;
 
-import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.user.entity.User;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

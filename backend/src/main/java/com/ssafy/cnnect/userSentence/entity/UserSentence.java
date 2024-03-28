@@ -18,10 +18,10 @@ public class UserSentence {
     private Long userSentenceId;
 
     @Column(name = "sentence_order", nullable = false)
-    private boolean sentenceOrder;
+    private int sentenceOrder;
 
     @Column(name = "sentence_content", nullable = false)
-    private boolean sentenceContent;
+    private String sentenceContent;
 
     @Column(name = "sentence_score")
     private Double sentenceScore;

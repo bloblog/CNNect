@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 @Getter
 @AllArgsConstructor
 public class StudySentenceResponseDto {
-//    private Long sentenceId;
+    private int order;
     private Long start;
     private String text;
     private Double score;
