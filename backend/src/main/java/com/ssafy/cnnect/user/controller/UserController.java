@@ -64,9 +64,16 @@ public class UserController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.varifyCode(email, authCode)));
     }
 
-    @Operation(summary = "유저 레벨 업데이트")
-    @PatchMapping("/update/level")
-    public ResponseEntity<ResultResponse> reissueToken(@RequestBody LevelRequestDto levelRequestDto){
+    @Operation(summary = "가입 중 유저 레벨 업데이트")
+    @PatchMapping("/update/level/register")
+    public ResponseEntity<ResultResponse> updateUserLevelRegister(@RequestBody LevelRequestDto levelRequestDto){
+        userService.updateUserLevelRegister(levelRequestDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
+
+    @Operation(summary = "가입 후 레벨 업데이트")
+    @PatchMapping("/update/level/")
+    public ResponseEntity<ResultResponse> setUserLevel(@RequestBody LevelRequestDto levelRequestDto){
         userService.updateUserLevel(levelRequestDto);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }

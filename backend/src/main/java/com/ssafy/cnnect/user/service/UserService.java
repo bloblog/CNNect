@@ -124,16 +124,15 @@ public class UserService {
     }
 
     @Transactional
+    public void updateUserLevelRegister(LevelRequestDto levelRequestDto) {
+        User user = userRepository.findById(levelRequestDto.getUserId()).get();
+        user.updateUserLevel(levelRequestDto.getLevel());
+    }
+
+    @Transactional
     public void updateUserLevel(LevelRequestDto levelRequestDto) {
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(userRepository.findByUserEmail(authentication.getName()));
-        if(userRepository.findByUserEmail(authentication.getName()).isEmpty()){
-            User user = userRepository.findById(levelRequestDto.getUserId()).get();
-            user.updateUserLevel(levelRequestDto.getLevel());
-        }else{
-            User user = customUserDetailsService.getUserByAuthentication();
-            user.updateUserLevel(levelRequestDto.getLevel());
-        }
+        User user = customUserDetailsService.getUserByAuthentication();
+        user.updateUserLevel(levelRequestDto.getLevel());
     }
     private String createCode() {
         int lenth = 6;
