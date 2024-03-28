@@ -170,7 +170,7 @@ onMounted(() => {
             let url =
               condition == "VIDEO"
                 ? "/badge/" + condition + "/" + category + ".png"
-                : "/badge/" + condition + "/" + condition + ".png";
+                : "/badge/" + condition + "/" + "speaking.png";
             let check = userBadge.value.some((badge) => {
               return JSON.stringify(badge) === JSON.stringify(data.data[i]);
             });
