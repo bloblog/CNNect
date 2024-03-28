@@ -17,6 +17,7 @@ from conf.config_reader import read_config, get_database_config, get_mongodb_con
 import concurrent.futures
 from py_youtube import Data
 from script_level import *
+from script_category import *
 
 config = read_config()
 mongodb_config = get_mongodb_config(config)
@@ -134,6 +135,7 @@ def time_match(script, sentences):
 
 
 def set_script(video):
+    global scripts
     global new_data
     script = load_script(video['video_id'])
 
@@ -143,12 +145,12 @@ def set_script(video):
 
     else:
         full_script = get_fullscript(script)
+        scripts.append(full_script) # 카테고라이징 데이터 모으기
         script_sentence = split(full_script)
         level = calculate_difficulty(full_script, script_sentence)
         word_list = find_word_list(full_script, level)
 
         for data in new_data:
-
             if data['video_id'] == video['video_id']:
                 data['sentenceList'] = time_match(script, script_sentence)
                 data['full_script'] = full_script
@@ -168,7 +170,6 @@ def set_info(video):
 
     for data in new_data:
 
-
         if data['video_id'] == video['video_id']:
             data['video_name'] = title
             data['video_thumbnail'] = src
@@ -185,27 +186,20 @@ nltk.download('punkt')
 
 # 데이터 새로 수집
 new_data = []
+scripts = []
 get_url()
 
 for video in new_data:
     set_script(video)
     set_info(video)
-    print(f"{video['video_id']} 완료")
+    print(f"{video['video_id']} 완료 (카테고리 제외)")
 
-# # 멀티프로세싱을 위한 실행 함수 정의
-# def process_video_script(video):
-#     set_script(video)
+categories = get_category(scripts)
+print("카테고리 배열 : ", len(categories))
+print("데이터 배열 : ", len(new_data))
 
-
-# def process_video_info(video):
-#     set_info(video)
-
-
-# # 멀티프로세싱 실행
-# with concurrent.futures.ThreadPoolExecutor() as executor:
-#     # video_list = [data['video_id'] for data in new_data]
-#     executor.map(process_video_script, new_data)
-#     executor.map(process_video_info, new_data)
+for idx, cat in categories:
+    new_data[idx]['category_id'] = cat
 
 if new_data:
     db['data'].insert_many(new_data)
