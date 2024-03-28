@@ -19,4 +19,10 @@ public class SearchController {
     public ResponseEntity<ResultResponse> searchByTitle(@RequestParam String keyword){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, searchService.searchByTitle(keyword)));
     }
+
+    @Operation(summary = "영상 스크립트 검색")
+    @GetMapping(value = "/script")
+    public ResponseEntity<ResultResponse> searchByScript(@RequestParam String keyword){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, searchService.searchByScript(keyword)));
+    }
 }

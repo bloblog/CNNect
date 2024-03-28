@@ -35,7 +35,7 @@ public class SearchDocument {
     @Field(name = "video_date", type = FieldType.Text)
     private String videoDate;
 
-    @Field(name = "sentence_list", type = FieldType.Object)
+    @Field(name = "sentence_list", type = FieldType.Nested)
     private List<SentenceDocument> sentenceList;
 
     @Field(name = "full_script", type = FieldType.Text)

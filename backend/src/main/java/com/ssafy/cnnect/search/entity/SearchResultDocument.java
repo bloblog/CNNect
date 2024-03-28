@@ -5,20 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
 
 @Getter
 @Builder
-@Document(indexName = "sentence")
+@Document(indexName = "result")
 @Setting(replicas = 0)
 @AllArgsConstructor
 @NoArgsConstructor
-public class SentenceDocument {
-    @Field(name = "start", type = FieldType.Long, index = false)
-    private Long start;
+public class SearchResultDocument {
 
-    @Field(name = "text", type = FieldType.Text, index = true)
+    private String video_id;
+    private String video_date;
+    private String video_name;
     private String text;
 }
