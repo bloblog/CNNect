@@ -7,9 +7,7 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class UserSentenceRequestDto {
+public class UserSentenceGetRequestDto {
     private int sentenceOrder;
-    private String sentenceContent;
-    private Double sentenceScore;
-    private String videoId;
+    private Long historyId;
 }

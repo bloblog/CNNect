@@ -23,7 +23,6 @@ public class UserHistoryService {
     private final CustomUserDetailsService customUserDetailsService;
     private final UserHistoryRepository userHistoryRepository;
     private final UserRepository userRepository;
-    private final CustomUserDetailsService userDetailsService;
 
     @Transactional
     public void saveRegistHistory(List<UserHistoryRegisterRequestDto> historyList){
