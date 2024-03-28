@@ -24,7 +24,7 @@
       </button>
       <div class="flex">
         <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
-          <div
+          <div v-if="videoList.length != 0"
             v-for="(video, index) in videoList.slice(startIndex, endIndex)"
             :key="index"
             class="relative"
@@ -47,6 +47,18 @@
                 {{ video.video_name }}
               </div>
             </div>
+          </div>
+          <div v-else class="grid-cols-3 flex space-x-2">
+            
+              <div class="animate-pulse rounded-md video-img-item img-container">
+                <div class="rounded w-52 h-52 bg-gray-200"></div>
+              </div>
+              <div class="animate-pulse rounded-md video-img-item img-container">
+                <div class="rounded w-52 h-52 bg-gray-200"></div>
+              </div>
+              <div class="animate-pulse rounded-md video-img-item img-container">
+                <div class="rounded w-52 h-52 bg-gray-200"></div>
+              </div>
           </div>
         </div>
       </div>

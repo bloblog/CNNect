@@ -1,47 +1,43 @@
 <template>
     <div class="flex flex-col items-center p-5">
-      <div id="now-video" class="mb-10">
-        <h1 class="text-xl font-bold p-3">학습 진행중인 뉴스</h1>
-      
-        <div 
-          @click="goToStudy"
-          @mouseover="handleMouseOver"
-          @mouseleave="handleMouseLeave"
-          id="now-video-container" 
-          class="relative rounded-xl grid grid-cols-3"
-          :class="{ 'opacity-80': hovered }"
-          >
-  
-          <div id="container-layer" class="rounded-xl"></div>
-          <div class="bg-black" id="video-img-container">
-            <img id="now-video-img" :src=now_video.video_thumbnail alt="Now Video Image">
-          </div>
-          <div class="p-10 flex flex-col justify-between col-span-3 sm:col-span-2 mb-3" id="now-video-info">
-            <div class="text-2xl font-bold" id="video-name">[ Lv.3 ] {{ now_video.video_name }}</div>
-            <div>
-              <div class="flex">
-                <div class="text-lg font-bold text-white z-10">문장 수</div>
-                <div class="relative text-lg left-14" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
+      <div id="now-video" class="mb-5">
+        <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">학습 진행중인 뉴스</h1>
+        <div class="flex justify-center">
+          <div 
+            @click="goToStudy"
+            @mouseover="handleMouseOver"
+            @mouseleave="handleMouseLeave"
+            id="now-video-container" 
+            class="relative rounded-xl grid grid-cols-5 w-[70vw]"
+            :class="{ 'opacity-80': hovered }"
+            >
+            <div id="container-layer" class="rounded-xl"></div>
+            <div class="bg-black col-span-2" id="video-img-container">
+              <img id="now-video-img" :src=now_video.video_thumbnail alt="Now Video Image">
+            </div>
+            <div class="p-8 flex flex-col justify-between sm:col-span-3 mb-3" id="now-video-info">
+              <div class="text-2xl font-bold font-[GmarketSansMedium]" id="video-name">[ Lv.{{ now_video.video_level }} ] {{ now_video.video_name }}</div>
+              <div>
+                <div class="flex">
+                  <div class="text-lg font-bold text-white z-10">문장 수</div>
+                  <div class="relative text-lg left-14" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
+                </div>
+                <div class="flex">
+                  <div class="text-lg whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
+                  <div id="last-sentence" class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
+                </div>
+    
               </div>
-              <div class="flex">
-                <div class="text-lg whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
-                <div id="last-sentence" class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
-              </div>
-  
             </div>
           </div>
         </div>
       </div>
       <div id="recomm-video">
-        <h1 class="text-xl font-bold p-3">추천 뉴스</h1>
+        <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">추천 뉴스</h1>
         <div id="recomm-video-container">
           <RecommVideoList/>
         </div>
       </div>
-      <!-- 공백용 -->
-      <div class="h-10"></div>
-  
-      
     </div>
     
   </template>
@@ -97,7 +93,8 @@
         "text": "Now, in a moment, i'm going to speak exclusively with don lemon and he has clips of the nearly hour and a half interview with musk, clips like this one that we received from don's production team."
       },
     ],
-    category_name: "Politics",
+    category_id: "0",
+    video_level: 4,
     video_date: "2024-03-13",
     video_name: "Don Lemon speaks out after Elon Musk cancelled his show on X",
     video_thumbnail : "https://i.ytimg.com/vi/pgVZnVTKqMw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCt-mOsWO1EQ4iRQiBnoCrAg1G3Ww"

@@ -9,15 +9,11 @@
       id="main-item-container"
     >
       <div class="flex pb-5">
-        <h2 class="text-4xl font-bold text-white whitespace-pre">
-          나에게 맞는
-        </h2>
-        <span class="text-4xl font-bold text-theme-red">CNN 뉴스</span>
-        <h2 class="z-10 text-4xl font-bold text-white">
-          로 영어를 배울 수 있습니다.
+        <h2 class="text-4xl font-bold text-white text-center">
+          나에게 맞는 <span class="text-4xl font-bold text-theme-red">CNN 뉴스</span>로 영어를 배울 수 있습니다.
         </h2>
       </div>
-      <h4 class="z-10 text-2xl text-white pb-10">
+      <h4 class="z-10 text-2xl text-white pb-10 text-center">
         당신의 관심사와 영어 수준을 바탕으로 추천해드립니다.
       </h4>
       <!-- <img src="@/assets/thumbnail.png" id="background-img" class="absolute max-w-none inset-y-80"> -->
