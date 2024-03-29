@@ -43,16 +43,16 @@ public class UserHistoryController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
-    @Operation(summary = "학습중인 영상 조회")
-    @GetMapping(value = "/proceeding")
-    public ResponseEntity<ResultResponse> getLearningVideo(){
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getLearningVideo()));
-    }
-
-    @Operation(summary = "학습완료 영상 조회")
-    @GetMapping(value = "/done")
-    public ResponseEntity<ResultResponse> getCompletedVideo(){
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getCompletedVideo()));
-    }
+//    @Operation(summary = "학습중인 영상 조회")
+//    @GetMapping(value = "/proceeding")
+//    public ResponseEntity<ResultResponse> getLearningVideo(){
+//        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getLearningVideo()));
+//    }
+//
+//    @Operation(summary = "학습완료 영상 조회")
+//    @GetMapping(value = "/done")
+//    public ResponseEntity<ResultResponse> getCompletedVideo(){
+//        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getCompletedVideo()));
+//    }
 
 }

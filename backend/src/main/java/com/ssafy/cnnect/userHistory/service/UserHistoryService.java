@@ -12,6 +12,7 @@ import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import com.ssafy.cnnect.video.entity.Video;
+import com.ssafy.cnnect.video.repository.VideoRepository;
 import com.ssafy.cnnect.video.service.VideoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class UserHistoryService {
     private final CustomUserDetailsService customUserDetailsService;
     private final UserHistoryRepository userHistoryRepository;
     private final UserRepository userRepository;
-    private final VideoService videoService;
+    private final VideoRepository videoRepository;
 
     @Transactional
     public void saveRegistHistory(List<UserHistoryRegisterRequestDto> historyList){
@@ -127,7 +128,7 @@ public class UserHistoryService {
 
         List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
                 .map(history -> {
-                    Video video = videoService.findByVideoId(history.getVideoId());
+                    Video video = videoRepository.findByVideoId(history.getVideoId());
                     if (video != null) {
                         return UserHistoryVideoResponseDto.builder()
                                 .videoName(video.getVideo_name())
@@ -154,7 +155,7 @@ public class UserHistoryService {
 
         List<UserHistoryVideoResponseDto> videoList = completedVideoList.stream()
                 .map(history -> {
-                    Video video = videoService.findByVideoId(history.getVideoId());
+                    Video video = videoRepository.findByVideoId(history.getVideoId());
                     if (video != null) {
                         return UserHistoryVideoResponseDto.builder()
                                 .videoName(video.getVideo_name())
