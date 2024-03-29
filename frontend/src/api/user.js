@@ -30,7 +30,7 @@ function userInfo(success, fail){
 
 async function sendTokenToSaveRM(token) {
     try {
-      const response = await local.get('/recommendations', {
+      const response = await local.get('/script', {
         headers: {
           Authorization: `Bearer ${token}`
         }
