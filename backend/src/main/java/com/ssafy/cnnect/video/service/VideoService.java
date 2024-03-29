@@ -34,4 +34,10 @@ public class VideoService {
         List<Video> videolist = videoRepository.findByCategoryId(categoryId);
         return videolist;
     }
+
+    public Video findByVideoId(String videoId){
+        Video video = videoRepository.findByVideoId(videoId);
+        return video;
+    }
+
 }

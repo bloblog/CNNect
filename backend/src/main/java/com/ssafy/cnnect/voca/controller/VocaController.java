@@ -23,7 +23,7 @@ public class VocaController {
 
     @Operation(summary = "단어장 커스텀 단어 추가")
     @PostMapping(value = "")
-    public ResponseEntity<ResultResponse> insertWord(@RequestParam VocaRequestDto word){
+    public ResponseEntity<ResultResponse> insertWord(@RequestBody VocaRequestDto word){
         wordHistoryService.saveWord(word);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }

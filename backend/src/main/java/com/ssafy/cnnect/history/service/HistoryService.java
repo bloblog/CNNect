@@ -7,7 +7,9 @@ import com.ssafy.cnnect.history.repository.HistoryRepository;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
+import com.ssafy.cnnect.video.entity.Video;
 import com.ssafy.cnnect.video.repository.VideoRepository;
+import com.ssafy.cnnect.video.service.VideoService;
 import com.ssafy.cnnect.voca.dto.VocaListResponseDto;
 import com.ssafy.cnnect.voca.entity.Voca;
 import jakarta.transaction.Transactional;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,7 +28,7 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
     private final UserRepository userRepository;
     private final CustomUserDetailsService userDetailsService;
-    private final VideoRepository videoRepository;
+    private final VideoService videoService;
 
     @Transactional
     public void saveRegistHistory(List<HistoryRegisterRequestDto> historyList){
@@ -49,37 +52,53 @@ public class HistoryService {
         User user = userDetailsService.getUserByAuthentication();
         List<History> learningVideoList = historyRepository.findLearningVideo(user);
 
-        List<HistoryResponseDto> vocaList = learningVideoList.stream()
-                .map(history -> HistoryResponseDto.builder()
-                        .videoName(videoRepository.findByVideoId(history.getVideoId()).getVideo_name())
-                        .historyId(history.getHistoryId())
-                        .videoId(history.getVideoId())
-                        .lastSentence(history.getHistorySentence())
-                        .videoLevel(videoRepository.findByVideoId(history.getVideoId()).getVideo_level())
-//                        .completedSentenceNum()/////////////////////////////////////////////////////////////
-                        .totalSentenceNum(videoRepository.findByVideoId(history.getVideoId()).getSentence_list().size())
-                        .build())
+        List<HistoryResponseDto> videoList = learningVideoList.stream()
+                .map(history -> {
+                    Video video = videoService.findByVideoId(history.getVideoId());
+                    if (video != null) {
+                        return HistoryResponseDto.builder()
+                                .videoName(video.getVideo_name())
+                                .historyId(history.getHistoryId())
+                                .videoId(history.getVideoId())
+                                .lastSentence(history.getHistorySentence())
+                                .videoLevel(video.getVideo_level())
+//                                .completedSentenceNum(video.getUserSentenceList.size())
+                                .totalSentenceNum(video.getSentence_list().size())
+                                .build();
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        return vocaList;
+        return videoList;
     }
 
     public List<HistoryResponseDto> getCompletedVideo(){
         User user = userDetailsService.getUserByAuthentication();
         List<History> completedVideoList = historyRepository.findCompletedVideo(user);
 
-        List<HistoryResponseDto> vocaList = completedVideoList.stream()
-                .map(history -> HistoryResponseDto.builder()
-                        .videoName(videoRepository.findByVideoId(history.getVideoId()).getVideo_name())
-                        .historyId(history.getHistoryId())
-                        .videoId(history.getVideoId())
-                        .lastSentence(history.getHistorySentence())
-                        .videoLevel(videoRepository.findByVideoId(history.getVideoId()).getVideo_level())
-//                        .completedSentenceNum()/////////////////////////////////////////////////////////////
-                        .totalSentenceNum(videoRepository.findByVideoId(history.getVideoId()).getSentence_list().size())
-                        .build())
+        List<HistoryResponseDto> videoList = completedVideoList.stream()
+                .map(history -> {
+                    Video video = videoService.findByVideoId(history.getVideoId());
+                    if (video != null) {
+                        return HistoryResponseDto.builder()
+                                .videoName(video.getVideo_name())
+                                .historyId(history.getHistoryId())
+                                .videoId(history.getVideoId())
+                                .lastSentence(history.getHistorySentence())
+                                .videoLevel(video.getVideo_level())
+//                                .completedSentenceNum(video.getUserSentenceList.size())
+                                .totalSentenceNum(video.getSentence_list().size())
+                                .build();
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        return vocaList;
+        return videoList;
     }
 }
