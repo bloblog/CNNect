@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from conf.config_reader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
+from recommendation.config_reader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
 import jwt
 from http import HTTPStatus
 from flask_cors import CORS
@@ -129,8 +129,11 @@ def save_recommended_news_to_mysql(recommended_news):
         if connection:
             with connection.cursor() as cursor:
                 for news in recommended_news:
+                    recommended_id = str(uuid.uuid4())
                     sql = "INSERT INTO recommended_news (recommended_id, user_id, video_id, video_name, video_level, video_thumbnail) VALUES (%s, %s, %s, %s, %s, %s)"
-                    cursor.execute(sql, (news["recommended_id"], news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
+                    cursor.execute(sql, (recommended_id, news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
+
+                cursor.execute("ALTER TABLE recommended_news ADD INDEX(recommended_id)")
                 connection.commit()
                 print("추천된 뉴스를 MySQL에 저장했습니다.")
     except Exception as e:
@@ -183,7 +186,7 @@ class NewsRecommender:
             return []
 news_recommender = NewsRecommender()
 
-@recommendation_bp.route('/recommendations', methods=['GET'])
+@recommendation_bp.route('/script', methods=['GET'])
 def save_recommendations():
     user_id = extract_user_id_from_token()
     
@@ -204,7 +207,7 @@ def save_recommendations():
     
     recommended_news = [
     {
-        "recommended_id": str(news_articles[index]["_id"]),
+        "recommended_id": str(uuid.uuid4()),
         "user_id": user_id,
         "video_id": news_articles[index]["video_id"],
         "video_name": news_articles[index]["video_name"],
