@@ -47,4 +47,7 @@ public class SearchDocument {
     @Field(name = "word_list", type = FieldType.Object)
     private List<String> wordList;
 
+    @Field(name = "sentence_list.text", type = FieldType.Text, index = false)
+    private String text;
+
 }

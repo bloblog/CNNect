@@ -3,7 +3,9 @@ package com.ssafy.cnnect.search.service;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.search.InnerHits;
 import co.elastic.clients.elasticsearch.core.search.ScoreMode;
+import co.elastic.clients.elasticsearch.core.search.SourceConfig;
 import co.elastic.clients.util.ObjectBuilder;
 import com.ssafy.cnnect.search.dto.SearchScriptResponseDto;
 import com.ssafy.cnnect.search.dto.SearchTitleResponseDto;
@@ -33,7 +35,6 @@ import java.util.stream.Collectors;
 public class SearchService {
     private final SearchElasticsearchRepository elasticsearchRepository;
     private final ElasticsearchTemplate elasticsearchTemplate;
-    private final ElasticsearchClient elasticsearchClient;
 
     public List<SearchTitleResponseDto> searchByTitle(String title){
         List<SearchDocument> searchVideo = elasticsearchRepository.findByVideoName(title);
@@ -56,33 +57,27 @@ public class SearchService {
     public List<SearchScriptResponseDto> searchByScript(String keyword){
         List<SearchScriptResponseDto> list = new ArrayList<>();
         NativeQuery nativeQuery = new NativeQueryBuilder()
-                .withQuery(QueryBuilders.nested()
+                .withQuery(QueryBuilders.nested().innerHits(new InnerHits.Builder().source(SourceConfig.of(sc -> sc.filter(f -> f.includes(List.of("sentence_list.text"))))).build())
                         .path("sentence_list")
                         .query(QueryBuilders.match().field("sentence_list.text").query(keyword).build()._toQuery())
                         .scoreMode(ChildScoreMode.None).build()._toQuery())
                 .withSourceFilter(new FetchSourceFilter(new String[]{"video_id", "video_name", "video_date"}, null))
-                .withPageable(PageRequest.of(0, 15))
+                .withPageable(PageRequest.of(0, 45))
                 .build();
-        List<SearchResultDocument> hits  = elasticsearchTemplate.search(nativeQuery, SearchResultDocument.class)
-                        .stream()
-                        .map(SearchHit::getContent)
-                        .collect(Collectors.toList());;
-//        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
-//                .withQuery(QueryBuilders.nestedQuery(
-//                        "sentence_list",
-//                        QueryBuilders.matchQuery("sentence_list.text", "security"),
-//                        ScoreMode.None))
-//                .withSourceFilter(new FetchSourceFilter(new String[]{"video_id"}, null))
-//                .withPageable(PageRequest.of(0, 15))
-//                .build();
-//        SearchHits<SearchDocument> searchHits = elasticsearchTemplate.search(searchQuery, MyDocument.class);
-//        Pageable pageable = PageRequest.of(1,10000);
-//        List<SearchDocument> searchList = elasticsearchRepository.findBySentenceListTextContaining(keyword, 27);
-        for (SearchResultDocument hit : hits) {
-            System.out.println(hit.getVideo_id());
-            System.out.println(hit.getVideo_name());
-            System.out.println(hit.getText());
+        SearchHits<SearchDocument> hits  = elasticsearchTemplate.search(nativeQuery, SearchDocument.class);
 
+
+        for (SearchHit<SearchDocument> hit : hits) {
+            SentenceDocument sd = (SentenceDocument) hit.getInnerHits().get("sentence_list").getSearchHits().get(0).getContent();
+            System.out.println(sd.getText());
+            System.out.println(hit.getContent().getVideoName());
+            SearchScriptResponseDto searchScriptResponseDto = SearchScriptResponseDto.builder()
+                    .videoId(hit.getContent().getVideoId())
+                    .videoName(hit.getContent().getVideoName())
+                    .videoDate(hit.getContent().getVideoDate())
+                    .sentence(sd.getText())
+                    .build();
+            list.add(searchScriptResponseDto);
         }
         return list;
     }
