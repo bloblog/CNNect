@@ -24,11 +24,8 @@
       </button>
       <div class="flex">
         <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
-          <div v-if="videoList && videoList.length != 0"
-            v-for="(video, index) in videoList.slice(startIndex, endIndex)"
-            :key="index"
-            class="relative"
-          >
+          <div v-if="videoList && videoList.length !== 0" class="relative">
+            <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index">
             <div class="flex flex-col" @click="goToStudy">
               <img
                 :src="video.video_thumbnail"
@@ -47,6 +44,7 @@
                 {{ video.video_name }}
               </div>
             </div>
+          </div>
           </div>
           <div v-else class="grid-cols-3 flex space-x-2">
             
