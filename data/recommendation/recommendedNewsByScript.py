@@ -1,13 +1,14 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 import pymysql.cursors
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from configReader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
+from conf.config_reader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
 import jwt
 from http import HTTPStatus
 from flask_cors import CORS
+recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 
 app = Flask(__name__)
 CORS(app)
@@ -182,7 +183,7 @@ class NewsRecommender:
             return []
 news_recommender = NewsRecommender()
 
-@app.route('/recommendations', methods=['GET'])
+@recommendation_bp.route('/recommendations', methods=['GET'])
 def save_recommendations():
     user_id = extract_user_id_from_token()
     

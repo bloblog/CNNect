@@ -5,7 +5,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from flask_cors import CORS
-from recommendedNewsByScript import recommendation_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -93,7 +92,7 @@ class NewsRecommender:
             return []
 
 
-@recommendation_bp.route('/complexity', methods=['GET'])
+@app.route('/complexity', methods=['GET'])
 def get_recommendations():
     print("Getting recommendations...")
     news_recommender = NewsRecommender()
