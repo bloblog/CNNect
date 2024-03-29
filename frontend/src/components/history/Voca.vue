@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="">
         <div class="word-list" v-if="currentPageWordList.length !== 0 ">
-            <ul>
-                <li v-for="wordData in currentPageWordList" :key="wordData.word" class = "item">
+            <ul class="flex flex-col items-center min-h-[65vh]">
+                <li v-for="wordData in currentPageWordList" :key="wordData.word" class ="item">
                     <div class="word-item">
                         <div class="word font-bold text-lg text-center"> {{ wordData.word }} </div>
                         <div class="mean"> {{ wordData.mean }} </div>
@@ -28,8 +28,10 @@
                     </svg>
                 </div>  
             </div>  
+            <!-- 여백 -->
+            <div class="h-3"></div>
         </div>
-        <div v-else class="blank ">저장된 단어가 존재하지 않습니다.</div>
+        <div v-else class="blank flex items-center justify-center font-bold text-lg">저장된 단어가 존재하지 않습니다.</div>
         
     </div>
     
@@ -138,12 +140,11 @@ function delWord(wordListId) {
     border: 1px solid #e2e2e2;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    margin: 12px 0 15px 15px;
-    padding-left: 10px;
+    margin: 10px 0 10px 0px;
     width: 100%;
     display: flex;
-    flex-direction: row;
 }
+
 .del{
     color: #CC0000;
     display: flex;
@@ -166,12 +167,9 @@ function delWord(wordListId) {
 }
 .word-list{
     position: relative;
-    top: 5%;
-    left: 10%;
-    /* padding:3%;
-    left: 1%; */
-    height: 85%;
-    width: 90%;
+    height: 80vh;
+    min-height: fit-content;
+    margin-top: 3vh;
     overflow-y: scroll;
 }
 .active{
@@ -181,7 +179,7 @@ function delWord(wordListId) {
     justify-content: center; /* 수평 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
     text-align: center;
-    width: 15%;
+    min-width: 20vw;
 }
 .page{
     display: flex;
@@ -200,10 +198,7 @@ function delWord(wordListId) {
 }
 
 .blank{
-    margin-top: 20%;
-    text-align: center;
-    font-size: 150%;
-    font-style: bold;
+    height: 80vh;
     font-family: 'GmarketSansMedium';
 }
 </style>
