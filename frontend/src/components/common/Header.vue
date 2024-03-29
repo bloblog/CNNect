@@ -7,7 +7,7 @@
   >
     <div class="flex items-center font-[GmarketSansMedium]">
       <RouterLink to="/">
-        <img src="@/assets/logo.png" class="h-6 m-5" />
+        <img src="@/assets/logo.png" class="h-8 m-5">
       </RouterLink>
       <RouterLink v-if="isLogin" to="/history"
         ><span class="flex items-start mx-2 text-white">학습기록</span>
@@ -27,15 +27,8 @@
 
     <div class="flex items-center">
       <!-- Search button -->
-      <div class="search-area relative">
-        <input
-          class="custom-input"
-          @keyup.enter="search()"
-          v-model="searchInput"
-          type="text"
-          name=""
-          ref="customInput"
-        />
+      <div class="search-area relative" v-if="isLogin">
+        <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
