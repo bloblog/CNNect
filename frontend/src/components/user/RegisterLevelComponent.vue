@@ -118,7 +118,6 @@ const nextLevel = () => {
   if (wrongCount > 1) {
     finishRegister();
   } else {
-    // console.log(level.value);
     if (level.value == 6) {
       finishRegister();
     } else {

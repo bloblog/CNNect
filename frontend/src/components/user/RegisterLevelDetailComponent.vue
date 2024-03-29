@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="item in data"
+    v-for="item in question"
     :key="item.word_id"
     class="w-[60%] flex mb-4 border border-gray-300 rounded-lg p-4"
   >
@@ -42,7 +42,8 @@ onMounted(() => {
   getUserLevelTestList(
     props.stage,
     (response) => {
-      data.value = response.data;
+      question.value = response.data;
+      console.log(question.value);
     },
     (error) => {
       console.error(error);
@@ -56,7 +57,7 @@ watch(
     getUserLevelTestList(
       newValue,
       (response) => {
-        data.value = response.data;
+        question.value = response.data;
         selectedAnswers.value = {};
       },
       (error) => {
@@ -66,13 +67,13 @@ watch(
   }
 );
 
-const data = ref([]);
+const question = ref([]);
 
 const selectedAnswers = ref({});
 
 const checkAnswers = () => {
   let count = 0;
-  data.value.forEach((item) => {
+  question.value.forEach((item) => {
     if (selectedAnswers.value[item.word_id] !== item.word_answer) {
       count++;
     }
@@ -83,7 +84,7 @@ const checkAnswers = () => {
 defineExpose({ checkAnswers });
 
 // 각 항목에 대해 초기 선택값을 null로 설정
-data.value.forEach((item) => {
+question.value.forEach((item) => {
   selectedAnswers.value[item.word_id] = null;
 });
 </script>
