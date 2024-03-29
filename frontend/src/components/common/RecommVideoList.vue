@@ -91,7 +91,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { sendTokenToGetRM, sendTokenToSaveRM } from "@/api/user.js";
+import { sendTokenToSaveRM } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -107,17 +107,20 @@ const videoList = ref([]);
 async function fetchRecommendations() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await sendTokenToGetRM(accessToken); // 백엔드의 get_recommendations 함수 호출
-    videoList.value = response.recommended_news || [];
+    if (!accessToken) {
+      throw new Error("로그인이 필요합니다.");
+    }
+    
+    const response = await axios.get('/recommendations', {
+      headers: {
+        Authorization: `Bearer ${accessToken}` // 액세스 토큰을 헤더에 포함하여 보냄
+      }
+    });
+
+    // 백엔드에서 받은 응답을 videoList에 할당
+    videoList.value = response.data;
   } catch (error) {
-    console.error(
-      "서버 응답 오류:",
-      error.response ? error.response.status : "Unknown",
-      error.response ? error.response.data : "Unknown"
-    );
-    console.error("서버로부터 응답이 없습니다.", error.request);
-    console.error("요청 설정 오류:", error.message);
-    console.error("에러 설정 정보:", error.config);
+    console.error(error);
   }
 }
 
