@@ -4,12 +4,11 @@ package com.ssafy.cnnect.badge.service;
 import com.ssafy.cnnect.badge.dto.BadgeListResponseDto;
 import com.ssafy.cnnect.badge.entity.Badge;
 import com.ssafy.cnnect.badge.repository.BadgeRepository;
-import com.ssafy.cnnect.history.entity.History;
-import com.ssafy.cnnect.history.repository.HistoryRepository;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
+import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.entity.UserBadge;
 import com.ssafy.cnnect.user.repository.UserBadgeRepository;
-import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.video.entity.Category;
 import com.ssafy.cnnect.video.entity.Video;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class BadgeService {
     private final UserBadgeRepository userBadgeRepository;
     private final CategoryRepository categoryRepository;
     private final VideoRepository videoRepository;
-    private final HistoryRepository historyRepository;
+    private final UserHistoryRepository userHistoryRepository;
 
     @Transactional
     public List<BadgeListResponseDto> getMyBadge(){
@@ -82,10 +80,10 @@ public class BadgeService {
 
         // <1> - 1. 방금 학습한 영상의 카테고리 받기 -> 해당 카테고리의 유저가 기존에 학습한 영상 갯수 구하기
         User user = customUserDetailsService.getUserByAuthentication();
-        List<History> histories = historyRepository.findAllByUser(user);
+        List<UserHistory> histories = userHistoryRepository.findAllByUser(user);
         List<Video> videoList = new ArrayList<>();
 
-        for(History h : histories){
+        for(UserHistory h : histories){
             Video v = videoRepository.findByVideoId(h.getVideoId());
             videoList.add(v);
         }

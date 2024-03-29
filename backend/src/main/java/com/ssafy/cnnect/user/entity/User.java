@@ -1,6 +1,6 @@
 package com.ssafy.cnnect.user.entity;
 
-import com.ssafy.cnnect.history.entity.History;
+import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.voca.entity.Voca;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,8 +40,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<UserBadge> userBadgeList;
 
-    @OneToMany(mappedBy = "user")
-    private List<History> userHistoryList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<UserHistory> userHistoryList;
 
     public void updateUserLevel(int userLevel){
         this.userLevel = userLevel;

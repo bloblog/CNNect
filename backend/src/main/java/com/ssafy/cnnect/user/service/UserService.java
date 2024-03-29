@@ -1,7 +1,6 @@
 package com.ssafy.cnnect.user.service;
 
-import com.ssafy.cnnect.badge.repository.BadgeRepository;
-import com.ssafy.cnnect.history.repository.HistoryRepository;
+import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.service.RefreshTokenService;
 import com.ssafy.cnnect.oauth.token.JwtToken;
@@ -22,11 +21,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.time.Duration;
 import java.util.*;
 
 @Service
@@ -35,7 +32,7 @@ public class UserService {
     private final CustomUserDetailsService customUserDetailsService;
 
     private final UserRepository userRepository;
-    private final HistoryRepository historyRepository;
+    private final UserHistoryRepository historyRepository;
     private final UserBadgeRepository userBadgeRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;

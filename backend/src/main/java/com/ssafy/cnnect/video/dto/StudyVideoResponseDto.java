@@ -9,14 +9,10 @@ import java.util.List;
 @Builder
 @Getter
 @AllArgsConstructor
-public class VideoListResponseDto {
+public class StudyVideoResponseDto {
     private String videoId;
     private String videoName;
-//    private String videoUrl;
-    private int videoLevel;
-    private String videoThumbnail;
-    private String videoDate;
-    private List<String> sentenceList;
+    private Long level;
+    private List<StudySentenceResponseDto> sentenceList;
     private List<String> wordList;
-    private int categoryId;
 }
