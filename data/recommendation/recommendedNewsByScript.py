@@ -1,15 +1,13 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request
 import pymysql.cursors
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from conf.config_reader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
+from configReader import read_config, get_database_config, get_mongodb_config, get_jwt_secret_key
 import jwt
 from http import HTTPStatus
 from flask_cors import CORS
-
-recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 
 app = Flask(__name__)
 CORS(app)
@@ -123,8 +121,7 @@ def fetch_news_from_mongodb(exclude_video_ids=None):
         print("MongoDB에서 뉴스를 가져오는 중 오류 발생:", e)
         return []
     
-
-# 추천뉴스 mySQL에 저장
+# MySQL에 추천된 뉴스 저장
 def save_recommended_news_to_mysql(recommended_news):
     try:
         connection = get_mysql_connection()
@@ -138,6 +135,7 @@ def save_recommended_news_to_mysql(recommended_news):
     except Exception as e:
         print(f"추천된 뉴스를 MySQL에 저장하는 중 오류 발생: {e}")
 
+# MySQL에 추천 뉴스 저장 전 삭제
 def delete_recommended_news(user_id):
     try:
         connection = get_mysql_connection()
@@ -182,9 +180,7 @@ class NewsRecommender:
         except Exception as e:
             print(f"추천 업데이트 중 오류: {e}")
             return []
-
 news_recommender = NewsRecommender()
-
 
 @app.route('/recommendations', methods=['GET'])
 def save_recommendations():
@@ -220,28 +216,6 @@ def save_recommendations():
     return jsonify({"message": "추천된 뉴스를 MySQL에 저장했습니다."}), HTTPStatus.OK
 
 
-@recommendation_bp.route('/script', methods=['GET'])
-def get_recommendations():
-    user_id = extract_user_id_from_token()
-    
-    if user_id is None:
-        return jsonify({"status": HTTPStatus.UNAUTHORIZED, "message": "접근이 불가능합니다."}), HTTPStatus.UNAUTHORIZED
-
-    try:
-        connection = get_mysql_connection()
-        if connection:
-            with connection.cursor() as cursor:
-                sql = "SELECT * FROM recommended_news WHERE user_id = %s"
-                cursor.execute(sql, (user_id,))
-                recommended_news = cursor.fetchall()
-                return jsonify({"recommended_news": recommended_news}), HTTPStatus.OK
-    except Exception as e:
-        print(f"MySQL 데이터베이스에서 데이터를 가져오는 중 오류 발생: {e}")
-        return jsonify({"message": "데이터를 가져오는 중 오류가 발생했습니다."}), HTTPStatus.INTERNAL_SERVER_ERROR
-    finally:
-        if connection:
-            connection.close()
-
-
 if __name__ == "__main__":
     app.run(debug=True)
+
