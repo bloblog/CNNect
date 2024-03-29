@@ -108,11 +108,11 @@ def fetch_news_from_mongodb(exclude_video_ids=None):
         news_documents = [] 
         if exclude_video_ids:
             query = {'video_id': {'$nin': exclude_video_ids}}
-            projection = {'_id': 1, 'video_id': 1, 'senteceList': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
+            projection = {'_id': 1, 'video_id': 1, 'sentence_list': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
             all_news = news_collection.find(query, projection)
             news_documents = list(all_news)  
         else:
-            projection = {'_id': 1, 'video_id': 1, 'senteceList': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
+            projection = {'_id': 1, 'video_id': 1, 'sentence_list': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
             all_news = news_collection.find({}, projection)
             news_documents = list(all_news) 
 
@@ -129,8 +129,8 @@ def save_recommended_news_to_mysql(recommended_news):
         if connection:
             with connection.cursor() as cursor:
                 for news in recommended_news:
-                    sql = "INSERT INTO recommended_news (video_id, category_name, video_date, video_name, video_thumbnail) VALUES (%s, %s, %s, %s, %s)"
-                    cursor.execute(sql, (news["video_id"], news["category_name"], news["video_date"], news["video_name"], news["video_thumbnail"]))
+                    sql = "INSERT INTO recommended_news (recommended_id, user_id, video_id, video_name, video_level, video_thumbnail) VALUES (%s, %s, %s, %s, %s, %s)"
+                    cursor.execute(sql, (news["recommended_id"], news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
                 connection.commit()
                 print("추천된 뉴스를 MySQL에 저장했습니다.")
     except Exception as e:
@@ -202,12 +202,17 @@ def save_recommendations():
 
     recommended_indices = news_recommender.update_recommendations(user_history_scripts, top_n=10)
     
-    recommended_news = [{"_id": str(news_articles[index]["_id"]),
-                             "video_id": news_articles[index]["video_id"],
-                             "category_name": news_articles[index]["category_name"],
-                             "video_date": news_articles[index]["video_date"],
-                             "video_name": news_articles[index]["video_name"],
-                             "video_thumbnail": news_articles[index]["video_thumbnail"]} for index in recommended_indices]
+    recommended_news = [
+    {
+        "recommended_id": str(news_articles[index]["_id"]),
+        "user_id": user_id,
+        "video_id": news_articles[index]["video_id"],
+        "video_name": news_articles[index]["video_name"],
+        "video_level": news_articles[index]["video_name"],
+        "video_thumbnail": news_articles[index]["video_thumbnail"]
+    }
+    for index in recommended_indices
+]
     
     delete_recommended_news(user_id)
 
