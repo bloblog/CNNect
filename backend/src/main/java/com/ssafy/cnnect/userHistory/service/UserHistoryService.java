@@ -3,6 +3,7 @@ package com.ssafy.cnnect.userHistory.service;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryVideoResponseDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
@@ -10,6 +11,8 @@ import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
+import com.ssafy.cnnect.video.entity.Video;
+import com.ssafy.cnnect.video.service.VideoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.exec.ExecutionException;
@@ -17,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +30,7 @@ public class UserHistoryService {
     private final CustomUserDetailsService customUserDetailsService;
     private final UserHistoryRepository userHistoryRepository;
     private final UserRepository userRepository;
+    private final VideoService videoService;
 
     @Transactional
     public void saveRegistHistory(List<UserHistoryRegisterRequestDto> historyList){
@@ -114,4 +120,59 @@ public class UserHistoryService {
 
         userHistory.updateUserHistoryLast(userHistoryUpdateRequestDto.getHistorySentence(), userHistoryUpdateRequestDto.getHistoryTime());
     }
+
+    public List<UserHistoryVideoResponseDto> getLearningVideo(){
+        User user = customUserDetailsService.getUserByAuthentication();
+        List<UserHistory> learningVideoList = userHistoryRepository.findLearningVideo(user);
+
+        List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
+                .map(history -> {
+                    Video video = videoService.findByVideoId(history.getVideoId());
+                    if (video != null) {
+                        return UserHistoryVideoResponseDto.builder()
+                                .videoName(video.getVideo_name())
+                                .historyId(history.getHistoryId())
+                                .videoId(history.getVideoId())
+                                .lastSentence(history.getHistorySentence())
+                                .videoLevel(video.getVideo_level())
+                                .completedSentenceNum(history.getUserSentenceList().size())
+                                .totalSentenceNum(video.getSentence_list().size())
+                                .build();
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        return videoList;
+    }
+
+    public List<UserHistoryVideoResponseDto> getCompletedVideo(){
+        User user = customUserDetailsService.getUserByAuthentication();
+        List<UserHistory> completedVideoList = userHistoryRepository.findCompletedVideo(user);
+
+        List<UserHistoryVideoResponseDto> videoList = completedVideoList.stream()
+                .map(history -> {
+                    Video video = videoService.findByVideoId(history.getVideoId());
+                    if (video != null) {
+                        return UserHistoryVideoResponseDto.builder()
+                                .videoName(video.getVideo_name())
+                                .historyId(history.getHistoryId())
+                                .videoId(history.getVideoId())
+                                .lastSentence(history.getHistorySentence())
+                                .videoLevel(video.getVideo_level())
+                                .completedSentenceNum(history.getUserSentenceList().size())
+                                .totalSentenceNum(video.getSentence_list().size())
+                                .build();
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        return videoList;
+    }
+
 }
