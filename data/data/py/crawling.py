@@ -3,8 +3,8 @@ import configparser
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import nltk
 import time
@@ -17,6 +17,7 @@ from config_reader import read_config, get_database_config, get_mongodb_config
 import concurrent.futures
 from py_youtube import Data
 from script_level import *
+
 from script_category import *
 
 config = read_config()
@@ -37,8 +38,10 @@ def init():
     options.add_argument('--no-sandbox')
     options.add_argument('disable-dev-shm-usage')
     options.add_experimental_option("detach", True)
-    
-    driver = webdriver.Chrome(options=options)
+
+    service = ChromeService(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+
 
     # 페이지 접속하기
     url = 'https://www.youtube.com/@CNN/videos'
