@@ -12,7 +12,7 @@ import java.util.List;
 public class StudyVideoResponseDto {
     private String videoId;
     private String videoName;
-    private Long videoLevel;
+    private Long level;
     private List<StudySentenceResponseDto> sentenceList;
     private List<String> wordList;
 }

@@ -1,8 +1,6 @@
 package com.ssafy.cnnect.video.service;
 
-import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
-import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceGetRequestDto;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
@@ -26,9 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VideoService {
 
-    private final CustomUserDetailsService customUserDetailsService;
     private final VideoRepository videoRepository;
-    private final UserHistoryRepository userHistoryRepository;
     private final UserHistoryService userHistoryService;
     private final UserSentenceService userSentenceService;
 
@@ -72,8 +68,8 @@ public class VideoService {
 
             StudySentenceResponseDto studySentenceResponseDto = StudySentenceResponseDto.builder()
                     .order(i + 1)
-                    .start(script.get(i).getStart())
-                    .text(script.get(i).getText())
+                    .startTime(script.get(i).getStart())
+                    .content(script.get(i).getText())
                     .score(userSentenceResponseDto != null ? userSentenceResponseDto.getSentenceScore() : null)
                     .build();
 
@@ -83,7 +79,7 @@ public class VideoService {
         StudyVideoResponseDto studyVideoResponseDto = StudyVideoResponseDto.builder()
                 .videoId(videoId)
                 .videoName(video.getVideo_name())
-                .videoLevel(video.getVideo_level())
+                .level(video.getVideo_level())
                 .sentenceList(studySentenceResponseDtoList)
                 .wordList(video.getWord_list())
                 .build();

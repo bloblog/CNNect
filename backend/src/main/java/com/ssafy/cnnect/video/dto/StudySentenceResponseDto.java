@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class StudySentenceResponseDto {
     private int order;
-    private Long start;
-    private String text;
+    private Long startTime;
+    private String content;
     private Double score;
 }
