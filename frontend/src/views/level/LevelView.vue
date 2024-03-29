@@ -35,14 +35,32 @@
 
 <script setup>
 import { ref, shallowRef } from "vue";
+import { setUserLevelToken, setUserLevelNotToken } from "@/api/test";
+import { storeToRefs } from "pinia";
+import { userStore } from "@/stores/userStore";
+
 import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
 import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
+
+const uStore = userStore();
+const { userId } = storeToRefs(uStore);
 
 const level = ref(1);
 const registerSwitch = shallowRef(RegisterLevel);
 
 const handleFinishRegister = () => {
   registerSwitch.value = RegisterResult;
+  if (localStorage.getItem("accessToken")) {
+    setUserLevelToken({
+      level: level.value,
+    });
+  } else {
+    console.log(userId.value);
+    setUserLevelNotToken({
+      userId: userId,
+      level: level.value,
+    });
+  }
 };
 
 const handleUpdateLevel = (newLevel) => {
