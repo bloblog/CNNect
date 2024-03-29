@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 import configparser
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service as ChromeService
-# from selenium.webdriver.chrome.options import Options as ChromeOptions
-# from webdriver_manager.chrome import ChromeDriverManager
-# from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import nltk
 import time
@@ -37,12 +37,12 @@ def init():
     options.add_argument('--no-sandbox')
     options.add_argument('disable-dev-shm-usage')
     options.add_experimental_option("detach", True)
-    options.add_argument("--single-process")
+    # options.add_argument("--single-process")
 
-    driver = webdriver.Chrome(options=options)
+    # driver = webdriver.Chrome(options=options)
 
-    # service = ChromeService(executable_path=ChromeDriverManager().install())
-    # driver = webdriver.Chrome(service=service, options=options)
+    service = ChromeService(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
 
     # 페이지 접속하기
     url = 'https://www.youtube.com/@CNN/videos'
