@@ -1,10 +1,7 @@
 package com.ssafy.cnnect.video.service;
 
-import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
-import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceGetRequestDto;
@@ -24,9 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -56,17 +50,16 @@ public class VideoService {
     }
 
     @Transactional
-    public StudyVideoResponseDto getStudyVideo(String videoId){
-        User user = customUserDetailsService.getUserByAuthentication(); // 유저 정보
+    public StudyVideoResponseDto getStudyVideo(String videoId) {
         Video video = videoRepository.findByVideoId(videoId); // 영상 정보
         List<Sentence> script = video.getSentence_list(); // 스크립트 (문장별 startTime, content 리스트)
         UserHistoryResponseDto userHistory = userHistoryService.getUserHistory(videoId); // 학습 기록 (없으면 null 반환)
-        Long historyId = userHistory.getHistoryId(); // 학습 기록 id
 
         if (userHistory == null) { // 새로운 영상을 학습 시작하는 경우 (학습 기록이 없는 경우)
-            userHistoryService.createUserHistory(videoId); // 학습 기록 생성
+            userHistory = userHistoryService.createUserHistory(videoId); // 학습 기록 생성
         }
 
+        Long historyId = userHistory.getHistoryId(); // 학습 기록 id
         List<StudySentenceResponseDto> studySentenceResponseDtoList = new ArrayList<>();
 
         for (int i = 0; i < script.size(); i++) {
