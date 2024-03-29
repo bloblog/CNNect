@@ -208,7 +208,7 @@ def save_recommendations():
         "user_id": user_id,
         "video_id": news_articles[index]["video_id"],
         "video_name": news_articles[index]["video_name"],
-        "video_level": news_articles[index]["video_name"],
+        "video_level": news_articles[index]["video_level"],
         "video_thumbnail": news_articles[index]["video_thumbnail"]
     }
     for index in recommended_indices
