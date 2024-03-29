@@ -132,22 +132,22 @@ const emit = defineEmits(["nextStep"]);
 // 다음 단계로 이동
 const nextStep = (input) => {
   emit("nextStep", input);
-  // console.log(videoList.value.length)
-  // for(let i = 0; i < videoList.value.length; i++){
-  //   if(videoLike.value[i]){
-  //     addList.value.push({userId : userId.value, videoId : videoList.value[i],
-  //                       historyStatus : false});
-  //   }
-  // }
+  console.log(videoList.value.length)
+  for(let i = 0; i < videoList.value.length; i++){
+    if(videoLike.value[i]){
+      addList.value.push({userId : userId.value, videoId : videoList.value[i],
+                        historyStatus : false});
+    }
+  }
 
-  // console.log(addList.value);
+  console.log(addList.value);
 
-  // insertRegistHistory(addList.value, ({data}) => {
-  //   console.log(data);
-  // },
-  // (error) => {
-  //   console.log(error)
-  // })
+  insertRegistHistory(addList.value, ({data}) => {
+    console.log(data);
+  },
+  (error) => {
+    console.log(error)
+  })
 };
 
 const handleScroll = (e) => {
