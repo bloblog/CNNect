@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from conf.config_reader import read_config, get_database_config, get_mongodb_config
 from flask_cors import CORS
 import random
+import re
 
 video_level_bp = Blueprint('videoLevel', __name__, url_prefix='/data/level/video')
 
@@ -47,8 +48,12 @@ def showUserId(videoId):  # 4
 
     # 각 선택된 문장에 대한 질문과 답변 준비
     for item in selected_sentences:
+        split_text_varying = re.split(r"_{2,}", item["modified"])
         answerList.append({
+            "original" : item["original"],
             "question": item["modified"],
+            "question_first" : split_text_varying[0].strip(),
+            "question_second" :split_text_varying[1].strip(),
             "answer": item["word"],
             "sentenceOrder": item["sentenceOrder"]
         })
