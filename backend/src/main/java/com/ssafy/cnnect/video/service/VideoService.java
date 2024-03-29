@@ -44,7 +44,7 @@ public class VideoService {
         List<Video> videolist = videoRepository.findByCategoryId(categoryId);
         return videolist;
     }
-
+    
     @Transactional
     public StudyVideoResponseDto getStudyVideo(String videoId) {
         Video video = videoRepository.findByVideoId(videoId); // 영상 정보
@@ -86,4 +86,10 @@ public class VideoService {
 
         return studyVideoResponseDto;
     }
+
+    public Video findByVideoId(String videoId){
+        Video video = videoRepository.findByVideoId(videoId);
+        return video;
+    }
+
 }
