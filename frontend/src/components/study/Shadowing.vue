@@ -7,6 +7,7 @@ import axios from 'axios';
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
 const props = defineProps({
+    videoData: Object,
     curSentence: Object
 });
 
@@ -37,6 +38,9 @@ watch(() => props.curSentence.content, (newContent) => {
 // 다음 영어사전 팝업창
 const words = computed(() => {
   return props.curSentence.content.split(' ');
+});
+const isInWordList = computed(() => {
+  return words.value.map((word) => props.videoData.wordList.includes(word));
 });
 const hover = ref(null)
 const selectedText = ref('');
@@ -200,7 +204,7 @@ const sendPronunciationRequest = (audioBlob) => {
             {{ translatedContent }}
             </div>
             <div class="english">
-                <span class="space-separated-word" v-for="(word, index) in words" :key="index" @click="showPopup(word, index)" @mouseover="hover = index" @mouseleave="hover = null" :class="{'highlight-hover': hover === index, 'highlight-selected': selectedWordIndex === index}">
+                <span class="space-separated-word" v-for="(word, index) in words" :key="index" @click="showPopup(word, index)" @mouseover="hover = index" @mouseleave="hover = null" :class="{'highlight-hover': hover === index, 'highlight-selected': selectedWordIndex === index, 'highlight-red': isInWordList[index]}">
                     {{ word }}
                     <span class="space" v-if="index < words.length - 1"> </span>
                 </span>
@@ -303,5 +307,8 @@ const sendPronunciationRequest = (audioBlob) => {
 }
 .highlight-selected {
   background: rgba(204, 0, 0, 0.15);
+}
+.highlight-red {
+  color: #cc0000;
 }
 </style>
