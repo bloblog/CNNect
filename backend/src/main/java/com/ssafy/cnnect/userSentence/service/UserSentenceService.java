@@ -78,7 +78,16 @@ public class UserSentenceService {
                 .orElseThrow(() -> new ExecutionException("User history not found"));
 
         UserSentence userSentence = userSentenceRepository.findByUserHistoryAndSentenceOrder(userHistory, userSentenceUpdateRequestDto.getSentenceOrder())
-                .orElseThrow(() -> new ExecutionException("User sentence not found"));
+                .orElseGet(() -> {
+                    UserSentence newUserSentence = UserSentence.builder()
+                            .sentenceOrder(userSentenceUpdateRequestDto.getSentenceOrder())
+                            .sentenceContent(userSentenceUpdateRequestDto.getSentenceContent())
+                            .sentenceScore(userSentenceUpdateRequestDto.getSentenceScore())
+                            .userHistory(userHistory)
+                            .build();
+                    userHistory.addUserSentence(newUserSentence);
+                    return newUserSentence;
+                });
 
         userSentence.updateUserSentenceScore(userSentenceUpdateRequestDto.getSentenceScore());
 

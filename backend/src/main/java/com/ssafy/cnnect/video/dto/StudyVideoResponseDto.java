@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class StudyVideoResponseDto {
+    private Long historyId;
     private String videoId;
     private String videoName;
     private Long level;
