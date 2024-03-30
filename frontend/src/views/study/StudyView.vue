@@ -7,10 +7,12 @@ import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
+import { updateScore } from '@/api/sentence';
 import { getDict } from '@/api/scraping.js'
 import { useRoute } from 'vue-router';
 
 const videoData = ref({
+    historyId: null,
     videoId: "",
     videoName: "",
     level: null,
@@ -22,7 +24,7 @@ const curSentence = ref({
     order: "",
     startTime: "",
     content: "",
-    score: ""
+    score: null
 })
 
 const setCurSentence = (curOrder) => {
@@ -30,6 +32,25 @@ const setCurSentence = (curOrder) => {
     curSentence.value = { order, startTime, content, mean, score };
     ensureActiveSentenceVisible();
 };
+
+const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
+    const doubleScore = parseFloat(pronunciationScore).toFixed(1);
+    videoData.value.sentenceList[sentenceOrder - 1].score = doubleScore;
+    curSentence.value.score = doubleScore;
+    updateScore(
+        { 
+            sentenceOrder : sentenceOrder, 
+            sentenceContent: curSentence.value.content, 
+            sentenceScore : doubleScore, 
+            historyId: videoData.value.historyId 
+        },
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+}
 
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
@@ -62,14 +83,13 @@ onMounted(() => {
         videoId,
         ({ data }) => {
             videoData.value = data.data;
+            // console.log(videoData.value.sentenceList[1-1]);
             fetchWordMeanings();
         },
         (error) => {
             console.log(error);
         }
     );
-
-    fetchWordMeanings();
 })
 
 </script>
@@ -83,7 +103,7 @@ onMounted(() => {
         <main class="section-box">
             <div class="section1">
                 <VideoPlayer v-if="videoData.videoId" :videoData="videoData" @change-cur-sentence="setCurSentence"/>
-                <Shadowing :curSentence="curSentence"></Shadowing>
+                <Shadowing :videoData="videoData" :curSentence="curSentence" @update-pronunciation-score="updatePronunciationScore"></Shadowing>
             </div>
 
             <div class="section2">
@@ -93,7 +113,7 @@ onMounted(() => {
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
                             <label for="tabmenu1">스크립트</label>
                             <div class="tabCon tabCon1" ref="refScript">
-                                <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
+                                <Script v-if="videoData.videoId" :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                             </div>
                         </li>
                         <li id="tab2" class="btnCon">

@@ -7,8 +7,15 @@ import axios from 'axios';
 const { VITE_GT_ACCESS_KEY, VITE_ETRI_ACCESS_KEY } = import.meta.env;
 
 const props = defineProps({
+    videoData: Object,
     curSentence: Object
 });
+
+const emit = defineEmits(['updatePronunciationScore'])
+
+const updatePronunciationScore = (score) => {
+    emit('updatePronunciationScore', props.curSentence.order, score);
+};
 
 onMounted(() => {
     try {
@@ -98,7 +105,7 @@ function translateText(textToTranslate) {
 const audioFile = ref(null);
 const mediaRecorder = ref(null);
 const audioChunks = ref([]);
-const pronunciationScore = ref(null);
+const pronunciationScore = ref(null); // 현재 문장의 발음 점수로 초기화
 const isRecording = ref(false);
 
 const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
@@ -159,9 +166,9 @@ const fileToBase64 = (blob) => {
 const sendPronunciationRequest = (audioData) => {
     const requestJson = {
         argument: {
-        language_code: languageCode,
-        script: script,
-        audio: audioData.split(',')[1], 
+            language_code: languageCode,
+            script: script,
+            audio: audioData.split(',')[1], 
         },
     };
 
@@ -175,7 +182,8 @@ const sendPronunciationRequest = (audioData) => {
         console.log('responseCode = ', response.status);
         console.log('responseBody = ', response.data);
         pronunciationScore.value = response.data.return_object.score;
-        console.log('발음 점수 : ', pronunciationScore.value)
+        console.log('발음 점수 : ', pronunciationScore.value);
+        updatePronunciationScore(pronunciationScore.value);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -197,9 +205,10 @@ const sendPronunciationRequest = (audioData) => {
                 </div>
             </div>
             <div class="top-right-box">
-                <div class="score" :class="{'noScore': pronunciationScore === null}">
-                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
+                <div class="score" :class="{'noScore': props.curSentence.score === null}">
+                    {{ props.curSentence.score != null ?  props.curSentence.score : "도전"}}
                 </div>
+                
             </div>
         </div>
         <div class="bottom-box">
