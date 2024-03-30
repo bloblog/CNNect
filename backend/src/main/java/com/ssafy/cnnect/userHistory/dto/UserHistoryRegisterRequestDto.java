@@ -11,5 +11,5 @@ public class UserHistoryRegisterRequestDto {
     private Long userId;
     private String videoId;
     private boolean historyStatus;
-//    private LocalDate historyDate;
+    private String historySentence;
 }

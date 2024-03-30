@@ -73,6 +73,7 @@ public class JwtTokenProvider {
 
         // Redis에 Refresh Token 저장
         refreshTokenService.saveTokenInfo(userEmail, refreshToken);
+        System.out.println("token : " + accessToken + " / " + refreshToken);
 
 
         return JwtToken.builder()
@@ -105,6 +106,7 @@ public class JwtTokenProvider {
 
     // 토큰 정보를 검증하는 메서드
     public JwtValidationType validateToken(String token) {
+        System.out.println("validate : " + token);
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)
