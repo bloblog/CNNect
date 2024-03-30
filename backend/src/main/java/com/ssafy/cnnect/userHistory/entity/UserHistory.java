@@ -5,6 +5,7 @@ import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class UserHistory {
     @Builder.Default
     @OneToMany(mappedBy = "userHistory", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<UserSentence> userSentenceList = new ArrayList<>();
+
+    @Column(name = "video_date")
+    private Timestamp historyDate;
 
     public void addUserSentence(UserSentence userSentence) {
         userSentence.setUserHistory(this);

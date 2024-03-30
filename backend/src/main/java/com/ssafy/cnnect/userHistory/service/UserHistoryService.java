@@ -127,6 +127,7 @@ public class UserHistoryService {
         List<UserHistory> learningVideoList = userHistoryRepository.findLearningVideo(user);
 
         List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
+                .sorted((o1, o2) -> o2.getHistoryDate().compareTo(o1.getHistoryDate()))
                 .map(history -> {
                     Video video = videoRepository.findByVideoId(history.getVideoId());
                     if (video != null) {
@@ -145,7 +146,6 @@ public class UserHistoryService {
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
         return videoList;
     }
 
@@ -154,6 +154,7 @@ public class UserHistoryService {
         List<UserHistory> completedVideoList = userHistoryRepository.findCompletedVideo(user);
 
         List<UserHistoryVideoResponseDto> videoList = completedVideoList.stream()
+                .sorted((o1, o2) -> o2.getHistoryDate().compareTo(o1.getHistoryDate()))
                 .map(history -> {
                     Video video = videoRepository.findByVideoId(history.getVideoId());
                     if (video != null) {
