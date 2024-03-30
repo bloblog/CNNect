@@ -105,7 +105,7 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
 
 const uStore = userStore();
@@ -115,7 +115,7 @@ const imgUrl = ref("");
 const customInput = ref(null);
 const searchInput = ref("");
 const { isLogin, nickName, level } = storeToRefs(uStore);
-const { setLogout } = uStore;
+const { setLogout, setUserId } = uStore;
 const currentURL = ref("");
 
 const isSearchOpen = ref(false);
@@ -124,6 +124,7 @@ const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
   setLogout();
+  setUserId(0);
   location.href = "/";
 };
 
@@ -135,6 +136,14 @@ const search = () => {
   searchInput.value = "";
   toggleSearch();
 };
+
+watch(
+  () => level.value,
+  (newValue, oldValue) => {
+    //레벨 프사 변경
+    imgUrl.value = "/level/level" + level.value + ".png";
+  }
+);
 
 onMounted(() => {
   imgUrl.value = "/level/level" + level.value + ".png";
