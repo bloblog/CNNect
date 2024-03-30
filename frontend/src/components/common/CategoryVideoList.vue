@@ -14,7 +14,7 @@
         <div v-if="videoList.length > 0" class="grid grid-cols-3 p-3" ref="imageContainer">
           <div v-for="(video, index) in videoList" :key="index" class="relative m-2">
             
-            <div class="flex flex-col" id="content-area" @click="goToStudy">
+            <div class="flex flex-col" id="content-area" @click="goToStudy(video.video_id)">
               <img :src="video.video_thumbnail" alt="video-image" class="rounded-md video-img-item img-container">
               <div class="overlay flex items-end">
                 <div class="text-lg font-bold m-2" id="video-name">
@@ -46,8 +46,8 @@ import { videoPaging } from "@/api/video";
 const route = useRoute();
 const router = useRouter();
 
-const goToStudy = () => {
-  router.push("/study");
+const goToStudy = (videoId) => {
+  router.push({ name: 'study', params: { videoId: videoId } });
 };
 
 const props = defineProps({
