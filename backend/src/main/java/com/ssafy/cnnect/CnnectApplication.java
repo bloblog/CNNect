@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackages = "com.ssafy.cnnect.video.repository")
-@EntityScan("com.ssafy.cnnect.recommendation.entity")
 public class CnnectApplication {
 
     public static void main(String[] args) {
