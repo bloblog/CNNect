@@ -88,9 +88,4 @@ public class VideoService {
         return studyVideoResponseDto;
     }
 
-    public Video findByVideoId(String videoId){
-        Video video = videoRepository.findByVideoId(videoId);
-        return video;
-    }
-
 }

@@ -3,6 +3,7 @@ package com.ssafy.cnnect.userHistory.repository;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +18,9 @@ public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> 
     Long countByUserAndHistorySentenceNot(User user, String historySentence);
 
     Optional<UserHistory> findByVideoIdAndUser(String videoId, User user);
+    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = false AND h.historySentence <> 'register'")
+    List<UserHistory> findLearningVideo(User user);
+    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = true AND h.historySentence <> 'register'")
+    List<UserHistory> findCompletedVideo(User user);
+
 }
