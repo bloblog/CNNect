@@ -10,6 +10,12 @@ const props = defineProps({
     curSentence: Object
 });
 
+const emit = defineEmits(['updatePronunciationScore'])
+
+const updatePronunciationScore = (score) => {
+    emit('updatePronunciationScore', props.curSentence.order, score);
+};
+
 onMounted(() => {
     try {
         if (props.curSentence && props.curSentence.content) {
@@ -162,6 +168,7 @@ const sendPronunciationRequest = (audioBlob) => {
         console.log('response = ', response.data.assessment_score);
         console.log('response = ', response.data);
         pronunciationScore.value = response.data.assessment_score;
+        updatePronunciationScore(pronunciationScore.value);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -183,8 +190,8 @@ const sendPronunciationRequest = (audioBlob) => {
                 </div>
             </div>
             <div class="top-right-box">
-                <div class="score" :class="{'noScore': pronunciationScore === null}">
-                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
+                <div class="score" :class="{'noScore': props.curSentence.score === null}">
+                    {{ props.curSentence.score != null ?  props.curSentence.score : "도전"}}
                 </div>
             </div>
         </div>
@@ -209,7 +216,6 @@ const sendPronunciationRequest = (audioBlob) => {
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    border: #0F1B4F 2px solid;
     border: 1px solid #CDCDCD;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;

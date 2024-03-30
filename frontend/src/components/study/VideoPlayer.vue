@@ -20,7 +20,7 @@ onMounted(() => {
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    window.onYouTubeIframeAPIReady = function() {
+    window.onYouTubeIframeAPIReady =  function() {
         player.value = new YT.Player('player', {
             height: '360',
             width: '640',
