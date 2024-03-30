@@ -216,7 +216,6 @@ const sendPronunciationRequest = (audioBlob) => {
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    border: #0F1B4F 2px solid;
     border: 1px solid #CDCDCD;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
