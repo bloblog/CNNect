@@ -15,10 +15,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -90,6 +93,22 @@ public class VideoService {
     public Video findByVideoId(String videoId){
         Video video = videoRepository.findByVideoId(videoId);
         return video;
+    }
+
+    public List<String> getRegisterVideo(){
+        List<String> videoList = new ArrayList<>(); // 9 x 3 = 27개의 videoID 저장 -> 각 카테고리별로 3개씩 뽑기
+        Sort sort = Sort.by(Sort.Direction.DESC, "video_date"); // 날짜 최신순 정렬
+        PageRequest pageRequest = PageRequest.of(0, 4, sort);
+
+        for(int i = 1; i <= 7; i++){
+
+            videoList.addAll(videoRepository.findByCategoryIdOrderByVideoDateDesc((long) i, pageRequest).stream()
+                                .map(Video::getVideo_id)
+                                .collect(Collectors.toList()));
+        }
+        Collections.shuffle(videoList);
+
+        return videoList;
     }
 
 }
