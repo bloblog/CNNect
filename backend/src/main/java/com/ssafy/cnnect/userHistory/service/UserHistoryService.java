@@ -13,7 +13,6 @@ import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
 import com.ssafy.cnnect.userSentence.entity.UserSentence;
 import com.ssafy.cnnect.video.entity.Video;
 import com.ssafy.cnnect.video.repository.VideoRepository;
-import com.ssafy.cnnect.video.service.VideoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.exec.ExecutionException;
