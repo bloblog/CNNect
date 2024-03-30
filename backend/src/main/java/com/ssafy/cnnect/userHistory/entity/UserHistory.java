@@ -26,7 +26,7 @@ public class UserHistory {
     @Column(name = "history_status", nullable = false)
     private boolean historyStatus;
 
-    @Column(name = "history_sentence")
+    @Column(name = "history_sentence", length = 500)
     private String historySentence;
 
     @Column(name = "history_time")
