@@ -1,6 +1,6 @@
 <script setup>
 import { EventBus } from '@/api/eventBus.js';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps({
     videoData: Object
@@ -8,10 +8,10 @@ const props = defineProps({
 
 const emit = defineEmits(['changeCurSentence'])
 
-let player;
+const player = ref(null);
 
 const handleSeek = (startTime) => {
-    player.seekTo(startTime, true);
+    player.value.seekTo(startTime, true);
 }
 
 onMounted(() => {
@@ -21,13 +21,16 @@ onMounted(() => {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     window.onYouTubeIframeAPIReady = function() {
-        player = new YT.Player('player', {
-        height: '360',
-        width: '640',
-        videoId: props.videoData.videoId,
-        events: {
-            'onStateChange': onPlayerStateChange
-        }
+        player.value = new YT.Player('player', {
+            height: '360',
+            width: '640',
+            videoId: props.videoData.videoId,
+            playerVars: {
+                    'origin': 'https://www.youtube.com',
+                },
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
         });
     };
 
@@ -43,7 +46,7 @@ let currentSentenceOrder;
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         const checkTime = () => {
-            const currentTime = player.getCurrentTime();
+            const currentTime = player.value.getCurrentTime();
 
             const nextSentence = props.videoData.sentenceList.find(sentence => {
                 return currentTime < sentence.startTime;
