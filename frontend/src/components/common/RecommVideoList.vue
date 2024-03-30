@@ -25,7 +25,7 @@
 
       <div class="flex" v-if="!isLoading">
         <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
-          <div v-if="videoList && videoList.length !== 0" class="relative">
+          <div v-if="videoList && videoList.value.length !== 0" class="relative">
             <div v-for="(video, index) in videoList.value.slice(startIndex, endIndex)" :key="index">
               <div class="flex flex-col" @click="goToStudy(video)">
                 <img
@@ -87,7 +87,6 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { sendTokenToSaveRM } from "@/api/user.js";
 import { fetchRecommendations } from "@/api/recommendations.js";
 
 const route = useRoute();
@@ -106,17 +105,23 @@ const videoList = ref([]);
 const isLoading = ref(true); // 데이터 로딩 상태 관리를 위한 변수
 
 onMounted(async () => {
-  isLoading.value = true; // 데이터 로딩 시작
+  //isLoading.value = true; // 데이터 로딩 시작
   try {
-    const responseData = await fetchRecommendations();
-    videoList.value = responseData || [];
-    console.log(videoList.value);
-    isLoading.value = false; // 데이터 로딩 완료
+    await fetchRecommendations().then((res)=>{
+
+videoList.value = res;
+console.log(" 자 봐라", videoList.value);
+isLoading.value = false;
+console.log("로딩", isLoading.value); 
+});
+await nextTick();
   } catch (error) {
     console.error(error);
     isLoading.value = false; // 에러 발생 시에도 로딩 완료 처리
   }
 });
+
+
 
 
 
@@ -145,7 +150,7 @@ const updateImagePosition = () => {
 
 // 학습 페이지로 이동
 const goToStudy = (video) => {
-  // 학습 페이지로 이동하는 코드 추가
+  router.push("/study");
 };
 
 </script>
