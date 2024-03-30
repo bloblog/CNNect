@@ -8,6 +8,7 @@ from recommendation.config_reader import read_config, get_database_config, get_m
 import jwt
 from http import HTTPStatus
 from flask_cors import CORS
+import base64
 recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 
 app = Flask(__name__)
@@ -19,7 +20,8 @@ database_config = get_database_config(config)
 mongodb_config = get_mongodb_config(config)
 
 # JWT 시크릿 키 설정
-SECRET_KEY = get_jwt_secret_key(config)
+
+SECRET_KEY = base64.b64decode(get_jwt_secret_key(config))
 
 # mysql연결
 def get_mysql_connection():
@@ -46,29 +48,61 @@ def get_mysql_connection():
 
 # 토큰 유효성 검사
 def validate_token(token):
+    print("유효검사")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        user_id = payload.get("user_id")
-        if user_id:
+        print("페이로드", payload)
+        user_email = payload.get("sub")
+        if user_email:
+            print("유효")
+            user_id = get_user_id_by_email(user_email)
             return {"isValid": True, "user_id": user_id}
         else:
+            print("토큰에 없음")
             return {"isValid": False, "message": "토큰에 사용자 정보가 없습니다."}
     except jwt.ExpiredSignatureError:
         return {"isValid": False, "message": "토큰이 만료되었습니다."}
     except jwt.InvalidTokenError:
         return {"isValid": False, "message": "잘못된 토큰입니다."}
+    
+def get_user_id_by_email(email):
+    try:
+        connection = get_mysql_connection()
+        if connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT user_id FROM user WHERE user_email = %s"
+                cursor.execute(sql, (email,))
+                result = cursor.fetchone()
+                if result:
+                    user_id = result['user_id']
+                    return user_id
+                else:
+                    return None
+    except Exception as e:
+        print("MySQL 연결 오류:", e)
+        return None
+    finally:
+        if connection:
+            connection.close()
+
 
 # 토큰에서 user_id 추출
 def extract_user_id_from_token():
     auth_header = request.headers.get('Authorization')
+
     if auth_header and auth_header.startswith("Bearer "):
+        print("오서", auth_header)
         access_token = auth_header.split(' ')[1]
+        print("액세스토큰", access_token)
         token_info = validate_token(access_token)
-        
         if token_info["isValid"]:
+            print("됨")
             return token_info["user_id"]
+        else:
+            print("안됨")
     
     return None
+
 
 # mysql에서 학습기록 video_id 가져오기
 def fetch_user_history_news_from_mysql(user_id):
@@ -103,21 +137,26 @@ def connect_to_mongodb():
 def fetch_news_from_mongodb(exclude_video_ids=None):
     try:
         db = connect_to_mongodb()
-        news_collection = db.news
+        news_collection = db.data
+        print("뉴컬", news_collection, "여기까지")
 
-        news_documents = [] 
+        query = {}  # 기본적으로 모든 뉴스 가져오기
+        projection = {'_id': 1, 'video_id': 1, 'full_script': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'video_level': 1}
+
+        # exclude_video_ids가 제공된 경우 해당 비디오 ID를 제외하도록 쿼리 설정
         if exclude_video_ids:
-            query = {'video_id': {'$nin': exclude_video_ids}}
-            projection = {'_id': 1, 'video_id': 1, 'sentence_list': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
-            all_news = news_collection.find(query, projection)
-            news_documents = list(all_news)  
-        else:
-            projection = {'_id': 1, 'video_id': 1, 'sentence_list': 1, 'category_name': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'full_script': 1}
-            all_news = news_collection.find({}, projection)
-            news_documents = list(all_news) 
+            query['video_id'] = {'$nin': exclude_video_ids}
 
-        print("MondoDB에서 가져온 뉴스 수", len(news_documents))
-        return news_documents  
+        # MongoDB에서 뉴스 가져오기
+        news_documents = news_collection.find(query, projection)
+
+        # 가져온 문서를 리스트로 변환
+        news_list = list(news_documents)
+
+        print("MongoDB에서 가져온 뉴스 수:", len(news_list))
+
+        return news_list
+
     except Exception as e:
         print("MongoDB에서 뉴스를 가져오는 중 오류 발생:", e)
         return []
@@ -129,15 +168,22 @@ def save_recommended_news_to_mysql(recommended_news):
         if connection:
             with connection.cursor() as cursor:
                 for news in recommended_news:
-                    recommended_id = str(uuid.uuid4())
-                    sql = "INSERT INTO recommended_news (recommended_id, user_id, video_id, video_name, video_level, video_thumbnail) VALUES (%s, %s, %s, %s, %s, %s)"
-                    cursor.execute(sql, (recommended_id, news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
+                    sql = "INSERT INTO recommended_news (user_id, video_id, video_name, video_level, video_thumbnail) VALUES (%s, %s, %s, %s, %s)"
+                    cursor.execute(sql, (news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
 
-                cursor.execute("ALTER TABLE recommended_news ADD INDEX(recommended_id)")
                 connection.commit()
                 print("추천된 뉴스를 MySQL에 저장했습니다.")
+                # 저장된 뉴스들을 출력
+                cursor.execute("SELECT * FROM recommended_news")
+                saved_news = cursor.fetchall()
+                print("저장된 뉴스들:")
+                for news in saved_news:
+                    print(news)
     except Exception as e:
         print(f"추천된 뉴스를 MySQL에 저장하는 중 오류 발생: {e}")
+    finally:
+        if connection:
+            connection.close()
 
 # MySQL에 추천 뉴스 저장 전 삭제
 def delete_recommended_news(user_id):
@@ -206,16 +252,15 @@ def save_recommendations():
     recommended_indices = news_recommender.update_recommendations(user_history_scripts, top_n=10)
     
     recommended_news = [
-    {
-        "recommended_id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "video_id": news_articles[index]["video_id"],
-        "video_name": news_articles[index]["video_name"],
-        "video_level": news_articles[index]["video_level"],
-        "video_thumbnail": news_articles[index]["video_thumbnail"]
-    }
-    for index in recommended_indices
-]
+        {
+            "user_id": user_id,
+            "video_id": news_articles[index]["video_id"],
+            "video_name": news_articles[index]["video_name"],
+            "video_level": news_articles[index]["video_level"],
+            "video_thumbnail": news_articles[index]["video_thumbnail"]
+        }
+        for index in recommended_indices
+    ]
     
     delete_recommended_news(user_id)
 
