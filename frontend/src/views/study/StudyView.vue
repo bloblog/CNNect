@@ -8,6 +8,7 @@ import VideoPlayer from '@/components/study/VideoPlayer.vue';
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
 import { updateScore } from '@/api/sentence';
+import { updateLastSentence } from '@/api/history';
 import { getDict } from '@/api/scraping.js'
 import { useRoute } from 'vue-router';
 
@@ -40,7 +41,7 @@ const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
     updateScore(
         { 
             sentenceOrder : sentenceOrder, 
-            sentenceContent: curSentence.value.content, 
+            sentenceContent: videoData.value.sentenceList[sentenceOrder - 1].content,
             sentenceScore : doubleScore, 
             historyId: videoData.value.historyId 
         },
@@ -50,6 +51,19 @@ const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
             console.log(error);
         }
     );
+    updateLastSentence(
+        {
+            historySentence : videoData.value.sentenceList[sentenceOrder - 1].content,
+            historyTime : videoData.value.sentenceList[sentenceOrder - 1].startTime,
+            videoId : videoData.value.videoId
+        }, 
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+
 }
 
 const wordMeanings = ref({})
@@ -83,7 +97,6 @@ onMounted(() => {
         videoId,
         ({ data }) => {
             videoData.value = data.data;
-            // console.log(videoData.value.sentenceList[1-1]);
             fetchWordMeanings();
         },
         (error) => {
