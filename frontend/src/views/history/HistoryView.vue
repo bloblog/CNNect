@@ -8,7 +8,6 @@
                         <label for="tabmenu1" class="font-[GmarketSansMedium]">동영상</label>
                         <div class="tabCon">
                             <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 진행중인 뉴스</h1>
-
                             <div class="learning-video">
                                 <!-- <div class="Carousel-btn">
                                     <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('fore')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
