@@ -58,9 +58,15 @@ function getCompletedVideo(param, success, fail){
     return completedVideoList
 }
 
+function updateLastSentence(param, success, fail) {
+    console.log(param);
+    local.patch(`${url}`, param, config).then(success).catch(fail);
+  }
+
 export {
     insertVideoHistory,
     insertRegistHistory,
     getLearningVideo,
-    getCompletedVideo
+    getCompletedVideo,
+    updateLastSentence
 }

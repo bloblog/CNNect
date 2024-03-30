@@ -1,6 +1,7 @@
 <script setup>
 import { EventBus } from '@/api/eventBus.js';
 import { onMounted, onUnmounted, ref } from 'vue';
+import { apiReady, loadYouTubeIframeAPI } from "@/api/youtubeSetup";
 
 const props = defineProps({
     videoData: Object
@@ -15,18 +16,17 @@ const handleSeek = (startTime) => {
 }
 
 onMounted(() => {
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    loadYouTubeIframeAPI(); // API 로드 호출
 
-    window.onYouTubeIframeAPIReady =  function() {
+    const createPlayer = () => {
         player.value = new YT.Player('player', {
             height: '360',
             width: '640',
             videoId: props.videoData.videoId,
             playerVars: {
-                    'origin': 'https://www.youtube.com',
+                    // 'origin': 'https://www.youtube.com',
+                    'origin': 'http://localhost:5173',
+                    
                 },
             events: {
                 'onStateChange': onPlayerStateChange
@@ -34,11 +34,17 @@ onMounted(() => {
         });
     };
 
+    if (apiReady) { // API가 이미 준비된 경우 바로 플레이어 생성
+        createPlayer();
+    } else { // API 준비 이벤트를 기다린 후 플레이어 생성
+        document.addEventListener('YouTubeAPIReady', createPlayer, { once: true });
+    }
     EventBus.on('seek-to', handleSeek);
 });
 
 onUnmounted (() => {
     EventBus.off('seek-to', handleSeek);
+    player.value = null;
 })
 
 let currentSentenceOrder;
