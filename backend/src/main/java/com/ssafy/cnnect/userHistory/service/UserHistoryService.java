@@ -45,6 +45,7 @@ public class UserHistoryService {
                     .user(user)
                     .historyStatus(history.isHistoryStatus())
                     .videoId(history.getVideoId())
+                    .historySentence(history.getHistorySentence())
                     .build();
             userHistoryRepository.save(saveUserHistory);
         }

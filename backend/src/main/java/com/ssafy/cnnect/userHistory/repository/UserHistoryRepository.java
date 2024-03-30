@@ -12,7 +12,11 @@ import java.util.Optional;
 @Repository
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> {
     List<UserHistory> findAllByUser(User user);
-    Long countByUser(User user);
+
+    List<UserHistory> findAllByUserAndHistorySentenceNot(User suer, String historySentence);
+
+    Long countByUserAndHistorySentenceNot(User user, String historySentence);
+
     Optional<UserHistory> findByVideoIdAndUser(String videoId, User user);
     @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = false AND h.historySentence <> 'register'")
     List<UserHistory> findLearningVideo(User user);
