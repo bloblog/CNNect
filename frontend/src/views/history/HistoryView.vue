@@ -9,29 +9,32 @@
                         <div class="tabCon">
                             <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 진행중인 뉴스</h1>
                             <div class="learning-video">
-                                <div class="Carousel-btn">
+                                <!-- <div class="Carousel-btn">
                                     <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('fore')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
                                         <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
                                     </svg>
-                                </div>   
-                                <div >
+                                </div>    -->
+                                <div>
                                     <LearningVideo :curVideo="curVideo" />
                                 </div>
-                                <div class="Carousel-btn">
+                                <!-- <div class="Carousel-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('back')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
                                         <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
                                     </svg>
-                                </div>
+                                </div> -->
                             </div>
-                            <div >
-                                <CompletedVideo :completedVideoList = "completedVideoHistory.completedVideoHistory" />
+                            <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 완료한 뉴스</h1>
+                            <div class="learning-video">
+                                <div>
+                                    <CompletedVideo :completedVideoList = "completedVideoHistory.completedVideoHistory" />
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li id="tab2" class="btnCon">
                         <input type="radio" name="tabmenu" id="tabmenu2">
                         <label for="tabmenu2" class="font-[GmarketSansMedium]">단어장</label>
-                        <div class="tabCon" style="overflow-y: hidden;">
+                        <div class="tabCon" style="overflow-y: hidden">
                             <Voca :wordHistory="wordHistory" />
                         </div>
                     </li>
@@ -51,9 +54,6 @@ import { watch, onMounted } from 'vue';
 import { getLearningVideo, getCompletedVideo} from '@/api/history';
 import { getWordHistory } from '@/api/voca';
 
-
-const learningVideoHistory = ref([])
-
 const completedVideoHistory = ref({
     completedVideoHistory: []
 })
@@ -62,9 +62,6 @@ const wordHistory = ref({
     wordList: []
 })
 
-const totalVideos = ref(0);
-
-const currentOrder = ref(0);
 
 const curVideo = ref({
     historyId: "",
@@ -76,57 +73,9 @@ const curVideo = ref({
     totalSentenceNum: ""
 })
 
-watch(() => currentOrder, (newValue) => {
-    // setCurVideo(newValue);
-    // console.log(curVideo.value)
-});
-
-function setCurVideo(idx) {
-    curVideo.value = learningVideoHistory.value[idx];
-}
-
-function changeVideoOrder(direction) {
-    if (direction === 'fore') {
-        console.log('앞')
-        if (currentOrder.value > 0) {
-            currentOrder.value -= 1;
-            setCurVideo(currentOrder.value);
-        } else {
-            currentOrder.value = totalVideos.value-1;
-            setCurVideo(currentOrder);
-        }
-    } else if (direction === 'back') {
-        console.log('뒤')
-
-        if (currentOrder.value < totalVideos.value-1) {
-            currentOrder.value += 1;
-            setCurVideo(currentOrder.value);
-        } else {
-            currentOrder.value = 0;
-            setCurVideo(currentOrder);
-        }
-    }
-}
-
-
 onMounted(() => {
-    getLearningVideo(
-    ({ data }) => {
-        console.log(data)
-        learningVideoHistory.value = data.data;
-        currentOrder.value = 0;
-        totalVideos.value = learningVideoHistory.value.length;
-        console.log(learningVideoHistory.value)
-        setCurVideo(0);
-    },
-    (error) => {
-      console.log(error);
-    }
-    );
-
     completedVideoHistory.value = getCompletedVideo();
     wordHistory.value = getWordHistory();
-
 })
 
 </script>

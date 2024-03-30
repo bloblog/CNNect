@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, watch  } from 'vue'
+import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -13,7 +13,7 @@ const goToQuiz = () => {
     if (props.videoData.videoId != '') {
         router.push({ path: '/quiz', query: { videoId: props.videoData.videoId } });
     }
-  }
+}
 
 
 
@@ -22,8 +22,8 @@ const goToQuiz = () => {
 <template>
     <header>
         <div class="info-box">
-            <div class="level">Lv.{{ videoData.level }}</div>
-            <div class="videoName">{{ videoData.videoName }}</div>
+            <div class="level">Lv.{{ props.videoData.level }}</div>
+            <div class="videoName">{{ props.videoData.videoName }}</div>
         </div>
         <div class="btn-box">
             <button @click="router.push('/')" class="btn back">나가기</button>

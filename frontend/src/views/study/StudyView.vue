@@ -8,14 +8,12 @@ import VideoPlayer from '@/components/study/VideoPlayer.vue';
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
 import { getDict } from '@/api/scraping.js'
+import { useRoute } from 'vue-router';
 
 const videoData = ref({
     videoId: "",
     videoName: "",
-    url : "",
-    date: "",
-    level: 3,
-    category :  "",
+    level: null,
     sentenceList: [],
     wordList: []
 })
@@ -24,7 +22,6 @@ const curSentence = ref({
     order: "",
     startTime: "",
     content: "",
-    mean: "",
     score: ""
 })
 
@@ -56,8 +53,22 @@ const ensureActiveSentenceVisible = () => {
     }
 }
 
+const route = useRoute();
+
 onMounted(() => {
-    videoData.value = getStudy();
+    const videoId = route.params.videoId;
+
+    getStudy(
+        videoId,
+        ({ data }) => {
+            videoData.value = data.data;
+            fetchWordMeanings();
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+
     fetchWordMeanings();
 })
 
@@ -71,7 +82,7 @@ onMounted(() => {
         <Title :videoData="videoData"></Title>
         <main class="section-box">
             <div class="section1">
-                <VideoPlayer :videoData="videoData" @change-cur-sentence="setCurSentence"/>
+                <VideoPlayer v-if="videoData.videoId" :videoData="videoData" @change-cur-sentence="setCurSentence"/>
                 <Shadowing :curSentence="curSentence"></Shadowing>
             </div>
 

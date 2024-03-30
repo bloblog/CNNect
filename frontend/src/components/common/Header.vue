@@ -7,12 +7,16 @@
   >
     <div class="flex items-center font-[GmarketSansMedium]">
       <RouterLink to="/">
-        <img src="@/assets/logo.png" class="h-6 m-5">
+        <img src="@/assets/logo.png" class="h-8 m-5">
       </RouterLink>
       <RouterLink v-if="isLogin" to="/history"
         ><span class="flex items-start mx-2 text-white">학습기록</span>
       </RouterLink>
-      <RouterLink v-if="isLogin" to="/video"><span class="flex items-start mx-2 text-white">둘러보기</span></RouterLink>
+      <RouterLink v-if="isLogin" to="/video"
+        ><span class="flex items-start mx-2 text-white"
+          >둘러보기</span
+        ></RouterLink
+      >
 
       <RouterLink v-if="isLogin" to="/level"
         ><span class="flex items-start mx-2 text-white"
@@ -20,26 +24,44 @@
         </span></RouterLink
       >
     </div>
-    
+
     <div class="flex items-center">
       <!-- Search button -->
-      <div class="search-area relative">
+      <div class="search-area relative" v-if="isLogin">
         <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 25 25" stroke-width="3" stroke="#CC0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-              <path d="M21 21l-6 -6" />
-            </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-search"
+            viewBox="0 0 25 25"
+            stroke-width="3"
+            stroke="#CC0000"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
         </button>
       </div>
 
       <!-- Dropdown button -->
-      <button v-if="isLogin" id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider"
-        class="text-white font-semibold text-center inline-flex items-center pl-3 relative" type="button">
-        <img alt="profile" :src="imgUrl" class="rounded-full w-10 h-10 border-2 border-gray-400 shadow-md mx-3" />
+      <button
+        v-if="isLogin"
+        id="dropdownDividerButton"
+        data-dropdown-toggle="dropdownDivider"
+        class="text-white font-semibold text-center inline-flex items-center pl-3 relative"
+        type="button"
+      >
+        <img
+          alt="profile"
+          :src="imgUrl"
+          class="rounded-full w-10 h-10 border-2 border-gray-400 shadow-md mx-3"
+        />
         {{ nickName }}님 어서오세요!
-        
+
         <svg
           class="w-2.5 h-2.5 ms-3 my-1"
           aria-hidden="true"
@@ -60,18 +82,16 @@
           id="dropdownDivider"
           class="font-[GmarketSansMedium] hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md absolute !top-[-10%] !left-[10%] !w-36 border"
         >
-          <div class="hover:bg-red-300 rounded-t-lg ">
+          <div class="hover:bg-red-300 rounded-t-lg">
             <RouterLink to="/mypage"
-              ><span class=" block px-5 py-3 text-gray-700"
+              ><span class="block px-5 py-3 text-gray-700"
                 >마이페이지</span
               ></RouterLink
             >
           </div>
-  
+
           <div class="rounded-b-lg hover:bg-red-300">
-            <a
-              @click="logout()"
-              class="block px-5 py-3 text-sm text-theme-red "
+            <a @click="logout()" class="block px-5 py-3 text-sm text-theme-red"
               >로그아웃</a
             >
           </div>
@@ -79,7 +99,6 @@
         <!-- Dropdown menu -->
       </button>
     </div>
-    
   </div>
 </template>
 
@@ -100,7 +119,6 @@ const { setLogout } = uStore;
 const currentURL = ref("");
 
 const isSearchOpen = ref(false);
-
 
 const logout = () => {
   localStorage.removeItem("accessToken");
@@ -170,8 +188,6 @@ const toggleSearch = () => {
     iconArea.style.borderBottomLeftRadius = "0";
   }
   isSearchOpen.value = !isSearchOpen.value;
-
-  
 };
 </script>
 

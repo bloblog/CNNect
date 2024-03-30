@@ -24,8 +24,9 @@
                 <rect width="256" height="256" fill="none"></rect>
                 <polyline
                   fill="none"
-                stroke="#CC0000"
-                  stroke-  linecap="round"
+                  stroke="#CC0000"
+                  stroke-
+                  linecap="round"
                   stroke-linejoin="round"
                   stroke-width="24"
                   points="216 72.005 104 184 48 128.005"
@@ -120,6 +121,13 @@ import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
 import RegisterVideo from "@/components/user/RegisterVideoComponent.vue";
 import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
+import { setUserLevelToken, setUserLevelNotToken } from "@/api/test";
+import { storeToRefs } from "pinia";
+import { userStore } from "@/stores/userStore";
+
+const uStore = userStore();
+const { userId } = storeToRefs(uStore);
+
 const isDropdownOpen = ref(false);
 const steps = ref([true, false, false]);
 const level = ref(1);
@@ -139,6 +147,17 @@ const nextStep = (input) => {
 
 const handleFinishRegister = () => {
   registerSwitch.value = RegisterResult;
+  if (localStorage.getItem("accessToken")) {
+    setUserLevelToken({
+      level: level.value,
+    });
+  } else {
+    console.log(userId.value);
+    setUserLevelNotToken({
+      userId: userId.value,
+      level: level.value,
+    });
+  }
 };
 
 const handleUpdateLevel = (newLevel) => {
