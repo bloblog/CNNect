@@ -22,43 +22,40 @@
           <path d="M15 6l-6 6l6 6" />
         </svg>
       </button>
-      <div class="flex">
+
+      <div class="flex" v-if="!isLoading">
         <div class="grid-cols-3 flex space-x-2" ref="imageContainer">
           <div v-if="videoList && videoList.length !== 0" class="relative">
-            <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index">
-            <div class="flex flex-col" @click="goToStudy">
-              <img
-                :src="video.video_thumbnail"
-                alt="video-image"
-                class="object-fit rounded-md video-img-item img-container"
-              />
-              <span class="badge absolute top-3 left-3">
-                <div
-                  id="badge"
-                  class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1"
-                >
-                  Lv. {{ video.video_level }}
+            <div v-for="(video, index) in videoList.value.slice(startIndex, endIndex)" :key="index">
+              <div class="flex flex-col" @click="goToStudy(video)">
+                <img
+                  :src="video.video_thumbnail"
+                  alt="video-image"
+                  class="object-fit rounded-md video-img-item img-container"
+                />
+                <span class="badge absolute top-3 left-3">
+                  <div
+                    id="badge"
+                    class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1"
+                  >
+                    Lv. {{ video.video_level }}
+                  </div>
+                </span>
+                <div class="text-md font-bold mt-2" id="video-name">
+                  {{ video.video_name }}
                 </div>
-              </span>
-              <div class="text-md font-bold mt-2" id="video-name">
-                {{ video.video_name }}
               </div>
             </div>
           </div>
-          </div>
           <div v-else class="grid-cols-3 flex space-x-2">
-            
-              <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
-              </div>
-              <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
-              </div>
-              <div class="animate-pulse rounded-md video-img-item img-container">
-                <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
-              </div>
+            <div v-for="n in 3" :key="n" class="animate-pulse rounded-md video-img-item img-container">
+              <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
+            </div>
           </div>
         </div>
+      </div>
+      <div v-else>
+        로딩
       </div>
 
       <button
@@ -82,6 +79,7 @@
           <path d="M9 6l6 6l-6 6" />
         </svg>
       </button>
+      <button @click="print">프린트</button>
     </div>
   </div>
 </template>
@@ -90,6 +88,7 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { sendTokenToSaveRM } from "@/api/user.js";
+import { fetchRecommendations } from "@/api/recommendations.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -100,69 +99,57 @@ const endIndex = ref(3);
 const currentIndex = ref(0);
 const imageContainer = ref(null); // ref를 사용하여 DOM 요소에 접근할 변수 선언
 
+// 비디오 리스트 ref
 const videoList = ref([]);
 
-async function fetchRecommendations() {
-  try {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      throw new Error("로그인이 필요합니다.");
-    }
-    
-    const response = await axios.get('/recommendations', {
-      headers: {
-        Authorization: `Bearer ${accessToken}` // 액세스 토큰을 헤더에 포함하여 보냄
-      }
-    });
+// fetchRecommendations 함수 호출하여 데이터 가져오기
+const isLoading = ref(true); // 데이터 로딩 상태 관리를 위한 변수
 
-    // 백엔드에서 받은 응답을 videoList에 할당
-    videoList.value = response.data;
+onMounted(async () => {
+  isLoading.value = true; // 데이터 로딩 시작
+  try {
+    const responseData = await fetchRecommendations();
+    videoList.value = responseData || [];
+    console.log(videoList.value);
+    isLoading.value = false; // 데이터 로딩 완료
   } catch (error) {
     console.error(error);
+    isLoading.value = false; // 에러 발생 시에도 로딩 완료 처리
   }
-}
+});
 
-const handleVideoClick = async () => {
-  try {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      throw new Error("로그인이 필요합니다.");
-    }
-    await sendTokenToSaveRM(accessToken); // 백엔드의 save_recommendations 함수 호출
-  } catch (error) {
-    console.error(error);
-  }
-};
 
-const prevPage = () => {
-  currentIndex.value = Math.max(currentIndex.value - 1, 0);
-  updateImagePosition();
-};
 
+// 다음 페이지로 이동
 const nextPage = () => {
   const maxIndex = videoList.value.length - 3;
   currentIndex.value = Math.min(currentIndex.value + 1, maxIndex);
   updateImagePosition();
 };
+const print = () =>{
+  console.log("비디오리스트", videoList.value);
+};
+// 이전 페이지로 이동
+const prevPage = () => {
+  currentIndex.value = Math.max(currentIndex.value - 1, 0);
+  updateImagePosition();
+};
 
+// 이미지 위치 업데이트
 const updateImagePosition = () => {
   nextTick(() => {
     startIndex.value = currentIndex.value;
     endIndex.value = currentIndex.value + 3;
-    console.log("startIndex:", startIndex.value, "endIndex:", endIndex.value);
   });
 };
 
-onMounted(() => {
-  fetchRecommendations();
-  updateImagePosition();
-});
-
-const goToStudy = () => {
-  handleVideoClick();
-  router.push("/study");
+// 학습 페이지로 이동
+const goToStudy = (video) => {
+  // 학습 페이지로 이동하는 코드 추가
 };
+
 </script>
+
 <style scoped>
 #video-name {
   overflow: hidden;

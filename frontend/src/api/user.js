@@ -27,19 +27,24 @@ function emailSend(param, success, fail){
 function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
-
-async function sendTokenToSaveRM(token) {
+async function sendTokenToSaveRM() {
     try {
-      const response = await local.get('/script', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log(response.data);
-      return response.data;
+        const response = await axios.get('http://127.0.0.1:5000/data/recommendation/script', config);
+        console.log(response.data);
+        return response.data;
     } catch (error) {
-      console.error(error);
-      throw new Error('추천 뉴스를  중 오류가 발생했습니다.');
+        if (error.response) {
+            // 서버 응답이 있을 경우
+            console.error("서버 응답 상태 코드:", error.response.status);
+            console.error("서버 응답 데이터:", error.response.data);
+        } else if (error.request) {
+            // 요청이 전송되었지만 응답이 없을 경우
+            console.error("요청을 보냈지만 응답이 없습니다.");
+        } else {
+            // 오류가 발생한 경우
+            console.error("오류가 발생했습니다:", error.message);
+        }
+        throw new Error('추천 뉴스를 중 오류가 발생했습니다.');
     }
 }
 
