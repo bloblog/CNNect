@@ -4,7 +4,7 @@ import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch, computed } from 'vue'
 import axios from 'axios';
 
-const { VITE_GT_ACCESS_KEY, VITE_ETRI_ACCESS_KEY } = import.meta.env;
+const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
 const props = defineProps({
     curSentence: Object
@@ -101,9 +101,9 @@ const audioChunks = ref([]);
 const pronunciationScore = ref(null);
 const isRecording = ref(false);
 
-const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
-const languageCode = 'english';
-const script = props.curSentence.content;
+const script = ref(props.curSentence.content);
+
+const openApiURL = '/naverapi/recog/v1/stt';
 
 const startRecording = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -129,8 +129,7 @@ const stopRecording = () => {
 
     mediaRecorder.value.onstop = async () => {
         const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
-        const audioData = await fileToBase64(audioBlob);
-        sendPronunciationRequest(audioData);
+        sendPronunciationRequest(audioBlob);
     };
 
     mediaRecorder.value.stop();
@@ -146,36 +145,23 @@ const stopRecording = () => {
     }
 };
 
-// Base64로 변환
-const fileToBase64 = (blob) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-        reader.readAsDataURL(blob);
-    });
-};
-
-const sendPronunciationRequest = (audioData) => {
-    const requestJson = {
-        argument: {
-        language_code: languageCode,
-        script: script,
-        audio: audioData.split(',')[1], 
-        },
-    };
-
-    axios.post(openApiURL, requestJson, {
+const sendPronunciationRequest = (audioBlob) => {
+    axios.post(openApiURL, audioBlob, {
         headers: {
-        'Content-Type': 'application/json',
-        'Authorization': VITE_ETRI_ACCESS_KEY
+        'Content-Type': 'application/octet-stream',
+        'X-CLOVASPEECH-API-KEY': VITE_CLOVASPEECH_API_KEY
+        },
+        params: {
+            utterance: props.curSentence.content,
+            lang: "Eng",
+            assessment: true,
+            graph: true
         },
     })
     .then((response) => {
-        console.log('responseCode = ', response.status);
-        console.log('responseBody = ', response.data);
-        pronunciationScore.value = response.data.return_object.score;
-        console.log('발음 점수 : ', pronunciationScore.value)
+        console.log('response = ', response.data.assessment_score);
+        console.log('response = ', response.data);
+        pronunciationScore.value = response.data.assessment_score;
     })
     .catch((error) => {
         console.error('Error:', error);
