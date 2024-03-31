@@ -288,6 +288,8 @@ const sendPronunciationRequest = (audioBlob) => {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; 
+    max-height: calc(25vh);
 }
 .bottom-box .korean {
     color: #8A8A8A;
