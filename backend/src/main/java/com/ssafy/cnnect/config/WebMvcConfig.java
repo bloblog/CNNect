@@ -1,6 +1,7 @@
 package com.ssafy.cnnect.config;
 
 
+import co.elastic.clients.elasticsearch.nodes.Http;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -24,6 +25,7 @@ class WebMvcConfig implements WebMvcConfigurer {
                         HttpMethod.POST.name(),
                         HttpMethod.OPTIONS.name(),
                         HttpMethod.PUT.name(),
+                        HttpMethod.OPTIONS.name(),
                         HttpMethod.PATCH.name(),
                         HttpMethod.DELETE.name()
                 );
