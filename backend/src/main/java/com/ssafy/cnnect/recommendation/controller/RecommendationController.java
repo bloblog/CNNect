@@ -10,10 +10,12 @@ import com.ssafy.cnnect.result.ResultResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequestMapping("/api/recommendations")
 @RestController
 public class RecommendationController {
 
@@ -24,7 +26,7 @@ public class RecommendationController {
         this.recommendationService = recommendationService;
     }
 
-    @GetMapping("/recommendations")
+    @GetMapping("/all")
     public ResponseEntity<ResultResponse> getRecommendations() {
         List<RecommendedNewsResponseDto> recommendedNews = recommendationService.getRecommendedNews();
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, recommendedNews));
