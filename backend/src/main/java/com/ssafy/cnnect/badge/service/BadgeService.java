@@ -83,9 +83,8 @@ public class BadgeService {
 
         // <1> - 1. 방금 학습한 영상의 카테고리 받기 -> 해당 카테고리의 유저가 기존에 학습한 영상 갯수 구하기
         User user = customUserDetailsService.getUserByAuthentication();
-        List<UserHistory> histories = userHistoryRepository.findAllByUserAndHistorySentenceNot(user, "register");
+        List<UserHistory> histories = userHistoryRepository.findAllByUserAndHistorySentenceNotAndHistoryStatus(user, "register", true);
         List<Video> videoList = new ArrayList<>();
-        System.out.println(histories.size());
 
         for(UserHistory h : histories){
             Video v = videoRepository.findByVideoId(h.getVideoId());
@@ -114,7 +113,6 @@ public class BadgeService {
                 .filter(badge -> userBadge.stream().noneMatch(badgeListResponseDto -> badgeListResponseDto.getBadgeId().equals(badge.getBadgeId())))
                 .sorted(Comparator.comparingLong(Badge::getBadgeCount))
                 .findFirst();
-        System.out.println("speakingmissingbadge : " + speakingMissingBadge.get().getBadgeId());
 
         // 2. 현재 기준으로 8점 이상의 쉐도잉 점수 문장 count해서 1번의 뱃지를 얻을 수 있는지 확인
         int userCount = 0;
@@ -124,6 +122,13 @@ public class BadgeService {
                 newBadges.add(speakingMissingBadge.get());
                 break;
             }
+        }
+
+        for(Badge nb : newBadges){
+            userBadgeRepository.save(UserBadge.builder() // 새로 획득한 뱃지 userBadge에 저장
+                    .user(user)
+                    .badge(nb)
+                    .build());
         }
 
         return newBadges;

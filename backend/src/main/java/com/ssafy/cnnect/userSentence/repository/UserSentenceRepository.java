@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface UserSentenceRepository extends JpaRepository<UserSentence, Long> {
     Optional<UserSentence> findByUserHistoryAndSentenceOrder(UserHistory userHistory, int sentenceOrder);
 
-    @Query(value = "COUNT (*) FROM user_sentence us WHERE us.history_id = :historyId AND us.sentence_score >= 8", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM user_sentence us WHERE us.history_id = :historyId AND us.sentence_score >= 80", nativeQuery = true)
     Long countAllByHistoryIdAndSentenceScoreGreaterThanEqual(@Param("historyId") Long historyId);
 
 //    @Query("SELECT us FROM user_sentence us WHERE us.history_id = :historyId AND us.sentence_score >= 8")
