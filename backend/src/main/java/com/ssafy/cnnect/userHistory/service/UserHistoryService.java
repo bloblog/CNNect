@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.exec.ExecutionException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,9 +57,14 @@ public class UserHistoryService {
 
         Optional<UserHistory> OptionalUserHistory = userHistoryRepository.findByVideoIdAndUser(videoId, user);
 
+        Long datetime = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(datetime);
+
         if (OptionalUserHistory.isPresent()) {
             throw new RuntimeException("User history for the specified video already exists.");
         }
+
+
 
         UserHistory userHistory = UserHistory.builder()
                 .historyStatus(false)
@@ -66,6 +72,7 @@ public class UserHistoryService {
                 .historyTime(null)
                 .videoId(videoId)
                 .user(user)
+                .historyDate(timestamp)
                 .userSentenceList(new ArrayList<>())
                 .build();
 
@@ -90,6 +97,12 @@ public class UserHistoryService {
         if (OptionalUserHistory.isEmpty()) return null;
 
         UserHistory userHistory = OptionalUserHistory.get();
+
+        Long datetime = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(datetime);
+
+        userHistory.toBuilder().historyDate(timestamp).build();
+
         List<UserSentence> userSentenceList = userHistory.getUserSentenceList();
 
         List<UserSentenceResponseDto> userSentenceResponseDtoList = userSentenceList.stream()
