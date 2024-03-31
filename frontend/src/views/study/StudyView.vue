@@ -35,14 +35,13 @@ const setCurSentence = (curOrder) => {
 };
 
 const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
-    const doubleScore = parseFloat(pronunciationScore).toFixed(1);
-    videoData.value.sentenceList[sentenceOrder - 1].score = doubleScore;
-    curSentence.value.score = doubleScore;
+    videoData.value.sentenceList[sentenceOrder - 1].score = parseFloat(pronunciationScore);
+    curSentence.value.score = parseFloat(pronunciationScore);
     updateScore(
         { 
             sentenceOrder : sentenceOrder, 
             sentenceContent: videoData.value.sentenceList[sentenceOrder - 1].content,
-            sentenceScore : doubleScore, 
+            sentenceScore : parseFloat(pronunciationScore),
             historyId: videoData.value.historyId 
         },
         ({ data }) => {

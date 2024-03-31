@@ -270,10 +270,12 @@ const sendPronunciationRequest = (audioBlob) => {
 .top-right-box .score {
     border: #c8c8c8 1px solid;
     border-radius: 20px;
-    padding: 7px 20px;
+    padding: 5px 20px;
     margin-right: 15px;
     color: #CC0000;
     font-weight: 600;
+    width: 80px;
+    text-align: center;
 }
 .top-right-box .noScore {
     color: #b3b3b3;
