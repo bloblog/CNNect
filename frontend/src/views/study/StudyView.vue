@@ -5,7 +5,7 @@ import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getStudy } from '@/api/study';
 import { updateScore } from '@/api/sentence';
 import { updateLastSentence } from '@/api/history';
@@ -68,10 +68,11 @@ const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
 
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
+const controller = new AbortController();
 
 const fetchWordMeanings = async () => {
     for (const word of videoData.value.wordList) {
-        const result = await getDict(word);
+        const result = await getDict(word, 0, controller.signal);
         if (result !== null) {
             wordMeanings.value[word] = result;
         }
@@ -105,6 +106,9 @@ onMounted(() => {
     );
 })
 
+onUnmounted(() => {
+    controller.abort();
+});
 </script>
 
 <template>
