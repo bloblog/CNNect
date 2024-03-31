@@ -20,7 +20,7 @@ public class UserSentence {
     @Column(name = "sentence_order", nullable = false)
     private int sentenceOrder;
 
-    @Column(name = "sentence_content", nullable = false)
+    @Column(name = "sentence_content", nullable = false, length = 500)
     private String sentenceContent;
 
     @Column(name = "sentence_score")

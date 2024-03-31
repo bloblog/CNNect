@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserSentenceUpdateRequestDto {
     private int sentenceOrder;
+    private String sentenceContent;
     private Double sentenceScore;
     private Long historyId;
 }

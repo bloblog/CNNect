@@ -10,13 +10,13 @@ import com.ssafy.cnnect.video.dto.StudyVideoResponseDto;
 import com.ssafy.cnnect.video.entity.Sentence;
 import com.ssafy.cnnect.video.entity.Video;
 import com.ssafy.cnnect.video.repository.VideoRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,6 +80,7 @@ public class VideoService {
         }
 
         StudyVideoResponseDto studyVideoResponseDto = StudyVideoResponseDto.builder()
+                .historyId(historyId)
                 .videoId(videoId)
                 .videoName(video.getVideo_name())
                 .level(video.getVideo_level())
