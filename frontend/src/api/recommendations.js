@@ -1,7 +1,11 @@
 import { localAxios } from "./http";
 const local = localAxios();
 const url = "/recommendations";
-
+const config = {
+  headers : {
+      "Authorization" : "Bearer " + localStorage.getItem("accessToken")
+  }
+}
 async function fetchRecommendations() {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -9,11 +13,7 @@ async function fetchRecommendations() {
         throw new Error("로그인이 필요합니다.");
       }
       
-      const response = await local.get(`${url}/all`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+      const response = await local.get(`${url}/all`, config);
 
       return response.data.data;
       
