@@ -1,12 +1,13 @@
-import { localAxios } from "./http";
-
+import { localAxios, localAxios2 } from "./http";
 const local = localAxios();
+const local2 = localAxios2();
 const url = "/user";
+const urll = "/data/recommendation";
 const config = {
     headers : {
         "Authorization" : "Bearer " + localStorage.getItem("accessToken")
     }
-} // 헤더에 accessToken 담아서 전송하기!!
+}
 
 function registUser(param, success, fail){
     local.post(`${url}/join`, JSON.stringify(param)).then(success).catch(fail);
@@ -27,10 +28,10 @@ function emailSend(param, success, fail){
 function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
+
 async function sendTokenToSaveRM() {
     try {
-        const response = await axios.get('http://127.0.0.1:5000/data/recommendation/script', config);
-        console.log(response.data);
+        const response = await local2.get(`${urll}/script`, config);
         return response.data;
     } catch (error) {
         if (error.response) {
