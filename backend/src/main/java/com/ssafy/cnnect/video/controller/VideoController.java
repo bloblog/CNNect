@@ -44,4 +44,10 @@ public class VideoController {
     public ResponseEntity<ResultResponse> getStudyVideo(@PathVariable String videoId){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, videoService.getStudyVideo(videoId)));
     }
+
+    @Operation(summary = "회원가입 관심영상 리스트")
+    @GetMapping(value = "/register")
+    public ResponseEntity<ResultResponse> getRegisterVideo(){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, videoService.getRegisterVideo()));
+    }
 }
