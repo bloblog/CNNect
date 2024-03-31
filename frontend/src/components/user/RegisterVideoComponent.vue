@@ -12,7 +12,7 @@
           <div class="relative" @mouseover="showVideoPopup(index)" @mouseleave="hideVideoPopup(index)">
             <!-- :class="changeThumbnail(index)" -->
             <img class="w-full h-auto" @click="addLike(index)"
-              :src="`https://img.youtube.com/vi/${video}/maxresdefault.jpg`" />
+              :src="`https://img.youtube.com/vi/${video}/mqdefault.jpg`" />
             <div v-if="isVideoPopup[index]"
               class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
               <iframe :src="`https://www.youtube.com/embed/${video}?autoplay=1`" frameborder="0"
@@ -66,6 +66,7 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
+import { registerVideo } from "@/api/video";
 
 const uStore = userStore();
 
@@ -82,17 +83,12 @@ let flag = false;
 let maxScrollCount = 2; // 스크롤 횟수 임시 제한
 
 onMounted(() => {
-  videoList.value = [
-    "mtptFuBAg9Q",
-    "5F6YRQKZX9E",
-    "yNPM2obgE7g",
-    "CDphmhaToV4",
-    "LZ-px4nq8YQ",
-    "65CI8hznDy4",
-    "xTN1IcqZvOo",
-    "ei8wkDsxnaY",
-    "y8Cg3LwIcZk",
-  ];
+  registerVideo(({data}) => {
+    console.log(data);
+    videoList.value = data.data;
+  }, (error) => {
+    console.log(error)
+  })
 
   videoLike.value = Array(videoList.value.length).fill(false);
   isVideoPopup.value = Array(videoList.value.length).fill(false);

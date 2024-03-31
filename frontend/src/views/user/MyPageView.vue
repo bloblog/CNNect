@@ -148,6 +148,7 @@ onMounted(() => {
   console.log(level.value + " " + imgUrl.value);
   userInfo(
     ({ data }) => {
+      console.log("userInfo 실행")
       console.log(data);
       badge.value = data.data.userBadgeCount;
       video.value = data.data.userVideoCount;
