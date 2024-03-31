@@ -1,5 +1,4 @@
 import { localAxios } from "./http";
-import { ref } from "vue";
 const local = localAxios();
 const url = "/recommendations";
 
@@ -15,9 +14,9 @@ async function fetchRecommendations() {
           Authorization: `Bearer ${accessToken}`
         }
       });
-  
-      console.log("비디오리스트", response.data);
+
       return response.data.data;
+      
     } catch (error) {
       console.error(error);
     }
