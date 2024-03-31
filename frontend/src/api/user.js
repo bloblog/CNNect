@@ -2,7 +2,7 @@ import { localAxios, localAxios2 } from "./http";
 const local = localAxios();
 const local2 = localAxios2();
 const url = "/user";
-const urll = "/data/recommendation";
+const urll = "/recommendation";
 const config = {
     headers : {
         "Authorization" : "Bearer " + localStorage.getItem("accessToken")
