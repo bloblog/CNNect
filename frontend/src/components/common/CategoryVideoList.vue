@@ -42,14 +42,27 @@
 import { ref, watch, onMounted, nextTick, defineProps } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { videoPaging } from "@/api/video";
+import { sendTokenToSaveRM } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
 
 const goToStudy = (videoId) => {
+  handleVideoClick();
   router.push({ name: 'study', params: { videoId: videoId } });
 };
 
+const handleVideoClick = async () => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      throw new Error("로그인이 필요합니다.");
+    }
+    await sendTokenToSaveRM(); // 백엔드의 save_recommendations 함수 호출
+  } catch (error) {
+    console.error(error);
+  }
+};
 const props = defineProps({
   category: Number
 });
