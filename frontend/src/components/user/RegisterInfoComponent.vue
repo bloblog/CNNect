@@ -3,114 +3,67 @@
     <div class="w-2/4 mx-4">
       <div class="flex items-center mb-5">
         <div class="w-1/4">
-          <label
-            for="email"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >이메일</label
-          >
+          <label for="email" class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900">이메일</label>
         </div>
         <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
-          <input
-            type="email"
-            id="email"
-            v-model="formData.userEmail"
+          <input type="email" id="email" v-model="formData.userEmail"
             class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
-            placeholder="example@google.com"
-            required
-          />
-          <button
-            type="button"
-            @click="emailDuplCheck()"
-            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
+            placeholder="example@google.com" required />
+          <button type="button" @click="emailDuplCheck()"
+            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             중복확인
           </button>
         </div>
       </div>
       <div class="flex items-center mb-5">
         <div class="w-1/4">
-          <label
-            for="email"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
-            >인증코드</label
-          >
+          <label for="email"
+            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white">인증코드</label>
         </div>
         <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
-          <input
-            type="text"
-            id="authCode"
-            v-model="authCode"
+          <input type="text" id="authCode" v-model="authCode"
             class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
-            required
-          />
-          <button
-            type="button"
-            @click="codeSend()"
-            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
+            required />
+          <button type="button" @click="codeSend()"
+            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             인증전송
           </button>
         </div>
       </div>
       <div class="flex items-center mb-5">
         <div class="w-1/4">
-          <label
-            for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >비밀번호</label
-          >
+          <label for="password" class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900">비밀번호</label>
         </div>
         <div class="w-3/4">
-          <input
-            type="password"
-            id="password"
-            v-model="formData.userPassword"
+          <input type="password" id="password" v-model="formData.userPassword"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
+            required />
         </div>
       </div>
       <div class="flex items-center mb-5">
         <div class="w-1/4">
-          <label
-            for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >비밀번호 확인</label
-          >
+          <label for="password" class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900">비밀번호
+            확인</label>
         </div>
         <div class="w-3/4">
-          <input
-            type="password"
-            id="passworConfirm"
+          <input type="password" id="passworConfirm"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
+            required />
         </div>
       </div>
       <div class="flex items-center mb-5">
         <div class="w-1/4">
-          <label
-            for="nickname"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >닉네임</label
-          >
+          <label for="nickname" class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900">닉네임</label>
         </div>
         <div class="w-3/4">
-          <input
-            type="text"
-            id="nickname"
-            v-model="formData.userNickname"
+          <input type="text" id="nickname" v-model="formData.userNickname"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
+            required />
         </div>
       </div>
       <div class="flex items-center w-full justify-center">
-        <button
-          type="button"
-          @click="nextStep(1)"
-          class="min-w-fit items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
+        <button type="button" @click="nextStep(1)"
+          class="min-w-fit items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
           다음
         </button>
       </div>
@@ -120,11 +73,11 @@
 
 <script setup>
 import { ref } from "vue";
-import { registUser, emailCheck, emailSend } from "@/api/user";
+import { registUser, emailCheck, emailSend, loginUser } from "@/api/user";
 import { userStore } from "@/stores/userStore";
 
 const uStore = userStore();
-const { setUserId } = uStore;
+const { setUserId, setNickname, setLevel} = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
 const autoCheck = ref(false); // 이메일 인증 여부
@@ -152,6 +105,20 @@ const nextStep = (input) => {
       ({ data }) => {
         console.log(data);
         setUserId(data.data);
+        loginUser(
+          { userEmail: formData.value.userEmail, userPassword: formData.value.userPassword },
+          ({ data }) => {
+            console.log(data);
+            console.log(data.data.level);
+            localStorage.setItem("refreshToken", data.data.jwtToken.refreshToken);
+            localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
+            setLevel(data.data.level);
+            setNickname(data.data.nickName);
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
       },
       (error) => {
         console.log(error);
@@ -190,6 +157,4 @@ const codeSend = () => {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

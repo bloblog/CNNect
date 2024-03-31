@@ -1,5 +1,6 @@
 import { localAxios } from "./http";
 
+console.log("in badge.js " + localStorage.getItem("accessToken"))
 const local = localAxios();
 const url = "/badge";
 const config = {
@@ -13,8 +14,12 @@ async function allBadges(success, fail){
 }
 
 async function myBadges(success, fail){
+    console.log(localStorage.getItem("accessToken"))
+    console.log(config)
     local.get(`${url}/mylist`, config).then(success).catch(fail);
 }
+
+  
 
 export {
     allBadges,
