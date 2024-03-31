@@ -93,6 +93,7 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
+import { handleVideoClick } from "@/components/common/CategoryVideoList.vue";
 
 const uStore = userStore();
 
@@ -131,6 +132,7 @@ const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
 const nextStep = (input) => {
+  handleVideoClick();
   emit("nextStep", input);
   // console.log(videoList.value.length)
   // for(let i = 0; i < videoList.value.length; i++){
