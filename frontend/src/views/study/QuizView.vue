@@ -3,9 +3,8 @@ import { ref } from 'vue'
 import Quiz from "@/components/study/Quiz.vue"
 import QuizResult from "@/components/study/QuizResult.vue"
 
-// const correctList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const resultList = ref([]);
-const answerList = ref([]);
+const resultList = ref([]); // 채점결과
+const answerList = ref([]); // 사용자가 입력한 답안
 
 </script>
 

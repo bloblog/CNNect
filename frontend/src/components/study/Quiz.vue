@@ -5,11 +5,43 @@ import { useRoute } from 'vue-router';
 
 import { getQuiz } from '@/api/test'
 
+const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
+
+
 const route = useRoute();
 
+const response = ref([]); // api 결과값
+const currentQuiz = ref(0); // 생성할 퀴즈 번호
+const correctList = ref([]); // 정답만 담을 배열
+const q1 = ref(''); // 퀴즈 앞부분
+const q2 = ref(''); // 뒷부분
+
 onMounted(() => {
-    console.log(route.params.videoId)
+    const videoId = route.params.videoId;
+    getQuiz(
+        videoId,
+        ({data}) => {
+            response.value = data.answerList;
+            correctList.value = response.value.map(item => item.answer);
+            setQuestion();
+
+        },
+        (error) => {
+            console.log(error)
+        });
+
+    
 });
+
+const setQuestion = () => {
+    // 빈칸 세팅
+    q1.value = response.value[currentQuiz.value].question_first;
+    q2.value = response.value[currentQuiz.value].question_second;
+    blank.value = "_".repeat(correctList.value[currentQuiz.value].length * 2)
+    // 해석 부분 세팅
+    translateText(response.value[currentQuiz.value].original);
+
+}
 
 const activeIndex = ref(1);
 
@@ -19,6 +51,8 @@ const goPrev = () => {
     if (activeIndex.value > 1) {
       activeIndex.value = activeIndex.value-1;
     }
+    goAnother();
+
     
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
@@ -34,6 +68,8 @@ const goNext = () => {
     if (activeIndex.value < 10) {
         activeIndex.value = activeIndex.value + 1;
     }
+    goAnother();
+
 
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
@@ -46,6 +82,7 @@ const goNum = (num) => {
     addToAnswerList();
     answer.value = "";
     activeIndex.value = num;
+    goAnother();
     
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
@@ -53,23 +90,56 @@ const goNum = (num) => {
     }
 }
 
+const goAnother = () => {
+    currentQuiz.value = activeIndex.value-1;
+    setQuestion();
+}
+
+// Google Translate API
+const translatedContent = ref('');
+
+function translateText(textToTranslate) {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${VITE_GT_ACCESS_KEY}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            q: textToTranslate,
+            source: "en",
+            target: "ko"
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        translatedContent.value = data.data.translations[0].translatedText;
+    })
+    .catch(error => console.error("번역 오류:", error));
+}
+
 const submit = () => {
     addToAnswerList();
     answer.value = "";
 
-    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
-    if (existAnswer) {
-        answer.value = existAnswer[activeIndex.value];
-    }
+    // const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
+    // if (existAnswer) {
+    //     answer.value = existAnswer[activeIndex.value];
+    // }
 
     compareAnswers();
 }
 
-const correctList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const props = defineProps({
     resultList: Array,
     answerList: Array
   });
+
+
 
 const compareAnswers = () => {
     for (let i = 0; i < correctList.length; i++) {
@@ -83,6 +153,7 @@ const compareAnswers = () => {
             props.resultList.push(false);
         }
     }
+    console.log(props.resultList)
 };
 
 const handleEnter = () => {
@@ -121,13 +192,12 @@ const addToAnswerList = () => {
 };
 
 
-const blank = ref("_".repeat(15));
+const blank = ref("");
 
 </script>
 
 <template>
     <div>
-        <!-- <div>{{ $route.query.videoId }}</div> -->
         <div class="p-3 min-w-fit relative">
             <div id="quiz-container" class="border-gray-400 border-2">
                 <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
@@ -143,12 +213,12 @@ const blank = ref("_".repeat(15));
                         <div class="flex items-start space-x-2">
                             <div class="text-lg font-bold">Q{{ activeIndex }}.</div>
                             <div class="text-lg font-bold">
-                                Here with me now is Homeland <span class="text-theme-red font-extrabold">{{ blank }}</span> Secretary Alejandro Mayorkas.
+                                {{ q1 }} <span class="text-theme-red font-extrabold">{{ blank }}</span> {{ q2 }}
                             </div>
                         </div>
 
                         <div class="flex ml-10 mt-3">
-                            저와 함께 여기 알레한드로 마요르카스 국토안보부 장관이 있습니다.
+                            {{ translatedContent }}
                         </div>
                     </div>
                     <div class="divider"></div>
