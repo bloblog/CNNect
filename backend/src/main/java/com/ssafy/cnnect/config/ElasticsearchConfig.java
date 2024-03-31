@@ -8,13 +8,16 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @Configuration
 @EnableElasticsearchRepositories
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
-    @Value("${spring.data.elasticsearch.cluster-nodes}")
-    private String esHost;
+    @Value("${spring.data.elasticsearch.host}")
+    private String host;
+
+    @Value("${spring.data.elasticsearch.port}")
+    private String port;
 
     @Override
     public ClientConfiguration clientConfiguration() {
         return ClientConfiguration.builder()
-                .connectedTo(esHost)
+                .connectedTo(host + ":" + port)
                 .build();
     }
 }

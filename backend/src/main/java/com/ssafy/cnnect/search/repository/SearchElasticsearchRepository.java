@@ -11,23 +11,5 @@ import java.util.List;
 
 @Repository
 public interface SearchElasticsearchRepository extends ElasticsearchRepository<SearchDocument, String> {
-    List<SearchDocument> findByVideoName(String videoName);
-
-
-            @Query("{\n" +
-            "    \"nested\": {\n" +
-            "      \"path\": \"sentence_list\",\n" +
-            "      \"query\": {\n" +
-            "        \"match\": {\n" +
-            "          \"sentence_list.text\": \"?0\"\n" +
-            "        }\n" +
-            "      },\n" +
-            "      \"inner_hits\": {\n" +
-            "        \"_source\": [\"sentence_list.text\"]\n" +
-            "      },\n" +
-                    "  \"size\" : ?1,\n" +
-                    "  \"_source\": [\"video_id\"],\n" +
-            "    }\n"+
-            "  }\n")
-    List<SearchDocument> findBySentenceListTextContaining(String keyword, int size);
+    List<SearchDocument> findByVideoName(String videoName, Pageable pageable);
 }

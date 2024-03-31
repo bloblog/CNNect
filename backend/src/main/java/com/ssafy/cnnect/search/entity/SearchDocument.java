@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Document(indexName = "cnnect.data")
+@Document(indexName = "cnnect-data")
 @Setting
 @AllArgsConstructor
 @NoArgsConstructor

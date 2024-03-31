@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
@@ -37,7 +38,13 @@ public class SearchService {
     private final ElasticsearchTemplate elasticsearchTemplate;
 
     public List<SearchTitleResponseDto> searchByTitle(String title){
-        List<SearchDocument> searchVideo = elasticsearchRepository.findByVideoName(title);
+        // 정렬 정보 설정
+        Sort sort = Sort.by(Sort.Direction.DESC, "video_date");
+
+        // 페이지 요청 설정 (페이지 번호는 0부터 시작)
+        Pageable pageable = PageRequest.of(0, 100, sort);
+
+        List<SearchDocument> searchVideo = elasticsearchRepository.findByVideoName(title, pageable);
         List<SearchTitleResponseDto> list = new ArrayList<>();
 
         for(SearchDocument sd : searchVideo){
@@ -62,7 +69,7 @@ public class SearchService {
                         .query(QueryBuilders.match().field("sentence_list.text").query(keyword).build()._toQuery())
                         .scoreMode(ChildScoreMode.None).build()._toQuery())
                 .withSourceFilter(new FetchSourceFilter(new String[]{"video_id", "video_name", "video_date"}, null))
-                .withPageable(PageRequest.of(0, 45))
+                .withPageable(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, "video_date")))
                 .build();
         SearchHits<SearchDocument> hits  = elasticsearchTemplate.search(nativeQuery, SearchDocument.class);
 
