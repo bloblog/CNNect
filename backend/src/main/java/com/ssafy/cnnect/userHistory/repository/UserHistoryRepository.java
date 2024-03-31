@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> {
     List<UserHistory> findAllByUser(User user);
 
-    List<UserHistory> findAllByUserAndHistorySentenceNot(User suer, String historySentence);
+    List<UserHistory> findAllByUserAndHistorySentenceNotAndHistoryStatus(User user, String historySentence, boolean historyStatus);
 
     Long countByUserAndHistorySentenceNot(User user, String historySentence);
 
