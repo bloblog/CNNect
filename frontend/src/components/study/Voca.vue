@@ -1,8 +1,34 @@
 <script setup>
+import { addWordList } from '@/api/voca';
+
 defineProps({
     isFinishedFetching: Boolean,
     wordMeanings: Object
 })
+
+async function addWordbook(meanings, word) {
+    const wordContent = word;
+    const wordMean = meanings.map(meaning => meaning.num + '. ' + meaning.mean).join('\n');
+    
+    try {
+        addWordList(
+            { wordContent : wordContent, wordMean : wordMean},
+            ({ data }) => {
+                console.log(data)
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+        alert(`${wordContent}가 단어장에 추가되었습니다.`);
+    } catch (error) {
+        console.error('단어 추가에 실패하였습니다.', error);
+    }
+}
+
+
+
+
 </script>
 
 <template>
@@ -11,7 +37,7 @@ defineProps({
             <li class="card" v-for="(meanings, word) in wordMeanings" :key="word">
                 <div class="word-and-btn">
                     <div class="word"> {{ word }} </div>
-                    <button type="button" class="add_wordbook">
+                    <button type="button" class="add_wordbook" @click="addWordbook(meanings, word)">
                         <span class="material-symbols-outlined">add</span>
                     </button>
                 </div>

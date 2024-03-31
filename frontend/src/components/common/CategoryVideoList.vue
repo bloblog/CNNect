@@ -14,7 +14,7 @@
         <div v-if="videoList.length > 0" class="grid grid-cols-3 p-3" ref="imageContainer">
           <div v-for="(video, index) in videoList" :key="index" class="relative m-2">
             
-            <div class="flex flex-col" id="content-area" @click="goToStudy">
+            <div class="flex flex-col" id="content-area" @click="goToStudy(video.video_id)">
               <img :src="video.video_thumbnail" alt="video-image" class="rounded-md video-img-item img-container">
               <div class="overlay flex items-end">
                 <div class="text-lg font-bold m-2" id="video-name">
@@ -42,14 +42,27 @@
 import { ref, watch, onMounted, nextTick, defineProps } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { videoPaging } from "@/api/video";
+import { sendTokenToSaveRM } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
 
-const goToStudy = () => {
-  router.push("/study");
+const goToStudy = (videoId) => {
+  handleVideoClick();
+  router.push({ name: 'study', params: { videoId: videoId } });
 };
 
+const handleVideoClick = async () => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      throw new Error("로그인이 필요합니다.");
+    }
+    await sendTokenToSaveRM(); // 백엔드의 save_recommendations 함수 호출
+  } catch (error) {
+    console.error(error);
+  }
+};
 const props = defineProps({
   category: Number
 });

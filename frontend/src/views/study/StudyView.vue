@@ -7,15 +7,16 @@ import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
 import { ref, onMounted } from 'vue'
 import { getStudy } from '@/api/study';
+import { updateScore } from '@/api/sentence';
+import { updateLastSentence } from '@/api/history';
 import { getDict } from '@/api/scraping.js'
+import { useRoute } from 'vue-router';
 
 const videoData = ref({
+    historyId: null,
     videoId: "",
     videoName: "",
-    url : "",
-    date: "",
-    level: 3,
-    category :  "",
+    level: null,
     sentenceList: [],
     wordList: []
 })
@@ -24,8 +25,7 @@ const curSentence = ref({
     order: "",
     startTime: "",
     content: "",
-    mean: "",
-    score: ""
+    score: null
 })
 
 const setCurSentence = (curOrder) => {
@@ -33,6 +33,38 @@ const setCurSentence = (curOrder) => {
     curSentence.value = { order, startTime, content, mean, score };
     ensureActiveSentenceVisible();
 };
+
+const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
+    const doubleScore = parseFloat(pronunciationScore).toFixed(1);
+    videoData.value.sentenceList[sentenceOrder - 1].score = doubleScore;
+    curSentence.value.score = doubleScore;
+    updateScore(
+        { 
+            sentenceOrder : sentenceOrder, 
+            sentenceContent: videoData.value.sentenceList[sentenceOrder - 1].content,
+            sentenceScore : doubleScore, 
+            historyId: videoData.value.historyId 
+        },
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+    updateLastSentence(
+        {
+            historySentence : videoData.value.sentenceList[sentenceOrder - 1].content,
+            historyTime : videoData.value.sentenceList[sentenceOrder - 1].startTime,
+            videoId : videoData.value.videoId
+        }, 
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+
+}
 
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
@@ -56,9 +88,21 @@ const ensureActiveSentenceVisible = () => {
     }
 }
 
+const route = useRoute();
+
 onMounted(() => {
-    videoData.value = getStudy();
-    fetchWordMeanings();
+    const videoId = route.params.videoId;
+
+    getStudy(
+        videoId,
+        ({ data }) => {
+            videoData.value = data.data;
+            fetchWordMeanings();
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
 })
 
 </script>
@@ -71,8 +115,8 @@ onMounted(() => {
         <Title :videoData="videoData"></Title>
         <main class="section-box">
             <div class="section1">
-                <VideoPlayer :videoData="videoData" @change-cur-sentence="setCurSentence"/>
-                <Shadowing :curSentence="curSentence"></Shadowing>
+                <VideoPlayer v-if="videoData.videoId" :videoData="videoData" @change-cur-sentence="setCurSentence"/>
+                <Shadowing :videoData="videoData" :curSentence="curSentence" @update-pronunciation-score="updatePronunciationScore"></Shadowing>
             </div>
 
             <div class="section2">
@@ -82,7 +126,7 @@ onMounted(() => {
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
                             <label for="tabmenu1">스크립트</label>
                             <div class="tabCon tabCon1" ref="refScript">
-                                <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
+                                <Script v-if="videoData.videoId" :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                             </div>
                         </li>
                         <li id="tab2" class="btnCon">

@@ -1,6 +1,7 @@
 <script setup>
 import { EventBus } from '@/api/eventBus.js';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { apiReady, loadYouTubeIframeAPI } from "@/api/youtubeSetup";
 
 const props = defineProps({
     videoData: Object
@@ -8,34 +9,42 @@ const props = defineProps({
 
 const emit = defineEmits(['changeCurSentence'])
 
-let player;
+const player = ref(null);
 
 const handleSeek = (startTime) => {
-    player.seekTo(startTime, true);
+    player.value.seekTo(startTime, true);
 }
 
 onMounted(() => {
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    loadYouTubeIframeAPI(); // API 로드 호출
 
-    window.onYouTubeIframeAPIReady = function() {
-        player = new YT.Player('player', {
-        height: '360',
-        width: '640',
-        videoId: props.videoData.videoId,
-        events: {
-            'onStateChange': onPlayerStateChange
-        }
+    const createPlayer = () => {
+        player.value = new YT.Player('player', {
+            height: '360',
+            width: '640',
+            videoId: props.videoData.videoId,
+            playerVars: {
+                    // 'origin': 'https://www.youtube.com',
+                    'origin': 'http://localhost:5173',
+                    
+                },
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
         });
     };
 
+    if (apiReady) { // API가 이미 준비된 경우 바로 플레이어 생성
+        createPlayer();
+    } else { // API 준비 이벤트를 기다린 후 플레이어 생성
+        document.addEventListener('YouTubeAPIReady', createPlayer, { once: true });
+    }
     EventBus.on('seek-to', handleSeek);
 });
 
 onUnmounted (() => {
     EventBus.off('seek-to', handleSeek);
+    player.value = null;
 })
 
 let currentSentenceOrder;
@@ -43,7 +52,7 @@ let currentSentenceOrder;
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         const checkTime = () => {
-            const currentTime = player.getCurrentTime();
+            const currentTime = player.value.getCurrentTime();
 
             const nextSentence = props.videoData.sentenceList.find(sentence => {
                 return currentTime < sentence.startTime;

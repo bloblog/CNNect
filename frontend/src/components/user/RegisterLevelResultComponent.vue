@@ -25,7 +25,7 @@
     <button
       class="ml-4 mt-7 text-white bg-theme-red hover:bg-theme-redbrown focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
       data-modal-hide="stop-modal"
-      @click="router.push('/')"
+      @click="finishRegister()"
     >
       학습하러 가기
     </button>
@@ -35,8 +35,12 @@
 <script setup>
 import { ref, computed, defineProps } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { userStore } from "@/stores/userStore";
 
 const router = useRouter();
+const uStore = userStore();
+
+const { setLogin, setLevel } = uStore;
 
 const props = defineProps({
   level: Number,
@@ -54,6 +58,13 @@ const data = ref([
 const formattedData = computed(() =>
   data.value[props.level - 1].split("<br>").map((line) => line.trim())
 );
+
+const finishRegister = () => { // 회원가입 종료시 자동 로그인 처리
+  setLevel(props.level);
+  setLogin();
+  window.location.href = "/"
+  // router.push('/')
+}
 </script>
 
 <style scoped>

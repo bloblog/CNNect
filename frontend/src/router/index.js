@@ -39,7 +39,7 @@ const router = createRouter({
       component: LevelView,
     },
     {
-      path: "/study",
+      path: "/video/study/:videoId",
       name: "study",
       component: StudyView,
       meta: { hideHeader: true },
