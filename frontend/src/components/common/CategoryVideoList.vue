@@ -57,7 +57,7 @@ const handleVideoClick = async () => {
     if (!accessToken) {
       throw new Error("로그인이 필요합니다.");
     }
-    await sendTokenToSaveRM(accessToken); // 백엔드의 save_recommendations 함수 호출
+    await sendTokenToSaveRM(); // 백엔드의 save_recommendations 함수 호출
   } catch (error) {
     console.error(error);
   }
