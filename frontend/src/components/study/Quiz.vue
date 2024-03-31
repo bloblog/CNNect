@@ -1,6 +1,15 @@
 <script setup>
 import { list } from 'postcss';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router';
+
+import { getQuiz } from '@/api/test'
+
+const route = useRoute();
+
+onMounted(() => {
+    console.log(route.params.videoId)
+});
 
 const activeIndex = ref(1);
 

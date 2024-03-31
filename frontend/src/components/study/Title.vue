@@ -8,13 +8,13 @@ const props = defineProps({
     videoData: Object
 })
 
+// const goToStudy = (videoId) => {
+//   router.push({ name: 'study', params: { videoId: videoId } });
+// };
 
-const goToQuiz = () => {
-    if (props.videoData.videoId != '') {
-        router.push({ path: '/quiz', query: { videoId: props.videoData.videoId } });
-    }
+const goToQuiz = (videoId) => {
+    router.push({ name: 'quiz', params: { videoId: videoId } });
 }
-
 
 
 </script>
@@ -27,7 +27,7 @@ const goToQuiz = () => {
         </div>
         <div class="btn-box">
             <button @click="router.push('/')" class="btn back">나가기</button>
-            <button @click="goToQuiz" class="btn finish">학습완료</button>
+            <button @click="goToQuiz(props.videoData.videoId)" class="btn finish">학습완료</button>
         </div>
     </header>
 </template>

@@ -29,4 +29,8 @@ function setUserLevelNotToken(param, success, fail) {
   local.patch(`user/update/level/register`, param).then(success).catch(fail);
 }
 
-export { getUserLevelTestList, setUserLevelToken, setUserLevelNotToken };
+function getQuiz(param, success, fail) {
+  local.get(`${REST_DATA_API}/video/${param}`).then(success).catch(fail);
+}
+
+export { getQuiz, getUserLevelTestList, setUserLevelToken, setUserLevelNotToken };
