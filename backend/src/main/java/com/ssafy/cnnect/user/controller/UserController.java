@@ -3,6 +3,7 @@ package com.ssafy.cnnect.user.controller;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.user.dto.JoinRequestDto;
+import com.ssafy.cnnect.user.dto.LevelRequestDto;
 import com.ssafy.cnnect.user.dto.LoginRequestDto;
 import com.ssafy.cnnect.user.service.EmailService;
 import com.ssafy.cnnect.user.service.UserService;
@@ -61,5 +62,19 @@ public class UserController {
     @GetMapping("/email/verification")
     public ResponseEntity<ResultResponse> emailVerification(@RequestParam String email, @RequestParam String authCode){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, userService.varifyCode(email, authCode)));
+    }
+
+    @Operation(summary = "가입 중 유저 레벨 업데이트")
+    @PatchMapping("/update/level/register")
+    public ResponseEntity<ResultResponse> updateUserLevelRegister(@RequestBody LevelRequestDto levelRequestDto){
+        userService.updateUserLevelRegister(levelRequestDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
+
+    @Operation(summary = "가입 후 레벨 업데이트")
+    @PatchMapping("/update/level")
+    public ResponseEntity<ResultResponse> setUserLevel(@RequestBody LevelRequestDto levelRequestDto){
+        userService.updateUserLevel(levelRequestDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 }

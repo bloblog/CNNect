@@ -34,8 +34,8 @@ public class BadgeController {
 
     @Operation(summary = "학습완료 후 새로 얻은 뱃지 확인")
     @GetMapping(value = "/newbadge")
-    public ResponseEntity<ResultResponse> getNewBadge(@RequestParam Long categoryId, @RequestParam Long newSentence ){
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, badgeService.getNewBadge(categoryId, newSentence)));
+    public ResponseEntity<ResultResponse> getNewBadge(@RequestParam Long categoryId){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS, badgeService.getNewBadge(categoryId)));
     }
 
 }

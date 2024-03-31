@@ -23,6 +23,7 @@ class WebMvcConfig implements WebMvcConfigurer {
                         HttpMethod.GET.name(),
                         HttpMethod.HEAD.name(),
                         HttpMethod.POST.name(),
+                        HttpMethod.OPTIONS.name(),
                         HttpMethod.PUT.name(),
                         HttpMethod.OPTIONS.name(),
                         HttpMethod.PATCH.name(),

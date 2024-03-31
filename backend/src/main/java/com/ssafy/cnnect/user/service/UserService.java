@@ -1,16 +1,12 @@
 package com.ssafy.cnnect.user.service;
 
-import com.ssafy.cnnect.badge.repository.BadgeRepository;
-import com.ssafy.cnnect.history.repository.HistoryRepository;
+import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.oauth.jwt.JwtValidationType;
 import com.ssafy.cnnect.oauth.service.RefreshTokenService;
 import com.ssafy.cnnect.oauth.token.JwtToken;
 import com.ssafy.cnnect.oauth.jwt.JwtTokenProvider;
 import com.ssafy.cnnect.oauth.token.RefreshToken;
-import com.ssafy.cnnect.user.dto.InfoResponseDto;
-import com.ssafy.cnnect.user.dto.JoinRequestDto;
-import com.ssafy.cnnect.user.dto.LoginRequestDto;
-import com.ssafy.cnnect.user.dto.LoginSuccessResponseDto;
+import com.ssafy.cnnect.user.dto.*;
 import com.ssafy.cnnect.user.entity.EmailCode;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.EmailCodeRepository;
@@ -22,13 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.time.Duration;
 import java.util.*;
 
 @Service
@@ -37,7 +32,7 @@ public class UserService {
     private final CustomUserDetailsService customUserDetailsService;
 
     private final UserRepository userRepository;
-    private final HistoryRepository historyRepository;
+    private final UserHistoryRepository historyRepository;
     private final UserBadgeRepository userBadgeRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -96,12 +91,12 @@ public class UserService {
                 .userId(user.getUserId())
                 .userNickname(user.getUserNickname())
                 .userLevel(user.getUserLevel())
-                .userVideoCount(historyRepository.countByUser(user))
+                .userVideoCount(historyRepository.countByUserAndHistorySentenceNot(user, "register"))
                 .userBadgeCount(userBadgeRepository.countByUser(user))
             .build();
 }
 
-@Transactional
+    @Transactional
     public JwtToken reissueToken(String refreshToken){
         Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken); // refresh 보내온 유저 정보
         String userId = authentication.getName();
@@ -125,6 +120,17 @@ public class UserService {
         return userRepository.existsByUserEmail(email);
     }
 
+    @Transactional
+    public void updateUserLevelRegister(LevelRequestDto levelRequestDto) {
+        User user = userRepository.findById(levelRequestDto.getUserId()).get();
+        user.updateUserLevel(levelRequestDto.getLevel());
+    }
+
+    @Transactional
+    public void updateUserLevel(LevelRequestDto levelRequestDto) {
+        User user = customUserDetailsService.getUserByAuthentication();
+        user.updateUserLevel(levelRequestDto.getLevel());
+    }
     private String createCode() {
         int lenth = 6;
         try {

@@ -13,6 +13,7 @@ import java.util.*;
 @Table(name="badge")
 public class Badge {
     @Id
+    @Column(name = "badge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long badgeId;
 
