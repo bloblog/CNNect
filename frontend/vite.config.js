@@ -21,6 +21,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/daum/, '')
       },
+      '/naverapi': {
+        target: 'https://clovaspeech-gw.ncloud.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/naverapi/, '')
+      },
     },
   },
 })
