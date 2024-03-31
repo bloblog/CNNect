@@ -20,7 +20,6 @@ database_config = get_database_config(config)
 mongodb_config = get_mongodb_config(config)
 
 # JWT 시크릿 키 설정
-
 SECRET_KEY = base64.b64decode(get_jwt_secret_key(config))
 
 # mysql연결
@@ -48,23 +47,22 @@ def get_mysql_connection():
 
 # 토큰 유효성 검사
 def validate_token(token):
-    print("유효검사")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        print("페이로드", payload)
         user_email = payload.get("sub")
+
         if user_email:
-            print("유효")
             user_id = get_user_id_by_email(user_email)
             return {"isValid": True, "user_id": user_id}
         else:
-            print("토큰에 없음")
             return {"isValid": False, "message": "토큰에 사용자 정보가 없습니다."}
+        
     except jwt.ExpiredSignatureError:
         return {"isValid": False, "message": "토큰이 만료되었습니다."}
     except jwt.InvalidTokenError:
         return {"isValid": False, "message": "잘못된 토큰입니다."}
     
+# 액세스토큰에서 추출한 email로 id가저요기
 def get_user_id_by_email(email):
     try:
         connection = get_mysql_connection()
@@ -91,15 +89,10 @@ def extract_user_id_from_token():
     auth_header = request.headers.get('Authorization')
 
     if auth_header and auth_header.startswith("Bearer "):
-        print("오서", auth_header)
         access_token = auth_header.split(' ')[1]
-        print("액세스토큰", access_token)
         token_info = validate_token(access_token)
         if token_info["isValid"]:
-            print("됨")
             return token_info["user_id"]
-        else:
-            print("안됨")
     
     return None
 
@@ -230,11 +223,12 @@ class NewsRecommender:
         except Exception as e:
             print(f"추천 업데이트 중 오류: {e}")
             return []
-news_recommender = NewsRecommender()
+
 
 @recommendation_bp.route('/script', methods=['GET'])
 def save_recommendations():
     user_id = extract_user_id_from_token()
+    news_recommender = NewsRecommender()
     
     if user_id is None:
         return jsonify({"status": HTTPStatus.UNAUTHORIZED, "message": "접근이 불가능합니다."}), HTTPStatus.UNAUTHORIZED
