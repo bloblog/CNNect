@@ -3,7 +3,7 @@ const local = localAxios();
 const local2 = localAxios2();
 const url = "/user";
 const urll = "/recommendation";
-const config = {
+let config = {
     headers : {
         "Authorization" : "Bearer " + localStorage.getItem("accessToken")
     }
@@ -29,11 +29,20 @@ function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
 
-async function sendTokenToSaveRM() {
+async function handleVideoClick() {
     try {
+        config = {
+            headers : {
+                "Authorization" : "Bearer " + localStorage.getItem("accessToken")
+            }
+        }
+        console.log(config);
         const response = await local2.get(`${urll}/script`, config);
+        console.log(config);
+        console.log(response.data);
         return response.data;
     } catch (error) {
+        console.error(error);
         if (error.response) {
             // 서버 응답이 있을 경우
             console.error("서버 응답 상태 코드:", error.response.status);
@@ -55,5 +64,5 @@ export {
     emailCheck,
     emailSend,
     userInfo,
-    sendTokenToSaveRM
+    handleVideoClick
 }
