@@ -217,7 +217,14 @@ body {
     border-radius: 0 10px 10px 10px;
     height: calc(100vh - 4rem - 85px);
     box-sizing: border-box;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 .tabmenu input:checked ~ label{
     font-weight: 800;
