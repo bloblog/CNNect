@@ -100,26 +100,39 @@ onMounted(() => {
 const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
-const nextStep = (input) => {
+const nextStep = async (input) => {
   emit("nextStep", input);
   console.log(videoList.value.length)
-  for(let i = 0; i < videoList.value.length; i++){
-    if(videoLike.value[i]){
-      addList.value.push({userId : userId.value, videoId : videoList.value[i],
-                        historyStatus : false, historySentence : "register"});
+  for (let i = 0; i < videoList.value.length; i++) {
+    if (videoLike.value[i]) {
+      addList.value.push({
+        userId: userId.value,
+        videoId: videoList.value[i],
+        historyStatus: false,
+        historySentence: "register"
+      });
     }
   }
 
   console.log(addList.value);
 
-  insertRegistHistory(addList.value, ({data}) => {
-    console.log(data);
-  },
-  (error) => {
-    console.log(error)
-  })
-  handleVideoClick();
+  try {
+    await new Promise((resolve, reject) => {
+      insertRegistHistory(addList.value, ({ data }) => {
+        console.log(data);
+        resolve(); 
+      }, (error) => {
+        console.log(error)
+        reject(error); 
+      });
+    });
+    
+    await handleVideoClick();
+  } catch (error) {
+    console.error("오류 발생:", error);
+  }
 };
+
 
 const handleScroll = (e) => {
   let scrollPosition =
