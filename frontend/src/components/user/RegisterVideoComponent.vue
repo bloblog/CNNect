@@ -66,12 +66,8 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
-<<<<<<< HEAD
 import { handleVideoClick } from "@/api/user.js";
-=======
-import { handleVideoClick } from "@/components/common/CategoryVideoList.vue";
 import { registerVideo } from "@/api/video";
->>>>>>> 676eae37f8080597a26fb78ca5919a76f8dd2716
 
 const uStore = userStore();
 
