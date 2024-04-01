@@ -13,6 +13,7 @@ const player = ref(null);
 
 const handleSeek = (startTime) => {
     player.value.seekTo(startTime, true);
+    EventBus.emit('stop-section-play');
 }
 
 const pauseVideo = () => {
@@ -21,20 +22,23 @@ const pauseVideo = () => {
 
 let intervalId = null;
 
-const checkTimeAndPause = (stopTime) => {
+const checkTimeAndPause = (stopTime, callback) => {
     if (player.value && player.value.getCurrentTime() >= stopTime) {
         player.value.pauseVideo();
         clearInterval(intervalId);
+        if (typeof callback === 'function') {
+            callback(); // 구간 재생이 끝나면 콜백 호출
+        }
     }
 };
 
-const sectionPlay = ({ startTime, stopTime }) => {
+const sectionPlay = ({ startTime, stopTime, callback }) => {
     if (player.value) {
         player.value.seekTo(startTime, true);
         player.value.playVideo();
 
         clearInterval(intervalId);
-        intervalId = setInterval(() => checkTimeAndPause(stopTime), 250);
+        intervalId = setInterval(() => checkTimeAndPause(stopTime, callback), 250);
     }
 };
 
@@ -48,11 +52,6 @@ onMounted(() => {
             height: '360',
             width: '640',
             videoId: props.videoData.videoId,
-            playerVars: {
-                    // 'origin': 'https://www.youtube.com',
-                    'origin': 'http://localhost:5173',
-                    
-                },
             events: {
                 'onStateChange': onPlayerStateChange
             }
@@ -71,6 +70,8 @@ onMounted(() => {
 
 onUnmounted (() => {
     EventBus.off('seek-to', handleSeek);
+    EventBus.off('pause-video', pauseVideo);
+    EventBus.off('section-play', sectionPlay);
     player.value = null;
 })
 
