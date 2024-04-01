@@ -61,6 +61,9 @@ public class UserHistoryService {
         Timestamp timestamp = new Timestamp(datetime);
 
         if (OptionalUserHistory.isPresent()) {
+            UserHistory history = OptionalUserHistory.get();
+            history = history.toBuilder().historyDate(timestamp).build();
+            userHistoryRepository.save(history);
             throw new RuntimeException("User history for the specified video already exists.");
         }
 
@@ -100,8 +103,8 @@ public class UserHistoryService {
 
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
-
-        userHistory.toBuilder().historyDate(timestamp).build();
+        userHistory = userHistory.toBuilder().historyDate(timestamp).build();
+        userHistoryRepository.save(userHistory);
 
         List<UserSentence> userSentenceList = userHistory.getUserSentenceList();
 
@@ -135,10 +138,11 @@ public class UserHistoryService {
         userHistory.updateUserHistoryLast(userHistoryUpdateRequestDto.getHistorySentence(), userHistoryUpdateRequestDto.getHistoryTime());
     }
 
+    @Transactional
     public List<UserHistoryVideoResponseDto> getLearningVideo(){
         User user = customUserDetailsService.getUserByAuthentication();
         List<UserHistory> learningVideoList = userHistoryRepository.findLearningVideo(user);
-
+        
         List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
                 .sorted((o1, o2) -> o2.getHistoryDate().compareTo(o1.getHistoryDate()))
                 .map(history -> {
@@ -162,6 +166,7 @@ public class UserHistoryService {
         return videoList;
     }
 
+    @Transactional
     public List<UserHistoryVideoResponseDto> getCompletedVideo(){
         User user = customUserDetailsService.getUserByAuthentication();
         List<UserHistory> completedVideoList = userHistoryRepository.findCompletedVideo(user);
