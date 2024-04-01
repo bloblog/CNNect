@@ -102,6 +102,7 @@ onMounted(async () => {
     await fetchRecommendations().then((res)=>{
 
 videoList.value = res;
+console.log("비디오리스트", videoList.value);
 isLoading.value = false;
 });
 await nextTick();
