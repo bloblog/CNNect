@@ -41,7 +41,7 @@ async function handleVideoClick() {
             // 서버 응답이 있을 경우
             console.error("서버 응답 상태 코드:", error.response.status);
             console.error("서버 응답 데이터:", error.response.data);
-        } else if (error.request) {``
+        } else if (error.request) {
             // 요청이 전송되었지만 응답이 없을 경우
             console.error("요청을 보냈지만 응답이 없습니다.");
         } else {
