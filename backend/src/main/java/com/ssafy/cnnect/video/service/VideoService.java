@@ -96,16 +96,13 @@ public class VideoService {
         return video;
     }
 
-    public List<String> getRegisterVideo(){
-        List<String> videoList = new ArrayList<>(); // 9 x 3 = 27개의 videoID 저장 -> 각 카테고리별로 3개씩 뽑기
+    public List<Video> getRegisterVideo(){
+        List<Video> videoList = new ArrayList<>(); // 9 x 3 = 27개의 videoID 저장 -> 각 카테고리별로 3개씩 뽑기
         Sort sort = Sort.by(Sort.Direction.DESC, "video_date"); // 날짜 최신순 정렬
         PageRequest pageRequest = PageRequest.of(0, 4, sort);
 
         for(int i = 1; i <= 7; i++){
-
-            videoList.addAll(videoRepository.findByCategoryIdOrderByVideoDateDesc((long) i, pageRequest).stream()
-                                .map(Video::getVideo_id)
-                                .collect(Collectors.toList()));
+            videoList.addAll(videoRepository.findByCategoryIdOrderByVideoDateDesc((long) i, pageRequest));
         }
         Collections.shuffle(videoList);
 
