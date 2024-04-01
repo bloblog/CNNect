@@ -12,10 +12,10 @@
           <div class="relative" @mouseover="showVideoPopup(index)" @mouseleave="hideVideoPopup(index)">
             <!-- :class="changeThumbnail(index)" -->
             <img class="w-full h-auto" @click="addLike(index)"
-              :src="`https://img.youtube.com/vi/${video}/mqdefault.jpg`" />
+              :src="`https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg`" />
             <div v-if="isVideoPopup[index]"
               class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-              <iframe :src="`https://www.youtube.com/embed/${video}?autoplay=1`" frameborder="0"
+              <iframe :src="`https://www.youtube.com/embed/${video.video_id}?autoplay=1`" frameborder="0"
                 allow="autoplay; encrypted-media" allowfullscreen class="absolute top-0 left-0 w-full h-full"></iframe>
             </div>
             <!-- <div
@@ -38,9 +38,9 @@
             </svg>
           </div> -->
           </div>
-
           <!--hear icon-->
           <div class="flex items-center justify-center pt-2">
+            <div class="flex items-center px-4 mr-3 font-semibold text-sm h-20 text-center rounded-sm shadow-md">{{video.video_name}}</div>
             <div class="rounded-full border px-1 py-1">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                 :fill="videoLike[index] == true ? 'red' : 'white'" @click="addLike(index)" viewBox="0 0 24 24">
@@ -87,6 +87,11 @@ onMounted(() => {
   registerVideo(({data}) => {
     console.log(data);
     videoList.value = data.data;
+    for(let i = 0; i < videoList.value.length; i++){
+      if(videoList.value[i].video_name.length > 60){
+        videoList.value[i].video_name = videoList.value[i].video_name.slice(0, 60) + "...";
+      }
+    }
   }, (error) => {
     console.log(error)
   })

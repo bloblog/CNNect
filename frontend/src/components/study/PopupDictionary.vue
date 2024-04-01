@@ -49,7 +49,9 @@ onUnmounted(() => {
 <template>
     <div class="popup" ref="popup">
         <div class="origin">
-            <strong class="ENword">{{ props.selectedText }}</strong>
+            <strong class="ENword" v-if="props.selectedWordMeanings.length > 0">
+                {{ props.selectedWordMeanings[0].searchedWord }}
+            </strong>
             <button type="button" class="add_wordbook" v-if="props.selectedWordMeanings.length > 0" @click="addWordbook(props.selectedWordMeanings, props.selectedText)">
                 <!-- 추가 아이콘 -->
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
