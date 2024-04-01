@@ -32,6 +32,8 @@ function userInfo(success, fail){
 async function handleVideoClick() {
     try {
         const response = await local2.get(`${urll}/script`, config);
+        console.log(config);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error);
