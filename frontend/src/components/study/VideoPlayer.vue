@@ -15,6 +15,31 @@ const handleSeek = (startTime) => {
     player.value.seekTo(startTime, true);
 }
 
+const pauseVideo = () => {
+    player.value.pauseVideo();
+};
+
+let intervalId = null;
+
+const checkTimeAndPause = (stopTime) => {
+    if (player.value && player.value.getCurrentTime() >= stopTime) {
+        player.value.pauseVideo();
+        clearInterval(intervalId);
+    }
+};
+
+const sectionPlay = ({ startTime, stopTime }) => {
+    if (player.value) {
+        player.value.seekTo(startTime, true);
+        player.value.playVideo();
+
+        clearInterval(intervalId);
+        intervalId = setInterval(() => checkTimeAndPause(stopTime), 250);
+    }
+};
+
+
+
 onMounted(() => {
     loadYouTubeIframeAPI(); // API 로드 호출
 
@@ -40,6 +65,8 @@ onMounted(() => {
         document.addEventListener('YouTubeAPIReady', createPlayer, { once: true });
     }
     EventBus.on('seek-to', handleSeek);
+    EventBus.on('pause-video', pauseVideo);
+    EventBus.on('section-play', sectionPlay);
 });
 
 onUnmounted (() => {
