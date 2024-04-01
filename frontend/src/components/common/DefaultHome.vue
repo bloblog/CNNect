@@ -4,7 +4,7 @@
         <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">학습 진행중인 뉴스</h1>
         <div class="flex justify-center">
           <div 
-            @click="goToStudy"
+            @click="goToStudy(now_video.videoId)"
             @mouseover="handleMouseOver"
             @mouseleave="handleMouseLeave"
             id="now-video-container" 
@@ -130,9 +130,9 @@
   
   const modal = new Modal($targetEl, options, instanceOptions);
 
-  const goToStudy = () => {
-    router.push("/study");
-  };
+  const goToStudy = (videoId) => {
+  router.push({ name: 'study', params: { videoId: videoId } });
+};
 
 
   
