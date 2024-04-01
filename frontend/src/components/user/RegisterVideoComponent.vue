@@ -108,6 +108,7 @@ const nextStep = (input) => {
       addList.value.push({userId : userId.value, videoId : videoList.value[i],
                         historyStatus : false, historySentence : "register"});
     }
+    handleVideoClick();
   }
 
   console.log(addList.value);
@@ -171,7 +172,7 @@ const handleScroll = (e) => {
 const addLike = (index) => {
   console.log("click : " + index);
   videoLike.value[index] = !videoLike.value[index];
-  handleVideoClick();
+
 };
 
 const changeThumbnail = (index) => {
