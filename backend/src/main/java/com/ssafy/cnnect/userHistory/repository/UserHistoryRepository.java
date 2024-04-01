@@ -21,9 +21,9 @@ public interface UserHistoryRepository extends JpaRepository<UserHistory, Long> 
     Long countByUserAndHistoryStatus(User user, boolean historyStatus);
 
     Optional<UserHistory> findByVideoIdAndUser(String videoId, User user);
-    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = false AND h.historySentence <> 'register'")
+    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = false AND (h.historySentence <> 'register' OR h.historySentence IS NULL) ")
     List<UserHistory> findLearningVideo(User user);
-    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = true AND h.historySentence <> 'register'")
+    @Query("SELECT h FROM UserHistory h WHERE h.user = :user AND h.historyStatus = true AND (h.historySentence <> 'register' OR h.historySentence IS NULL)")
     List<UserHistory> findCompletedVideo(User user);
 
 }
