@@ -148,6 +148,7 @@ onMounted(() => {
   console.log(level.value + " " + imgUrl.value);
   userInfo(
     ({ data }) => {
+      console.log("userInfo 실행")
       console.log(data);
       badge.value = data.data.userBadgeCount;
       video.value = data.data.userVideoCount;
@@ -226,5 +227,13 @@ const goToLevel = () => {
 .flex-item img {
   width: 75%; /* 이미지를 꽉 채웁니다. */
   height: auto; /* 가로 비율을 유지하면서 세로 비율을 자동으로 조정합니다. */
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
 </style>

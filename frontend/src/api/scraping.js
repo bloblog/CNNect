@@ -16,14 +16,14 @@ const saveToCache = (key, data, ttl) => {
     cache[key] = { data, expire };
 };
 
-const getDict = async (searchWord, retryCount = 0) => {
+const getDict = async (searchWord, retryCount = 0, signal) => {
     try {
         const cachedData = getFromCache(searchWord);
         if (cachedData) {
             return cachedData;
         }
 
-        const html = await axios.get(`/daum/search.do?q=${searchWord}`);
+        const html = await axios.get(`/daum/search.do?q=${searchWord}`, { signal });
         let list = [];
         const $ = cheerio.load(html.data);
 
@@ -50,9 +50,12 @@ const getDict = async (searchWord, retryCount = 0) => {
         return list.length > 0 ? list : null;
 
     } catch (error) {
-        if (retryCount < 3) {
-            return await getDict(searchWord, retryCount + 1);
+        if (axios.isCancel(error)) {
+
+        } else if (retryCount < 5) {
+            return await getDict(searchWord, retryCount + 1, signal);
         } else {
+            console.log("너냐");
             return null;
         }
     }

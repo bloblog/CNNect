@@ -7,7 +7,7 @@
   >
     <div class="flex items-center font-[GmarketSansMedium]">
       <RouterLink to="/">
-        <img src="@/assets/logo.png" class="h-6 m-5" />
+        <img src="@/assets/logo.png" class="h-8 m-5">
       </RouterLink>
       <RouterLink v-if="isLogin" to="/history"
         ><span class="flex items-start mx-2 text-white">학습기록</span>
@@ -27,15 +27,8 @@
 
     <div class="flex items-center">
       <!-- Search button -->
-      <div class="search-area relative">
-        <input
-          class="custom-input"
-          @keyup.enter="search()"
-          v-model="searchInput"
-          type="text"
-          name=""
-          ref="customInput"
-        />
+      <div class="search-area relative" v-if="isLogin">
+        <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +105,7 @@
 <script setup>
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
 
 const uStore = userStore();
@@ -122,7 +115,7 @@ const imgUrl = ref("");
 const customInput = ref(null);
 const searchInput = ref("");
 const { isLogin, nickName, level } = storeToRefs(uStore);
-const { setLogout } = uStore;
+const { setLogout, setUserId } = uStore;
 const currentURL = ref("");
 
 const isSearchOpen = ref(false);
@@ -131,6 +124,7 @@ const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
   setLogout();
+  setUserId(0);
   location.href = "/";
 };
 
@@ -142,6 +136,14 @@ const search = () => {
   searchInput.value = "";
   toggleSearch();
 };
+
+watch(
+  () => level.value,
+  (newValue, oldValue) => {
+    //레벨 프사 변경
+    imgUrl.value = "/level/level" + level.value + ".png";
+  }
+);
 
 onMounted(() => {
   imgUrl.value = "/level/level" + level.value + ".png";

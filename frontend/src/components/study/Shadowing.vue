@@ -4,11 +4,18 @@ import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch, computed } from 'vue'
 import axios from 'axios';
 
-const { VITE_GT_ACCESS_KEY, VITE_ETRI_ACCESS_KEY } = import.meta.env;
+const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
 const props = defineProps({
+    videoData: Object,
     curSentence: Object
 });
+
+const emit = defineEmits(['updatePronunciationScore'])
+
+const updatePronunciationScore = (score) => {
+    emit('updatePronunciationScore', props.curSentence.order, score);
+};
 
 onMounted(() => {
     try {
@@ -31,6 +38,9 @@ watch(() => props.curSentence.content, (newContent) => {
 // 다음 영어사전 팝업창
 const words = computed(() => {
   return props.curSentence.content.split(' ');
+});
+const isInWordList = computed(() => {
+  return words.value.map((word) => props.videoData.wordList.includes(word));
 });
 const hover = ref(null)
 const selectedText = ref('');
@@ -101,9 +111,9 @@ const audioChunks = ref([]);
 const pronunciationScore = ref(null);
 const isRecording = ref(false);
 
-const openApiURL = 'http://aiopen.etri.re.kr:8000/WiseASR/Pronunciation'; // 영어
-const languageCode = 'english';
-const script = props.curSentence.content;
+const script = ref(props.curSentence.content);
+
+const openApiURL = '/naverapi/recog/v1/stt';
 
 const startRecording = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -129,8 +139,7 @@ const stopRecording = () => {
 
     mediaRecorder.value.onstop = async () => {
         const audioBlob = new Blob(audioChunks.value, { type: 'audio/wav' });
-        const audioData = await fileToBase64(audioBlob);
-        sendPronunciationRequest(audioData);
+        sendPronunciationRequest(audioBlob);
     };
 
     mediaRecorder.value.stop();
@@ -146,36 +155,24 @@ const stopRecording = () => {
     }
 };
 
-// Base64로 변환
-const fileToBase64 = (blob) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-        reader.readAsDataURL(blob);
-    });
-};
-
-const sendPronunciationRequest = (audioData) => {
-    const requestJson = {
-        argument: {
-        language_code: languageCode,
-        script: script,
-        audio: audioData.split(',')[1], 
-        },
-    };
-
-    axios.post(openApiURL, requestJson, {
+const sendPronunciationRequest = (audioBlob) => {
+    axios.post(openApiURL, audioBlob, {
         headers: {
-        'Content-Type': 'application/json',
-        'Authorization': VITE_ETRI_ACCESS_KEY
+        'Content-Type': 'application/octet-stream',
+        'X-CLOVASPEECH-API-KEY': VITE_CLOVASPEECH_API_KEY
+        },
+        params: {
+            utterance: props.curSentence.content,
+            lang: "Eng",
+            assessment: true,
+            graph: true
         },
     })
     .then((response) => {
-        console.log('responseCode = ', response.status);
-        console.log('responseBody = ', response.data);
-        pronunciationScore.value = response.data.return_object.score;
-        console.log('발음 점수 : ', pronunciationScore.value)
+        console.log('response = ', response.data.assessment_score);
+        console.log('response = ', response.data);
+        pronunciationScore.value = response.data.assessment_score;
+        updatePronunciationScore(pronunciationScore.value);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -197,8 +194,8 @@ const sendPronunciationRequest = (audioData) => {
                 </div>
             </div>
             <div class="top-right-box">
-                <div class="score" :class="{'noScore': pronunciationScore === null}">
-                    {{ pronunciationScore != null ?  pronunciationScore : "도전"}}
+                <div class="score" :class="{'noScore': props.curSentence.score === null}">
+                    {{ props.curSentence.score != null ?  props.curSentence.score : "도전"}}
                 </div>
             </div>
         </div>
@@ -207,7 +204,7 @@ const sendPronunciationRequest = (audioData) => {
             {{ translatedContent }}
             </div>
             <div class="english">
-                <span class="space-separated-word" v-for="(word, index) in words" :key="index" @click="showPopup(word, index)" @mouseover="hover = index" @mouseleave="hover = null" :class="{'highlight-hover': hover === index, 'highlight-selected': selectedWordIndex === index}">
+                <span class="space-separated-word" v-for="(word, index) in words" :key="index" @click="showPopup(word, index)" @mouseover="hover = index" @mouseleave="hover = null" :class="{'highlight-hover': hover === index, 'highlight-selected': selectedWordIndex === index, 'highlight-red': isInWordList[index]}">
                     {{ word }}
                     <span class="space" v-if="index < words.length - 1"> </span>
                 </span>
@@ -223,7 +220,6 @@ const sendPronunciationRequest = (audioData) => {
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    border: #0F1B4F 2px solid;
     border: 1px solid #CDCDCD;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
@@ -274,10 +270,12 @@ const sendPronunciationRequest = (audioData) => {
 .top-right-box .score {
     border: #c8c8c8 1px solid;
     border-radius: 20px;
-    padding: 7px 20px;
+    padding: 5px 20px;
     margin-right: 15px;
     color: #CC0000;
     font-weight: 600;
+    width: 80px;
+    text-align: center;
 }
 .top-right-box .noScore {
     color: #b3b3b3;
@@ -290,6 +288,8 @@ const sendPronunciationRequest = (audioData) => {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; 
+    max-height: calc(25vh);
 }
 .bottom-box .korean {
     color: #8A8A8A;
@@ -311,5 +311,8 @@ const sendPronunciationRequest = (audioData) => {
 }
 .highlight-selected {
   background: rgba(204, 0, 0, 0.15);
+}
+.highlight-red {
+  color: #cc0000;
 }
 </style>

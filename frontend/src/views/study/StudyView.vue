@@ -5,17 +5,18 @@ import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getStudy } from '@/api/study';
+import { updateScore } from '@/api/sentence';
+import { updateLastSentence } from '@/api/history';
 import { getDict } from '@/api/scraping.js'
+import { useRoute } from 'vue-router';
 
 const videoData = ref({
+    historyId: null,
     videoId: "",
     videoName: "",
-    url : "",
-    date: "",
-    level: 3,
-    category :  "",
+    level: null,
     sentenceList: [],
     wordList: []
 })
@@ -24,8 +25,7 @@ const curSentence = ref({
     order: "",
     startTime: "",
     content: "",
-    mean: "",
-    score: ""
+    score: null
 })
 
 const setCurSentence = (curOrder) => {
@@ -34,12 +34,44 @@ const setCurSentence = (curOrder) => {
     ensureActiveSentenceVisible();
 };
 
+const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
+    videoData.value.sentenceList[sentenceOrder - 1].score = parseFloat(pronunciationScore);
+    curSentence.value.score = parseFloat(pronunciationScore);
+    updateScore(
+        { 
+            sentenceOrder : sentenceOrder, 
+            sentenceContent: videoData.value.sentenceList[sentenceOrder - 1].content,
+            sentenceScore : parseFloat(pronunciationScore),
+            historyId: videoData.value.historyId 
+        },
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+    updateLastSentence(
+        {
+            historySentence : videoData.value.sentenceList[sentenceOrder - 1].content,
+            historyTime : videoData.value.sentenceList[sentenceOrder - 1].startTime,
+            videoId : videoData.value.videoId
+        }, 
+        ({ data }) => {
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+
+}
+
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
+const controller = new AbortController();
 
 const fetchWordMeanings = async () => {
     for (const word of videoData.value.wordList) {
-        const result = await getDict(word);
+        const result = await getDict(word, 0, controller.signal);
         if (result !== null) {
             wordMeanings.value[word] = result;
         }
@@ -56,23 +88,37 @@ const ensureActiveSentenceVisible = () => {
     }
 }
 
+const route = useRoute();
+
 onMounted(() => {
-    videoData.value = getStudy();
-    fetchWordMeanings();
+    const videoId = route.params.videoId;
+
+    getStudy(
+        videoId,
+        ({ data }) => {
+            videoData.value = data.data;
+            fetchWordMeanings();
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
 })
 
+onUnmounted(() => {
+    controller.abort();
+});
 </script>
 
 <template>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <body>
         <Title :videoData="videoData"></Title>
         <main class="section-box">
             <div class="section1">
-                <VideoPlayer :videoData="videoData" @change-cur-sentence="setCurSentence"/>
-                <Shadowing :curSentence="curSentence"></Shadowing>
+                <VideoPlayer v-if="videoData.videoId" :videoData="videoData" @change-cur-sentence="setCurSentence"/>
+                <Shadowing :videoData="videoData" :curSentence="curSentence" @update-pronunciation-score="updatePronunciationScore"></Shadowing>
             </div>
 
             <div class="section2">
@@ -82,7 +128,7 @@ onMounted(() => {
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
                             <label for="tabmenu1">스크립트</label>
                             <div class="tabCon tabCon1" ref="refScript">
-                                <Script :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
+                                <Script v-if="videoData.videoId" :videoData="videoData" :curSentence="curSentence" @change-cur-order="setCurSentence"></Script>
                             </div>
                         </li>
                         <li id="tab2" class="btnCon">
