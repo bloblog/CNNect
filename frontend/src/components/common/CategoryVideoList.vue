@@ -133,6 +133,8 @@ videoPaging(
 );
 };
 
+export { handleVideoClick };
+
 </script>
 
 <style scoped>
