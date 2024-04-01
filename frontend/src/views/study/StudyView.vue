@@ -5,7 +5,7 @@ import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getStudy } from '@/api/study';
 import { updateScore } from '@/api/sentence';
 import { updateLastSentence } from '@/api/history';
@@ -35,14 +35,13 @@ const setCurSentence = (curOrder) => {
 };
 
 const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
-    const doubleScore = parseFloat(pronunciationScore).toFixed(1);
-    videoData.value.sentenceList[sentenceOrder - 1].score = doubleScore;
-    curSentence.value.score = doubleScore;
+    videoData.value.sentenceList[sentenceOrder - 1].score = parseFloat(pronunciationScore);
+    curSentence.value.score = parseFloat(pronunciationScore);
     updateScore(
         { 
             sentenceOrder : sentenceOrder, 
             sentenceContent: videoData.value.sentenceList[sentenceOrder - 1].content,
-            sentenceScore : doubleScore, 
+            sentenceScore : parseFloat(pronunciationScore),
             historyId: videoData.value.historyId 
         },
         ({ data }) => {
@@ -68,10 +67,11 @@ const updatePronunciationScore = (sentenceOrder, pronunciationScore) => {
 
 const wordMeanings = ref({})
 const isFinishedFetching = ref(false)
+const controller = new AbortController();
 
 const fetchWordMeanings = async () => {
     for (const word of videoData.value.wordList) {
-        const result = await getDict(word);
+        const result = await getDict(word, 0, controller.signal);
         if (result !== null) {
             wordMeanings.value[word] = result;
         }
@@ -105,10 +105,12 @@ onMounted(() => {
     );
 })
 
+onUnmounted(() => {
+    controller.abort();
+});
 </script>
 
 <template>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <body>
