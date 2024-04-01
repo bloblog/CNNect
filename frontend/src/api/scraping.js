@@ -36,6 +36,7 @@ const getDict = async (searchWord, retryCount = 0, signal) => {
             if (aText === '' && aText !== spanText) {
                 $(this).find('span.txt_search').each((i, element) => {
                     list.push({
+                        searchedWord: spanText,
                         num: i + 1,
                         mean: $(element).text(),
                     });
