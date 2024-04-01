@@ -4,6 +4,7 @@ import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryVideoResponseDto;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
