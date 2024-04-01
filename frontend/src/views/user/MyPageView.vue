@@ -58,7 +58,7 @@
       </div>
     </div>
     <div id="badge" class="w-2/3 flex flex-col items-center justify-center">
-      <span class="nav-title mb-5"> 획득 뱃지 </span>
+      <span class="nav-title mb-5"> 획득 뱃지🏅 </span>
 
       <div class="flex-container relative z-10 items-center justify-center">
         <div
@@ -108,10 +108,10 @@
               </div>
             </div>
             <div
-              class="absolute top-1 left-[50%] z-20 transform -translate-x-1/2"
+              class="absolute top-1 z-20 left-[33%] transform -translate-x-1/2"
             >
               <div
-                class="w-6 h-6 z-20 bg-gray-200 border border-gray-200 rotate-45"
+                class="w-6 h-6 z-20 left-[50%] bg-gray-200 border border-gray-200 rotate-45"
               ></div>
             </div>
           </div>
