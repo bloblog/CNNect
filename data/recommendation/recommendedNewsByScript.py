@@ -83,6 +83,28 @@ def get_user_id_by_email(email):
         if connection:
             connection.close()
 
+# 사용자 레벨 정보를 가져오는 함수
+def get_user_level(user_id):
+    try:
+        connection = get_mysql_connection()
+        if connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT user_level FROM user WHERE user_id = %s"
+                cursor.execute(sql, (user_id,))
+                result = cursor.fetchone()
+                if result:
+                    user_level = result['user_level']
+                    return user_level
+                else:
+                    return None
+    except Exception as e:
+        print("MySQL에서 사용자 레벨 정보를 가져오는 중 오류 발생:", e)
+        return None
+    finally:
+        if connection:
+            connection.close()
+
+
 
 # 토큰에서 user_id 추출
 def extract_user_id_from_token():
@@ -127,16 +149,15 @@ def connect_to_mongodb():
         return None
 
 # mongoDB에서 뉴스 가져오기
-def fetch_news_from_mongodb(exclude_video_ids=None):
+def fetch_news_from_mongodb(user_level, exclude_video_ids=None):
     try:
         db = connect_to_mongodb()
         news_collection = db.data
-        print("뉴컬", news_collection, "여기까지")
 
-        query = {}  # 기본적으로 모든 뉴스 가져오기
+        query = {"video_level": user_level}  # 사용자 레벨과 일치하는 뉴스만
         projection = {'_id': 1, 'video_id': 1, 'full_script': 1, 'video_date': 1, 'video_name': 1, 'video_thumbnail': 1, 'video_level': 1}
 
-        # exclude_video_ids가 제공된 경우 해당 비디오 ID를 제외하도록 쿼리 설정
+        # 학습한 비디오 ID 제외
         if exclude_video_ids:
             query['video_id'] = {'$nin': exclude_video_ids}
 
@@ -233,8 +254,9 @@ def save_recommendations():
     if user_id is None:
         return jsonify({"status": HTTPStatus.UNAUTHORIZED, "message": "접근이 불가능합니다."}), HTTPStatus.UNAUTHORIZED
 
+    user_level = get_user_level(user_id)
     user_history_scripts = fetch_user_history_news_from_mysql(user_id)
-    news_articles = fetch_news_from_mongodb(exclude_video_ids=user_history_scripts)
+    news_articles = fetch_news_from_mongodb(user_level, exclude_video_ids=user_history_scripts)
 
     if not news_articles:
         return jsonify({"message": "필요한 데이터가 없어 프로세스를 진행할 수 없습니다."}), HTTPStatus.BAD_REQUEST
