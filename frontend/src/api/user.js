@@ -29,11 +29,16 @@ function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
 
-async function sendTokenToSaveRM() {
+async function handleVideoClick() {
     try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (!accessToken) {
+            throw new Error("로그인이 필요합니다.");
+        }
         const response = await local2.get(`${urll}/script`, config);
         return response.data;
     } catch (error) {
+        console.error(error);
         if (error.response) {
             // 서버 응답이 있을 경우
             console.error("서버 응답 상태 코드:", error.response.status);
@@ -55,5 +60,5 @@ export {
     emailCheck,
     emailSend,
     userInfo,
-    sendTokenToSaveRM
+    handleVideoClick
 }
