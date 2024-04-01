@@ -38,7 +38,10 @@ async function addWordbook(meanings, word) {
                 <div class="word-and-btn">
                     <div class="word"> {{ word }} </div>
                     <button type="button" class="add_wordbook" @click="addWordbook(meanings, word)">
-                        <span class="material-symbols-outlined">add</span>
+                        <!-- 추가 아이콘 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                        </svg>
                     </button>
                 </div>
                 <ul class="mean_list" v-if="meanings">
@@ -88,7 +91,7 @@ button.add_wordbook {
     width: 25px;
     border-radius: 50%;
     border: #cc0000 solid 1px;
-    color: #cc0000;
+    fill: #cc0000;
     margin-left: 10px;
     display: flex;
     justify-content: center;
@@ -97,7 +100,7 @@ button.add_wordbook {
 }
 button.add_wordbook:hover {
     background-color: #cc0000;
-    color: #fff;
+    fill: #fff;
 }
 .word {
     color: #CC0000;

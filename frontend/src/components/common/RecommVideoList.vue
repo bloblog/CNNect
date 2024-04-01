@@ -24,7 +24,7 @@
     <div class="flex" v-if="videoList.length>0">
       <div class="grid grid-cols-3 gap-14" ref="imageContainer">
         <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
-          <div class="flex flex-col" @click="goToStudy(video)">
+          <div class="flex flex-col" @click="goToStudy(video.videoId)">
             <img
               :src="video.videoThumbnail"
               alt="video-image"
@@ -83,6 +83,7 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { fetchRecommendations } from "@/api/recommendations.js";
+import { sendTokenToSaveRM } from "@/api/user.js";
 
 const router = useRouter();
 
@@ -134,10 +135,22 @@ const updateImagePosition = () => {
 };
 
 // 학습 페이지로 이동
-const goToStudy = (video) => {
-  router.push("/study");
+const goToStudy = (videoId) => {
+  handleVideoClick();
+  router.push({ name: 'study', params: { videoId: videoId } });
 };
 
+const handleVideoClick = async () => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      throw new Error("로그인이 필요합니다.");
+    }
+    await sendTokenToSaveRM(); // 백엔드의 save_recommendations 함수 호출
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 
 <style scoped>
