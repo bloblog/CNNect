@@ -2,6 +2,10 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 
+import { initFlowbite, Modal } from "flowbite";
+import { updateStatus } from '@/api/history'
+
+
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
 
@@ -19,7 +23,38 @@ onMounted(() => {
     } else {
         answer.value = "미입력"
     }
+
+    initFlowbite();
+    console.log(modal.isVisible());
+
 });
+
+const $targetEl = document.getElementById("done-modal");
+
+const options = {
+    placement: "bottom-right",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+    closable: true,
+    onHide: () => {
+      console.log("modal is hidden");
+    },
+    onShow: () => {
+      console.log("modal is shown");
+    },
+    onToggle: () => {
+      console.log("modal has been toggled");
+    },
+  };
+
+  // instance options object
+  const instanceOptions = {
+    id: "done-modal",
+    override: false,
+  };
+  
+  const modal = new Modal($targetEl, options, instanceOptions);
+
 
 const answer = ref('');
 
@@ -42,15 +77,31 @@ const goNum = (num) => {
     }
 }
 
-const Quit = () => {
-    // pass fail 구분해서 학습 상태 변경
 
+
+
+const quit = () => {
+    // pass 인 경우
+    if (answerCnt >= 6) {
+        // 학습 상태 변경
+        updateStatus(
+            route.params.videoId,
+            ({data}) => {
+                console.log(data);
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+    
     // 뱃지 획득 여부 체크
+    
 
     // 뱃지 모달
 
 
-    router.push("/");
+    // router.push("/");
 }
 
 const q1 = ref(''); // 퀴즈 앞부분
@@ -107,6 +158,68 @@ const answerCnt = props.resultList.filter(result => result === true).length;
 
 <template>
     <div>
+        <!-- login modal -->
+      <div
+        id="done-modal"
+        tabindex="-1"
+        aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      >
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div
+              class="flex items-center justify-between rounded-t dark:border-gray-600"
+            >
+              <button
+                type="button"
+                class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="done-modal"
+              >
+                <svg
+                  class="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                  />
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <div class="flex flex-col items-center">
+                <div>
+                  학습을 종료하시겠습니까?
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        type="button"
+                        class="m-2 mb-5 text-white bg-theme-red hover:bg-theme-redbrown font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                        종료
+                    </button>
+                    <button
+                        type="button"
+                        class=" text-white bg-gray-500 hover:bg-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
+                        취소
+                    </button>
+
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="p-3 relative">
             <div id="quiz-container" class="border-gray-400 border-2">
                 <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
@@ -149,7 +262,10 @@ const answerCnt = props.resultList.filter(result => result === true).length;
                     맞은 문항 수 : {{ answerCnt }} / 10 <span class="font-bold text-theme-red text-xl italic">{{ answerCnt >= 6 ? "Pass" : "Fail" }}</span>
                 </div>
                 <div id="button-container" class="flex justify- mt-3">
-                    <button @click="Quit" class="btn finish">나가기</button>
+                    <button
+                        @click="quit()" 
+                        class="btn finish"
+                        >나가기</button>
                 </div>
             </div>
         </div>
