@@ -142,11 +142,7 @@ public class UserHistoryService {
     public List<UserHistoryVideoResponseDto> getLearningVideo(){
         User user = customUserDetailsService.getUserByAuthentication();
         List<UserHistory> learningVideoList = userHistoryRepository.findLearningVideo(user);
-        System.out.println("크기임당 : " + learningVideoList.size());
-        System.out.println("여기요요요요요요 : " + learningVideoList.get(0).getHistoryDate());
-        for(int i = 0; i < learningVideoList.size(); i++){
-            System.out.println("여기요요요요요요 : " + learningVideoList.get(i).getVideoId());
-        }
+        
         List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
                 .sorted((o1, o2) -> o2.getHistoryDate().compareTo(o1.getHistoryDate()))
                 .map(history -> {
