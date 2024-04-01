@@ -31,10 +31,6 @@ function userInfo(success, fail){
 
 async function handleVideoClick() {
     try {
-        const accessToken = localStorage.getItem("accessToken");
-        if (!accessToken) {
-            throw new Error("로그인이 필요합니다.");
-        }
         const response = await local2.get(`${urll}/script`, config);
         return response.data;
     } catch (error) {
