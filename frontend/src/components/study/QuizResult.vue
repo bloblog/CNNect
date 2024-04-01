@@ -81,6 +81,12 @@ const goNum = (num) => {
 
 
 const quit = () => {
+    // 뱃지 획득 여부 체크
+    
+
+    // 뱃지 모달
+
+
     // pass 인 경우
     if (answerCnt >= 6) {
         // 학습 상태 변경
@@ -93,13 +99,9 @@ const quit = () => {
                 console.log(error);
             }
         )
+    } else {
+        // fail 시 반영안됨 안내해주기
     }
-    
-    // 뱃지 획득 여부 체크
-    
-
-    // 뱃지 모달
-
 
     // router.push("/");
 }
