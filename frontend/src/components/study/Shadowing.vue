@@ -26,6 +26,7 @@ onMounted(() => {
     } catch (error) {
         console.error("Mounted hook error:", error);
     }
+    EventBus.on('stop-section-play', stopSectionPlay);
 });
 
 watch(() => props.curSentence.content, (newContent) => {
@@ -156,12 +157,17 @@ const stopRecording = () => {
         startRecording();
     }
 };
+const isSectionPlaying = ref(false);
 
 const sectionPlay = () => {
     const startTime = props.curSentence.startTime;
     const stopTime = props.videoData.sentenceList[props.curSentence.order].startTime;
+    isSectionPlaying.value = true;
+    EventBus.emit('section-play', { startTime, stopTime, callback: () => isSectionPlaying.value = false });
+}
 
-    EventBus.emit('section-play', { startTime, stopTime });
+const stopSectionPlay = () => {
+    isSectionPlaying.value = false;
 }
 
 const sendPronunciationRequest = (audioBlob) => {
@@ -193,7 +199,7 @@ const sendPronunciationRequest = (audioBlob) => {
     <div class="shadowing">
         <div class="top-box">
             <div class="top-left-box">
-                <div class="listen" @click="sectionPlay">
+                <div class="listen" @click="sectionPlay" :class="{ 'is-section-playing': isSectionPlaying }">
                     <span class="material-symbols-outlined">volume_up</span>
                 </div>
                 <div class="speack" @click="toggleRecording" :class="{'recording': isRecording}">
@@ -275,6 +281,9 @@ const sendPronunciationRequest = (audioBlob) => {
 .listen span,
 .speack span {
     font-size: 25px;
+}
+.listen.is-section-playing {
+    color: #cc0000;
 }
 .top-right-box .score {
     border: #c8c8c8 1px solid;
