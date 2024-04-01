@@ -2,6 +2,7 @@
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch, computed } from 'vue'
+import { EventBus } from '@/api/eventBus.js';
 import axios from 'axios';
 
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
@@ -119,6 +120,7 @@ const startRecording = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('녹음 시작');
         isRecording.value = true;
+        EventBus.emit('pause-video');
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder.value = new MediaRecorder(stream);
         audioChunks.value = [];

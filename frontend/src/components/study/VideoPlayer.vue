@@ -15,6 +15,10 @@ const handleSeek = (startTime) => {
     player.value.seekTo(startTime, true);
 }
 
+const pauseVideo = () => {
+    player.value.pauseVideo();
+};
+
 onMounted(() => {
     loadYouTubeIframeAPI(); // API 로드 호출
 
@@ -40,6 +44,7 @@ onMounted(() => {
         document.addEventListener('YouTubeAPIReady', createPlayer, { once: true });
     }
     EventBus.on('seek-to', handleSeek);
+    EventBus.on('pause-video', pauseVideo);
 });
 
 onUnmounted (() => {
