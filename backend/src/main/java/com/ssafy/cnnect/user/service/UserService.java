@@ -91,7 +91,7 @@ public class UserService {
                 .userId(user.getUserId())
                 .userNickname(user.getUserNickname())
                 .userLevel(user.getUserLevel())
-                .userVideoCount(historyRepository.countByUserAndHistorySentenceNot(user, "register"))
+                .userVideoCount(historyRepository.countByUserAndHistoryStatus(user, true))
                 .userBadgeCount(userBadgeRepository.countByUser(user))
             .build();
 }
