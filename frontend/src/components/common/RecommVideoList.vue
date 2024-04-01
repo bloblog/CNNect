@@ -114,8 +114,11 @@ await nextTick();
 
 // 다음 페이지로 이동
 const nextPage = () => {
-  const maxIndex = videoList.value.length - 3;
-  currentIndex.value = Math.min(currentIndex.value + 3, maxIndex);
+  if(currentIndex.value === videoList.value.length - 3){
+    currentIndex.value = 0;
+  }else{
+    currentIndex.value = Math.min(currentIndex.value + 3, videoList.value.length - 3);
+  }
   updateImagePosition();
 };
 const print = () =>{
@@ -123,7 +126,11 @@ const print = () =>{
 };
 // 이전 페이지로 이동
 const prevPage = () => {
-  currentIndex.value = Math.max(currentIndex.value - 3, 0);
+  if(currentIndex.value === 0){
+    currentIndex.value = videoList.value.length - 3;
+  }else{
+    currentIndex.value = Math.max(currentIndex.value - 3, 0);
+  }
   updateImagePosition();
 };
 

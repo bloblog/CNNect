@@ -15,17 +15,18 @@ function insertRegistHistory(param, success, fail){
 
 function insertVideoHistory(param, success, fail){
     local.post(`${url}`, JSON.stringify(param) ,config).then(success).catch(fail);
-    // return videoHistory
 }
 
 function getLearningVideo(success, fail){
     local.get(`${url}/proceeding`,config).then(success).catch(fail);
-    // return learningVideoList
 }
 
 function getCompletedVideo(success, fail){
     local.get(`${url}/done`,config).then(success).catch(fail);
-    // return completedVideoList
+}
+
+function getLastVideo(success, fail){
+    local.get(`${url}/lastvideo`,config).then(success).catch(fail);
 }
 
 function updateLastSentence(param, success, fail) {
@@ -38,5 +39,6 @@ export {
     insertRegistHistory,
     getLearningVideo,
     getCompletedVideo,
-    updateLastSentence
+    updateLastSentence,
+    getLastVideo
 }
