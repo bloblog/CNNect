@@ -261,7 +261,7 @@ def save_recommendations():
     if not news_articles:
         return jsonify({"message": "필요한 데이터가 없어 프로세스를 진행할 수 없습니다."}), HTTPStatus.BAD_REQUEST
 
-    all_news_fullscripts = [article["full_script"] for article in news_articles]
+    all_news_fullscripts = [article["video_name"] for article in news_articles]
 
     news_recommender.fit(all_news_fullscripts)
 
