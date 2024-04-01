@@ -39,13 +39,18 @@ public class VocaService {
     @Transactional
     public void saveWord(VocaRequestDto word) {
         User user = customUserDetailsService.getUserByAuthentication();
-        Voca voca = Voca.builder()
-                .user(user)
-                .wordContent(word.getWordContent())
-                .wordMean(word.getWordMean())
-                .wordDate(LocalDate.now())
-                .build();
-        wordHistoryRepository.save(voca);
+
+        Voca study = wordHistoryRepository.findByWordContentAndUser(word.getWordContent() , user);
+
+        if(study == null) {
+            Voca voca = Voca.builder()
+                    .user(user)
+                    .wordContent(word.getWordContent())
+                    .wordMean(word.getWordMean())
+                    .wordDate(LocalDate.now())
+                    .build();
+            wordHistoryRepository.save(voca);
+        }
     }
 
     @Transactional

@@ -44,6 +44,12 @@ public class UserHistoryController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
+    @Operation(summary = "가장 마지막 학습중인 영상 조회")
+    @GetMapping(value = "/lastvideo")
+    public ResponseEntity<ResultResponse> getLastVideo(){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getLastVideo()));
+    }
+
     @Operation(summary = "학습중인 영상 조회")
     @GetMapping(value = "/proceeding")
     public ResponseEntity<ResultResponse> getLearningVideo(){
