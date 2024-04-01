@@ -108,7 +108,6 @@ const nextStep = (input) => {
       addList.value.push({userId : userId.value, videoId : videoList.value[i],
                         historyStatus : false, historySentence : "register"});
     }
-    handleVideoClick();
   }
 
   console.log(addList.value);
@@ -119,6 +118,7 @@ const nextStep = (input) => {
   (error) => {
     console.log(error)
   })
+  handleVideoClick();
 };
 
 const handleScroll = (e) => {
