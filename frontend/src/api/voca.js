@@ -13,7 +13,7 @@ const wordhistory ={
     wordList: [
         {wordListId: 1, word: "apple", mean:"사과"},
         {wordListId: 2, word: "apple", mean:"사과"},
-{wordListId: 3, word: "apple", mean:"사과"},
+        {wordListId: 3, word: "apple", mean:"사과"},
         {wordListId: 4, word: "apple", mean:"사과"},
         {wordListId: 5, word: "apple", mean:"사과"},
         {wordListId: 6, word: "pear", mean:"배"},
@@ -97,8 +97,7 @@ const wordhistory ={
 
 
 function getWordHistory(success, fail){
-    // local.get(`${url}`).then(success).catch(fail);
-    return wordhistory
+    local.get(`${url}`, config).then(success).catch(fail);
 }
 
 function addWordList(param, success, fail){

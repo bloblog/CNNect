@@ -3,16 +3,16 @@
     <div v-if="paginatedVideos && paginatedVideos.length > 0">
         <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
         <div class="w-5/6 grid grid-cols-3 gap-4">
-            <div :key="index" class="relative" v-for="(video, index) in paginatedVideos">
-            <div class="video-img">
-                <img :src="`https://img.youtube.com/vi/${video.videoUrl}/maxresdefault.jpg`" class="w-full h-auto" />
-                <span class="badge absolute top-1 left-1">
-                <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
-                    Lv. {{video.videoLevel}}
+            <div :key="index" class="relative" v-for="(video, index) in paginatedVideos" @click="goToStudy(video.videoId)">
+                <div class="video-img">
+                    <img :src="`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`" class="w-full h-auto" />
+                    <span class="badge absolute top-1 left-1">
+                        <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
+                            Lv. {{video.videoLevel}}
+                        </div>
+                    </span>
                 </div>
-                </span>
-            </div>
-            <div class="title text-1xl font-bold" id="video-title">{{ video.videoTitle }}</div>
+                <div class="title text-1xl font-bold" id="video-title">{{ video.videoName }}</div>
             </div>
         </div>
         </div>
@@ -42,10 +42,12 @@
 
 <script setup>
 import { defineProps, ref, computed } from 'vue';
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   completedVideoList: Object
 });
+    const router = useRouter();
 
     const currentPage = ref(0);
     const videodPerPage = 9;
@@ -113,6 +115,10 @@ const props = defineProps({
     function goToPage(page) {
         currentPage.value = page - 1;
     }
+
+    const goToStudy = (videoId) => {
+        router.push({ name: 'study', params: { videoId: videoId } });
+    };
 
 </script>
 

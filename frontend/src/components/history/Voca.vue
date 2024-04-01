@@ -4,8 +4,8 @@
             <ul class="flex flex-col items-center min-h-[65vh]">
                 <li v-for="wordData in currentPageWordList" :key="wordData.word" class ="item">
                     <div class="word-item">
-                        <div class="word font-bold text-lg text-center"> {{ wordData.word }} </div>
-                        <div class="mean"> {{ wordData.mean }} </div>
+                        <div class="word font-bold text-lg text-center"> {{ wordData.wordContent }} </div>
+                        <div class="mean"> {{ wordData.wordMean }} </div>
                     </div>
                     <div class="del">
                         <svg xmlns="http://www.w3.org/2000/svg" @click="delWord(wordData.wordListId)" height="24" viewBox="0 -960 960 960" width="24"><path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" paddin="10px" fill="#cc0000"/>
@@ -39,7 +39,7 @@
 
 <script setup>
     import { ref , computed , defineProps } from 'vue';
-    import { getWordHistory } from '@/api/voca';
+    import { deleteWordHistory } from '@/api/voca';
 
     const props = defineProps({
         wordHistory: Object
@@ -52,11 +52,11 @@
     const currentPage = ref(0);
     const wordPerPage = 5;
 
-    const totalPages = computed(() => Math.ceil(props.wordHistory.wordList.length / wordPerPage));
+    const totalPages = computed(() => Math.ceil(props.wordHistory.length / wordPerPage));
 
     const currentPageWordList = computed(() => {
         const startIndex = currentPage.value * wordPerPage;
-        return props.wordHistory.wordList.slice(startIndex, startIndex + wordPerPage);
+        return props.wordHistory.slice(startIndex, startIndex + wordPerPage);
     });
 
 
@@ -118,13 +118,14 @@
     }
 
 function delWord(wordListId) {
-    const index = props.wordHistory.wordList.findIndex(item => item.wordListId === wordListId);
+    const index = props.wordHistory.findIndex(item => item.wordListId === wordListId);
     if (index !== -1) {
-        props.wordHistory.wordList.splice(index, 1); // 배열에서 삭제
-        if (props.wordHistory.wordList.slice(currentPage.value * wordPerPage, currentPage.value * wordPerPage + wordPerPage).length === 0 && currentPage.value > 0) {
+        props.wordHistory.splice(index, 1); // 배열에서 삭제
+        if (props.wordHistory.slice(currentPage.value * wordPerPage, currentPage.value * wordPerPage + wordPerPage).length === 0 && currentPage.value > 0) {
             currentPage.value--;
         }
     }
+    deleteWordHistory(wordListId)
 }
 
 
