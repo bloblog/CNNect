@@ -9,28 +9,14 @@
     <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
       <div class="w-5/6 grid grid-cols-3 gap-4">
         <div :key="index" class="relative" v-for="(video, index) in videoList">
-          <div
-            class="relative"
-            @mouseover="showVideoPopup(index)"
-            @mouseleave="hideVideoPopup(index)"
-          >
+          <div class="relative" @mouseover="showVideoPopup(index)" @mouseleave="hideVideoPopup(index)">
             <!-- :class="changeThumbnail(index)" -->
-            <img
-              class="w-full h-auto"
-              @click="addLike(index)"
-              :src="`https://img.youtube.com/vi/${video}/maxresdefault.jpg`"
-            />
-            <div
-              v-if="isVideoPopup[index]"
-              class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
-            >
-              <iframe
-                :src="`https://www.youtube.com/embed/${video}?autoplay=1`"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen
-                class="absolute top-0 left-0 w-full h-full"
-              ></iframe>
+            <img class="w-full h-auto" @click="addLike(index)"
+              :src="`https://img.youtube.com/vi/${video}/mqdefault.jpg`" />
+            <div v-if="isVideoPopup[index]"
+              class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+              <iframe :src="`https://www.youtube.com/embed/${video}?autoplay=1`" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen class="absolute top-0 left-0 w-full h-full"></iframe>
             </div>
             <!-- <div
             v-if="videoLike[index]"
@@ -56,21 +42,10 @@
           <!--hear icon-->
           <div class="flex items-center justify-center pt-2">
             <div class="rounded-full border px-1 py-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                :fill="videoLike[index] == true ? 'red' : 'white'"
-                @click="addLike(index)"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="lightgray"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                :fill="videoLike[index] == true ? 'red' : 'white'" @click="addLike(index)" viewBox="0 0 24 24">
+                <path stroke="lightgray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
               </svg>
             </div>
           </div>
@@ -78,10 +53,8 @@
       </div>
     </div>
     <div class="flex items-center w-full justify-center">
-      <button
-        @click="nextStep(2)"
-        class="items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-      >
+      <button @click="nextStep(2)"
+        class="items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
         다음
       </button>
     </div>
@@ -93,7 +66,12 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
+<<<<<<< HEAD
 import { handleVideoClick } from "@/api/user.js";
+=======
+import { handleVideoClick } from "@/components/common/CategoryVideoList.vue";
+import { registerVideo } from "@/api/video";
+>>>>>>> 676eae37f8080597a26fb78ca5919a76f8dd2716
 
 const uStore = userStore();
 
@@ -110,17 +88,12 @@ let flag = false;
 let maxScrollCount = 2; // 스크롤 횟수 임시 제한
 
 onMounted(() => {
-  videoList.value = [
-    "mtptFuBAg9Q",
-    "5F6YRQKZX9E",
-    "yNPM2obgE7g",
-    "CDphmhaToV4",
-    "LZ-px4nq8YQ",
-    "65CI8hznDy4",
-    "xTN1IcqZvOo",
-    "ei8wkDsxnaY",
-    "y8Cg3LwIcZk",
-  ];
+  registerVideo(({data}) => {
+    console.log(data);
+    videoList.value = data.data;
+  }, (error) => {
+    console.log(error)
+  })
 
   videoLike.value = Array(videoList.value.length).fill(false);
   isVideoPopup.value = Array(videoList.value.length).fill(false);
@@ -133,22 +106,22 @@ const emit = defineEmits(["nextStep"]);
 // 다음 단계로 이동
 const nextStep = (input) => {
   emit("nextStep", input);
-  // console.log(videoList.value.length)
-  // for(let i = 0; i < videoList.value.length; i++){
-  //   if(videoLike.value[i]){
-  //     addList.value.push({userId : userId.value, videoId : videoList.value[i],
-  //                       historyStatus : false});
-  //   }
-  // }
+  console.log(videoList.value.length)
+  for(let i = 0; i < videoList.value.length; i++){
+    if(videoLike.value[i]){
+      addList.value.push({userId : userId.value, videoId : videoList.value[i],
+                        historyStatus : false, historySentence : "register"});
+    }
+  }
 
-  // console.log(addList.value);
+  console.log(addList.value);
 
-  // insertRegistHistory(addList.value, ({data}) => {
-  //   console.log(data);
-  // },
-  // (error) => {
-  //   console.log(error)
-  // })
+  insertRegistHistory(addList.value, ({data}) => {
+    console.log(data);
+  },
+  (error) => {
+    console.log(error)
+  })
 };
 
 const handleScroll = (e) => {

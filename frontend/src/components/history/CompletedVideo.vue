@@ -1,36 +1,42 @@
 <template>
   <div>
-    <h1 class="text-2xl font-bold p-3">학습 완료한 뉴스</h1>
-    <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
-      <div class="w-5/6 grid grid-cols-3 gap-4">
-        <div :key="index" class="relative" v-for="(video, index) in paginatedVideos">
-          <div class="video-img">
-            <img :src="`https://img.youtube.com/vi/${video.videoUrl}/maxresdefault.jpg`" class="w-full h-auto" />
-            <span class="badge absolute top-1 left-1">
-              <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
-                Lv. {{video.videoLevel}}
-              </div>
-            </span>
-          </div>
-          <div class="title text-1xl font-bold" id="video-title">{{ video.videoTitle }}</div>
+    <div v-if="paginatedVideos && paginatedVideos.length > 0">
+        <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
+        <div class="w-5/6 grid grid-cols-3 gap-4">
+            <div :key="index" class="relative" v-for="(video, index) in paginatedVideos">
+            <div class="video-img">
+                <img :src="`https://img.youtube.com/vi/${video.videoUrl}/maxresdefault.jpg`" class="w-full h-auto" />
+                <span class="badge absolute top-1 left-1">
+                <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
+                    Lv. {{video.videoLevel}}
+                </div>
+                </span>
+            </div>
+            <div class="title text-1xl font-bold" id="video-title">{{ video.videoTitle }}</div>
+            </div>
         </div>
-      </div>
+        </div>
+        <div class="page">
+            <div>
+                <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="previousPage" :disabled="currentPage === 0" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                    <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+                </svg>
+            </div>
+            <div class="page-container">
+                <span v-for="page in visiblePages" :key="page" @click="goToPage(page)" :class="{ active: currentPage === page - 1 }" class="page-item">{{ page }}</span>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" @click="nextPage" :disabled="currentPage === totalPages-1" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                    <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+                </svg>
+            </div>  
+        </div>
     </div>
-    <div class="page">
-        <div>
-            <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="previousPage" :disabled="currentPage === 0" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
-            </svg>
-        </div>
-        <div class="page-container">
-            <span v-for="page in visiblePages" :key="page" @click="goToPage(page)" :class="{ active: currentPage === page - 1 }" class="page-item">{{ page }}</span>
-        </div>
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" @click="nextPage" :disabled="currentPage === totalPages-1" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-            </svg>
-        </div>  
+    <div v-else class="grid-cols-3 flex space-x-2">
+        <div class="rounded-xl w-[70vw] border-2 border-gray-200 text-center p-14 font-[GmarketSansMedium]">학습 완료한 뉴스가 없습니다.</div>
+        
     </div>
+    
   </div>
 </template>
 
@@ -41,34 +47,10 @@ const props = defineProps({
   completedVideoList: Object
 });
 
-// const currentPage = ref(1);
-// const videosPerPage = 9;
-
-// const paginatedVideos = computed(() => {
-//   const startIndex = (currentPage.value - 1) * videosPerPage;
-//   const endIndex = startIndex + videosPerPage;
-//   return props.completedVideoList.slice(startIndex, endIndex);
-// });
-
-// const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videosPerPage));
-
-// function nextPage() {
-//   if (currentPage.value < totalPages.value) {
-//     currentPage.value++;
-//   }
-// }
-
-// function previousPage() {
-//   if (currentPage.value > 1) {
-//     currentPage.value--;
-//   }
-// }
-
-  const currentPage = ref(0);
+    const currentPage = ref(0);
     const videodPerPage = 9;
 
     const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videodPerPage));
-
     const paginatedVideos = computed(() => {
         const startIndex = currentPage.value * videodPerPage;
         return props.completedVideoList.slice(startIndex, startIndex + videodPerPage);
@@ -79,8 +61,8 @@ const props = defineProps({
         const pages = [];
         const currentPageValue = currentPage.value + 1;
 
-        const startPage = Math.max(1, currentPageValue - 2); // 현재 페이지를 중심으로 앞쪽에 최대 2개의 페이지를 보여줍니다.
-        const endPage = Math.min(totalPages.value, currentPageValue + 2); // 현재 페이지를 중심으로 뒷쪽에 최대 2개의 페이지를 보여줍니다.
+        const startPage = Math.max(1, currentPageValue - 2); 
+        const endPage = Math.min(totalPages.value, currentPageValue + 2); 
        
 
         if(currentPageValue === totalPages.value ){
@@ -135,6 +117,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
+
 .video-img,
 .title {
   cursor: pointer;

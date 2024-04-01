@@ -24,7 +24,12 @@ const handleClick = (sentence) => {
         <li v-for="sentence in props.videoData.sentenceList" :key="sentence.order"
             @click="handleClick(sentence)"
             :class="{ 'active': props.curSentence.order === sentence.order }">
-                <div class="content"> {{ sentence.content }} </div>
+                <div class="content"> 
+                    {{ sentence.content }} 
+                </div>
+                <div class="score" :class="{'noScore': sentence.score === null}"> 
+                    {{ sentence.score != null ?  sentence.score : "도전"}}  
+                </div>
         </li>
     </ul>
 </template>

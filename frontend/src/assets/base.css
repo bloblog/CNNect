@@ -58,15 +58,7 @@
   font-weight: normal;
 }
 
-*::-webkit-scrollbar {
-  /* display: none !important; */
-  /* position: absolute;
-  top: 0;
-  width: 10px;
-  right: 0;
-  background: red;
-  z-index: 999; */
-}
+
 
 body {
   min-height: 100vh;

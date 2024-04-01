@@ -20,8 +20,13 @@ async function videoPaging(categoryId, pageNo, pageSize, success, fail){
     local.get(`${url}/entities?categoryId=${categoryId}&pageNo=${pageNo}&pageSize=${pageSize}`, config).then(success).catch(fail);
 }
 
+function registerVideo(success, fail){
+    local.get(`${url}/register`).then(success).catch(fail);
+}
+
 export {
     allVideo,
     catVideo,
     videoPaging,
+    registerVideo
 }

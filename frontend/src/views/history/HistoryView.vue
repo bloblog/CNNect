@@ -1,47 +1,47 @@
 <template>
-
-    <body>
-        <div class="section-box" >
-            <div class="section">
-                <div class="tabmenu out-tabmenu">
-                    <ul>
-                        <li id="tab1" class="btnCon">
-                            <input type="radio" checked name="tabmenu" id="tabmenu1">
-                            <label for="tabmenu1">동영상</label>
-                            <div class="tabCon">
-                                <h1 class="text-2xl font-bold p-3">학습 진행중인 뉴스</h1>
-                                <div class="learning-video">
-                                    <div class="Carousel-btn">
-                                        <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('backward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                                            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
-                                        </svg>
-                                    </div>   
-                                    <div >
-                                        <LearningVideo :curVideo="curVideo" />
-                                    </div>
-                                    <div class="Carousel-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('foreward')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                                            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-                                        </svg>
-                                    </div>
+    <div class="section-box">
+        <div class="section mx-20">
+            <div class="tabmenu out-tabmenu">
+                <ul>
+                    <li id="tab1" class="btnCon ">
+                        <input type="radio" checked name="tabmenu" id="tabmenu1">
+                        <label for="tabmenu1" class="font-[GmarketSansMedium]">동영상</label>
+                        <div class="tabCon">
+                            <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 진행중인 뉴스</h1>
+                            <div class="learning-video">
+                                <!-- <div class="Carousel-btn">
+                                    <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('fore')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                                        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+                                    </svg>
+                                </div>    -->
+                                <div>
+                                    <LearningVideo :curVideo="curVideo" />
                                 </div>
-                                <div >
-                                   <CompletedVideo :completedVideoList = "videoHistory.completedVideoList" />
+                                <!-- <div class="Carousel-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('back')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
+                                        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+                                    </svg>
+                                </div> -->
+                            </div>
+                            <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 완료한 뉴스</h1>
+                            <div class="learning-video">
+                                <div>
+                                    <CompletedVideo :completedVideoList = "completedVideoHistory.completedVideoHistory" />
                                 </div>
                             </div>
-                        </li>
-                        <li id="tab2" class="btnCon">
-                            <input type="radio" name="tabmenu" id="tabmenu2">
-                            <label for="tabmenu2">단어장</label>
-                            <div class="tabCon" style="overflow-y: hidden;">
-                                <Voca :wordHistory="wordHistory" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                    <li id="tab2" class="btnCon">
+                        <input type="radio" name="tabmenu" id="tabmenu2">
+                        <label for="tabmenu2" class="font-[GmarketSansMedium]">단어장</label>
+                        <div class="tabCon" style="overflow-y: hidden">
+                            <Voca :wordHistory="wordHistory" />
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>    
-    </body>
+        </div>
+    </div>    
 </template>
 
 <script setup>
@@ -50,69 +50,32 @@ import CompletedVideo from '@/components/history/CompletedVideo.vue';
 import LearningVideo from '@/components/history/LearningVideo.vue';
 
 import { ref } from 'vue';
-import { onMounted } from 'vue';
-import { insertVideoHistory, insertWordHistory } from '@/api/history';
+import { watch, onMounted } from 'vue';
+import { getLearningVideo, getCompletedVideo} from '@/api/history';
+import { getWordHistory } from '@/api/voca';
 
-
-const videoHistory = ref({
-    learningVideoList: [],
-    completedVideoList: []
+const completedVideoHistory = ref({
+    completedVideoHistory: []
 })
 
 const wordHistory = ref({
     wordList: []
 })
 
-let totalVideos = 0;
-
-let currentOrder = 0;
 
 const curVideo = ref({
-    order: "",
-    videoTitle: "",
-    videoUrl: "",
-    lastSentence: "",
+    historyId: "",
+    videoId: "",
+    videoName: "",
     videoLevel: "",
+    lastSentence: "",
     completedSentenceNum: "",
     totalSentenceNum: ""
 })
 
-function setCurVideo (idx) {
-    curVideo.value.order = videoHistory.value.learningVideoList[idx].order;
-    curVideo.value.videoTitle = videoHistory.value.learningVideoList[idx].videoTitle;
-    curVideo.value.videoUrl = videoHistory.value.learningVideoList[idx].videoUrl;
-    curVideo.value.lastSentence = videoHistory.value.learningVideoList[idx].lastSentence;
-    curVideo.value.videoLevel = videoHistory.value.learningVideoList[idx].videoLevel;
-    curVideo.value.completedSentenceNum = videoHistory.value.learningVideoList[idx].completedSentenceNum;
-    curVideo.value.totalSentenceNum = videoHistory.value.learningVideoList[idx].totalSentenceNum;
-}
-
-function changeVideoOrder(direction) {
-    if (direction === 'backward') {
-        if (currentOrder > 0) {
-            currentOrder -= 1;
-            setCurVideo(currentOrder);
-        } else {
-            currentOrder = totalVideos-1;
-            setCurVideo(totalVideos-1);
-        }
-    } else if (direction === 'foreward') {
-        if (currentOrder < totalVideos-1) {
-            currentOrder += 1;
-            setCurVideo(currentOrder);
-        } else {
-            currentOrder = 0;
-            setCurVideo(0);
-        }
-    }
-}
-
-
-onMounted(async () => {
-    videoHistory.value = await insertVideoHistory();
-    wordHistory.value = insertWordHistory();
-    totalVideos = videoHistory.value.learningVideoList.length;
-    setCurVideo(0);
+onMounted(() => {
+    completedVideoHistory.value = getCompletedVideo();
+    wordHistory.value = getWordHistory();
 })
 
 </script>

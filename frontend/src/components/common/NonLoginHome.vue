@@ -1,7 +1,7 @@
 <template>
   <div id="background">
     <div>
-      <img src="@/assets/logo.png" class="w-52 absolute top-10 left-10" />
+      <img src="@/assets/logo.png" class="w-48 absolute top-10 left-10" />
     </div>
 
     <div
@@ -9,7 +9,7 @@
       id="main-item-container"
     >
       <div class="flex pb-5">
-        <h2 class="text-4xl font-bold text-white text-center">
+        <h2 class="z-10 text-4xl font-bold text-white text-center">
           나에게 맞는 <span class="text-4xl font-bold text-theme-red">CNN 뉴스</span>로 영어를 배울 수 있습니다.
         </h2>
       </div>
@@ -18,10 +18,19 @@
       </h4>
       <!-- <img src="@/assets/thumbnail.png" id="background-img" class="absolute max-w-none inset-y-80"> -->
       <div id="slider">
-        <div class="image-box">
+        <div class="image-box image-box-top">
           <div
             class="swiper-slide flex p-0.5"
-            v-for="(image, index) in imagePaths"
+            v-for="(image, index) in imagePaths.slice(0,9)"
+            :key="index"
+          >
+            <img :src="image" class="w-80" />
+          </div>
+        </div>
+        <div class="image-box image-box-bottom">
+          <div
+            class="swiper-slide flex p-0.5"
+            v-for="(image, index) in imagePaths.slice(1,10)"
             :key="index"
           >
             <img :src="image" class="w-80" />
@@ -103,7 +112,7 @@
                     name="password"
                     id="password"
                     v-model="loginData.userPassword"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     required
                   />
                 </div>
@@ -111,7 +120,7 @@
               <button
                 type="button"
                 @click="login()"
-                class="w-full text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="w-full mt-3 mb-3  text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 로그인
               </button>
@@ -237,6 +246,11 @@ const imagePaths = [
   "https://i.ytimg.com/vi/7ozPfsLRxZw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAOOEKg7h8HZUeFIf8Adwl2FlmouQ",
   "https://i.ytimg.com/vi/Q1KbKe2eJaY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAofmgL2v0bY4aaZWRPSprL5-E93Q",
   "https://i.ytimg.com/vi/ibBNhhhTgMk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLA9abB7-lskAlFlmgjx10cZU8Fy3Q",
+  "https://i.ytimg.com/vi/jsxI0QjxJs8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAWZ1lChDEn0h9YVfSx_JAl0eD-zA",
+  "https://i.ytimg.com/vi/rGMqBoF3hkU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLBxvk7EL2K_kCRfy-QJKeIaQvHg6g",
+  "https://i.ytimg.com/vi/2keAv3W3edw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCEn3b9fTH3MA1Dh8Q_s_d2vBez4Q",
+  "https://i.ytimg.com/vi/2keAv3W3edw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCEn3b9fTH3MA1Dh8Q_s_d2vBez4Q",
+  
 ];
 </script>
 
@@ -253,18 +267,23 @@ const imagePaths = [
 #slider {
   overflow: hidden;
   position: absolute;
-  top: 60vh;
-  width: 110vw;
+  top: 50vh;
+  /* width: 130vw; */
   transform: rotate(-15deg);
 }
 
 .image-box {
-  width: 120vw;
+  width: 200vw;
   height: 100%;
   display: flex;
   flex-wrap: nowrap;
   animation: bannermove 50s linear infinite;
   opacity: 0.5;
+}
+
+.image-box-bottom {
+  position: relative;
+  right: 15%;
 }
 
 @keyframes bannermove {

@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { addWordList } from '@/api/voca';
 
-defineProps({
+const props = defineProps({
     selectedText: String,
     selectedWordMeanings: Object,
     isFinishedFetchingPopup: Boolean
@@ -16,6 +17,26 @@ const checkOutsideClick = (e) => {
     }
 };
 
+async function addWordbook(meanings, word) {
+    const wordContent = word;
+    const wordMean = meanings.map(meaning => meaning.num + '. ' + meaning.mean).join('\n');
+    
+    try {
+        addWordList(
+            { wordContent : wordContent, wordMean : wordMean},
+            ({ data }) => {
+                console.log(data)
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+        alert(`${wordContent}가 단어장에 추가되었습니다.`);
+    } catch (error) {
+        console.error('단어 추가에 실패하였습니다.', error);
+    }
+}
+
 onMounted(() => {
     document.addEventListener('mouseup', checkOutsideClick);
 });
@@ -28,21 +49,21 @@ onUnmounted(() => {
 <template>
     <div class="popup" ref="popup">
         <div class="origin">
-            <strong class="ENword">{{ selectedText }}</strong>
-            <button type="button" class="add_wordbook" v-if="selectedWordMeanings.length > 0">
+            <strong class="ENword">{{ props.selectedText }}</strong>
+            <button type="button" class="add_wordbook" v-if="props.selectedWordMeanings.length > 0" @click="addWordbook(props.selectedWordMeanings, props.selectedText)">
                 <span class="material-symbols-outlined">add</span>
             </button>
         </div>
         <ul class="mean_list" >
-            <li class="mean_item" v-for="meaning in selectedWordMeanings" :key="meaning.num">
+            <li class="mean_item" v-for="meaning in props.selectedWordMeanings" :key="meaning.num">
                 <span class="num">{{ meaning.num }}. </span>
                 <p class="mean">{{ meaning.mean }}</p>
             </li>
         </ul>
-        <div class="loader-container" v-if="!isFinishedFetchingPopup">
+        <div class="loader-container" v-if="!props.isFinishedFetchingPopup">
             <div class="loader"></div>
         </div>
-        <div class="notConnected" v-if="isFinishedFetchingPopup && selectedWordMeanings.length === 0">
+        <div class="notConnected" v-if="props.isFinishedFetchingPopup && props.selectedWordMeanings.length === 0">
             <span class="material-symbols-outlined">error</span>
             <div class="failText">검색 결과가 없습니다.</div>
         </div>
