@@ -53,7 +53,7 @@ public class UserService {
                 .userEmail(joinRequestDto.getUserEmail())
                 .userPassword(encodePassword)
                 .userNickname(joinRequestDto.getUserNickname())
-                .userLevel(0) // default 레벨 0
+                .userLevel(1) // default 레벨 0
                 .roles(new ArrayList<>(Arrays.asList("USER")))
                 .build());
         return user.getUserId();
