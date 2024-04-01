@@ -132,7 +132,6 @@ const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
 const nextStep = (input) => {
-  handleVideoClick();
   emit("nextStep", input);
   // console.log(videoList.value.length)
   // for(let i = 0; i < videoList.value.length; i++){
@@ -203,6 +202,7 @@ const handleScroll = (e) => {
 const addLike = (index) => {
   console.log("click : " + index);
   videoLike.value[index] = !videoLike.value[index];
+  handleVideoClick();
 };
 
 const changeThumbnail = (index) => {
