@@ -66,6 +66,7 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
+import { handleVideoClick } from "@/api/user.js";
 import { registerVideo } from "@/api/video";
 
 const uStore = userStore();
@@ -117,6 +118,7 @@ const nextStep = (input) => {
   (error) => {
     console.log(error)
   })
+  handleVideoClick();
 };
 
 const handleScroll = (e) => {
@@ -170,6 +172,7 @@ const handleScroll = (e) => {
 const addLike = (index) => {
   console.log("click : " + index);
   videoLike.value[index] = !videoLike.value[index];
+
 };
 
 const changeThumbnail = (index) => {
