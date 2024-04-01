@@ -1,45 +1,37 @@
 <script setup>
-import { list } from 'postcss';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
 import { useRoute } from 'vue-router';
 
-import { getQuiz } from '@/api/test'
 
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
 
 const route = useRoute();
 
-const response = ref([]); // api 결과값
 const currentQuiz = ref(0); // 생성할 퀴즈 번호
-const correctList = ref([]); // 정답만 담을 배열
 const q1 = ref(''); // 퀴즈 앞부분
 const q2 = ref(''); // 뒷부분
 
-onMounted(() => {
-    const videoId = route.params.videoId;
-    getQuiz(
-        videoId,
-        ({data}) => {
-            response.value = data.answerList;
-            correctList.value = response.value.map(item => item.answer);
-            setQuestion();
+const props = defineProps({
+    quizData: Array,
+    resultList: Array,
+    answerList: Array,
+    correctList: Array,
+  });
 
-        },
-        (error) => {
-            console.log(error)
-        });
+  onMounted(() => {
+    setQuestion();
+})
 
-    
-});
+
 
 const setQuestion = () => {
     // 빈칸 세팅
-    q1.value = response.value[currentQuiz.value].question_first;
-    q2.value = response.value[currentQuiz.value].question_second;
-    blank.value = "_".repeat(correctList.value[currentQuiz.value].length * 2)
+    q1.value = props.quizData[currentQuiz.value].question_first;
+    q2.value = props.quizData[currentQuiz.value].question_second;
+    blank.value = "_".repeat(props.correctList[currentQuiz.value].length * 2)
     // 해석 부분 세팅
-    translateText(response.value[currentQuiz.value].original);
+    translateText(props.quizData[currentQuiz.value].original);
 
 }
 
@@ -50,15 +42,8 @@ const goPrev = () => {
     answer.value = "";
     if (activeIndex.value > 1) {
       activeIndex.value = activeIndex.value-1;
+      goAnother();
     }
-    goAnother();
-
-    
-    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
-    if (existAnswer) {
-        answer.value = existAnswer[activeIndex.value];
-    }
-
 
 };
 
@@ -67,14 +52,9 @@ const goNext = () => {
     answer.value = "";
     if (activeIndex.value < 10) {
         activeIndex.value = activeIndex.value + 1;
+        goAnother();
     }
-    goAnother();
 
-
-    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
-    if (existAnswer) {
-        answer.value = existAnswer[activeIndex.value];
-    }
 }
 
 
@@ -84,15 +64,16 @@ const goNum = (num) => {
     activeIndex.value = num;
     goAnother();
     
-    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
-    if (existAnswer) {
-        answer.value = existAnswer[activeIndex.value];
-    }
 }
 
 const goAnother = () => {
     currentQuiz.value = activeIndex.value-1;
     setQuestion();
+
+    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
+    if (existAnswer) {
+        answer.value = existAnswer[activeIndex.value];
+    }
 }
 
 // Google Translate API
@@ -126,35 +107,34 @@ const submit = () => {
     addToAnswerList();
     answer.value = "";
 
-    // const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
-    // if (existAnswer) {
-    //     answer.value = existAnswer[activeIndex.value];
-    // }
+    const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
+    if (existAnswer) {
+        answer.value = existAnswer[activeIndex.value];
+    }
 
     compareAnswers();
 }
 
-const props = defineProps({
-    resultList: Array,
-    answerList: Array
-  });
+
 
 
 
 const compareAnswers = () => {
-    for (let i = 0; i < correctList.length; i++) {
-        const userAnswer = props.answerList.find(answer => Object.keys(answer)[0] == correctList[i]);
+    for (let i = 0; i < 10; i++) {
+        const answerObj = props.answerList.find(answer => Object.keys(answer)[0] == i+1);
+        if (answerObj) {
+            const userAnswer = answerObj[i+1];
 
-        if (userAnswer) {
-            const correctAnswer = userAnswer[correctList[i]];
-            const isCorrect = correctAnswer === correctList[i].toString();
+            const correctAnswer = props.correctList[i];
+            const isCorrect = userAnswer === correctAnswer;
             props.resultList.push(isCorrect);
         } else {
             props.resultList.push(false);
         }
     }
-    console.log(props.resultList)
+
 };
+
 
 const handleEnter = () => {
     if (activeIndex.value == 10) {
@@ -175,11 +155,13 @@ const answer = ref('');
 const isDuplicate = ref(false);
 
 const addToAnswerList = () => {
-    for (var i = 0; i < props.answerList.length; i++) {
-        if (Object.keys(props.answerList[i])[0] == activeIndex.value && answer.value != "") {
-            props.answerList[i][activeIndex.value] = answer.value;
-            isDuplicate.value = true;
-            break;
+    if (props.answerList.length > 0) {
+        for (let i = 0; i < props.answerList.length; i++) {
+            if (Object.keys(props.answerList[i])[0] == activeIndex.value && answer.value.trim() != "") {
+                props.answerList[i][activeIndex.value] = answer.value;
+                isDuplicate.value = true;
+                break;
+            }
         }
     }
 
@@ -226,7 +208,7 @@ const blank = ref("");
                     <div id="answer" class="flex justify-end m-5">
                         <div class="flex w-1/3 items-center">
                             <label class="block mb-2 text-lg font-bold text-gray-900 ">A.</label>
-                            <input v-model="answer" @keyup.enter="handleEnter" type="text" class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="type your answer">
+                            <input v-model="answer" @keyup.enter="handleEnter()" type="text" class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="type your answer">
                         </div>
 
                     </div>
@@ -235,7 +217,7 @@ const blank = ref("");
             <div id="button-container" class="w-[100%] flex justify-end mt-2">
                 <button @click="goPrev" class="btn back">이전</button>
                 <button v-if="activeIndex != 10" @click="goNext" class="btn next">다음</button>
-                <button v-else @click="submit" class="btn finish">제출</button>
+                <button v-else @click="submit()" class="btn finish">제출</button>
             </div>
             
         </div>

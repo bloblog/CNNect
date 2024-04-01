@@ -2,12 +2,17 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 
+const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
+
+
 const route = useRoute();
 const router = useRouter();
 
 const activeIndex = ref(1);
 
 onMounted(() => {
+    setQuestion();
+
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
         answer.value = existAnswer[activeIndex.value];
@@ -16,15 +21,18 @@ onMounted(() => {
     }
 });
 
-const answer = ref();
+const answer = ref('');
 
 const props = defineProps({
-    resultList: Array,
-    answerList: Array
+    quizData: Array,
+    answerList: Array,
+    resultList: Array, // 테스트결과
+    correctList: Array, // 답지
   });
 
 const goNum = (num) => {
     activeIndex.value = num;
+    setQuestion();
     
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
@@ -35,10 +43,54 @@ const goNum = (num) => {
 }
 
 const Quit = () => {
+    // pass fail 구분해서 학습 상태 변경
+
+    // 뱃지 획득 여부 체크
+
+    // 뱃지 모달
+
+
     router.push("/");
 }
 
-const correctList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const q1 = ref(''); // 퀴즈 앞부분
+const q2 = ref(''); // 뒷부분
+
+const setQuestion = () => {
+    // 빈칸 세팅
+    q1.value = props.quizData[activeIndex.value-1].question_first;
+    q2.value = props.quizData[activeIndex.value-1].question_second;
+    // 해석 부분 세팅
+    translateText(props.quizData[activeIndex.value-1].original);
+
+}
+
+// Google Translate API
+const translatedContent = ref('');
+
+function translateText(textToTranslate) {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${VITE_GT_ACCESS_KEY}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            q: textToTranslate,
+            source: "en",
+            target: "ko"
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        translatedContent.value = data.data.translations[0].translatedText;
+    })
+    .catch(error => console.error("번역 오류:", error));
+}
 
 
 const getClass = (index) => {
@@ -55,7 +107,6 @@ const answerCnt = props.resultList.filter(result => result === true).length;
 
 <template>
     <div>
-        <!-- <div>{{ $route.query.videoId }}</div> -->
         <div class="p-3 relative">
             <div id="quiz-container" class="border-gray-400 border-2">
                 <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
@@ -71,14 +122,14 @@ const answerCnt = props.resultList.filter(result => result === true).length;
                         <div class="flex items-start space-x-2 relative">
                             <div class="text-lg font-bold relative z-10">Q{{ activeIndex }}.</div>
                             <div class="text-lg font-bold">
-                                <img v-if="props.resultList[activeIndex - 1]" src="@/assets/correct.png" class="w-16 absolute transform -translate-x-16 -translate-y-5">
+                                <img v-if="props.resultList[activeIndex-1]" src="@/assets/correct.png" class="w-16 absolute transform -translate-x-16 -translate-y-5">
                                 <img v-else src="@/assets/wrong.png" class="w-16 absolute transform -translate-x-14 -translate-y-4">
-                                Here with me now is Homeland <span class="text-theme-red font-bold underline whitespace-pre">{{ " " + correctList[activeIndex-1] + " " }}</span> Secretary Alejandro Mayorkas.
+                                {{ q1 }} <span class="text-theme-red font-bold underline whitespace-pre">{{ " " + props.correctList[activeIndex-1] + " " }}</span> {{ q2 }}
                             </div>
                         </div>
 
                         <div class="flex ml-10 mt-3">
-                            저와 함께 여기 알레한드로 마요르카스 국토안보부 장관이 있습니다.
+                            {{ translatedContent }}
                         </div>
                     </div>
                     <div class="divider"></div>

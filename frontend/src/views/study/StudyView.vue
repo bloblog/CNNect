@@ -71,7 +71,7 @@ const isFinishedFetching = ref(false)
 
 const fetchWordMeanings = async () => {
     for (const word of videoData.value.wordList) {
-        const result = await getDict(word);
+        // const result = await getDict(word);
         if (result !== null) {
             wordMeanings.value[word] = result;
         }

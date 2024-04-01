@@ -14,6 +14,7 @@ const config2 = {
   },
 };
 
+
 const REST_DATA_API = `https://j10a507.p.ssafy.io/data/level`;
 
 async function getUserLevelTestList(level, success, fail) {

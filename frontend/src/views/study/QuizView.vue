@@ -1,20 +1,50 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router';
+
+
 import Quiz from "@/components/study/Quiz.vue"
 import QuizResult from "@/components/study/QuizResult.vue"
+import { getQuiz } from '@/api/test'
+
 
 const resultList = ref([]); // 채점결과
 const answerList = ref([]); // 사용자가 입력한 답안
+const correctList = ref([]); // 답지
+const quizData = ref([]); // api 결과
+
+const route = useRoute();
+
+onMounted(() => {
+    const videoId = route.params.videoId;
+    getQuiz(
+        videoId,
+        ({data}) => {
+            quizData.value = data.answerList;
+            correctList.value = quizData.value.map(item => item.answer);
+        },
+        (error) => {
+            console.log(error)
+        });
+
+    
+});
+
 
 </script>
 
 <template>
     <div class="m-10">
         <div v-if="resultList.length == 0">
-            <Quiz :resultList="resultList" :answerList="answerList"/>
+            <div v-if="quizData.length > 0 && correctList.length > 0">
+                <Quiz :quizData="quizData" :resultList="resultList" :answerList="answerList" :correctList="correctList"/>
+            </div>
+            <div v-else>
+                <p>Loading...</p>
+            </div>
         </div>
         <div v-else>
-            <QuizResult :resultList="resultList" :answerList="answerList"/>
+            <QuizResult :quizData="quizData" :resultList="resultList" :answerList="answerList" :correctList="correctList"/>
         </div>
     </div>
 

@@ -8,10 +8,6 @@ const props = defineProps({
     videoData: Object
 })
 
-// const goToStudy = (videoId) => {
-//   router.push({ name: 'study', params: { videoId: videoId } });
-// };
-
 const goToQuiz = (videoId) => {
     router.push({ name: 'quiz', params: { videoId: videoId } });
 }
