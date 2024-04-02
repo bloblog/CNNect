@@ -27,7 +27,6 @@ onMounted(() => {
     }
 
     initFlowbite();
-    console.log(modal.isVisible());
 
 });
 
@@ -80,41 +79,7 @@ const goNum = (num) => {
     }
 }
 
-
 const videoId = route.params.videoId;
-
-// const quit = () => {
-//     // 뱃지 획득 여부 체크
-//     checkBadge(
-//         props.categoryId,
-//         ({data}) => {
-//             console.log(data);
-//             // 뱃지 모달
-    
-
-//             // pass 인 경우
-//             if (answerCnt >= 6) {
-//                 // 학습 상태 변경
-//                 updateStatus(
-//                     videoId,
-//                     ({data}) => {
-//                         console.log(data);
-//                     },
-//                     (error) => {
-//                         console.log(error);
-//                     }
-//                 )
-//             } else {
-//                 // fail 시 반영안됨 안내해주기
-//             }
-//         },
-//         (error) => {
-//             console.log(error);
-//         }
-//     )
-
-//     router.push("/");
-// }
 
 const q1 = ref(''); // 퀴즈 앞부분
 const q2 = ref(''); // 뒷부분

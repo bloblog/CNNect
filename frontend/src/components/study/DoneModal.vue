@@ -62,7 +62,6 @@
 
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
-import DoneModal from '@/components/study/DoneModal.vue'
 
 import { initFlowbite, Modal } from "flowbite";
 import { updateStatus } from '@/api/history'
@@ -77,15 +76,19 @@ const props = defineProps({
 
 const router = useRouter();
 
+const badgeItem = ref({});
 
 const quit = () => {
     // 뱃지 획득 여부 체크
     checkBadge(
         props.categoryId,
         ({data}) => {
-            console.log(data);
-            // 뱃지 모달
-    
+            console.log(data)
+            if (data.data) {
+                // 뱃지 데이터에 추가
+                badgeItem.value = data.data;
+                console.log(badgeItem.value[0]);
+            }
 
             // pass 인 경우
             if (props.answerCnt >= 6) {
