@@ -148,6 +148,7 @@ import { useRoute, useRouter } from "vue-router";
 import { loginUser } from "@/api/user";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
+import Swal from "sweetalert2";
 
 const route = useRoute();
 const router = useRouter();
@@ -158,13 +159,19 @@ const loginData = ref({
   userPassword: "",
 });
 
+const msg = Swal.mixin({
+  position: "center",
+  showConfirmButton: true,
+  confirmButtonText: "확인",
+  backdrop: true,
+}); // alert창 기본틀
+
 const { setLogin, setLogout, setNickname, setLevel } = uStore;
 const { isLogin } = storeToRefs(uStore);
 
 onMounted(() => {
   // setInterval(resetSlider, 5000);
   initFlowbite();
-  console.log(modal.isVisible());
 });
 
 // const resetSlider = () => {
@@ -195,13 +202,10 @@ const options = {
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("modal is hidden");
   },
   onShow: () => {
-    console.log("modal is shown");
   },
   onToggle: () => {
-    console.log("modal has been toggled");
   },
 };
 
@@ -217,8 +221,6 @@ const login = () => {
   loginUser(
     loginData.value,
     ({ data }) => {
-      console.log(data);
-      console.log(data.data.level);
       localStorage.setItem("refreshToken", data.data.jwtToken.refreshToken);
       localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
       setLogin();
@@ -228,7 +230,12 @@ const login = () => {
       location.href = "/";
     },
     (error) => {
-      alert("아이디 및 비밀번호를 확인해주세요!");
+      Swal.fire({
+      icon: "error",
+      title: "로그인에 실패했습니다.",
+      text : "아이디 및 비밀번호를 확인해주세요!"
+    });
+      // alert("아이디 및 비밀번호를 확인해주세요!");
       loginData.value.userPassword = "";
       console.log(error);
     }

@@ -34,12 +34,13 @@ function localAxios() {
 
         if (refreshToken) {
           await instance
-            .post('/user/refreshtoken', {
+            .get('/user/refreshtoken', {
               refreshToken: localStorage.getItem('refreshToken')
             })
             .then((response) => {
               const newAccessToken = response.data.accessToken
               localStorage.setItem('accessToken', newAccessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
 
               return instance(originalRequest)
             })

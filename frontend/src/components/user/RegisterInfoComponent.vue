@@ -229,7 +229,6 @@ const emailDuplCheck = () => {
     // alert("이메일 형식을 확인해주세요!");
   } else {
     emailCheck(formData.value.userEmail, ({ data }) => {
-      console.log(data);
       if (data.data) {
         Swal.fire({
           icon: "warning",
@@ -240,7 +239,7 @@ const emailDuplCheck = () => {
       } else {
         Swal.fire({
           icon: "success",
-          title: "가능한 이메일입니다!",
+          title: "사용 가능한 이메일입니다!",
         });
         // alert("가능한 이메일입니다!");
         dupliCheck.value = true;
@@ -253,7 +252,6 @@ const codeSend = () => {
   emailSend(
     formData.value.userEmail,
     ({ data }) => {
-      console.log(data);
     },
     (error) => {
       console.log(error);
