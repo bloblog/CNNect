@@ -131,7 +131,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { registUser, emailCheck, emailSend, loginUser } from "@/api/user";
+import { registUser, emailCheck, emailSend, loginUser, codeValidate } from "@/api/user";
 import { userStore } from "@/stores/userStore";
 import Swal from "sweetalert2";
 
@@ -139,7 +139,7 @@ const uStore = userStore();
 const { setUserId, setNickname, setLevel } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
-const authCheck = ref(true); // 이메일 인증 여부
+const authCheck = ref(false); // 이메일 인증 여부
 
 const authCode = ref("");
 
@@ -294,7 +294,7 @@ const codeCheck = () => {
   checkValue.value.email = formData.value.userEmail;
   checkValue.value.authCode = authCode.value;
   // console.log(checkValue.value);
-  emailCheck(
+  codeValidate(
     checkValue.value,
     ({ data }) => {
       if (data.data) {
