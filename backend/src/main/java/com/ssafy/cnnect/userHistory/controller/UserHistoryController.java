@@ -5,6 +5,7 @@ import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryVideoResponseDto;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,12 @@ public class UserHistoryController {
     public ResponseEntity<ResultResponse> updateUserSentence(@RequestBody UserHistoryUpdateRequestDto userHistoryUpdateRequestDto){
         userHistoryService.updateUserHistory(userHistoryUpdateRequestDto);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
+
+    @Operation(summary = "가장 마지막 학습중인 영상 조회")
+    @GetMapping(value = "/lastvideo")
+    public ResponseEntity<ResultResponse> getLastVideo(){
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getLastVideo()));
     }
 
     @Operation(summary = "학습중인 영상 조회")
