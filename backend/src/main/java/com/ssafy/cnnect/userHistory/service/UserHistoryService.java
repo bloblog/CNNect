@@ -142,23 +142,30 @@ public class UserHistoryService {
     @Transactional
     public UserHistoryVideoResponseDto getLastVideo(){
         User user = customUserDetailsService.getUserByAuthentication();
+        List<UserHistory> learningVideoList = userHistoryRepository.findLearningVideo(user);
 
-        UserHistory history = userHistoryRepository.findLastVideo(user);
-        if(history == null) throw new EntityNotFoundException("UserHistory not found");
+        List<UserHistoryVideoResponseDto> videoList = learningVideoList.stream()
+                .sorted((o1, o2) -> o2.getHistoryDate().compareTo(o1.getHistoryDate()))
+                .map(history -> {
+                    Video video = videoRepository.findByVideoId(history.getVideoId());
+                    if (video != null) {
+                        return UserHistoryVideoResponseDto.builder()
+                                .videoName(video.getVideo_name())
+                                .historyId(history.getHistoryId())
+                                .videoId(history.getVideoId())
+                                .lastSentence(history.getHistorySentence())
+                                .videoLevel(video.getVideo_level())
+                                .completedSentenceNum(history.getUserSentenceList().size())
+                                .totalSentenceNum(video.getSentence_list().size())
+                                .build();
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
-        Video video = videoRepository.findByVideoId(history.getVideoId());
-
-        UserHistoryVideoResponseDto userHistoryVideoResponseDto = UserHistoryVideoResponseDto.builder()
-                .videoName(video.getVideo_name())
-                .historyId(history.getHistoryId())
-                .videoId(history.getVideoId())
-                .lastSentence(history.getHistorySentence())
-                .videoLevel(video.getVideo_level())
-                .completedSentenceNum(history.getUserSentenceList().size())
-                .totalSentenceNum(video.getSentence_list().size())
-                .build();
-
-        return userHistoryVideoResponseDto;
+        return videoList.get(0);
     }
 
     @Transactional
