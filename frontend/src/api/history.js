@@ -34,11 +34,16 @@ function updateLastSentence(param, success, fail) {
     local.patch(`${url}`, param, config).then(success).catch(fail);
   }
 
+function updateStatus(param, success, fail) {
+    console.log(config)
+    local.patch(`${url}/pass/${param}`, null , config).then(success).catch(fail);
+}
+
 export {
     insertVideoHistory,
     insertRegistHistory,
     getLearningVideo,
     getCompletedVideo,
     updateLastSentence,
-    getLastVideo
+    updateStatus,
 }

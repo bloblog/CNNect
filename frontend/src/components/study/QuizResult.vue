@@ -1,6 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
+import DoneModal from '@/components/study/DoneModal.vue'
+
+import { initFlowbite, Modal } from "flowbite";
+import { updateStatus } from '@/api/history'
+import { checkBadge } from '@/api/badge'
+
+
+const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
+
 
 const route = useRoute();
 const router = useRouter();
@@ -8,23 +17,60 @@ const router = useRouter();
 const activeIndex = ref(1);
 
 onMounted(() => {
+    setQuestion();
+
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
         answer.value = existAnswer[activeIndex.value];
     } else {
         answer.value = "미입력"
     }
+
+    initFlowbite();
+    console.log(modal.isVisible());
+
 });
 
-const answer = ref();
+const $targetEl = document.getElementById("done-modal");
+
+const options = {
+    placement: "bottom-right",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+    closable: true,
+    onHide: () => {
+      console.log("modal is hidden");
+    },
+    onShow: () => {
+      console.log("modal is shown");
+    },
+    onToggle: () => {
+      console.log("modal has been toggled");
+    },
+  };
+
+// instance options object
+const instanceOptions = {
+    id: "done-modal",
+    override: false,
+};
+
+const modal = new Modal($targetEl, options, instanceOptions);
+
+
+const answer = ref('');
 
 const props = defineProps({
-    resultList: Array,
-    answerList: Array
+    quizData: Array,
+    answerList: Array,
+    resultList: Array, // 테스트결과
+    correctList: Array, // 답지
+    categoryId: Number,
   });
 
 const goNum = (num) => {
     activeIndex.value = num;
+    setQuestion();
     
     const existAnswer = props.answerList.find(answer => Object.keys(answer)[0] == activeIndex.value);
     if (existAnswer) {
@@ -34,11 +80,80 @@ const goNum = (num) => {
     }
 }
 
-const Quit = () => {
-    router.push("/");
+
+// const videoId = route.params.videoId;
+
+// const quit = () => {
+//     // 뱃지 획득 여부 체크
+//     checkBadge(
+//         props.categoryId,
+//         ({data}) => {
+//             console.log(data);
+//             // 뱃지 모달
+    
+
+//             // pass 인 경우
+//             if (answerCnt >= 6) {
+//                 // 학습 상태 변경
+//                 updateStatus(
+//                     videoId,
+//                     ({data}) => {
+//                         console.log(data);
+//                     },
+//                     (error) => {
+//                         console.log(error);
+//                     }
+//                 )
+//             } else {
+//                 // fail 시 반영안됨 안내해주기
+//             }
+//         },
+//         (error) => {
+//             console.log(error);
+//         }
+//     )
+
+//     router.push("/");
+// }
+
+const q1 = ref(''); // 퀴즈 앞부분
+const q2 = ref(''); // 뒷부분
+
+const setQuestion = () => {
+    // 빈칸 세팅
+    q1.value = props.quizData[activeIndex.value-1].question_first;
+    q2.value = props.quizData[activeIndex.value-1].question_second;
+    // 해석 부분 세팅
+    translateText(props.quizData[activeIndex.value-1].original);
+
 }
 
-const correctList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// Google Translate API
+const translatedContent = ref('');
+
+function translateText(textToTranslate) {
+    fetch(`https://translation.googleapis.com/language/translate/v2?key=${VITE_GT_ACCESS_KEY}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            q: textToTranslate,
+            source: "en",
+            target: "ko"
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        translatedContent.value = data.data.translations[0].translatedText;
+    })
+    .catch(error => console.error("번역 오류:", error));
+}
 
 
 const getClass = (index) => {
@@ -51,11 +166,20 @@ const getClass = (index) => {
 
 const answerCnt = props.resultList.filter(result => result === true).length;
 
+
 </script>
 
 <template>
     <div>
-        <!-- <div>{{ $route.query.videoId }}</div> -->
+        <!-- login modal -->
+      <div
+        id="done-modal"
+        tabindex="-1"
+        aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      >
+        <DoneModal :videoId="videoId" :categoryId="categoryId" :answerCnt="answerCnt"/>
+      </div>
         <div class="p-3 relative">
             <div id="quiz-container" class="border-gray-400 border-2">
                 <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
@@ -71,14 +195,14 @@ const answerCnt = props.resultList.filter(result => result === true).length;
                         <div class="flex items-start space-x-2 relative">
                             <div class="text-lg font-bold relative z-10">Q{{ activeIndex }}.</div>
                             <div class="text-lg font-bold">
-                                <img v-if="props.resultList[activeIndex - 1]" src="@/assets/correct.png" class="w-16 absolute transform -translate-x-16 -translate-y-5">
+                                <img v-if="props.resultList[activeIndex-1]" src="@/assets/correct.png" class="w-16 absolute transform -translate-x-16 -translate-y-5">
                                 <img v-else src="@/assets/wrong.png" class="w-16 absolute transform -translate-x-14 -translate-y-4">
-                                Here with me now is Homeland <span class="text-theme-red font-bold underline whitespace-pre">{{ " " + correctList[activeIndex-1] + " " }}</span> Secretary Alejandro Mayorkas.
+                                {{ q1 }} <span class="text-theme-red font-bold underline whitespace-pre">{{ " " + props.correctList[activeIndex-1] + " " }}</span> {{ q2 }}
                             </div>
                         </div>
 
                         <div class="flex ml-10 mt-3">
-                            저와 함께 여기 알레한드로 마요르카스 국토안보부 장관이 있습니다.
+                            {{ translatedContent }}
                         </div>
                     </div>
                     <div class="divider"></div>
@@ -98,7 +222,11 @@ const answerCnt = props.resultList.filter(result => result === true).length;
                     맞은 문항 수 : {{ answerCnt }} / 10 <span class="font-bold text-theme-red text-xl italic">{{ answerCnt >= 6 ? "Pass" : "Fail" }}</span>
                 </div>
                 <div id="button-container" class="flex justify- mt-3">
-                    <button @click="Quit" class="btn finish">나가기</button>
+                    <button
+                        data-modal-target="done-modal"
+                        data-modal-toggle="done-modal"
+                        class="btn finish"
+                        >나가기</button>
                 </div>
             </div>
         </div>

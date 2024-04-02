@@ -45,7 +45,7 @@ const router = createRouter({
       meta: { hideHeader: true },
     },
     {
-      path: "/quiz",
+      path: "/quiz/:videoId",
       name: "quiz",
       component: QuizView,
     },
