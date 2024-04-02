@@ -1,48 +1,63 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { addWordList } from '@/api/voca';
+import { ref, onMounted, onUnmounted } from "vue";
+import { addWordList } from "@/api/voca";
+import Swal from "sweetalert2";
+
+const msg = Swal.mixin({
+  position: "center",
+  showConfirmButton: true,
+  confirmButtonText: "확인",
+  backdrop: true,
+}); // alert창 기본틀
 
 const props = defineProps({
-    selectedText: String,
-    selectedWordMeanings: Object,
-    isFinishedFetchingPopup: Boolean
-})
+  selectedText: String,
+  selectedWordMeanings: Object,
+  isFinishedFetchingPopup: Boolean,
+});
 
 const popup = ref(null);
-const emit = defineEmits(['closePopup'])
+const emit = defineEmits(["closePopup"]);
 
 const checkOutsideClick = (e) => {
-    if (!popup.value.contains(e.target)) {
-        emit('closePopup')
-    }
+  if (!popup.value.contains(e.target)) {
+    emit("closePopup");
+  }
 };
 
 async function addWordbook(meanings, word) {
-    const wordContent = word;
-    const wordMean = meanings.map(meaning => meaning.num + '. ' + meaning.mean).join('\n');
-    
-    try {
-        addWordList(
-            { wordContent : wordContent, wordMean : wordMean},
-            ({ data }) => {
-                console.log(data)
-            },
-            (error) => {
-                console.log(error);
-            }
-        )
-        alert(`${wordContent}가 단어장에 추가되었습니다.`);
-    } catch (error) {
-        console.error('단어 추가에 실패하였습니다.', error);
-    }
+  const wordContent = word;
+  const wordMean = meanings
+    .map((meaning) => meaning.num + ". " + meaning.mean)
+    .join("\n");
+
+  try {
+    addWordList(
+      { wordContent: wordContent, wordMean: wordMean },
+      ({ data }) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    Swal.fire({
+      icon: "success",
+      title: "단어장에 추가되었습니다.",
+      text: `추가된 단어 : ${wordContent}`,
+    });
+    // alert(`${wordContent}가 단어장에 추가되었습니다.`);
+  } catch (error) {
+    console.error("단어 추가에 실패하였습니다.", error);
+  }
 }
 
 onMounted(() => {
-    document.addEventListener('mouseup', checkOutsideClick);
+  document.addEventListener("mouseup", checkOutsideClick);
 });
 
 onUnmounted(() => {
-    document.removeEventListener('mouseup', checkOutsideClick);
+  document.removeEventListener("mouseup", checkOutsideClick);
 });
 </script>
 
@@ -76,29 +91,52 @@ onUnmounted(() => {
             <div class="failText">검색 결과가 없습니다.</div>
         </div>
     </div>
+    <ul class="mean_list">
+      <li
+        class="mean_item"
+        v-for="meaning in props.selectedWordMeanings"
+        :key="meaning.num"
+      >
+        <span class="num">{{ meaning.num }}. </span>
+        <p class="mean">{{ meaning.mean }}</p>
+      </li>
+    </ul>
+    <div class="loader-container" v-if="!props.isFinishedFetchingPopup">
+      <div class="loader"></div>
+    </div>
+    <div
+      class="notConnected"
+      v-if="
+        props.isFinishedFetchingPopup && props.selectedWordMeanings.length === 0
+      "
+    >
+      <span class="material-symbols-outlined">error</span>
+      <div class="failText">검색 결과가 없습니다.</div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .popup {
-    margin-top: 10px;
-    position: absolute;
-    padding: 10px 15px;
-    line-height: 25px;
-    border-radius: 10px;
-    border: rgb(232, 209, 209) 1px solid;
-    box-shadow: 0 0 10px rgba(217, 105, 105, 0.3);
-    background-color: #ffefef;
-    width: 400px;
+  margin-top: 10px;
+  position: absolute;
+  padding: 10px 15px;
+  line-height: 25px;
+  border-radius: 10px;
+  border: rgb(232, 209, 209) 1px solid;
+  box-shadow: 0 0 10px rgba(217, 105, 105, 0.3);
+  background-color: #ffefef;
+  width: 400px;
 }
 
 .origin {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .origin .ENword {
-    font-weight: 600;
-    font-size: 18px;
-    color: #cc0000;
+  font-weight: 600;
+  font-size: 18px;
+  color: #cc0000;
 }
 .origin button.add_wordbook {
     display: flex;
@@ -120,33 +158,37 @@ onUnmounted(() => {
 }
 
 .mean_list {
-    margin-top: 5px;
-    font-size: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    color: #281212;
+  margin-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  color: #281212;
 }
 .mean_list .mean_item .mean {
-    display: inline;
-    margin-right: 15px;
+  display: inline;
+  margin-right: 15px;
 }
 .loader-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
 }
 .loader {
-    border: 5px solid #ffd5d5;
-    border-top: 5px solid #cc0000;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 2s linear infinite;
+  border: 5px solid #ffd5d5;
+  border-top: 5px solid #cc0000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .notConnected {
     display: flex;
@@ -157,8 +199,8 @@ onUnmounted(() => {
     fill: #CC0000;
 }
 .failText {
-    margin: 5px;
-    font-size: 16px;
-    font-weight: 400;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: 400;
 }
 </style>
