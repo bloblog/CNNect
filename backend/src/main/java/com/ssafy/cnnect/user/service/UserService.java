@@ -166,4 +166,8 @@ public class UserService {
         return (!redisCode.isEmpty()&& redisCode.get().getAuthCode().equals(authCode));
     }
 
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId).get();
+        userRepository.delete(user);
+    }
 }

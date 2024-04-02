@@ -78,4 +78,11 @@ public class UserController {
         userService.updateUserLevel(levelRequestDto);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
+
+    @Operation(summary = "가입 후 레벨 업데이트")
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<ResultResponse> setUserLevel(@PathVariable Long userId){
+        userService.deleteUser(userId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
+    }
 }
