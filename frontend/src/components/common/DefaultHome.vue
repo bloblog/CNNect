@@ -4,7 +4,7 @@
         <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">학습 진행중인 뉴스</h1>
         <div class="flex justify-center">
           <div 
-            @click="goToStudy"
+            @click="goToStudy(now_video.videoId)"
             @mouseover="handleMouseOver"
             @mouseleave="handleMouseLeave"
             id="now-video-container" 
@@ -13,18 +13,18 @@
             >
             <div id="container-layer" class="rounded-xl"></div>
             <div class="bg-black col-span-2" id="video-img-container">
-              <img id="now-video-img" :src=now_video.video_thumbnail alt="Now Video Image">
+              <img id="now-video-img" :src="`https://img.youtube.com/vi/${now_video.videoId}/maxresdefault.jpg`" alt="Now Video Image">
             </div>
             <div class="p-8 flex flex-col justify-between sm:col-span-3 mb-3" id="now-video-info">
-              <div class="text-2xl font-bold font-[GmarketSansMedium]" id="video-name">[ Lv.{{ now_video.video_level }} ] {{ now_video.video_name }}</div>
+              <div class="text-2xl font-bold font-[GmarketSansMedium]" id="video-name">[ Lv.{{ now_video.videoLevel }} ] {{ now_video.videoName }}</div>
               <div>
                 <div class="flex">
                   <div class="text-lg font-bold text-white z-10">문장 수</div>
-                  <div class="relative text-lg left-14" id="sentence-count">1 / {{ now_video.sentenceList.length }}</div>
+                  <div class="relative text-lg left-14" id="sentence-count">{{ now_video.completedSentenceNum }} / {{ now_video.totalSentenceNum }}</div>
                 </div>
                 <div class="flex">
                   <div class="text-lg whitespace-nowrap font-bold text-white z-10">마지막 문장</div>
-                  <div id="last-sentence" class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.sentenceList[1].text }}</div>
+                  <div id="last-sentence" class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden">{{ now_video.lastSentence }}</div>
                 </div>
     
               </div>
@@ -50,6 +50,7 @@
   import { useRoute, useRouter } from "vue-router";
   import { userStore } from "@/stores/userStore";
   import { storeToRefs } from "pinia";
+  import { getLastVideo} from '@/api/history';
 
 
   
@@ -69,6 +70,19 @@
   
   onMounted(() => {
     initFlowbite();
+
+    getLastVideo(
+    ({ data }) => {
+        if (data.data) {
+            now_video.value = data.data;
+            console.log("찍어 보기 : " , now_video.value)
+            console.log("찍어 보기 : " , now_video)
+        }
+    },
+    (error) => {
+      console.log(error);
+    }
+    );
     console.log(modal.isVisible());
 
   });
@@ -84,23 +98,7 @@
   
   }
   
-  const now_video = {
-    sentenceList: [
-      {
-        "start": 0.033,
-        "text": "Elon musk tells don lemon, quote, contract is canceled, end quote."
-      },
-      {
-        "start": 4.904,
-        "text": "Now, in a moment, i'm going to speak exclusively with don lemon and he has clips of the nearly hour and a half interview with musk, clips like this one that we received from don's production team."
-      },
-    ],
-    category_id: "0",
-    video_level: 4,
-    video_date: "2024-03-13",
-    video_name: "Don Lemon speaks out after Elon Musk cancelled his show on X",
-    video_thumbnail : "https://i.ytimg.com/vi/pgVZnVTKqMw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCt-mOsWO1EQ4iRQiBnoCrAg1G3Ww"
-  }
+  const now_video = ref({})
 
   
   
@@ -132,9 +130,9 @@
   
   const modal = new Modal($targetEl, options, instanceOptions);
 
-  const goToStudy = () => {
-    router.push("/study");
-  };
+  const goToStudy = (videoId) => {
+  router.push({ name: 'study', params: { videoId: videoId } });
+};
 
 
   

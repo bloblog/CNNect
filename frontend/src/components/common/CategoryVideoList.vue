@@ -52,6 +52,9 @@ const goToStudy = (videoId) => {
   router.push({ name: 'study', params: { videoId: videoId } });
 };
 
+const props = defineProps({
+  category: Number
+});
 
 const videoList = ref([]);
 const loading = ref(false);

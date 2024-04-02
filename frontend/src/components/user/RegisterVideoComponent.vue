@@ -147,7 +147,7 @@ onMounted(() => {
 const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
-const nextStep = (input) => {
+const nextStep = async (input) => {
   emit("nextStep", input);
   for (let i = 0; i < videoAllList.value.length; i++) {
     if (videoLike.value[i]) {
@@ -161,14 +161,25 @@ const nextStep = (input) => {
   }
   console.log(addList)
 
-  insertRegistHistory(
-    addList.value,
-    ({ data }) => {},
-    (error) => {
-      console.log(error);
-    }
-  );
+  console.log(addList.value);
+
+  try {
+    await new Promise((resolve, reject) => {
+      insertRegistHistory(addList.value, ({ data }) => {
+        console.log(data);
+        resolve(); 
+      }, (error) => {
+        console.log(error)
+        reject(error); 
+      });
+    });
+    
+    await handleVideoClick();
+  } catch (error) {
+    console.error("오류 발생:", error);
+  }
 };
+
 
 const handleScroll = (e) => {
   let scrollPosition =
@@ -202,7 +213,7 @@ const handleScroll = (e) => {
 
 const addLike = (index) => {
   videoLike.value[index] = !videoLike.value[index];
-  handleVideoClick();
+
 };
 
 const changeThumbnail = (index) => {

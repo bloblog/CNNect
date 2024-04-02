@@ -24,7 +24,7 @@
     <div class="flex" v-if="videoList.length>0">
       <div class="grid grid-cols-3 gap-14" ref="imageContainer">
         <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
-          <div class="flex flex-col" @click="goToStudy(video)">
+          <div class="flex flex-col" @click="goToStudy(video.videoId)">
             <img
               :src="video.videoThumbnail"
               alt="video-image"
@@ -83,6 +83,7 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { fetchRecommendations } from "@/api/recommendations.js";
+import { handleVideoClick } from "@/api/user.js";
 
 const router = useRouter();
 
@@ -101,6 +102,7 @@ onMounted(async () => {
     await fetchRecommendations().then((res)=>{
 
 videoList.value = res;
+console.log("비디오리스트", videoList.value);
 isLoading.value = false;
 });
 await nextTick();
@@ -112,8 +114,11 @@ await nextTick();
 
 // 다음 페이지로 이동
 const nextPage = () => {
-  const maxIndex = videoList.value.length - 3;
-  currentIndex.value = Math.min(currentIndex.value + 3, maxIndex);
+  if(currentIndex.value === videoList.value.length - 3){
+    currentIndex.value = 0;
+  }else{
+    currentIndex.value = Math.min(currentIndex.value + 3, videoList.value.length - 3);
+  }
   updateImagePosition();
 };
 const print = () =>{
@@ -121,7 +126,11 @@ const print = () =>{
 };
 // 이전 페이지로 이동
 const prevPage = () => {
-  currentIndex.value = Math.max(currentIndex.value - 3, 0);
+  if(currentIndex.value === 0){
+    currentIndex.value = videoList.value.length - 3;
+  }else{
+    currentIndex.value = Math.max(currentIndex.value - 3, 0);
+  }
   updateImagePosition();
 };
 
@@ -134,10 +143,10 @@ const updateImagePosition = () => {
 };
 
 // 학습 페이지로 이동
-const goToStudy = (video) => {
-  router.push("/study");
+const goToStudy = (videoId) => {
+  handleVideoClick();
+  router.push({ name: 'study', params: { videoId: videoId } });
 };
-
 </script>
 
 <style scoped>

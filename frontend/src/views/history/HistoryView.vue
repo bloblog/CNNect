@@ -26,7 +26,7 @@
                             <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 완료한 뉴스</h1>
                             <div class="learning-video">
                                 <div>
-                                    <CompletedVideo :completedVideoList = "completedVideoHistory.completedVideoHistory" />
+                                    <CompletedVideo :completedVideoList = "completedVideoHistory" />
                                 </div>
                             </div>
                         </div>
@@ -54,13 +54,9 @@ import { watch, onMounted } from 'vue';
 import { getLearningVideo, getCompletedVideo} from '@/api/history';
 import { getWordHistory } from '@/api/voca';
 
-const completedVideoHistory = ref({
-    completedVideoHistory: []
-})
+const completedVideoHistory = ref([])
 
-const wordHistory = ref({
-    wordList: []
-})
+const wordHistory = ref([])
 
 
 const curVideo = ref({
@@ -74,8 +70,33 @@ const curVideo = ref({
 })
 
 onMounted(() => {
-    completedVideoHistory.value = getCompletedVideo();
-    wordHistory.value = getWordHistory();
+    // completedVideoHistory.value = getCompletedVideo();
+    getCompletedVideo(
+    ({ data }) => {
+        if (data.data) {
+            completedVideoHistory.value = data.data;
+            console.log("여기여기여기여기",completedVideoHistory.value)
+        }
+    },
+    (error) => {
+      console.log(error);
+    }
+    );
+
+    // console.log(completedVideoHistory.value)
+    // wordHistory.value = getWordHistory();
+    getWordHistory(
+    ({ data }) => {
+        if (data.data) {
+            wordHistory.value = data.data;
+            console.log(wordHistory)
+        }
+    },
+    (error) => {
+      console.log(error);
+    }
+    );
+    console.log(wordHistory.value)
 })
 
 </script>

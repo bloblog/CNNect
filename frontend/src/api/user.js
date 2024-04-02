@@ -3,7 +3,7 @@ const local = localAxios();
 const local2 = localAxios2();
 const url = "/user";
 const urll = "/recommendation";
-const config = {
+let config = {
     headers : {
         "Authorization" : "Bearer " + localStorage.getItem("accessToken")
     }
@@ -31,11 +31,15 @@ function userInfo(success, fail){
 
 async function handleVideoClick() {
     try {
-        const accessToken = localStorage.getItem("accessToken");
-        if (!accessToken) {
-            throw new Error("로그인이 필요합니다.");
+        config = {
+            headers : {
+                "Authorization" : "Bearer " + localStorage.getItem("accessToken")
+            }
         }
+        console.log(config);
         const response = await local2.get(`${urll}/script`, config);
+        console.log(config);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error);

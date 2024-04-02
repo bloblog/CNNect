@@ -2,6 +2,7 @@
 import PopupDictionary from "@/components/study/PopupDictionary.vue"
 import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch, computed } from 'vue'
+import { EventBus } from '@/api/eventBus.js';
 import axios from 'axios';
 
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
@@ -25,6 +26,7 @@ onMounted(() => {
     } catch (error) {
         console.error("Mounted hook error:", error);
     }
+    EventBus.on('stop-section-play', stopSectionPlay);
 });
 
 watch(() => props.curSentence.content, (newContent) => {
@@ -119,6 +121,7 @@ const startRecording = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('녹음 시작');
         isRecording.value = true;
+        EventBus.emit('pause-video');
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder.value = new MediaRecorder(stream);
         audioChunks.value = [];
@@ -154,6 +157,18 @@ const stopRecording = () => {
         startRecording();
     }
 };
+const isSectionPlaying = ref(false);
+
+const sectionPlay = () => {
+    const startTime = props.curSentence.startTime;
+    const stopTime = props.videoData.sentenceList[props.curSentence.order].startTime;
+    isSectionPlaying.value = true;
+    EventBus.emit('section-play', { startTime, stopTime, callback: () => isSectionPlaying.value = false });
+}
+
+const stopSectionPlay = () => {
+    isSectionPlaying.value = false;
+}
 
 const sendPronunciationRequest = (audioBlob) => {
     axios.post(openApiURL, audioBlob, {
@@ -184,13 +199,24 @@ const sendPronunciationRequest = (audioBlob) => {
     <div class="shadowing">
         <div class="top-box">
             <div class="top-left-box">
-                <div class="listen">
-                    <span class="material-symbols-outlined">volume_up</span>
+                <div class="listen" @click="sectionPlay" :class="{ 'is-section-playing': isSectionPlaying }">
+                    <!-- 스피커 아이콘 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/>
+                    </svg>
                 </div>
                 <div class="speack" @click="toggleRecording" :class="{'recording': isRecording}">
-                    <span class="material-symbols-outlined">
-                        {{ isRecording ? 'stop' : 'mic' }}
-                    </span>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <template v-if="isRecording">
+                            <!-- 정지 아이콘 -->
+                            <path d="M320-640v320-320Zm-80 400v-480h480v480H240Zm80-80h320v-320H320v320Z"/>
+                        </template>
+                        <template v-else>
+                            <!-- 마이크 아이콘 -->
+                            <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z"/>
+                        </template>
+                    </svg>
                 </div>
             </div>
             <div class="top-right-box">
@@ -246,27 +272,20 @@ const sendPronunciationRequest = (audioBlob) => {
 .listen {
     padding: 10px 20px;
     border-right: #E3E3E3 1px solid;
+    fill: #8d8d8d;
 }
-.listen:hover {
-    color: #10193e;
-}
-.listening {
-    color: #10193e;
+.listen.is-section-playing {
+    fill: #cc0000
 }
 .speack {
     padding: 10px 20px;
     border-right: #E3E3E3 1px solid;
+    fill: #8d8d8d;
 }
-.speack:hover {
-    color: #cc0000;
+.speack.recording {
+    fill: #cc0000
 }
-.recording {
-    color: #cc0000;
-}
-.listen span,
-.speack span {
-    font-size: 25px;
-}
+
 .top-right-box .score {
     border: #c8c8c8 1px solid;
     border-radius: 20px;
