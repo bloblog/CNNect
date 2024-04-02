@@ -21,6 +21,7 @@ const props = defineProps({
 
   onMounted(() => {
     setQuestion();
+    console.log(props.correctList);
 })
 
 

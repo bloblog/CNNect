@@ -30,6 +30,8 @@ onMounted(() => {
     
 });
 
+const categoryId = history.state.categoryId;
+
 
 </script>
 
@@ -44,7 +46,7 @@ onMounted(() => {
             </div>
         </div>
         <div v-else>
-            <QuizResult :quizData="quizData" :resultList="resultList" :answerList="answerList" :correctList="correctList"/>
+            <QuizResult :quizData="quizData" :resultList="resultList" :answerList="answerList" :correctList="correctList" :categoryId="categoryId"/>
         </div>
     </div>
 

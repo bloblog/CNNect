@@ -9,7 +9,11 @@ const props = defineProps({
 })
 
 const goToQuiz = (videoId) => {
-    router.push({ name: 'quiz', params: { videoId: videoId } });
+    router.push({ 
+        name: 'quiz', 
+        params: { videoId: videoId }, 
+        state: { categoryId: props.videoData.categoryId }  
+    });
 }
 
 
