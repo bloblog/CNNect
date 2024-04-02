@@ -5,6 +5,7 @@ import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
 import DoughnutChart from '@/components/study/DoughnutChart.vue';
+import BarChart from '@/components/study/BarChart.vue';
 
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { getStudy } from '@/api/study';
@@ -35,6 +36,30 @@ const completeCount = computed(() => {
 
 const incompleteCount = computed(() => {
     return videoData.value.sentenceList.filter(item => item.score === null).length;
+});
+
+const averageScore = computed(() => {
+    const filteredScores = videoData.value.sentenceList.filter(item => item.score !== null);
+    const sum = filteredScores.reduce((acc, cur) => acc + cur.score, 0);
+    const count = filteredScores.length;
+    const average = (count > 0) ? (sum / count) : 0;
+    return Math.round(average * 10) / 10;
+});
+
+const minScore = computed(() => {
+  const scores = videoData.value.sentenceList
+    .filter(item => item.score !== null)
+    .map(item => item.score);
+  const min = scores.length > 0 ? Math.min(...scores) : null;
+  return min !== null ? Math.round(min * 10) / 10 : null;
+});
+
+const maxScore = computed(() => {
+  const scores = videoData.value.sentenceList
+    .filter(item => item.score !== null)
+    .map(item => item.score);
+    const max = scores.length > 0 ? Math.max(...scores) : null;
+  return max !== null ? Math.round(max * 10) / 10 : null;
 });
 
 const setCurSentence = (curOrder) => {
@@ -152,6 +177,7 @@ onUnmounted(() => {
                             <label for="tabmenu3">학습통계</label>
                             <div class="tabCon tabCon3">
                                 <DoughnutChart v-if="videoData.videoId" :completeCount="completeCount" :incompleteCount="incompleteCount"></DoughnutChart>
+                                <BarChart v-if="videoData.videoId" :averageScore="averageScore" :minScore="minScore" :maxScore="maxScore"></BarChart>
                             </div>
                         </li>
                     </ul>
@@ -194,6 +220,7 @@ body {
 .tabmenu{ 
     margin: 0 auto;
     height: 300px;
+    min-width: 450px;
 }
 .tabmenu ul{
     position: relative;
