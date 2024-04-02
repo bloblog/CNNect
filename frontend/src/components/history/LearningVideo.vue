@@ -1,14 +1,14 @@
 <template>
   
   <div id="now-video">
-    <div v-if="props.curVideo.videoId" class="flex">
+    <div v-if="curVideo.videoId" class="flex">
       <div class="Carousel-btn">
           <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('fore')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
               <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
           </svg>
       </div>
       <div
-        @click="goToStudy"
+        @click="goToStudy(curVideo.videoId)"
         @mouseover="handleMouseOver"
         @mouseleave="handleMouseLeave"
         id="now-video-container"
@@ -16,7 +16,7 @@
         :class="{ 'opacity-80': hovered }"
       >
         <div id="container-layer" class="rounded-xl"></div>
-        <div class="bg-black" id="video-img-container">
+        <div class="bg-black" id="video-img-container" >
           <img
             id="now-video-img"
             :src="`https://img.youtube.com/vi/${curVideo.videoId}/maxresdefault.jpg`"
@@ -82,10 +82,10 @@
 
 <script setup>
 import { ref, computed, defineProps, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { getLearningVideo} from '@/api/history';
 
-const props = defineProps({
-  curVideo: Object,
-});
+const router = useRouter();
 
 onMounted(() => {
     getLearningVideo(
@@ -94,7 +94,10 @@ onMounted(() => {
             learningVideoHistory.value = data.data;
             currentOrder.value = 0;
             totalVideos.value = learningVideoHistory.value.length;
-            console.log(learningVideoHistory.value)
+            setCurVideo(0);
+            console.log("찍어 보기 : " , learningVideoHistory.value)
+            console.log("찍어 보기 : " , learningVideoHistory)
+
         }
     },
     (error) => {
@@ -102,10 +105,8 @@ onMounted(() => {
     }
     );
 
-    completedVideoHistory.value = getCompletedVideo();
-    wordHistory.value = getWordHistory();
-
 })
+const curVideo = ref([])
 
 const hovered = ref(false);
   
@@ -129,7 +130,7 @@ const changeVideoOrder = (direction) => {
             setCurVideo(currentOrder.value);
         } else {
             currentOrder.value = totalVideos.value-1;
-            setCurVideo(currentOrder);
+            setCurVideo(currentOrder.value);
         }
     } else if (direction === 'back') {
         console.log('뒤')
@@ -139,15 +140,19 @@ const changeVideoOrder = (direction) => {
             setCurVideo(currentOrder.value);
         } else {
             currentOrder.value = 0;
-            setCurVideo(currentOrder);
+            setCurVideo(currentOrder.value);
         }
     }
 }
 const learningVideoHistory = ref([])
 
 const setCurVideo = (idx) => {
-    props.curVideo.value = learningVideoHistory.value[idx];
+    curVideo.value = learningVideoHistory.value[idx];
 }
+
+const goToStudy = (videoId) => {
+  router.push({ name: 'study', params: { videoId: videoId } });
+};
 
 </script>
 

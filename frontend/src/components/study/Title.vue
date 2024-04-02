@@ -71,7 +71,7 @@ header {
     color: #d4d4d4;
     font-size: 16px;
     font-weight: 600;
-    padding: 5px 15px;
+    padding: 3px 15px;
     border-radius: 18px;
 }
 
@@ -83,7 +83,7 @@ header {
 }
 .btn {
     width: 100px;
-    padding: 7px 0;
+    padding: 5px 0;
     color: #f4f4f4;
     border: none;
     font-weight: 600;

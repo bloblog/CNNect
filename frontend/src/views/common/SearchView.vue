@@ -1,44 +1,79 @@
 <template>
-  <div class="search-frame overflow-y-auto scrollbar-hide">
-    <div class="text-xl mb-3">
-      <span class="text-xl font-semibold">'{{ searchInput }}'</span>에 대한 제목
-      검색 결과 n건
+  <div
+    class="search-frame h-[50%] overflow-y-auto scrollbar-hide"
+    ref="titleContainer"
+  >
+    <div class="text-xl mb-5">
+      <span class="text-xl font-semibold highlight">'{{ searchInput }}'</span>에 대한 제목
+      검색 결과
     </div>
-    <div class="grid grid-cols-5 gap-3">
-      <div v-for="(video, index) in videoList" :key="index">
-        <div class="relative">
-          <img
-            class="w-full h-auto shadow-lg"
-            :src="`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`"
-          />
-          <div
-            class="absolute top-1 left-1 border-red-500 border-2 rounded-md text-red-500 bg-white w-1/5"
-          >
-            <div class="text-center font-semibold">Lv.{{ video.level }}</div>
-          </div>
-          <div class="mt-2 font-semibold rounded-lg shadow-md pl-1 bg-gray-100">
-            {{ video.title }}
+    <div
+      v-if="videoViewList.length == 0"
+      class="text-center flex items-center justify-center"
+    >
+      <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[5%]">
+        검색 결과가 없습니다 👀
+      </div>
+    </div>
+    <div v-else>
+      <div class="grid grid-cols-4 gap-8 w-[90%] justify-center ml-[5%]">
+        <div v-for="(video, index) in videoViewList" :key="index" class="">
+          <div class="relative" @click="goToStudy(video.videoId)">
+            <img
+              class="w-full h-auto shadow-lg border border-gray-400"
+              :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`"
+            />
+            <div
+              class="absolute top-1 left-1 border-red-500 border-2 rounded-md text-red-500 bg-white w-1/5"
+            >
+              <div class="text-center font-semibold">
+                Lv.{{ video.videoLevel }}
+              </div>
+            </div>
+            <div
+              class="mt-3 h-20 text-center flex items-center justify-center font-semibold rounded-lg shadow-md pl-1 bg-gray-100"
+            >
+              {{ video.videoName }}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="search-frame overflow-y-auto scrollbar-hide">
-    <div class="text-xl mb-3">
-      <span class="text-xl font-semibold">'{{ searchInput }}'</span>에 대한 문장
-      검색 결과 n건
+  <div
+    class="search-frame h-[30%] overflow-y-auto scrollbar-hide"
+    ref="scriptContainer"
+  >
+    <div class="text-xl mb-5">
+      <span class="text-xl font-semibold highlight">'{{ searchInput }}'</span>에 대한 문장
+      검색 결과
     </div>
-    <div class="grid grid-cols-5 gap-3">
-      <div class="mb-[5%]" v-for="(script, index) in scriptList" :key="index">
+    <div
+      v-if="scriptViewList.length == 0"
+      class="text-center flex items-center justify-center"
+    >
+      <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[2%]">
+        검색 결과가 없습니다 👀
+      </div>
+    </div>
+    <div v-else>
+      <div class="grid grid-cols-4 gap-3 w-[90%] justify-center ml-[5%]">
         <div
-          class="rounded-md font-semibold bg-gray-100 shadow-md px-1 py-1 mb-3 h-[40%]"
+          class="mb-[5%]"
+          v-for="(script, index) in scriptViewList"
+          :key="index"
+          @click="goToStudy(script.videoId)"
         >
-          {{ script.title }}
-        </div>
-        <div
-          class="rounded-md font-semibold bg-red-100 shadow-md px-1 py-1 mb-3 h-[50%]"
-        >
-          <span v-html="highlightText(script.sentence, searchInput)"></span>
+          <div
+            class="rounded-md font-semibold text-center flex items-center justify-center bg-gray-100 shadow-md px-1 py-1 mb-3 h-20"
+          >
+            {{ script.videoName }}
+          </div>
+          <div
+            class="rounded-md font-semibold text-center flex items-center justify-center bg-red-100 shadow-md px-1 py-1 mb-3 h-32"
+          >
+            <span v-html="highlightText(script.sentence, searchInput)"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -48,113 +83,38 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { searchByTitle, searchByScript } from "@/api/search";
+import { handleVideoClick } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
 const searchInput = ref("");
-const videoList = [
-  {
-    id: "mtptFuBAg9Q",
-    title:
-      "Men are taking this class to become better husbands, brothers and sons",
-    level: 1,
-  },
-  {
-    id: "5F6YRQKZX9E",
-    title: "‘Staggering cost’: Austin blasts Putin over troop losses",
-    level: 1,
-  },
-  {
-    id: "yNPM2obgE7g",
-    title: "Why Gaetz says he's campaigning against fellow Republicans",
-    level: 2,
-  },
-  {
-    id: "LZ-px4nq8YQ",
-    title: "See how Trump is fundraising off bond deadline",
-    level: 3,
-  },
-  {
-    id: "65CI8hznDy4",
-    title:
-      "Men are taking this class to become better husbands, brothers and sons",
-    level: 1,
-  },
-  {
-    id: "xTN1IcqZvOo",
-    title: "‘Staggering cost’: Austin blasts Putin over troop losses",
-    level: 3,
-  },
-  {
-    id: "ei8wkDsxnaY",
-    title: "See how Trump is fundraising off bond deadline",
-    level: 1,
-  },
-  {
-    id: "y8Cg3LwIcZk",
-    title:
-      "Men are taking this class to become better husbands, brothers and sons",
-    level: 2,
-  },
-];
-const scriptList = [
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Amid rising concerns over cybersecurity, stringent security measures have been ...",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Here with me now is Homeland Security Secretary Alejandro Mayorkas.",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "In light of recent security breaches, a comprehensive review of safety protocols has been undertaken ...",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Amid rising concerns over cybersecurity, stringent security measures have been ...",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Here with me now is Homeland Security Secretary Alejandro Mayorkas.",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "In light of recent security breaches, a comprehensive review of safety protocols has been undertaken ...",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Amid rising concerns over cybersecurity, stringent security measures have been ...",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "Here with me now is Homeland Security Secretary Alejandro Mayorkas.",
-  },
-  {
-    title: "Here Russia’s warning after Macron said Western",
-    sentence:
-      "In light of recent security breaches, a comprehensive review of safety protocols has been undertaken ...",
-  },
-];
+const videoAllList = ref([]); // api로 받아온 전체 검색 결과
+const videoViewList = ref([]); // 스크롤 내릴때마다 +12개씩
+const scriptAllList = ref([]);
+const scriptViewList = ref([]);
+
+let curTitlePage = 1;
+let curScriptPage = 1;
+
+const titleContainer = ref(null);
+const scriptContainer = ref(null);
 
 watch(
   () => route.query,
   (newValue, oldValue) => {
     //검색어 변경
     searchInput.value = newValue.keyword;
+    searchTime();
   }
 );
 
 onMounted(() => {
   searchInput.value = route.query.keyword;
+  searchTime();
+  handleTitleScroll();
+  titleContainer.value.addEventListener("scroll", handleTitleScroll);
+  scriptContainer.value.addEventListener("scroll", handleScriptScroll);
 });
 
 const highlightText = (sentence, word) => {
@@ -164,6 +124,102 @@ const highlightText = (sentence, word) => {
     return `<span class="text-red-500 font-semibold">${match}</span>`;
   });
 };
+
+const searchTime = () => {
+  searchByTitle(
+    searchInput.value,
+    ({ data }) => {
+      videoAllList.value = data.data;
+      videoViewList.value = [...videoAllList.value.slice(0, 12)];
+      console.log(data);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+
+  searchByScript(
+    searchInput.value,
+    ({ data }) => {
+      data.data.forEach((script) => {
+        if (script.sentence) {
+          const index = script.sentence.indexOf(searchInput.value);
+          const start = Math.max(0, index - 40);
+          const end = Math.min(
+            script.sentence.length,
+            index + searchInput.value.length + 40
+          );
+          script.sentence =
+            "..." + script.sentence.substring(start, end) + "...";
+          console.log("변경한 text : " + script.sentence);
+        }
+      });
+      scriptAllList.value = data.data;
+      scriptViewList.value = [...scriptAllList.value.slice(0, 12)];
+      console.log(data);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const handleTitleScroll = (e) => {
+  console.log(
+    titleContainer.value.scrollHeight +
+      " " +
+      titleContainer.value.scrollTop +
+      " " +
+      titleContainer.value.clientHeight
+  );
+  console.log(
+    titleContainer.value.scrollHeight - (titleContainer.value.scrollTop + 50)
+  );
+  const scrollBottom =
+    titleContainer.value.scrollHeight - (titleContainer.value.scrollTop + 50);
+  if (scrollBottom <= titleContainer.value.clientHeight) {
+    // 스크롤이 맨 아래로 도달했을 때 실행할 코드 작성
+    console.log("title - 맨 아래로 스크롤했습니다!");
+    videoViewList.value = [
+      ...videoViewList.value,
+      ...videoAllList.value.slice(curTitlePage * 12, curTitlePage * 12 + 12),
+    ];
+    curTitlePage++;
+  }
+};
+
+const handleScriptScroll = (e) => {
+  const scrollBottom =
+    scriptContainer.value.scrollHeight - (scriptContainer.value.scrollTop + 50);
+  if (scrollBottom <= scriptContainer.value.clientHeight) {
+    // 스크롤이 맨 아래로 도달했을 때 실행할 코드 작성
+    console.log("script - 맨 아래로 스크롤했습니다!");
+    scriptViewList.value = [
+      ...scriptViewList.value,
+      ...scriptAllList.value.slice(curScriptPage * 12, curScriptPage * 12 + 12),
+    ];
+    curScriptPage++;
+  }
+};
+
+const goToStudy = (videoId) => {
+  handleVideoClick();
+  router.push({ name: 'study', params: { videoId: videoId } });
+};
+
 </script>
 
-<style></style>
+<style>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.highlight {
+  display: inline;
+  box-shadow: inset 0 -10px 0 #cc000040;
+}
+</style>

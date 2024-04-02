@@ -8,7 +8,11 @@
     <!-- 영상 목록 출력(3x3 한번에 9개씩 보여주기 -> 스크롤 내리면 다음 영상 목록 로드하기)-->
     <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
       <div class="w-5/6 grid grid-cols-3 gap-4">
-        <div :key="index" class="relative" v-for="(video, index) in videoList">
+        <div
+          :key="index"
+          class="relative"
+          v-for="(video, index) in videoViewList"
+        >
           <div
             class="relative"
             @mouseover="showVideoPopup(index)"
@@ -18,14 +22,14 @@
             <img
               class="w-full h-auto"
               @click="addLike(index)"
-              :src="`https://img.youtube.com/vi/${video}/maxresdefault.jpg`"
+              :src="`https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg`"
             />
             <div
               v-if="isVideoPopup[index]"
               class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
             >
               <iframe
-                :src="`https://www.youtube.com/embed/${video}?autoplay=1`"
+                :src="`https://www.youtube.com/embed/${video.video_id}?autoplay=1`"
                 frameborder="0"
                 allow="autoplay; encrypted-media"
                 allowfullscreen
@@ -52,9 +56,13 @@
             </svg>
           </div> -->
           </div>
-
           <!--hear icon-->
           <div class="flex items-center justify-center pt-2">
+            <div
+              class="flex items-center px-4 mr-3 font-semibold text-sm h-20 text-center rounded-sm shadow-md"
+            >
+              {{ video.video_name }}
+            </div>
             <div class="rounded-full border px-1 py-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,12 +101,15 @@ import { ref, onMounted, computed } from "vue";
 import { userStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
+import { handleVideoClick } from "@/api/user.js";
+import { registerVideo } from "@/api/video";
 
 const uStore = userStore();
 
 const { userId } = storeToRefs(uStore);
 
-const videoList = ref([]); // 전체 영상 목록의 youtube id 저장
+const videoAllList = ref([]); // 전체 video 저장
+const videoViewList = ref([]); // 현재 보이는 video 저장
 const addList = ref([]); // 유저가 선택한 영상 -> 학습 기록에 저장
 const videoLike = ref([]); // 전체 영상 목록과 동일한 배열 크기 -> true/false로 선택 여부관리
 const isVideoPopup = ref([]);
@@ -106,23 +117,29 @@ const isVideoPopup = ref([]);
 const videoBox = ref(null); // 스크롤 인식을 위한 컨테이너
 let flag = false;
 
-let maxScrollCount = 2; // 스크롤 횟수 임시 제한
+let page = 1;
 
 onMounted(() => {
-  videoList.value = [
-    "mtptFuBAg9Q",
-    "5F6YRQKZX9E",
-    "yNPM2obgE7g",
-    "CDphmhaToV4",
-    "LZ-px4nq8YQ",
-    "65CI8hznDy4",
-    "xTN1IcqZvOo",
-    "ei8wkDsxnaY",
-    "y8Cg3LwIcZk",
-  ];
+  registerVideo(
+    ({ data }) => {
+      videoAllList.value = data.data.slice(0, 27);
+      for (let i = 0; i < videoAllList.value.length; i++) {
+        if (videoAllList.value[i].video_name.length > 60) {
+          videoAllList.value[i].video_name =
+            videoAllList.value[i].video_name.slice(0, 60) + "...";
+        }
+      }
+      videoViewList.value = [...videoAllList.value.slice(0, 9)];
+      console.log(videoAllList);
+      console.log(videoViewList);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 
-  videoLike.value = Array(videoList.value.length).fill(false);
-  isVideoPopup.value = Array(videoList.value.length).fill(false);
+  videoLike.value = Array(videoAllList.value.length).fill(false);
+  isVideoPopup.value = Array(videoAllList.value.length).fill(false);
   handleScroll();
   document.addEventListener("scroll", handleScroll);
 });
@@ -130,25 +147,39 @@ onMounted(() => {
 const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
-const nextStep = (input) => {
+const nextStep = async (input) => {
   emit("nextStep", input);
-  // console.log(videoList.value.length)
-  // for(let i = 0; i < videoList.value.length; i++){
-  //   if(videoLike.value[i]){
-  //     addList.value.push({userId : userId.value, videoId : videoList.value[i],
-  //                       historyStatus : false});
-  //   }
-  // }
+  for (let i = 0; i < videoAllList.value.length; i++) {
+    if (videoLike.value[i]) {
+      addList.value.push({
+        userId: userId.value,
+        videoId: videoAllList.value[i].video_id,
+        historyStatus: false,
+        historySentence: "register",
+      });
+    }
+  }
+  console.log(addList)
 
-  // console.log(addList.value);
+  console.log(addList.value);
 
-  // insertRegistHistory(addList.value, ({data}) => {
-  //   console.log(data);
-  // },
-  // (error) => {
-  //   console.log(error)
-  // })
+  try {
+    await new Promise((resolve, reject) => {
+      insertRegistHistory(addList.value, ({ data }) => {
+        console.log(data);
+        resolve(); 
+      }, (error) => {
+        console.log(error)
+        reject(error); 
+      });
+    });
+    
+    await handleVideoClick();
+  } catch (error) {
+    console.error("오류 발생:", error);
+  }
 };
+
 
 const handleScroll = (e) => {
   let scrollPosition =
@@ -159,26 +190,15 @@ const handleScroll = (e) => {
     document.documentElement.clientHeight ||
     document.body.clientHeight;
 
-  // console.log("before : " + scrollPosition + " : " + pageHeight + " : " + windowHeight)
-  const newVideo = [
-    "eT9E4zRwuGY",
-    "4JrhaZrpKBc",
-    "wFqG62O9kYI",
-    "DGjSzIhmXRk",
-    "BBvsr9_2TaU",
-    "Ab-1ElJurBw",
-    "2IXl4qJGrRk",
-    "W47cFRJ2iI4",
-    "xxvKKR-haTE",
-  ]; // 추후 api response로 대체
-
-  if (scrollPosition + windowHeight + 100 >= pageHeight && maxScrollCount > 0) {
+  if (scrollPosition + windowHeight + 100 >= pageHeight) {
     // 페이지가 맨 아래로 스크롤되었을 때 실행할 동작
     console.log("맨 아래로 스크롤됨");
-    const newArr = [...videoList.value, ...newVideo];
-    // flag = true;
-    maxScrollCount--;
-    videoList.value = newArr;
+    videoViewList.value = [
+      ...videoViewList.value,
+      ...videoAllList.value.slice(page * 9, page * 9 + 9),
+    ];
+    page++;
+
     scrollPosition =
       window.scrollY ||
       window.pageYOffset ||
@@ -188,19 +208,12 @@ const handleScroll = (e) => {
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight;
-    // flag = false;
-    // console.log("after : " + scrollPosition + " : " + pageHeight + " : " + windowHeight)
   }
 };
 
-// const videoCheck = (videoId) => {
-//   console.log(videoId + " click");
-//   videoLike.value.push(videoId);
-// };
-
 const addLike = (index) => {
-  console.log("click : " + index);
   videoLike.value[index] = !videoLike.value[index];
+
 };
 
 const changeThumbnail = (index) => {

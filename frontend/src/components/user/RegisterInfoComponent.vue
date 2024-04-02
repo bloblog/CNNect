@@ -82,6 +82,7 @@
           <input
             type="password"
             id="passworConfirm"
+            v-model="passworConfirm"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
             required
           />
@@ -120,14 +121,15 @@
 
 <script setup>
 import { ref } from "vue";
-import { registUser, emailCheck, emailSend } from "@/api/user";
+import { registUser, emailCheck, emailSend, loginUser } from "@/api/user";
 import { userStore } from "@/stores/userStore";
+import Swal from "sweetalert2";
 
 const uStore = userStore();
-const { setUserId } = uStore;
+const { setUserId, setNickname, setLevel } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
-const autoCheck = ref(false); // 이메일 인증 여부
+const authCheck = ref(true); // 이메일 인증 여부 -> 싸피서버에선 이메일 전송안돼서 임시처리
 
 const authCode = ref("");
 
@@ -137,21 +139,71 @@ const formData = ref({
   userNickname: "",
 });
 
+const passworConfirm = ref("");
+
+const msg = Swal.mixin({
+  position: "center",
+  showConfirmButton: true,
+  confirmButtonText: "확인",
+  backdrop: true,
+}); // alert창 기본틀
+
 const emit = defineEmits(["nextStep"]);
 const nextStep = (input) => {
-  if (!dupliCheck) {
-    alert("이메일 중복 확인을 해주세요!");
+  if (!dupliCheck.value) {
+    Swal.fire({
+      icon: "warning",
+      title: "이메일 중복 확인을 해주세요!",
+    });
+    // alert("이메일 중복 확인을 해주세요!");
+  } else if (
+    formData.value.userNickname.length > 10 ||
+    formData.value.userNickname.length < 2
+  ) {
+    Swal.fire({
+      icon: "warning",
+      title: "닉네임을 확인해주세요!",
+      text: "닉네임은 2자 이상 10자 이하로 작성해주세요.",
+    });
+    // alert("닉네임을 2자 이상 10자 이하로 작성해주세요!")
+  } else if (passworConfirm.value != formData.value.userPassword) {
+    Swal.fire({
+      icon: "warning",
+      title: "비밀번호가 일치하지 않습니다!",
+    });
+    // alert("비밀번호가 일치하지 않습니다!");
+  } else if (!authCheck.value) {
+    Swal.fire({
+      icon: "warning",
+      title: "이메일 인증을 진행해주세요!",
+    });
   } else {
     // 1. 다음 단계 이동
     emit("nextStep", input);
 
     // 2. 기본 user 정보 insert api 호출
-    console.log(formData);
     registUser(
       formData.value,
       ({ data }) => {
-        console.log(data);
         setUserId(data.data);
+        loginUser(
+          {
+            userEmail: formData.value.userEmail,
+            userPassword: formData.value.userPassword,
+          },
+          ({ data }) => {
+            localStorage.setItem(
+              "refreshToken",
+              data.data.jwtToken.refreshToken
+            );
+            localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
+            setLevel(data.data.level);
+            setNickname(data.data.nickName);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
       (error) => {
         console.log(error);
@@ -161,16 +213,35 @@ const nextStep = (input) => {
 };
 
 const emailDuplCheck = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (formData.value.userEmail.length == 0) {
-    alert("이메일을 입력해주세요!");
+    Swal.fire({
+      icon: "warning",
+      title: "이메일을 입력해주세요!",
+    });
+    // alert("이메일을 입력해주세요!");
+  } else if (!emailRegex.test(formData.value.userEmail)) {
+    Swal.fire({
+      icon: "warning",
+      title: "이메일 형식을 확인해주세요!",
+    });
+    // alert("이메일 형식을 확인해주세요!");
   } else {
     emailCheck(formData.value.userEmail, ({ data }) => {
-      console.log(data);
       if (data.data) {
-        alert("중복된 이메일입니다!");
+        Swal.fire({
+          icon: "warning",
+          title: "중복된 이메일입니다!",
+        });
+        // alert("중복된 이메일입니다!");
         formData.value.userEmail = "";
       } else {
-        alert("가능한 이메일입니다!");
+        Swal.fire({
+          icon: "success",
+          title: "사용 가능한 이메일입니다!",
+        });
+        // alert("가능한 이메일입니다!");
         dupliCheck.value = true;
       }
     });
@@ -181,7 +252,6 @@ const codeSend = () => {
   emailSend(
     formData.value.userEmail,
     ({ data }) => {
-      console.log(data);
     },
     (error) => {
       console.log(error);
@@ -190,6 +260,4 @@ const codeSend = () => {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

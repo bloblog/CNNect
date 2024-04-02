@@ -42,11 +42,13 @@
 import { ref, watch, onMounted, nextTick, defineProps } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { videoPaging } from "@/api/video";
+import { handleVideoClick } from "@/api/user.js";
 
 const route = useRoute();
 const router = useRouter();
 
 const goToStudy = (videoId) => {
+  handleVideoClick();
   router.push({ name: 'study', params: { videoId: videoId } });
 };
 

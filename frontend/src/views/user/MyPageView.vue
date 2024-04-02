@@ -58,7 +58,7 @@
       </div>
     </div>
     <div id="badge" class="w-2/3 flex flex-col items-center justify-center">
-      <span class="nav-title mb-5"> 획득 뱃지 </span>
+      <span class="nav-title mb-5"> 획득 뱃지🏅 </span>
 
       <div class="flex-container relative z-10 items-center justify-center">
         <div
@@ -108,10 +108,10 @@
               </div>
             </div>
             <div
-              class="absolute top-1 left-[50%] z-20 transform -translate-x-1/2"
+              class="absolute top-1 z-20 left-[33%] transform -translate-x-1/2"
             >
               <div
-                class="w-6 h-6 z-20 bg-gray-200 border border-gray-200 rotate-45"
+                class="w-6 h-6 z-20 left-[50%] bg-gray-200 border border-gray-200 rotate-45"
               ></div>
             </div>
           </div>
@@ -148,6 +148,7 @@ onMounted(() => {
   console.log(level.value + " " + imgUrl.value);
   userInfo(
     ({ data }) => {
+      console.log("userInfo 실행")
       console.log(data);
       badge.value = data.data.userBadgeCount;
       video.value = data.data.userVideoCount;
@@ -226,5 +227,13 @@ const goToLevel = () => {
 .flex-item img {
   width: 75%; /* 이미지를 꽉 채웁니다. */
   height: auto; /* 가로 비율을 유지하면서 세로 비율을 자동으로 조정합니다. */
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
 </style>
