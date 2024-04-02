@@ -32,7 +32,7 @@ async function addWordbook(meanings, word) {
     );
     Swal.fire({
       icon: "success",
-      title : "단어장에 추가되었습니다.",
+      title: "단어장에 추가되었습니다.",
       text: `추가된 단어 : ${wordContent}`,
     });
     // alert(`${wordContent}가 단어장에 추가되었습니다.`);
@@ -43,25 +43,34 @@ async function addWordbook(meanings, word) {
 </script>
 
 <template>
-    <div>
-        <ul class="card_list">
-            <li class="card" v-for="(meanings, word) in wordMeanings" :key="word">
-                <div class="word-and-btn">
-                    <div class="word"> {{ word }} </div>
-                    <button type="button" class="add_wordbook" @click="addWordbook(meanings, word)">
-                        <!-- 추가 아이콘 -->
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
-                        </svg>
-                    </button>
-                </div>
-                <ul class="mean_list" v-if="meanings">
-                    <li class="mean_item" v-for="(meaning, idx) in meanings" :key="idx">
-                        <span class="num">{{ meaning.num }}. </span>
-                        <p class="mean">{{ meaning.mean }}</p>
-                    </li>
-                </ul>
-            </li>
+  <div>
+    <ul class="card_list">
+      <li class="card" v-for="(meanings, word) in wordMeanings" :key="word">
+        <div class="word-and-btn">
+          <div class="word">{{ word }}</div>
+          <button
+            type="button"
+            class="add_wordbook"
+            @click="addWordbook(meanings, word)"
+          >
+            <!-- 추가 아이콘 -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <ul class="mean_list" v-if="meanings">
+          <li class="mean_item" v-for="(meaning, idx) in meanings" :key="idx">
+            <span class="num">{{ meaning.num }}. </span>
+            <p class="mean">{{ meaning.mean }}</p>
+          </li>
         </ul>
       </li>
     </ul>
@@ -100,23 +109,23 @@ li.card {
   align-items: center;
 }
 button.add_wordbook {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    border: #cc0000 solid 1px;
-    fill: #cc0000;
-    margin-left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: #cc0000 solid 1px;
+  fill: #cc0000;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1px;
 }
 button.add_wordbook:hover {
-    background-color: #cc0000;
-    fill: #fff;
+  background-color: #cc0000;
+  fill: #fff;
 }
 .word {
   color: #cc0000;
