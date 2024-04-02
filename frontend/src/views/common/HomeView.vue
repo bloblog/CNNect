@@ -1,5 +1,5 @@
 <template>
-
+  
   <div v-if="isLogin == true">
     <DefaultHome/>
   </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { initFlowbite, Modal } from "flowbite";
 import { useRoute, useRouter } from "vue-router";
 import { loginUser } from "@/api/user";
@@ -24,6 +24,8 @@ import DefaultHome from '@/components/common/DefaultHome.vue'
 const route = useRoute();
 const router = useRouter();
 const uStore = userStore();
+
+
 
 const loginData = ref({
   userEmail: "",
@@ -38,7 +40,7 @@ onMounted(() => {
   console.log(modal.isVisible());
   
 });
-
+  
 
 // set the modal menu element
 const $targetEl = document.getElementById("authentication-modal");

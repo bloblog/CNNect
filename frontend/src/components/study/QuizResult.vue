@@ -141,9 +141,9 @@ const answerCnt = props.resultList.filter(result => result === true).length;
             id="done-modal"
             tabindex="-1"
             aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            class="hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full"
         >
-            <DoneModal :videoId="videoId" :categoryId="categoryId" :answerCnt="answerCnt"/>
+            <DoneModal class=" relative w-full max-w-md max-h-full" :videoId="videoId" :categoryId="categoryId" :answerCnt="answerCnt"/>
         </div>
         <div class="p-3 relative">
             <div id="quiz-container" class="border-gray-400 border-2">
