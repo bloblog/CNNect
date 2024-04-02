@@ -16,4 +16,5 @@ public class StudyVideoResponseDto {
     private Long level;
     private List<StudySentenceResponseDto> sentenceList;
     private List<String> wordList;
+    private Long categoryId;
 }

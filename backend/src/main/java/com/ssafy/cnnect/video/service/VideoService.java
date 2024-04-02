@@ -87,6 +87,7 @@ public class VideoService {
                 .level(video.getVideo_level())
                 .sentenceList(studySentenceResponseDtoList)
                 .wordList(video.getWord_list())
+                .categoryId(video.getCategory_id())
                 .build();
 
         return studyVideoResponseDto;

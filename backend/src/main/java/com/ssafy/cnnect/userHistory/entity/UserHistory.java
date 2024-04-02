@@ -56,4 +56,8 @@ public class UserHistory {
         this.historySentence = historySentence;
         this.historyTime = historyTime;
     }
+
+    public void updateHistoryDone() {
+        this.historyStatus = true;
+    }
 }
