@@ -36,7 +36,8 @@ def showUserId(videoId):  # 4
 
     for index, word in enumerate(selected_words):
         for sentence in sentence_list:
-            if word in sentence['text']:
+            sentence_words = sentence['text'].split()
+            if word in sentence_words:
                 sentence_text_modified = sentence['text'].replace(word, '_' * len(word))
                 selected_sentences.append({
                     "original": sentence['text'],
