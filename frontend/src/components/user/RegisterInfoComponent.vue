@@ -139,7 +139,7 @@ const uStore = userStore();
 const { setUserId, setNickname, setLevel } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
-const authCheck = ref(false); // 이메일 인증 여부
+const authCheck = ref(true); // 이메일 인증 여부
 
 const authCode = ref("");
 
@@ -149,6 +149,10 @@ const formData = ref({
   userNickname: "",
 });
 
+const checkValue = ref({
+  email : "",
+  authCode : ""
+})
 const passworConfirm = ref("");
 
 const msg = Swal.mixin({
@@ -277,6 +281,7 @@ const codeSend = () => {
         icon: "info",
         title: "인증 코드가 전송되었습니다!",
       });
+      authCheck.value = true;
     },
     (error) => {
       console.log(error);
@@ -286,8 +291,11 @@ const codeSend = () => {
 };
 
 const codeCheck = () => {
+  checkValue.value.email = formData.value.userEmail;
+  checkValue.value.authCode = authCode.value;
+  // console.log(checkValue.value);
   emailCheck(
-    authCode.value,
+    checkValue.value,
     ({ data }) => {
       if (data.data) {
         Swal.fire({
