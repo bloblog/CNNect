@@ -9,6 +9,7 @@ import jwt
 from http import HTTPStatus
 from flask_cors import CORS
 import base64
+import random
 recommendation_bp = Blueprint('recommendation', __name__, url_prefix='/data/recommendation')
 
 app = Flask(__name__)
@@ -126,7 +127,7 @@ def fetch_user_history_news_from_mysql(user_id):
         connection = get_mysql_connection()
         if connection:
             with connection.cursor() as cursor:
-                sql = "SELECT video_id FROM user_history WHERE user_id = %s"
+                sql = "SELECT video_id FROM user_history WHERE user_id = %s ORDER BY video_id DESC LIMIT 5"
                 cursor.execute(sql, (user_id,))
                 result = cursor.fetchall()
                 for row in result:
@@ -185,14 +186,13 @@ def save_recommended_news_to_mysql(recommended_news):
                     sql = "INSERT INTO recommended_news (user_id, video_id, video_name, video_level, video_thumbnail) VALUES (%s, %s, %s, %s, %s)"
                     cursor.execute(sql, (news["user_id"], news["video_id"], news["video_name"], news["video_level"], news["video_thumbnail"]))
 
+                    
                 connection.commit()
                 print("추천된 뉴스를 MySQL에 저장했습니다.")
                 # 저장된 뉴스들을 출력
                 cursor.execute("SELECT * FROM recommended_news")
                 saved_news = cursor.fetchall()
-                print("저장된 뉴스들:")
-                for news in saved_news:
-                    print(news)
+
     except Exception as e:
         print(f"추천된 뉴스를 MySQL에 저장하는 중 오류 발생: {e}")
     finally:
@@ -235,12 +235,14 @@ class NewsRecommender:
         try:
             user_history_vector = self.vectorizer.transform(user_history_scripts)
             similarities = cosine_similarity(self.news_vectors, user_history_vector)
-
             aggregate_scores = similarities.sum(axis=1)
-
             top_similar_indices = np.argsort(-aggregate_scores, axis=0)[:top_n].flatten()
 
-            return top_similar_indices
+            # 상위 15개 중에서 9개를 랜덤으로 선택
+            top_15_indices = np.argsort(-aggregate_scores, axis=0)[:15].flatten()
+            random_indices = random.sample(list(top_15_indices), min(9, len(top_15_indices)))
+
+            return random_indices
         except Exception as e:
             print(f"추천 업데이트 중 오류: {e}")
             return []
@@ -256,17 +258,21 @@ def save_recommendations():
 
     user_level = get_user_level(user_id)
     user_history_scripts = fetch_user_history_news_from_mysql(user_id)
+    print("유저히스토리아이디", user_history_scripts)
     news_articles = fetch_news_from_mongodb(user_level, exclude_video_ids=user_history_scripts)
 
     if not news_articles:
         return jsonify({"message": "필요한 데이터가 없어 프로세스를 진행할 수 없습니다."}), HTTPStatus.BAD_REQUEST
 
-    all_news_fullscripts = [article["full_script"] for article in news_articles]
+    all_news_fullscripts = [article["video_name"] for article in news_articles]
 
     news_recommender.fit(all_news_fullscripts)
 
-    recommended_indices = news_recommender.update_recommendations(user_history_scripts, top_n=10)
+    recommended_indices = news_recommender.update_recommendations(user_history_scripts, top_n=15)
     
+    # 상위 15개 중 9개를 랜덤으로 선택
+    random_indices = random.sample(list(recommended_indices), min(len(recommended_indices), 9))
+
     recommended_news = [
         {
             "user_id": user_id,
@@ -275,15 +281,15 @@ def save_recommendations():
             "video_level": news_articles[index]["video_level"],
             "video_thumbnail": news_articles[index]["video_thumbnail"]
         }
-        for index in recommended_indices
+        for index in random_indices
     ]
     
     delete_recommended_news(user_id)
 
     save_recommended_news_to_mysql(recommended_news)
-    
 
     return jsonify({"message": "추천된 뉴스를 MySQL에 저장했습니다."}), HTTPStatus.OK
+
 
 
 if __name__ == "__main__":
