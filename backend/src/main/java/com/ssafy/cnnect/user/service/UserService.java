@@ -155,15 +155,15 @@ public class UserService {
         emailCodeRepository.save(new EmailCode(toEmail, authCode));
     }
 
-    public boolean varifyCode(String email, String authCode){
+    public boolean varifyCode(EmailRequestDto emailRequestDto){
         System.out.println("email : ");
-        System.out.println(email);
-        Optional<EmailCode> redisCode = emailCodeRepository.findById(email);
+        System.out.println(emailRequestDto.getEmail());
+        Optional<EmailCode> redisCode = emailCodeRepository.findById(emailRequestDto.getEmail());
         System.out.println(redisCode);
         if(!redisCode.isEmpty()){
             System.out.println(redisCode.get().getAuthCode());
         }
-        return (!redisCode.isEmpty()&& redisCode.get().getAuthCode().equals(authCode));
+        return (!redisCode.isEmpty()&& redisCode.get().getAuthCode().equals(emailRequestDto.getAuthCode()));
     }
 
 }
