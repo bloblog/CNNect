@@ -71,7 +71,7 @@ onUnmounted(() => {
         type="button"
         class="add_wordbook"
         v-if="props.selectedWordMeanings.length > 0"
-        @click="addWordbook(props.selectedWordMeanings, props.selectedText)"
+        @click="addWordbook(props.selectedWordMeanings, props.selectedWordMeanings[0].searchedWord)"
       >
         <!-- 추가 아이콘 -->
         <svg
