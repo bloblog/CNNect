@@ -98,9 +98,6 @@ onUnmounted(() => {
           <p class="mean">{{ meaning.mean }}</p>
         </li>
       </ul>
-      <!-- <div class="loader-container" v-if="!props.isFinishedFetchingPopup">
-        <div class="loader"></div>
-      </div> -->
       <div
         class="notConnected"
         v-if="
@@ -133,9 +130,6 @@ onUnmounted(() => {
       <p class="mean">{{ meaning.mean }}</p>
     </li>
   </ul>
-  <!-- <div class="loader-container" v-if="!props.isFinishedFetchingPopup">
-    <div class="loader"></div>
-  </div> -->
   <div
     class="notConnected"
     v-if="
