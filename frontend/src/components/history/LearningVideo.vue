@@ -19,7 +19,7 @@
         <div class="bg-black" id="video-img-container" >
           <img
             id="now-video-img"
-            :src="`https://img.youtube.com/vi/${curVideo.videoId}/mqdefault.jpg`"
+            :src="`https://img.youtube.com/vi/${curVideo.videoId}/mgdefault.jpg`"
             alt="Now Video Image"
           />
         </div>

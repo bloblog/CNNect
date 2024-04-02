@@ -17,7 +17,7 @@
           <div class="bg-black col-span-2" id="video-img-container">
             <img
               id="now-video-img"
-              :src="`https://img.youtube.com/vi/${now_video.videoId}/maxresdefault.jpg`"
+              :src="`https://img.youtube.com/vi/${now_video.videoId}/mgdefault.jpg`"
               alt="Now Video Image"
             />
           </div>
