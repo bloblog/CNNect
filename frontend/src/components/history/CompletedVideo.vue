@@ -5,7 +5,7 @@
         <div class="w-5/6 grid grid-cols-3 gap-4">
             <div :key="index" class="relative" v-for="(video, index) in paginatedVideos" @click="goToStudy(video.videoId)">
                 <div class="video-img">
-                    <img :src="`https://img.youtube.com/vi/${video.videoId}/mgdefault.jpg`" class="w-full h-auto" />
+                    <img :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`" class="w-full h-auto" />
                     <span class="badge absolute top-1 left-1">
                         <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
                             Lv. {{video.videoLevel}}
