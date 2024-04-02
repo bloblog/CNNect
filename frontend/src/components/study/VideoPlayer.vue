@@ -106,6 +106,8 @@ function onPlayerStateChange(event) {
                 clearInterval(interval);
             }
         });
+    } else if (event.data == YT.PlayerState.PAUSED) {
+        EventBus.emit('stop-section-play');
     }
 }
 
