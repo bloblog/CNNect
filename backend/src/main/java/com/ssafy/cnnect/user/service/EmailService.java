@@ -34,9 +34,28 @@ public class EmailService {
                                               String title,
                                               String text) {
         SimpleMailMessage message = new SimpleMailMessage();
+
+        String msgg="";
+        msgg+= "<div align='center' style='margin:30px; color:black;'>";
+        msgg+= "<h2 align='left' style='margin-left:10%;'>인증메일</h2>";
+        msgg+= "<hr style='background-color:#000000; height:2px; width:80%;'/>";
+        msgg+= "<br>";
+        msgg+= "<br>";
+        msgg+= "CNNect 회원 가입을 위한 인증번호 발송 메일입니다.\n";
+        msgg+= "<br>";
+        msgg+= "<br>";
+        msgg+= "아래의 인증번호를 사용하여 이메일 주소 인증을 완료하면 다음 단계로 진행이 가능합니다.\n";
+        msgg+= "<br>";
+        msgg+= "<br>";
+        msgg+= "<br>";
+        msgg+= "<div align='center' style='border:none; height: 50px;\n" +
+                "   line-height: 50px; background-color:lightgrey; width:80%'>";
+        msgg+= "<div style='font-size:130%;'>";
+        msgg+= "<strong>"+text+"</strong><div><br/></div>";
+
         message.setTo(toEmail);
         message.setSubject(title);
-        message.setText(text);
+        message.setText(msgg);
 
         return message;
     }
