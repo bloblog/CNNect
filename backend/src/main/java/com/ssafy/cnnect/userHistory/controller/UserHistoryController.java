@@ -3,6 +3,7 @@ package com.ssafy.cnnect.userHistory.controller;
 import com.ssafy.cnnect.result.ResultCode;
 import com.ssafy.cnnect.result.ResultResponse;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
+import com.ssafy.cnnect.userHistory.dto.UserHistoryRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
 import com.ssafy.cnnect.userHistory.dto.UserHistoryVideoResponseDto;
 import com.ssafy.cnnect.userHistory.service.UserHistoryService;
@@ -60,6 +61,13 @@ public class UserHistoryController {
     @GetMapping(value = "/done")
     public ResponseEntity<ResultResponse> getCompletedVideo(){
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS , userHistoryService.getCompletedVideo()));
+    }
+
+    @Operation(summary = "학습 완료 상태로 전환 (평가 패스 후)")
+    @PatchMapping(value = "/pass/{videoId}")
+    public ResponseEntity<ResultResponse> updateHistoryDone(@PathVariable String videoId){
+        userHistoryService.updateHistoryDone(videoId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
     }
 
 }

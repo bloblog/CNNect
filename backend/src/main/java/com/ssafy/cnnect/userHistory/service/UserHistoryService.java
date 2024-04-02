@@ -3,10 +3,7 @@ package com.ssafy.cnnect.userHistory.service;
 import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.repository.UserRepository;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryVideoResponseDto;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryRegisterRequestDto;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryResponseDto;
-import com.ssafy.cnnect.userHistory.dto.UserHistoryUpdateRequestDto;
+import com.ssafy.cnnect.userHistory.dto.*;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.userHistory.repository.UserHistoryRepository;
 import com.ssafy.cnnect.userSentence.dto.UserSentenceResponseDto;
@@ -223,6 +220,15 @@ public class UserHistoryService {
                 .collect(Collectors.toList());
 
         return videoList;
+    }
+
+    @Transactional
+    public void updateHistoryDone(String videoId) {
+        User user = customUserDetailsService.getUserByAuthentication();
+
+        UserHistory userHistory = userHistoryRepository.findByVideoIdAndUser(videoId, user)
+                .orElseThrow(() -> new ExecutionException("User history not found"));
+        userHistory.updateHistoryDone();
     }
 
 }
