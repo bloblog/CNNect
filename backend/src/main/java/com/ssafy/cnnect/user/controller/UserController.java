@@ -8,6 +8,7 @@ import com.ssafy.cnnect.user.dto.LoginRequestDto;
 import com.ssafy.cnnect.user.service.EmailService;
 import com.ssafy.cnnect.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class UserController {
 
     @Operation(summary = "인증 이메일 발송")
     @PostMapping("/email/send/{email}")
-    public ResponseEntity<ResultResponse> emailSend(@PathVariable String email) {
+    public ResponseEntity<ResultResponse> emailSend(@PathVariable String email) throws MessagingException {
         userService.sendCodeToEmail(email);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SUCCESS));
 
