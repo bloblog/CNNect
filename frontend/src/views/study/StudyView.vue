@@ -4,8 +4,9 @@ import Script from '@/components/study/Script.vue';
 import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
+import DoughnutChart from '@/components/study/DoughnutChart.vue';
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { getStudy } from '@/api/study';
 import { updateScore } from '@/api/sentence';
 import { updateLastSentence } from '@/api/history';
@@ -27,6 +28,14 @@ const curSentence = ref({
     content: "",
     score: null
 })
+
+const completeCount = computed(() => {
+  return videoData.value.sentenceList.filter(item => item.score !== null).length;
+});
+
+const incompleteCount = computed(() => {
+    return videoData.value.sentenceList.filter(item => item.score === null).length;
+});
 
 const setCurSentence = (curOrder) => {
     const { order, startTime, content, mean, score } = videoData.value.sentenceList[curOrder-1];
@@ -138,6 +147,13 @@ onUnmounted(() => {
                                 <Voca :wordMeanings="wordMeanings" :isFinishedFetching="isFinishedFetching"/>
                             </div>
                         </li>
+                        <li id="tab3" class="btnCon">
+                            <input type="radio" name="tabmenu" id="tabmenu3">
+                            <label for="tabmenu3">학습통계</label>
+                            <div class="tabCon tabCon3">
+                                <DoughnutChart v-if="videoData.videoId" :completeCount="completeCount" :incompleteCount="incompleteCount"></DoughnutChart>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -220,11 +236,11 @@ body {
     overflow-y: auto;
 }
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+    width: 0;
+    height: 0;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 .tabmenu input:checked ~ label{
     font-weight: 800;
