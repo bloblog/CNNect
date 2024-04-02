@@ -1,4 +1,4 @@
-﻿headword,CEFR,pos,Translation
+headword,CEFR,pos,Translation
 abandon,B1,verb,버리다
 abandoned,B2,adjective,버려진
 ability,A2,noun,능력
@@ -10,7 +10,7 @@ abolish,B2,verb,폐하다
 aboriginal,B2,adjective,원주민
 aborigine,B1,noun,원주민
 about,A1,adverb,~에 대한
-above,B1,adjective,~ 위에
+above,B1,adjective,~위에
 abroad,A2,adverb,해외에서
 abruptly,B2,adverb,갑자기
 absence,B1,noun,결석
@@ -47,17 +47,16 @@ accountant,B1,noun,회계사
 accumulate,B2,verb,축적하다
 accuracy,B1,noun,정확성
 accurate,B1,adjective,정확한
-accurately,B1,adverb,정확히
 accusation,B2,noun,고발
 accuse,B1,verb,고발하다
-accustom,B1,verb,익숙합니다
+accustom,B1,verb,익숙한
 ache,B1,noun,아픔
 achievable,B2,adjective,달성 가능
 achieve,A2,verb,성취하다
 achievement,B1,noun,성취
 acid,B2,noun,산
 acknowledge,B1,verb,인정하다
-acknowledgment/acknowledgement,B1,noun,승인/승인
+acknowledgment/acknowledgement,B1,noun,승인
 acquaintance,B1,noun,아는 사람
 acquire,B1,verb,습득하다
 acquisition,B2,noun,인수
@@ -94,7 +93,7 @@ administrative,B2,adjective,행정
 admirable,B2,adjective,훌륭한
 admiration,B1,noun,감탄
 admire,A2,verb,존경하다
-admiringly,B2,adverb,감탄합니다
+admiringly,B2,adverb,감탄하여
 admission,B1,noun,가입
 admit,A2,verb,인정하다
 admittedly,B2,adverb,틀림없이
@@ -102,7 +101,7 @@ adopt,B1,verb,입양하다
 adopted,B2,adjective,채택 된
 adoption,B2,noun,양자
 adorable,B1,adjective,사랑스러운
-adore,B2,verb,사랑합니다
+adore,B2,verb,애지중지하다
 adorn,B2,verb,꾸미다
 adult,A2,adjective,성인
 advance,B2,noun,전진
@@ -113,27 +112,25 @@ advent,B2,noun,출현
 adventure,A2,noun,모험
 adventurous,B2,adjective,모험
 adverb,B1,noun,부사
-adverbial,B1,adjective,부사
 adverse,B2,adjective,불리한
-adversely,B2,adverb,불리한
 adversity,B2,noun,역경
 advert,B1,noun,광고
-advertise,B1,verb,공시 하다
+advertise,B1,verb,공시하다
 advertisement,A2,noun,광고
 advertising,A2,noun,광고하는
 advice,A2,noun,조언
 advise,A2,verb,권하다
-adviser/advisor,B1,noun,고문/고문
+adviser/advisor,B1,noun,고문
 aerobics,B1,noun,에어로빅
 affair,A2,noun,일
 affect,B1,verb,영향을 미치다
 affection,B1,noun,애정
-affectionate,B2,adjective,애정이 있습니다
-affectionately,B2,adverb,애정 적으로
+affectionate,B2,adjective,애정이 있는
+affectionately,B2,adverb,애정적으로
 afford,B1,verb,여유가 되다
 affordable,B2,adjective,입수 가능한
 afraid,A1,adjective,두려워하는
-after,A2,adverb,~ 후에
+after,A2,adverb,~후에
 afternoon,A1,noun,오후
 afterward,B1,adverb,기후
 afterwards,B1,adverb,나중에
@@ -147,13 +144,12 @@ agenda,B1,noun,의제
 agent,A2,noun,대리인
 aggressive,B1,adjective,공격적인
 aggressively,B2,adverb,적극적으로
-ago,A1,adverb,~ 전에
-agonize/agonise,B2,verb,고수화/agonize
+ago,A1,adverb,~전에
+agonize/agonise,B2,verb,고수화
 agony,B2,noun,고뇌
 agree,A1,verb,동의하다
 agreement,B1,noun,합의
 agricultural,B1,adjective,농업
-agriculture,B1,noun,농업
 ahead,A2,adverb,앞으로
 aid,B1,noun,지원
 aim,B1,noun,목표
@@ -163,7 +159,7 @@ air force,B1,noun,공군
 aircraft,B2,noun,항공기
 aircrew,B2,noun,비행장
 airline,B1,noun,공기 호스
-airplane/aeroplane,A1,noun,비행기/비행기
+airplane/aeroplane,A1,noun,비행기
 airport,A1,noun,공항
 aisle,A2,noun,통로
 alarm,A2,noun,경보
@@ -197,13 +193,12 @@ altar,B2,noun,제단
 alter,B2,verb,바꾸다
 alternate,B2,verb,번갈아 하는
 alternative,B1,adjective,대안
-alternatively,B2,adverb,대안 적으로
+alternatively,B2,adverb,대안적으로
 although,A2,conjunction,하지만
 altitude,B2,noun,고도
 altogether,B1,adverb,전부
-aluminum/aluminium,B2,noun,알루미늄/알루미늄
+aluminum/aluminium,B2,noun,알루미늄
 always,A1,adverb,언제나
-am,A1,be-verb,~이다
 amaze,B2,verb,놀리다
 amazed,B1,adjective,놀란
 amazement,B2,noun,놀람
@@ -216,7 +211,7 @@ ambition,A2,noun,큰 뜻
 ambitious,B1,adjective,거창한
 ambulance,B1,noun,구급차
 ammonia,B2,noun,암모니아
-among,A2,preposition,~ 중에
+among,A2,preposition,~중에
 amongst,B2,preposition,중에서
 amount,B1,noun,양
 ample,B2,adjective,앰플
@@ -229,12 +224,11 @@ amusing,B1,adjective,즐거움
 analogy,B2,noun,유추
 analysis,B1,noun,분석
 analyst,B2,noun,분석자
-analyze/analyse,B1,verb,분석/분석
+analyze/analyse,B1,verb,분석
 ancestor,A2,noun,선조
 anchor,B2,noun,닻
-anchorage,B2,noun,앵커리지
-anchorman,B2,noun,앵커 맨
-anchorperson,B2,noun,앵커
+anchorage,B2,noun,닻을 내림
+anchorman,B2,noun,남자 뉴스 캐스터
 ancient,A2,adjective,고대의
 and,A1,conjunction,그리고
 angel,A2,noun,천사
@@ -244,8 +238,8 @@ angrily,A2,adverb,노하여
 angry,A1,adjective,화난
 anguish,B2,noun,격통
 animal,A1,noun,동물
-animate,B2,verb,생기 있게 하다
-animated,B1,adjective,생기 있는
+animate,B2,verb,생기있게 하다
+animated,B1,adjective,생기있는
 animation,B1,noun,생기
 ankle,A2,noun,발목
 anniversary,A2,noun,기념일
@@ -254,21 +248,21 @@ announcement,B1,noun,발표
 annoy,A2,verb,짜증나게 하다
 annoyance,B1,noun,성가심
 annoyed,B1,adjective,짜증이 난
-annoying,A2,adjective,짜증 나는
+annoying,A2,adjective,짜증나는
 annual,B1,adjective,연간
 annually,B1,adverb,매년
 anonymous,B2,adjective,익명의
 answer,A1,noun,답변
 ant,B1,noun,개미
 anti,B1,adjective,안티
-antiaircraft,B2,adjective,항아리 크래프트
+antiaircraft,B2,adjective,대공포
 antibacterial,B2,adjective,항균성
 anticancer,B2,noun,항암
 anticipate,B2,verb,예상하다
 anticipation,B2,noun,예기
 antipollution,B2,noun,반 오염
 antique,B2,adjective,고대 미술
-antistatic,B2,adjective,반 스테이션
+antistatic,B2,adjective,정전기 방지
 antivirus,B2,noun,바이러스 백신
 antonym,B1,noun,반대말
 anxiety,B1,noun,불안
@@ -284,9 +278,8 @@ anywhere,A2,adverb,어딘가에
 apart,A2,adverb,따로
 apartment,A2,noun,아파트
 ape,B1,noun,원숭이
-apologize/apologise,A2,verb,사과/사과합니다
+apologize/apologise,A2,verb,사과
 apology,B1,noun,사과
-apostrophe,B2,noun,아포스트로피
 apparent,B1,adjective,명백한
 apparently,A2,adverb,보기에
 appeal,B1,noun,항소
@@ -303,7 +296,7 @@ appoint,B1,verb,정하다
 appointment,A2,noun,약속
 appreciate,A2,verb,고마워하다
 appreciation,B1,noun,감사
-appreciative,B2,adjective,감사합니다
+appreciative,B2,adjective,감사한
 approach,B1,noun,접근하다
 appropriate,A2,adjective,적절한
 appropriately,B2,adverb,적절하게
@@ -314,11 +307,10 @@ approximately,B1,adverb,약
 April,A1,noun,4월
 apron,A1,noun,앞치마
 arch,B2,noun,아치
-archaeologist/archeologist,B2,noun,고고학자/고고학자
+archaeologist/archeologist,B2,noun,고고학자
 architect,B1,noun,건축가
 architecture,A2,noun,건축학
 arctic,B2,adjective,북극
-are,A1,be-verb,~이다
 area,A2,noun,영역
 arena,B2,noun,투기장
 argue,A2,verb,다투다
@@ -329,7 +321,7 @@ arithmetic,B1,noun,산수
 arm,A1,noun,팔
 armchair,A2,noun,안락 의자
 armed,A2,adjective,무장
-armful,B2,noun,한 이름
+armful,B2,noun,한 아름
 army,B1,noun,군대
 around,A2,adverb,약
 arouse,B2,verb,깨우다
@@ -349,12 +341,11 @@ artificially,B2,adverb,인공적으로
 artist,B1,noun,아티스트
 artistic,B1,adjective,예술적
 artistry,B2,noun,예술적 기교
-as,A2,conjunction,~처럼
-ash,B2,noun,금연 건강 증진 협회
+ash,B2,noun,재
 ashamed,B1,adjective,부끄러운
 aside,B1,adverb,곁에
 ask,A1,verb,묻다
-asleep,A2,adjective,죽어
+asleep,A2,adjective,잠이 든
 aspect,B1,noun,측면
 aspiration,B2,noun,포부
 aspire,B2,verb,열망
@@ -365,7 +356,7 @@ assembly,B2,noun,집회
 assert,B2,verb,주장하다
 assess,B2,verb,평가하다
 assessment,B2,noun,평가
-assign,B1,verb,양수인
+assign,B1,verb,선임하다
 assignment,B1,noun,과제
 assist,B1,verb,돕다
 assistance,B1,noun,보조
@@ -377,13 +368,11 @@ assumption,B2,noun,추정
 assurance,B2,noun,보증
 assure,B2,verb,보증
 astonish,B2,verb,놀라게 하다
-astonished,B2,adjective,놀랐습니다
 astonishing,B2,adjective,놀라운
 astonishment,B2,noun,놀람
 astronaut,A2,noun,우주 비행사
-astronomer,B1,noun,천문학 자
+astronomer,B1,noun,천문학자
 astronomy,B2,noun,천문학
-at,A1,preposition,~에
 athlete,A2,noun,운동 선수
 athletic,B1,adjective,운동
 athletics,B2,noun,체육 실기
@@ -395,8 +384,8 @@ attach,B1,verb,붙이다
 attached,B2,adjective,첨부된
 attachment,B1,noun,부착
 attack,A2,noun,공격
-attain,B1,verb,조금도
-attainable,B2,adjective,이를 수 있는
+attain,B1,verb,이루다
+attainable,B2,adjective,이룰 수 있는
 attainment,B2,noun,달성
 attempt,A2,noun,시도
 attend,B1,verb,참석하다
@@ -405,12 +394,12 @@ attention,A2,noun,주목
 attentive,B2,adjective,친절한
 attentively,B2,adverb,주의적으로
 attitude,A2,noun,태도
-attract,B1,verb,끌어 들이다
-attraction,B1,noun,끌어 당김
+attract,B1,verb,끌어들이다
+attraction,B1,noun,끌어당김
 attractive,A2,adjective,매력적인
 attractiveness,B2,noun,매력
 attribute,B2,noun,기인하다
-atypical,B2,adjective,전형적인 아닌
+atypical,B2,adjective,전형적이아닌
 aubergine,B2,noun,가지
 audience,A2,noun,청중
 audio,A2,adjective,오디오
@@ -421,27 +410,27 @@ aunt,A1,noun,이모
 author,A2,noun,작가
 authoritative,B2,adjective,권위 있는
 authority,B1,noun,권한
-authorize/authorise,B2,verb,승인/승인
-automatic,A2,adjective,자동적 인
+authorize/authorise,B2,verb,승인
+automatic,A2,adjective,자동적인
 automatically,A2,adverb,자동으로
 autumn,A1,noun,가을
 auxiliary,B1,adjective,보조자
 availability,B2,noun,유효성
-available,B1,adjective,사용 가능
+available,B1,adjective,사용가능
 avenue,B1,noun,수단
 average,A2,adjective,평균
 avoid,A2,verb,피하다
 await,B2,verb,기다리다
-awake,A1,adjective,깨어 있는
+awake,A1,adjective,깨어있는
 award,A2,noun,상
-aware,B1,adjective,알고 있는
+aware,B1,adjective,알고있는
 awareness,B1,noun,의식
 away,A1,adverb,떨어져 있는
 awe,B2,noun,두려움
 awesome,B1,adjective,엄청난
 awful,A2,adjective,끔찍한
 awkward,B1,adjective,어색한
-ax/axe,B2,noun,도끼/도끼
+ax/axe,B2,noun,도끼
 axis,B2,noun,중심선
 baby,A1,noun,아기
 babysit,B1,verb,보모
@@ -453,7 +442,7 @@ backpack,B1,noun,배낭
 backpacker,B1,noun,백패커
 backpacking,B1,noun,배낭 여행
 backup,B2,noun,지원
-backward/backwards,B2,adverb,뒤로/뒤로
+backward/backwards,B2,adverb,뒤로
 backyard,B2,noun,뒤뜰
 bacon,B1,noun,베이컨
 bad,A1,adjective,나쁜
@@ -463,20 +452,20 @@ badminton,A2,noun,배드민턴
 bad-tempered,B2,adjective,불쾌한
 bag,A1,noun,가방
 baggage,B1,noun,수하물
-bake,A2,verb,빵 굽기
+bake,A2,verb,빵을 굽다
 baker,B1,noun,빵 굽는 사람
 bakery,B1,noun,빵집
 balance,B1,noun,균형
 balanced,B2,adjective,균형이 잡힌
 balcony,A2,noun,발코니
 bald,B1,adjective,노골적인
-balky,B2,adjective,빔
+balky,B2,adjective,보송보송한
 ball,A1,noun,공
 ballad,B2,noun,민요
 ballet,B2,noun,발레
 balloon,A2,noun,풍선
 ballot,B2,noun,투표권
-ban,B2,noun,반
+ban,B2,noun,금지의
 banana,A1,noun,바나나
 band,A1,noun,밴드
 bandage,B1,noun,붕대
@@ -491,7 +480,7 @@ bar,A1,noun,술집
 barbecue,A2,noun,야외 파티
 barber,A2,noun,이발사
 barbershop,B2,noun,이발소
-bare,B1,adjective,없는
+bare,B1,adjective,벌거벗은
 barely,B1,adverb,간신히
 bargain,A2,noun,싸게 사는 물건
 bark,B1,noun,짖다
@@ -531,7 +520,7 @@ bear,A1,noun,곰
 beard,B1,noun,수염
 bearing,B2,noun,베어링
 beast,B1,noun,짐승
-beat,B2,noun,이기다
+beat,B2,noun,치다
 beautiful,A1,adjective,아름다운
 beautifully,B1,adverb,아름답게
 beautify,B2,verb,멋있게 하다
@@ -545,16 +534,15 @@ bedroom,A1,noun,침실
 bedside,B1,noun,머리맡
 bee,A1,noun,벌
 beef,A1,noun,소고기
-been,A2,be-verb,계속 ~ 이다
 beer,A2,noun,맥주
-before,A1,adverb,~ 전에
+before,A1,adverb,~전에
 beg,A2,verb,빌다
 begin,A1,verb,시작하다
 beginner,A2,noun,초보자
 beginning,A2,noun,시작
 behalf,B1,noun,이익
 behave,B1,verb,행동하다
-behavior/behaviour,A2,noun,행동/행동
+behavior/behaviour,A2,noun,행동
 behind,A1,adverb,뒤에
 being,A2,noun,존재
 belief,B1,noun,믿음
@@ -563,13 +551,13 @@ bell,A1,noun,벨
 bellow,B2,verb,소 우는 소리
 belly,A2,noun,배
 belong,A2,verb,제자리에 있다
-belongings,B2,noun,소지품
+belonging,B2,noun,소지품
 beloved,B1,adjective,인기 많은
 below,A1,adverb,아래에
 belt,A2,noun,벨트
 bench,A2,noun,벤치
 bend,B2,noun,굽히다
-beneath,B1,preposition,~ 아래에
+beneath,B1,preposition,~아래에
 beneficial,B2,adjective,유익한
 benefit,B1,noun,혜택
 benevolence,B2,noun,자비심
@@ -584,12 +572,12 @@ bestseller,B2,noun,베스트셀러
 bet,B1,verb,내기
 betray,B2,verb,무심코 드러내다
 better,A1,adjective,더 나은
-between,A1,preposition,~ 사이
-bewilder,B2,verb,어리석은
+between,A1,preposition,~사이
+bewilder,B2,verb,어리둥절한
 bewilderment,B2,noun,당황
 beyond,A2,preposition,그 너머에
 bicycle,A1,noun,자전거
-bid,B2,verb,매기다
+bid,B2,verb,명령하다
 bidding,B2,noun,입찰
 big,A1,adjective,큰
 bike,A1,noun,자전거
@@ -604,7 +592,7 @@ biochemistry,B1,noun,생화학
 biography,B1,noun,전기
 biological,B2,adjective,생물학적
 biology,B1,noun,생물학
-biotechnology,B2,noun,생명 공학
+biotechnology,B2,noun,생명공학
 bird,A1,noun,새
 birdcage,B2,noun,새장
 birth,A1,noun,출생
@@ -619,7 +607,7 @@ bitterly,B2,adverb,몹시
 bizarre,B2,adjective,기괴한
 black,A1,adjective,검은색
 blackboard,A2,noun,칠판
-blade,B2,noun,잎
+blade,B2,noun,칼날
 blame,B1,noun,탓하다
 blank,A1,adjective,공백
 blanket,A2,noun,담요
@@ -627,10 +615,9 @@ blast,B2,noun,폭발
 blaze,B2,noun,불꽃
 bleed,B1,verb,출혈
 blend,B2,noun,혼합하다
-bless,B1,verb,신을 하다
+bless,B1,verb,축복하다
 blessing,B1,noun,축복
 blind,B1,adjective,눈이 먼
-blindly,B2,adverb,맹목적으로
 blindness,B2,noun,맹목
 blink,B2,verb,깜박거리다
 block,A1,noun,차단하다
@@ -641,14 +628,14 @@ blood,A2,noun,피
 bloodstream,B2,noun,혈류
 bloody,B2,adjective,피의
 bloom,A2,noun,꽃
-blooming,B2,adjective,지독한
+blooming,B2,adjective,만발한
 blossom,B2,noun,꽃
 blow,A2,noun,불다
 blue,A1,adjective,파란색
 blur,B2,verb,흐림
-blurt,B2,noun,불쑥 말하다
-blush,B1,noun,붉히다
-board,A1,noun,판자
+blurt,B2,noun,퉁명스러운
+blush,B1,noun,얼굴을 붉히다
+board,A1,noun,보드
 board game,A2,noun,보드 게임
 boast,B1,verb,자랑
 boat,A1,noun,보트
@@ -670,24 +657,24 @@ bony,B2,adjective,뼈
 book,A1,noun,책
 bookcase,A2,noun,책장
 booking,B1,noun,예약
-bookish,B2,adjective,책
+bookish,B2,adjective,책이 많은
 booklet,B2,noun,작은 책자
 bookmark,B2,noun,서표
 bookshelf,A2,noun,책장
 bookshop,A2,noun,서점
 bookstore,A1,noun,서점
-boom,B1,noun,팔
+boom,B1,noun,쿵 하고 울리는 소리
 boost,B2,noun,후원
-boot,B1,noun,신병
+boot,B1,noun,부츠
 booth,B2,noun,노점
 border,B1,noun,국경
-bore,B1,verb,구경
+bore,B1,verb,(구멍·터널을) 뚫다
 bored,A2,adjective,지루한
 boredom,B1,noun,지루함
 boring,A1,adjective,지루한
 borrow,A1,verb,빌리다
 boss,A2,noun,사장
-bossy,B2,adjective,송아지
+bossy,B2,adjective,두목 행세하는
 botany,B2,noun,식물학
 both,A1,adverb,둘 다
 bother,B1,noun,신경 쓰다
@@ -695,9 +682,8 @@ bothered,B2,adjective,귀찮게
 bothersome,B2,adjective,귀찮은
 bottle,A1,noun,병
 bottom,A1,noun,맨 아래
-bounce,B2,noun,되튐
+bounce,B2,noun,튄다
 bound,B1,adjective,경계
-bourbon,B2,noun,버번
 bow,B1,noun,절하다
 bowl,A1,noun,그릇
 box,A1,noun,상자
@@ -705,9 +691,8 @@ boxer,B2,noun,복서
 boxing,B1,noun,권투
 boy,A1,noun,소년
 boyfriend,A1,noun,남자 친구
-bra,A2,noun,브래지어
 bracelet,B1,noun,팔찌
-bracket,B2,noun,까치발
+bracket,B2,noun,"받침대, 브라켓"
 brag,B2,noun,자랑거리
 brain,A1,noun,뇌
 brainstorm,A2,noun,영감
@@ -731,11 +716,11 @@ breast,B1,noun,가슴
 breath,B1,noun,호흡
 breathe,A1,verb,숨 쉬다
 breathless,B1,adjective,숨가쁜
-breathtaking,B2,adjective,아슬 아슬한
+breathtaking,B2,adjective,아슬아슬한
 breed,B2,noun,새끼를 낳다
 breeding,B1,noun,번식
 breeze,A2,noun,미풍
-breezy,B2,adjective,브리 지
+breezy,B2,adjective,살랑살랑
 brewery,B2,noun,양조장
 brick,B1,noun,벽돌
 bride,A2,noun,신부
@@ -772,9 +757,9 @@ buddy,B1,noun,친구
 budget,B2,adjective,예산
 bug,A2,noun,벌레
 build,A1,verb,짓다
-builder,B1,noun,빌더
+builder,B1,noun,건축업자
 building,A1,noun,건물
-bulb,A2,noun,구근
+bulb,A2,noun,전구
 bulimia,B2,noun,폭식증
 bull,B1,noun,황소
 bullet,B1,noun,총알
@@ -783,31 +768,29 @@ bully,B2,verb,괴롭히는 사람
 bum,B2,noun,부랑자
 bump,B1,verb,충돌
 bumper,B2,noun,범퍼
-bun,B2,noun,혈액 요소 질소
+bun,B2,noun,빵
 bunch,B1,noun,다발
 burden,B1,noun,부담
-burdensome,B2,adjective,부담 스럽습니다
+burdensome,B2,adjective,부담스러운
 bureau,B1,noun,국
 bureaucracy,B2,noun,관료
 burger,A1,noun,버거
 burglar,B1,noun,강도
 burglary,B2,noun,강도
-burgle,B2,verb,버글
+burgle,B2,verb,도르래
 burial,B2,noun,매장
 burn,A2,noun,불타다
 burning,B1,adjective,타고 있는
 burst,B1,verb,터지다
 bury,A2,verb,묻다 
 bus,A1,noun,버스
-bus station,A2,noun,버스 정류장
 bus stop,A2,noun,버스 정류장
-bush,A2,noun,부시
+bush,A2,noun,수풀
 business,A1,noun,사업
-businessman,A2,noun,실업가
-businesswoman,A2,noun,비즈니스 우먼
+businessman,A2,noun,사업가
 bust,B1,verb,흉상
 bustle,B2,verb,붐비다
-bustling,B2,adjective,번화 한
+bustling,B2,adjective,번화한
 busy,A1,adjective,바쁘다
 but,A1,conjunction,하지만
 butcher,B1,noun,푸줏간
@@ -824,7 +807,7 @@ cabbage,B1,noun,양배추
 cabin,B1,noun,선실
 cabinet,B2,noun,내각
 cable,B2,noun,케이블
-cafe/café,A1,noun,카페/커피
+cafe/caf?,A1,noun,카페+A547
 cafeteria,A2,noun,구내 식당
 cage,B1,noun,새장
 cake,A1,noun,케이크
@@ -855,9 +838,9 @@ candy,A1,noun,사탕
 cane,B2,noun,지팡이
 canned,B1,adjective,술취한
 cannonball,B2,noun,포탄
-canon,B2,noun,정경
-canteen,B1,noun,반합
-cap,A1,noun,캡
+canon,B2,noun,"교회법, 카논"
+canteen,B1,noun,매점
+cap,A1,noun,모자
 capability,B2,noun,능력
 capable,B1,adjective,유능한
 capacity,B1,noun,용량
@@ -884,16 +867,16 @@ carefree,B2,adjective,평온한
 careful,A1,adjective,주의 깊은
 carefully,A1,adverb,주의하여
 careless,B1,adjective,경솔한
-carelessly,B1,adverb,마구
+carelessly,B1,adverb,무턱대고
 carelessness,B1,noun,부주의
 caring,B2,adjective,배려
-carnival,B2,noun,사육제
+carnival,B2,noun,축제
 carpet,B1,noun,양탄자
 carpool,B2,noun,카풀
 carriage,B1,noun,마차
 carrot,A2,noun,당근
 carry,A1,verb,나르다
-carton,B1,noun,판지 상자
+carton,B1,noun,곽
 cartoon,A1,noun,만화
 carve,B2,verb,새기다
 cascade,B2,noun,종속
@@ -901,19 +884,19 @@ case,A1,noun,사례
 cash,A2,noun,현금
 cashpoint,B1,noun,현금 포인트
 cassette,A2,noun,카세트
-cast,B2,noun,깁스
+cast,B2,noun,출연자들
 castle,A2,noun,성
 casual,B1,adjective,평상복
 casually,B2,adverb,우연히
 cat,A1,noun,고양이
-catalog/catalogue,B2,noun,카탈로그/카탈로그
+catalog/catalogue,B2,noun,카탈로그
 catalyst,B2,noun,촉매
 catastrophe,B2,noun,대단원
-catastrophic,B2,adjective,치명적입니다
+catastrophic,B2,adjective,파멸의
 catch,A1,noun,잡다
 catchy,B2,adjective,틀리기 쉬운
-categorization/categorisation,B2,noun,분류/분류
-categorize/categorise,B1,verb,분류/분류
+categorization/categorisation,B2,noun,분류
+categorize/categorise,B1,verb,분류
 category,B1,noun,범주
 catering,B2,noun,케이터링
 cathedral,B2,noun,성당
@@ -935,8 +918,8 @@ cellist,B2,noun,첼리스트
 cello,B2,noun,첼로
 cemetery,B2,noun,묘지
 cent,A2,noun,센트
-center/centre,A2,noun,센터/센터
-centimeter/centimetre,A2,noun,센티미터/센티미터
+center/centre,A2,noun,센터
+centimeter/centimetre,A2,noun,센티미터
 central,B1,adjective,본부
 central heating,B1,noun,중앙 난방
 century,A2,noun,세기
@@ -965,7 +948,7 @@ chaotic,B2,adjective,혼란
 chapter,A2,noun,장
 character,A1,noun,성격
 characteristic,B2,adjective,특성
-characterize/characterise,B1,verb,특성화/특성화
+characterize/characterise,B1,verb,특성화
 charge,B1,noun,요금
 chariot,B1,noun,이륜 전차
 charity,B1,noun,자선 단체
@@ -978,8 +961,7 @@ chat show,B1,noun,토크쇼
 cheap,A2,adjective,값이 싼
 cheat,B2,verb,속이다
 check,A1,noun,확인하다
-check-in counter/check-in,B1,noun,체크인 카운터/체크인
-check-in desk/check-in,B1,noun,체크인 데스크/체크인
+check-in counter/check-in,B1,noun,체크인
 checkout,B1,noun,점검
 checkpoint,B2,noun,검문소
 cheek,A2,noun,볼
@@ -1008,7 +990,7 @@ chief,B1,adjective,셰프
 child,A1,noun,어린이
 childhood,A2,noun,어린 시절
 childish,B2,adjective,어린애 같은
-chili/chilli,A2,noun,칠리/chilli
+chili/chilli,A2,noun,칠리
 chimney,B2,noun,굴뚝
 chimpanzee,A2,noun,침팬지
 chin,A2,noun,턱
@@ -1038,7 +1020,7 @@ citizenship,B1,noun,시민권
 city,A1,noun,도시
 citywide,B2,adjective,도시 전체
 civil,B1,adjective,예의 바른
-civilization/civilisation,B1,noun,문명/문명
+civilization/civilisation,B1,noun,문명
 claim,B1,noun,주장하다
 clam,B2,noun,대합
 clap,B2,verb,박수
@@ -1105,7 +1087,7 @@ coffin,B1,noun,관
 coherence,B2,noun,통일
 coherent,B2,adjective,일관성
 coin,A2,noun,동전
-coincide,B2,verb,일치합니다
+coincide,B2,verb,일치하다
 coincidence,B2,noun,우연의 일치
 coke,A1,noun,콜라
 cola,A2,noun,콜라
@@ -1120,8 +1102,8 @@ college,A1,noun,대학
 collocation,B2,noun,나란히 놓음
 colon,B2,noun,콜론
 colonial,B2,adjective,식민지 주민
-color/colour,A1,noun,색상/색상
-colorful/colourful,A2,adjective,화려한/화려합니다
+color/colour,A1,noun,색상
+colorful/colourful,A2,adjective,화려한
 column,A2,noun,열
 columnist,B1,noun,칼럼니스트
 coma,B2,noun,혼수
@@ -1164,7 +1146,7 @@ comparison,B1,noun,비교
 compassion,B2,noun,동정심
 compassionate,B2,adjective,인정 많은
 compatible,B2,adjective,호환 가능
-compensate,B2,verb,보상하십시오
+compensate,B2,verb,보상하다
 compensation,B2,noun,보상
 compete,B1,verb,경쟁하다
 competence,B2,noun,능력
@@ -1182,7 +1164,7 @@ completion,B2,noun,완성
 complex,B1,adjective,복잡한
 complexion,B2,noun,안색
 complexity,B2,noun,복잡성
-complicate,B1,verb,복잡합니다
+complicate,B1,verb,복잡하게 하다
 complicated,B1,adjective,복잡한
 compliment,B1,noun,칭찬
 component,B2,noun,요소
@@ -1195,11 +1177,11 @@ comprehensive,B2,adjective,포괄적인
 compress,B2,noun,압박 붕대
 compression,B2,noun,압축
 compromise,B1,noun,타협
-compulsory,B2,adjective,의무적 인
+compulsory,B2,adjective,의무적인
 compute,B2,verb,계산
 computer,A1,noun,컴퓨터
 conceal,B2,verb,숨기다
-concede,B2,verb,인정합니다
+concede,B2,verb,인정하다
 conceit,B2,noun,자만
 conceivable,B2,adjective,생각할 수 있는
 conceive,B2,verb,배다
@@ -1231,15 +1213,15 @@ confine,B2,verb,가두다
 confirm,B1,verb,확인하다
 confirmation,B1,noun,확인
 conflict,B1,noun,갈등
-confront,B2,verb,대립하십시오
+confront,B2,verb,대립하다
 confuse,A2,verb,혼란시키다
 confused,A2,adjective,혼란스러운
-confusing,B1,adjective,혼란 스럽습니다
+confusing,B1,adjective,혼란스러운
 confusion,B1,noun,착란
-congratulate,B1,verb,축하합니다
+congratulate,B1,verb,축하하다
 conjunction,B2,noun,접속사
 connect,B1,verb,연결하다
-connection/connexion,B1,noun,연결/연결
+connection/connexion,B1,noun,연결
 conquer,B1,verb,정복하다
 conquest,B2,noun,정복
 conscience,B2,noun,양심
@@ -1288,7 +1270,7 @@ continue,A2,verb,계속하다
 continuous,B1,adjective,마디 없는
 continuously,B1,adverb,계속해서
 contract,B2,noun,계약
-contradict,B2,verb,모순됩니다
+contradict,B2,verb,부정하다
 contradiction,B2,noun,모순
 contradictory,B2,adjective,모순
 contrary,B1,adjective,반대되는
@@ -1347,7 +1329,7 @@ corridor,B2,noun,복도
 corrupt,B2,adjective,부정한
 corruption,B2,noun,부패
 cost,A2,noun,비용
-costly,B2,adjective,비용이 많이 듭니다
+costly,B2,adjective,비용이 많이 드는
 costume,B2,noun,복장
 cottage,B2,noun,시골집
 cotton,B1,noun,면
@@ -1355,7 +1337,7 @@ couch,A1,noun,침상
 cough,B2,noun,기침
 could,A1,modal auxiliary,~할 수 있었다
 council,B1,noun,이사회
-counseling/counselling,B1,noun,상담/상담
+counseling/counselling,B1,noun,상담
 count,B1,noun,세다
 counter,B2,noun,카운터
 countless,B1,adjective,셀 수 없는
@@ -1376,8 +1358,8 @@ cover,A1,noun,씌우다
 cow,A1,noun,암소
 coward,B2,noun,겁쟁이
 cowardly,B2,adjective,겁쟁이
-coziness/cosiness,B2,noun,아늑한/cosiness
-cozy/cosy,B2,adjective,아늑한/아늑합니다
+coziness/cosiness,B2,noun,아늑한
+cozy/cosy,B2,adjective,아늑한
 crab,B2,noun,게
 crack,B2,noun,금이 가다
 craft,B1,noun,선박
@@ -1410,7 +1392,7 @@ critic,B1,noun,비평가
 critical,B1,adjective,비판적인
 critically,B2,adverb,비판적으로
 criticism,B2,noun,비판
-criticize/criticise,A2,verb,비판/비판
+criticize/criticise,A2,verb,비판
 crocodile,B2,noun,악어
 crop,B1,noun,수확고
 cross,A2,noun,십자가
@@ -1428,7 +1410,7 @@ cruelty,B2,noun,잔학
 cruise,A2,noun,크루즈
 crush,B1,noun,으깨다
 cry,A1,noun,울다
-crystallize/crystallise,B2,verb,결정화/결정화
+crystallize/crystallise,B2,verb,결정화
 cube,B2,noun,입방체
 cubism,B2,noun,입체파
 cucumber,B1,noun,오이
@@ -1463,7 +1445,7 @@ cut,B1,noun,자르다
 cute,A1,adjective,귀여운
 CV,B1,noun,이력서
 cyberaddict,B2,noun,사이버 방지
-cybercafe/cybercafé,B2,noun,사이버 카페 / 사이버 카페
+cybercafe/cybercaf?,B2,noun,사이버 카페
 cybercrime,B2,noun,사이버 범죄
 cyberpet,B2,noun,사이버 펫
 cyberschool,B2,noun,사이버 학교
@@ -1494,7 +1476,7 @@ darkness,B1,noun,어둠
 darling,B2,adjective,여보
 dash,B2,noun,대시
 data,B2,noun,데이터
-database,B2,noun,데이터 베이스
+database,B2,noun,데이터베이스
 date,A1,noun,날짜
 dated,B2,adjective,날짜
 dating,B1,noun,데이트
@@ -1544,14 +1526,14 @@ dedication,B2,noun,봉납
 deduce,B2,verb,추론
 deduction,B2,noun,공제
 deed,B1,noun,증서
-deem,B2,verb,간주합니다
+deem,B2,verb,간주하다
 deep,B2,adjective,깊은
 deeply,A2,adverb,깊이
 deer,B2,noun,사슴
 defeat,B2,noun,패배시키다
 defend,B1,verb,지키다
 defender,B1,noun,방어자
-defense/defence,B1,noun,방어/방어
+defense/defence,B1,noun,방어
 deficiency,B1,noun,부족
 deficit,B2,noun,적자
 define,B1,verb,정의하다
@@ -1560,7 +1542,7 @@ definite article,B1,noun,명확한 기사
 definitely,B1,adverb,분명히
 definition,B1,noun,정의
 deforestation,B2,noun,삼림 벌채
-defy,B2,verb,무시하십시오
+defy,B2,verb,무시하다
 degree,A2,noun,도
 delay,A2,noun,지연
 delegate,B2,noun,대리자
@@ -1577,7 +1559,7 @@ delightful,B1,adjective,매우 기쁜
 deliver,B1,verb,배달하다
 delivery,B1,noun,배달
 demand,B1,noun,수요
-demanding,B2,adjective,까다 롭습니다
+demanding,B2,adjective,까다로운
 democracy,B1,noun,민주주의
 democratic,B1,adjective,민주적
 demolish,B2,verb,헐다
@@ -1598,7 +1580,6 @@ dependable,B2,adjective,신뢰할 수 있는
 dependent,B1,adjective,매달린
 deposit,B1,noun,보증금
 depressed,B1,adjective,우울한
-depressing,B1,adjective,우울합니다
 depression,B1,noun,우울증
 deprive,B1,verb,빼앗다
 depth,B1,noun,깊이
@@ -1607,9 +1588,9 @@ derive,B1,verb,파생
 descend,B2,verb,내려
 describe,A1,verb,설명하다
 description,A2,noun,설명
-descriptive,B2,adjective,설명 적
+descriptive,B2,adjective,설명적
 desert,A2,noun,사막
-deserve,B1,verb,~ 받을 만하다
+deserve,B1,verb,~받을 만하다
 design,A1,noun,설계
 designer,B2,adjective,디자이너
 desirable,B2,adjective,바람직한
@@ -1639,7 +1620,7 @@ determination,B1,noun,결정
 determine,B1,verb,결정하다
 determined,B2,adjective,단호한
 determiner,B2,noun,결정자
-devastate,B1,verb,황폐합니다
+devastate,B1,verb,황폐한
 devastating,B1,adjective,지독한
 develop,A2,verb,개발하다
 developed,A2,adjective,개발
@@ -1652,11 +1633,11 @@ devoted,B2,adjective,저주 받은
 devotion,B1,noun,헌신
 diagram,B1,noun,도표
 dial,B1,noun,다이얼
-dialog/dialogue,B1,noun,대화/대화
+dialog/dialogue,B1,noun,대화
 diameter,B1,noun,지름
 diamond,A2,noun,다이아몬드
 diaper,B1,noun,기저귀
-diarrhea/diarrhoea,B2,noun,설사/설사
+diarrhea/diarrhoea,B2,noun,설사
 diary,A2,noun,다이어리
 dictator,B2,noun,독재자
 dictionary,A1,noun,사전
@@ -1699,25 +1680,25 @@ disability,B1,noun,무능
 disable,B1,verb,장애를 입히다
 disabled,B1,adjective,장애가 있는
 disadvantage,A2,noun,불리
-disagree,A2,verb,동의하지 않는다
+disagree,A2,verb,동의하지 않는
 disagreement,B1,noun,불쾌한 일
 disappear,A2,verb,사라지다
 disappearance,B2,noun,소실
 disappoint,B1,verb,어긋나게 하다
 disappointed,A2,adjective,실망한
-disappointing,A2,adjective,실망합니다
+disappointing,A2,adjective,실망스러운
 disappointment,B1,noun,실망
 disapproval,B2,noun,난색
 disapprove,B2,verb,안된다고 하다
 disaster,B1,noun,재해
 disastrous,B1,adjective,비참한
-disc jockey/disk jockey,B1,noun,디스크 기수/디스크 기수
+disc jockey/disk jockey,B1,noun,디스크 기수
 discharge,B2,noun,해고하다
 disciple,B2,noun,제자
 discipline,B2,noun,규율
 disco,A2,noun,디스코
 discomfort,B1,noun,불편감
-disconnect,B2,verb,연결을 끊습니다
+disconnect,B2,verb,연결을 끊다
 discount,B1,noun,할인
 discourage,B1,verb,낙담
 discover,A2,verb,발견하다
@@ -1736,12 +1717,12 @@ dishonest,A2,adjective,부정한
 dishonesty,B2,noun,부정직
 dishwasher,B1,noun,식기 세척기
 disillusion,B2,verb,환멸
-disk/disc,B1,noun,디스크/디스크
+disk/disc,B1,noun,디스크
 dislike,A2,noun,싫어함
 dismiss,B2,verb,해고하다
 disorder,B2,noun,무질서
 disorderly,B2,adjective,무질서한
-disorganized/disorganised,B2,adjective,조직화/무질서
+disorganized/disorganised,B2,adjective,무질서
 dispensable,B2,adjective,없어도 되는
 displace,B2,verb,대신 들어서다
 display,A2,noun,표시하다
@@ -1789,7 +1770,7 @@ DJ,B1,noun,디제이
 do,A1,do-verb,하다
 doc,B1,noun,문서
 dock,B2,noun,독
-doctor/Dr./Dr,A1,noun,의사/Dr./Dr
+doctor/Dr./Dr,A1,noun,의사
 document,B1,noun,문서
 documentary,B1,noun,기록한 것
 does,A1,do-verb,하다
@@ -1826,7 +1807,7 @@ downtown,A2,adverb,도심
 downward,B1,adjective,하향의
 dowry,B2,noun,결혼 지참금
 doze,B1,noun,선잠
-draft/draught,B2,noun,초안/초안
+draft/draught,B2,noun,초안
 drag,B1,verb,견인
 drain,B2,noun,물을 빼다
 drama,A1,noun,드라마
@@ -1847,7 +1828,7 @@ drink,A1,noun,마시다
 drinkable,B2,adjective,마실 수 있는
 drive,A1,noun,운전하다
 driver,A1,noun,운전사
-driver's license/driving licence,A2,noun,운전 면허증/운전 면허
+driver's license/driving licence,A2,noun,운전 면허
 droop,B2,noun,처짐
 drop,A2,noun,떨어지다
 dropout,B2,noun,탈락
@@ -1898,12 +1879,12 @@ east,A2,adjective,동쪽
 eastern,B1,adjective,동부
 eastward,B2,adverb,동쪽으로
 easy,A1,adjective,쉬운
-easygoing/easy-going,B1,adjective,쉬운/쉬운
+easygoing/easy-going,B1,adjective,쉬운
 eat,A1,verb,먹다
 eco,B1,noun,에코
-ecological,B1,adjective,생태 학적
+ecological,B1,adjective,생태학적
 ecologically,B2,adverb,생태적으로
-ecologist,B2,noun,생태 학자
+ecologist,B2,noun,생태학자
 ecology,B1,noun,생태학
 economic,B1,adjective,간결한
 economical,B2,adjective,경제적
@@ -1940,8 +1921,8 @@ elderly,A2,adjective,연세가 드신
 elect,B2,verb,선택된
 election,B1,noun,선거
 elective,B2,adjective,임의로 선택할 수 있는
-electric,A2,adjective,전기 같은
-electrical,B1,adjective,전기 같은
+electric,A2,adjective,전기의
+electrical,B1,adjective,전기의
 electrician,B2,noun,전공
 electricity,B1,noun,전기
 electron,B1,noun,전자
@@ -1965,7 +1946,7 @@ eloquent,B2,adjective,웅변
 else,A1,adverb,또 다른
 elsewhere,A2,adverb,다른 곳
 email,A2,verb,이메일
-email/e-mail/E-mail,A1,noun,이메일/이메일/이메일
+e-mail,A1,noun,이메일
 embarrass,B1,verb,당황
 embarrassed,B1,adjective,당황스러운
 embarrassing,A2,adjective,당혹스러운
@@ -1980,7 +1961,7 @@ emotional,B1,adjective,감정적인
 emotionally,B1,adverb,감정적으로
 emperor,B1,noun,황제
 emphasis,B1,noun,중요성
-emphasize/emphasize,B1,verb,강조/강조
+emphasize/emphasize,B1,verb,강조
 emphatically,B2,adverb,단호히
 empire,B1,noun,제국
 employ,B2,verb,고용
@@ -1994,23 +1975,23 @@ encounter,B1,noun,맞닥뜨리다
 encourage,A2,verb,장려하다
 encouragement,B1,noun,격려
 encouraging,B1,adjective,격려
-encyclopedia/encyclopaedia,B1,noun,백과 사전/백과 사전
+encyclopedia/encyclopaedia,B1,noun,백과 사전
 end,A1,noun,끝
 endanger,B1,verb,위태롭게
 endangered,A2,adjective,멸종 위기
-endeavor/endeavour,B2,noun,노력/노력
+endeavor/endeavour,B2,noun,노력
 ending,A2,noun,종결
-endless,B1,adjective,끝이 없습니다
+endless,B1,adjective,끝이 없는
 endlessly,B2,adverb,끝없이
 endorse,B2,verb,승인
 endurance,B2,noun,지구력
 endure,B1,verb,견디다
 enduring,B2,adjective,참을 수 있는
 enemy,B1,noun,적
-energetic,A2,adjective,활력이 넘칩니다
+energetic,A2,adjective,활력이 넘치는
 energy,B2,noun,에너지
 enforce,B2,verb,억지로 시키다
-engage,B1,verb,관계를 맺다
+engage,B1,verb,약속하다
 engaged,B1,adjective,약혼한
 engagement,B2,noun,약혼
 engine,B1,noun,엔진
@@ -2024,8 +2005,8 @@ enjoyment,B1,noun,향유
 enormous,A2,adjective,막대한
 enough,A2,adverb,충분한
 enrich,B1,verb,높이다
-enroll/enrol,B2,verb,등록/등록
-ensure,B1,verb,소금 실
+enroll/enrol,B2,verb,등록
+ensure,B1,verb,안전하게 하다
 enter,A2,verb,입력하다
 enterprise,B2,noun,기업
 entertain,B1,verb,즐겁게 하다
@@ -2047,7 +2028,7 @@ environment,B2,noun,환경
 environmental,B1,adjective,환경
 environmentalist,B1,noun,환경 주의자
 environmentally,B2,adverb,환경
-environmentally friendly,B2,adjective,환경 친화적 인
+environmentally friendly,B2,adjective,환경친화적인
 envy,A2,noun,부러움
 episode,A2,noun,삽화
 equal,B1,adjective,동일한
@@ -2102,11 +2083,11 @@ evident,B1,adjective,분명한
 evidently,B2,adverb,분명히
 evil,B2,adjective,사악한
 evolution,B2,noun,진화
-evolve,B2,verb,진화합니다
+evolve,B2,verb,진화하다
 exact,B1,adjective,정확한
 exactly,A2,adverb,정확히
 exactness,B2,noun,정확성
-exaggerate,B2,noun,과장하십시오
+exaggerate,B2,noun,과장하다
 exaggeration,B2,noun,과장
 exalt,B2,verb,높이다
 exam,A2,noun,시험
@@ -2164,7 +2145,7 @@ expedition,B2,noun,원정
 expense,B1,noun,비용
 expensive,A1,adjective,값비싼
 experience,A2,noun,경험
-experienced,B1,adjective,경험이 풍부합니다
+experienced,B1,adjective,경험이 풍부한
 experiment,B1,noun,실험
 expert,B2,adjective,전문가
 explain,A2,verb,설명하다
@@ -2184,7 +2165,7 @@ expressive,B2,adjective,나타내는
 exquisite,B2,adjective,절묘한
 extend,B1,verb,연장하다
 extension,B2,noun,확대
-extensive,B2,adjective,광범위합니다
+extensive,B2,adjective,광범위한
 extensively,B1,adverb,널리
 extent,B1,noun,정도
 external,B2,adjective,외부
@@ -2227,16 +2208,16 @@ faithful,B1,adjective,충실한
 fake,B1,adjective,가짜
 fall,B1,noun,떨어지다
 fallen,B1,adjective,타락한
-false,A1,adjective,거짓
+FALSE,A1,adjective,거짓
 falter,B2,verb,흔들림
 fame,B2,noun,명성
 familiar,A2,adjective,친숙한
-familiarize/familiarise,B2,verb,친숙하고 친숙합니다
+familiarize/familiarise,B2,verb,친숙하다
 family,A1,noun,가족
 famous,A1,adjective,유명한
 fan,A1,noun,팬
 fancy,A2,adjective,팬시한
-fantastic,A2,adjective,환상적입니다
+fantastic,A2,adjective,환상적인
 fantastically,B2,adverb,환상적으로
 fantasy,B1,noun,공상
 far,B2,adjective,멀리
@@ -2250,7 +2231,7 @@ farmland,B1,noun,농토
 farther,B1,adverb,더 멀리
 farthest,B1,adverb,가장 먼
 fascinate,B1,verb,홀리다
-fascinated,B2,adjective,매료되었습니다
+fascinated,B2,adjective,매료되다
 fascinating,A2,adjective,매력적인
 fascination,B2,noun,매혹
 fashion,A2,noun,패션
@@ -2265,12 +2246,12 @@ father,A1,noun,아버지
 father-in-law,B2,noun,시아버지
 fault,A2,noun,잘못
 faulty,B2,adjective,불완전한
-favor/favour,A2,noun,호의/호의
-favorable/favourable,B1,adjective,호의적/호의적입니다
-favorite/favourite,A1,adjective,좋아하는/좋아하는
+favor/favour,A2,noun,호의
+favorable/favourable,B1,adjective,호의적
+favorite/favourite,A1,adjective,좋아하는
 fax,B1,noun,팩스
 fear,A2,noun,두려움
-fearsome,B2,adjective,무시 무시한
+fearsome,B2,adjective,무시무시한
 feast,B1,noun,잔치
 feat,B2,noun,위업
 feather,A2,noun,깃털
@@ -2292,7 +2273,7 @@ festive,B1,adjective,축제
 fetch,B1,verb,술책
 fever,A1,noun,발열
 feverishly,B1,adverb,열렬히
-fiber/fibre,B2,noun,섬유/섬유
+fiber/fibre,B2,noun,섬유
 fiction,A2,noun,소설
 fictional,B2,adjective,꾸며낸
 field,A1,noun,필드
@@ -2303,7 +2284,7 @@ fifty,A1,number,오십
 fight,A1,noun,싸움
 fighter,A2,noun,전투기
 fighting,B2,noun,화이팅
-figurative,B2,adjective,비 유적
+figurative,B2,adjective,비유적
 figure,A2,noun,수치
 file,A1,noun,파일
 fill,A1,verb,채우다
@@ -2355,7 +2336,7 @@ flame,B2,noun,불꽃
 flap,B2,verb,플랩
 flash,B1,adjective,플래시
 flat,B1,adjective,평평한
-flavor/flavour,B1,noun,맛/맛
+flavor/flavour,B1,noun,맛
 flaw,B2,noun,결함
 flawless,B2,adjective,완벽한
 flax,B2,noun,엷은 황갈색
@@ -2381,7 +2362,7 @@ fluent,B1,adjective,유창한
 fluently,B1,adverb,유창하게
 fluid,B2,adjective,체액
 flute,B1,noun,플루트
-flutter,B2,noun,실룩 거리다
+flutter,B2,noun,실룩거리다
 fly,A1,noun,파리
 focus,B2,noun,집중하다
 fog,A2,noun,안개
@@ -2489,7 +2470,7 @@ frustration,B1,noun,좌절
 fry,A2,noun,튀김
 frying pan,B1,noun,프라이팬
 fuel,B1,noun,연료
-fulfill/fulfil,B2,verb,성취/성취
+fulfill/fulfil,B2,verb,성취
 full,A1,adjective,가득한
 full stop,B1,noun,마침표
 full-time,B1,adjective,풀 타임
@@ -2523,7 +2504,7 @@ gallon,B1,noun,갤런
 gambling,B2,noun,도박
 game,A1,noun,게임
 gang,B2,noun,가다
-gangster,B2,noun,갱 단원
+gangster,B2,noun,갱스터
 gap,B1,noun,갭
 garage,A2,noun,차고
 garbage,A1,noun,쓰레기
@@ -2545,16 +2526,15 @@ gee,B1,interjection,말
 gender,A2,noun,성별
 gene,B1,noun,유전자
 general,B1,adjective,일반적인
-generalization/generalisation,B2,noun,일반화/일반화
-generalize/generalise,B2,verb,일반화/일반화
+generalization/generalisation,B2,noun,일반화
 generally,B1,adverb,일반적으로
 generate,B1,verb,생성하다
 generation,A2,noun,세대
 generosity,B2,noun,관대
 generous,B1,adjective,관대한
 generously,B2,adverb,관대하게
-genetic,B1,adjective,유전 적
-genetically,B1,adverb,유 전적으로
+genetic,B1,adjective,유전적
+genetically,B1,adverb,유전적으로
 genetics,B1,noun,유전학
 genius,B2,noun,천재
 genre,B2,noun,장르
@@ -2586,7 +2566,7 @@ giveaway,B2,noun,경품
 given,A2,adjective,주어진
 glacis,B2,noun,빙하
 glad,A1,adjective,기쁜
-glamorous/glamourous,B2,adjective,화려하고 화려합니다
+glamorous/glamourous,B2,adjective,화려한
 glance,B1,noun,섬광
 glare,B2,noun,섬광
 glass,A1,noun,유리
@@ -2601,7 +2581,7 @@ global warming,B2,noun,지구 온난화
 globally,B2,adverb,전 세계
 globe,A2,noun,지구
 gloomy,B2,adjective,음울한
-glorify,B2,verb,영화 롭게하다
+glorify,B2,verb,영화롭게하다
 glorious,B1,adjective,거룩한
 glory,B1,noun,영광
 glove,A2,noun,장갑
@@ -2621,7 +2601,7 @@ good,A1,adjective,좋은
 good afternoon,A1,interjection,좋은 오후에요
 good morning,A1,interjection,좋은 아침이에요
 good night,A1,interjection,안녕히 주무세요
-good-looking,A2,adjective,잘 생겼습니다
+good-looking,A2,adjective,잘 생긴
 goodness,B1,interjection,선량
 goods,B1,noun,상품
 goodwill,B2,noun,친선
@@ -2644,7 +2624,7 @@ gradually,A2,adverb,서서히
 graduate,B1,noun,졸업하다
 graduation,B1,noun,눈금
 grain,B2,noun,곡물
-gram/gramme,A2,noun,그램/그램
+gram/gramme,A2,noun,그램
 grammar,A1,noun,문법
 grand,B2,adjective,멋진
 grandchild,A2,noun,손자
@@ -2671,7 +2651,7 @@ grave,B1,noun,무덤
 gravestone,B2,noun,묘비
 gravitation,B2,noun,중력
 gravy,B1,noun,육수
-gray/grey,A1,adjective,회색/회색
+gray/grey,A1,adjective,회색
 great,A1,adjective,엄청난
 greatly,A2,adverb,매우
 greatness,B2,noun,위대
@@ -2687,7 +2667,7 @@ grilled,A2,adjective,구운 것
 grim,B2,adjective,암울한
 grin,B2,noun,이를 드러내고 웃다
 grip,B2,noun,꽉 붙잡음
-grocery store,A2,noun,식료품 점
+grocery store,A2,noun,식료품점
 groom,B1,noun,신랑
 gross,B2,adjective,역겨운
 ground,A1,noun,지면
@@ -2739,13 +2719,13 @@ hammer,B1,noun,망치
 hand,A1,noun,손
 handbag,A2,noun,핸드백
 handball,B1,noun,핸드볼
-hand-held,B1,adjective,핸드 헬드
+hand-held,B1,adjective,손바닥 크기의
 handicap,B2,noun,핸디캡
 handicapped,A2,adjective,신체적 장애가 있는
 handicraft,B2,noun,손재주
 handkerchief,B1,noun,손수건
 handle,A2,noun,핸들
-handout,B2,noun,핸드 아웃
+handout,B2,noun,상품 안내
 handrail,B2,noun,난간
 handshake,B1,noun,악수
 handsome,A1,adjective,멋있는
@@ -2757,10 +2737,10 @@ happen,A1,verb,깨물다
 happily,A2,adverb,행복하게
 happiness,A2,noun,행복
 happy,A1,adjective,행복하다
-harbor/harbour,B1,noun,항구/항구
+harbor/harbour,B1,noun,항구
 hard,A1,adjective,딱딱한
 hard drive,B2,noun,하드 드라이브
-hardly,A2,adverb,거의 ~ 아니다
+hardly,A2,adverb,거의 ~아니다
 hardship,B1,noun,고난
 hardware,B2,noun,하드웨어
 hard-working,B1,adjective,열심히 일하는
@@ -2783,11 +2763,11 @@ hatred,B1,noun,증오
 haunt,B1,noun,나타나다
 haunting,B2,adjective,잊혀지지 않는다
 have,A1,have-verb,가지다
-have to,A1,modal auxiliary,해야합니다
+have to,A1,modal auxiliary,해야하는
 haven,B1,noun,피난처
 hay,B2,noun,건초
 hazard,B1,noun,위험
-hazardous,B2,adjective,위험합니다
+hazardous,B2,adjective,위험한
 he,A1,pronoun,그
 head,A1,noun,머리
 headache,A1,noun,두통
@@ -2806,8 +2786,8 @@ hearing,B1,noun,듣기
 heart,A1,noun,마음
 heart attack,B1,noun,심장마비
 heartbreaking,B2,adjective,가슴 아픈
-hearted,B1,adjective,마음이 들었습니다
-heartwarming/heart-warming,B2,adjective,가슴이 따뜻해 지거나 따뜻해집니다
+hearted,B1,adjective,~의 마음을 가진
+heartwarming/heart-warming,B2,adjective,마음을 따뜻하게 하는
 hearty,B1,adjective,많은
 heat,A2,noun,열
 heater,B1,noun,히터
@@ -2845,7 +2825,7 @@ high,A1,adjective,높은
 high school,A2,noun,고등학교
 highlight,B2,noun,가장 밝은 부분
 highly,B1,adverb,고도로
-high-tech/hi-tech,B2,adjective,하이테크/하이테크
+high-tech/hi-tech,B2,adjective,하이테크
 highway,A2,noun,고속도로
 hijack,B2,noun,납치
 hike,A2,noun,인상
@@ -2856,7 +2836,7 @@ him,A1,pronoun,그를
 himself,A2,pronoun,그 자신
 hint,B2,noun,힌트
 hip,B1,noun,잘 알고 있기
-hip hop/hip-hop/hiphop,A2,noun,힙합/힙합/힙합
+hip hop/hip-hop/hiphop,A2,noun,힙합
 hire,B1,verb,고용하다
 historian,B1,noun,역사가
 historic,B1,adjective,역사적인
@@ -2883,15 +2863,15 @@ honestly,B1,adverb,솔직히
 honesty,B1,noun,정직
 honey,A2,noun,꿀
 honeymoon,B1,noun,신흔 여행
-honor/honour,A2,noun,명예/명예
-honorable/honourable,B2,adjective,명예/존경합니다
+honor/honour,A2,noun,명예
+honorable/honourable,B2,adjective,명예로운
 hood,B2,noun,후드
 hook,B2,noun,훅
 hop,B1,noun,깡충깡충 뛰다
 hope,A1,noun,희망
 hopeful,B1,adjective,유망한
 hopefully,B1,adverb,바라건대
-hopeless,B1,adjective,희망이 없습니다
+hopeless,B1,adjective,희망이 없는
 horizon,B1,noun,수평선
 horn,B1,noun,뿔
 horrible,B1,adjective,끔찍한
@@ -2899,10 +2879,10 @@ horrify,B1,verb,무섭게 하다
 horror,A2,noun,공포
 horse,A1,noun,말
 hospice,B2,noun,수용소
-hospitable,B2,adjective,친절합니다
+hospitable,B2,adjective,친절한
 hospital,A1,noun,병원
 hospitality,B2,noun,환대
-hospitalize/hospitalise,B2,verb,입원/입원
+hospitalize/hospitalise,B2,verb,입원
 host,A2,noun,주인
 hostel,B1,noun,호스텔
 hot,A1,adjective,더운
@@ -2912,7 +2892,7 @@ hourly,B2,adjective,시간별
 house,A1,noun,집
 household,B1,noun,가정
 housekeeper,B2,noun,가정부
-housemaster,B2,noun,하우스 메스터
+housemaster,B2,noun,"사감, 집주인"
 housewife,B2,noun,주부
 housework,B1,noun,안일
 hover,B2,verb,호버
@@ -2926,14 +2906,14 @@ human rights,B2,noun,인권
 humane,B2,adjective,인도적
 humanist,B2,noun,인간성 연구자
 humanity,B1,noun,인류
-humanize/humanise,B2,verb,인간화/인간화
+humanize/humanise,B2,verb,인간화
 humble,B2,adjective,겸손한
 humbug,B2,noun,협잡
 humid,B1,adjective,습한
 humiliate,B2,verb,굴욕
 humiliating,B2,adjective,굴욕
 humiliation,B2,noun,굴욕
-humor/humour,B1,noun,유머/유머
+humor/humour,B1,noun,유머
 humorous,B1,adjective,재미있는
 hundred,A2,number,백
 hunger,B1,noun,굶주림
@@ -2949,15 +2929,14 @@ hush,B2,verb,쉿
 hut,B1,noun,오두막
 hybrid,B2,adjective,잡종
 hygiene,B2,noun,위생
-hyperbole,B2,noun,하이퍼 볼
+hyperbole,B2,noun,쌍곡선의
 hyphen,B2,noun,하이픈
-I,A1,pronoun,나
 ice,A1,noun,얼음
 ice cream,A1,noun,아이스크림
 ice hockey,B1,noun,아이스 하키
 ice skating,B1,noun,아이스 스케이팅
-iceman,B2,noun,아이스 맨
-icon,B2,noun,상
+iceman,B2,noun,얼음 장수[배달인]
+icon,B2,noun,아이콘
 icy,B2,adjective,쌀쌀한
 ID card,A2,noun,신분증
 idea,A1,noun,아이디어
@@ -2973,7 +2952,7 @@ idiom,B1,noun,관용구
 idiot,B2,noun,바보
 idle,B2,adjective,게으른
 idol,B1,noun,우상
-idolize/idolise,B2,verb,우상화/우상화
+idolize/idolise,B2,verb,우상화
 if,A1,conjunction,만약에
 ignorance,B2,noun,무지
 ignorant,B2,adjective,무식한
@@ -3010,7 +2989,7 @@ imperative,B2,noun,피할 수 없는
 impermanent,B2,adjective,불완전한
 implement,B2,noun,구현하다
 implication,B2,noun,함축
-imply,B2,verb,암시합니다
+imply,B2,verb,암시합다
 impolite,B2,adjective,무례한
 impolitely,B2,adverb,무례한
 import,B2,verb,수입
@@ -3020,7 +2999,7 @@ importantly,A2,adverb,중요하게
 impose,B2,verb,부과하다
 impossibility,B2,noun,불가능
 impossible,A2,adjective,불가능한
-impractical,B2,adjective,실용적입니다
+impractical,B2,adjective,실용적인
 impress,A2,verb,감탄시키다
 impressed,B2,adjective,깊은 인상
 impression,B1,noun,인상
@@ -3029,16 +3008,15 @@ impressionist,B2,noun,인상 주의자
 impressive,B1,adjective,인상적인
 imprison,B2,verb,수감
 imprisonment,B2,noun,투옥
-improbable,B2,adjective,불가능합니다
-improper,B1,adjective,부적절합니다
-improperly,B2,adverb,부적절합니다
+improbable,B2,adjective,불가능한
+improper,B1,adjective,부적절한
+improperly,B2,adverb,부적절하게
 improve,A2,verb,개선하다
 improved,B2,adjective,향상
 improvement,B1,noun,개선
 impulse,B2,noun,충동
 impulsive,B2,adjective,충동
-in,A2,adverb,~에
-inaccurate,B2,adjective,부정확합니다
+inaccurate,B2,adjective,부정확한
 inadequate,B2,adjective,부적당한
 inanimate,B2,adjective,무생물
 inborn,B2,adjective,타고난
@@ -3056,7 +3034,7 @@ increasingly,B1,adverb,더욱 더
 incredible,B1,adjective,믿을 수 없는
 incredibly,B1,adverb,놀랍도록
 incur,B2,verb,입다
-incurable,B2,adjective,치료할 수 없습니다
+incurable,B2,adjective,치료할 수 없는
 indebted,B2,adjective,빚진
 indeed,A2,adverb,물론
 indefinite article,B1,noun,무기한 기사
@@ -3064,7 +3042,7 @@ indent,B2,verb,톱니 모양
 independence,A2,noun,독립
 independent,B1,adjective,독립적인
 independently,B2,adverb,독립적으로
-indescribable,B2,adjective,설명 할 수 없습니다
+indescribable,B2,adjective,설명 할 수 없는
 index,B2,noun,색인
 indicate,A2,verb,나타내다
 indifferent,B2,adjective,무관심한
@@ -3078,13 +3056,13 @@ indoors,B1,adverb,실내
 indulge,B2,verb,빠지다
 indulgent,B2,adjective,제멋대로 하게 하는
 industrial,B1,adjective,산업
-industrialize/industrialise,B2,verb,산업화/산업화
+industrialize/industrialise,B2,verb,산업화
 industry,B1,noun,산업
 ineffective,B2,adjective,효과적인
 inert,B2,adjective,둔한
 inevitable,B1,adjective,불가피한
-inexpensive,A2,adjective,저렴합니다
-inexperienced,B2,adjective,경험이 부족합니다
+inexpensive,A2,adjective,저렴한
+inexperienced,B2,adjective,경험이 부족한
 infant,B2,noun,유아
 infect,B2,verb,감염
 infected,B2,adjective,감염된
@@ -3107,7 +3085,7 @@ informative,B1,adjective,유익한
 infringe,B2,verb,어기다
 infringement,B2,noun,위반
 ingredient,B1,noun,재료
-inhabit,B2,verb,거주합니다
+inhabit,B2,verb,거주하다
 inhabitant,B1,noun,주민
 inhale,B1,verb,흡입
 initial,B2,adjective,초기의
@@ -3125,11 +3103,11 @@ innermost,B1,adjective,가장 깊은 속의
 innocent,B1,adjective,순결한
 innocently,B2,adverb,결백하게
 innovation,B2,noun,혁신
-innovative,B2,adjective,혁신적입니다
+innovative,B2,adjective,혁신적인
 innovator,B1,noun,혁신가
 input,B2,noun,입력
-inquire/enquire,B2,verb,문의/문의
-inquiry/enquiry,B1,noun,문의/문의
+inquire/enquire,B2,verb,문의하다
+inquiry/enquiry,B1,noun,문의
 insane,B1,adjective,정신 이상의
 inscribe,B1,verb,쓰다
 inscription,B1,noun,명
@@ -3144,21 +3122,21 @@ inspector,B2,noun,조사관
 inspiration,A2,noun,영감
 inspirational,B2,adjective,영감을주는
 inspire,B1,verb,고무하다
-install/instal,B1,verb,설치/설치
+install/instal,B1,verb,설치
 instance,B1,noun,사례
 instant,A2,adjective,즉각적인
 instantly,B2,adverb,곧
 instead,A2,adverb,대신에
 instead of,B1,preposition,대신에
-instill/instil,B2,verb,주입/instil
+instill/instil,B2,verb,주입
 instinct,B2,noun,본능
 institute,B1,noun,학회
 institution,B2,noun,기관
-instruct,B2,verb,지시하십시오
+instruct,B2,verb,지시하다
 instruction,B1,noun,지침
 instructor,B1,noun,강사
 instrument,A2,noun,기구
-insufficient,B2,adjective,불충분합니다
+insufficient,B2,adjective,불충분한
 insult,B2,noun,모욕
 insurance,B1,noun,보험
 integrate,B2,verb,통합
@@ -3171,7 +3149,7 @@ intensive,B1,adjective,강한
 intent,B2,adjective,의지
 intention,B1,noun,의도
 intentionally,B1,adverb,의도적으로
-interact,B1,verb,상호 작용하십시오
+interact,B1,verb,상호작용하다
 interaction,B1,noun,상호 작용
 interactive,B2,adjective,인터렉티브
 interest,A2,noun,관심
@@ -3184,7 +3162,7 @@ intermission,B1,noun,중지
 internal,B1,adjective,내부
 international,A2,adjective,국제적인
 internationally,B1,adverb,국제적으로
-Internet/internet,A1,noun,인터넷/인터넷
+Internet/internet,A1,noun,인터넷
 interpersonal,B2,adjective,대인 관계
 interpret,B2,verb,해석하다
 interpretation,B2,noun,해석
@@ -3198,7 +3176,7 @@ interviewee,B1,noun,인터뷰 대상자
 interviewer,A1,noun,면접관
 intimate,B2,adjective,친밀한
 into,A1,preposition,~ 안으로
-intransitive,B2,adjective,비정규 적
+intransitive,B2,adjective,비정규적
 intravenous,B2,adjective,정맥
 introduce,A1,verb,소개하다
 introduction,B1,noun,소개
@@ -3231,7 +3209,7 @@ involvement,B2,noun,참여
 iron,B1,noun,철
 ironically,B2,adverb,아이러니하게
 ironing,B1,noun,다리미질
-irrational,B2,adjective,비이성적 인
+irrational,B2,adjective,비이성적인
 irregular,B1,adjective,불규칙한
 irresistible,B2,adjective,꼼짝 못하게 하는
 irresistibly,B2,adverb,저항 할 수 없을 정도로
@@ -3240,36 +3218,33 @@ irritate,B1,verb,짜증나게 하다
 irritated,B2,adjective,짜증나
 irritating,B2,adjective,화나게 하는
 irritation,B2,noun,짜증나게 하는 것
-is,A1,be-verb,~이다
 island,A1,noun,섬
 islander,B2,noun,섬 주민
 isle,B1,noun,섬
 isolation,B1,noun,격리
 issue,A2,noun,문제
-IT,A2,noun,그것
-it,A1,pronoun,그것
-italicize/italicise,B2,verb,이탤릭체/이탤릭체
+italicize/italicise,B2,verb,이탤릭체
 itch,B2,verb,가려움
 item,A1,noun,안건
 itself,A2,pronoun,그 자체
 ivory,B1,noun,상아
 jacket,A1,noun,재킷
 jade,B1,noun,옥
-jail/gaol,B1,noun,감옥/가오
+jail/gaol,B1,noun,감옥
 jam,A2,noun,잼
 January,A1,noun,1월
 jar,B1,noun,항아리
 jaw,B2,noun,턱
 jazz,B1,noun,재즈
 jealous,B1,adjective,질투하는
-jealously,B2,adverb,질투합니다
+jealously,B2,adverb,질투나는
 jeans,A1,noun,청바지
 jelly,A2,noun,젤리
-jeopardize/jeopardise,B2,verb,위태롭게/위험합니다
+jeopardize/jeopardise,B2,verb,위태롭게 하다
 jet,A1,noun,제트기
 jewel,B1,noun,보석
-jeweler/jeweller,B2,noun,보석상/보석상
-jewelry/jewellery,A1,noun,보석/보석
+jeweler/jeweller,B2,noun,보석상
+jewelry/jewellery,A1,noun,보석
 job,A1,noun,직업
 jog,B2,noun,가벼운 흔들림
 jogging,B1,noun,조깅
@@ -3282,12 +3257,12 @@ journalist,B1,noun,기자
 journey,A2,noun,여행
 joy,A2,noun,기쁨
 judge,B1,noun,판사
-judgment/judgement,B1,noun,판단/판단
+judgment/judgement,B1,noun,판단
 judo,B2,noun,유도
 jug,B1,noun,조끼
 juice,A1,noun,주스
-juicy,B1,adjective,흥미 진진한
-July,A1,noun,칠월
+juicy,B1,adjective,흥미진진한
+July,A1,noun,7월
 jump,B2,noun,도약
 jumper,B1,noun,점퍼
 June,A1,noun,6월
@@ -3299,7 +3274,7 @@ juror,B2,noun,배심원
 jury,B2,noun,배심
 just,A1,adverb,단지
 justice,B1,noun,정당성
-justify,B2,verb,신이 옳다고 하다
+justify,B2,verb,정의하다
 kangaroo,B2,noun,캥거루
 karaoke,B2,noun,노래방
 keen,B2,adjective,날카로운
@@ -3309,15 +3284,15 @@ kerosene,B2,noun,둥유
 kettle,B1,noun,주전자
 key,A1,adjective,열쇠
 keyboard,B1,noun,건반
-keystroke,B2,noun,키 스트로크
-kick,A1,noun,발 차기
+keystroke,B2,noun,(타자기 등의) 키를 치다
+kick,A1,noun,발차기
 kid,A1,noun,어린이
 kill,A1,verb,죽이다
 killer,A2,noun,살인자
 killing,B1,noun,죽이는
 kilo,A2,noun,킬로
-kilogram/kilogramme,A2,noun,킬로그램/킬로그램
-kilometer/kilometre,A2,noun,킬로미터/킬로미터
+kilogram/kilogramme,A2,noun,킬로그램
+kilometer/kilometre,A2,noun,킬로미터
 kind,A2,adjective,친절한
 kindly,A2,adjective,친절한
 kindness,B1,noun,친절
@@ -3340,9 +3315,9 @@ knowledge,A2,noun,지식
 known,B2,adjective,모두 다 아는
 lab,B1,noun,랩
 label,B2,noun,상표
-labor/labour,A2,noun,노동/노동
+labor/labour,A2,noun,노동
 laboratory,B1,noun,실혐실
-laborer/labourer,B2,noun,노동자/노동자
+laborer/labourer,B2,noun,노동자
 lack,A2,noun,부족
 ladder,B1,noun,사다리
 lady,A1,noun,숙녀
@@ -3368,7 +3343,7 @@ laser,B2,noun,레이저
 last,B1,adverb,마지막
 last minute,B2,noun,마지막 순간
 last name,A1,noun,성
-lasting,B1,adjective,일종의 튼튼한 나사
+lasting,B1,adjective,지속되는
 lastly,B2,adverb,마지막으로
 last-minute,B2,adjective,마지막 순간
 late,A1,adjective,늦은
@@ -3383,7 +3358,7 @@ launch,B1,verb,시작하다
 laundry,B2,noun,빨래
 lava,B2,noun,용암
 law,A2,noun,법
-lawful,B1,adjective,합법적입니다
+lawful,B1,adjective,합법적인
 lawmaker,B2,noun,입법자
 lawn,B2,noun,잔디
 lawsuit,B2,noun,소송
@@ -3451,13 +3426,13 @@ liberation,B1,noun,해방
 liberty,A2,noun,자유
 librarian,B1,noun,사서
 library,A1,noun,도서관
-license/licence,A2,verb,라이센스/라이센스
+license/licence,A2,verb,라이센스
 lick,B2,verb,핥다
 lid,B2,noun,뚜껑
 lie,B1,noun,거짓말하다
 life,A1,noun,삶
 lifeguard,B1,noun,근위대
-lifeless,B2,adjective,생명이 없습니다
+lifeless,B2,adjective,생명이 없는
 lifelong,B1,adjective,평생
 lifestyle,A2,noun,생활 양식
 lifetime,B2,noun,일생
@@ -3479,9 +3454,8 @@ limitation,B1,noun,한정
 limited,B1,adjective,제한된
 limp,B1,verb,절름발이
 line,A1,noun,선
-linen,B2,noun,리넨
+linen,B2,noun,린넨
 liner,B2,noun,정기선
-ling,B2,noun,링
 linger,B2,verb,질질 끌게 하다
 link,B1,noun,링크
 lion,A1,noun,사자
@@ -3490,12 +3464,11 @@ liquid,B1,adjective,액체
 list,A1,noun,목록
 listen,A1,verb,듣다
 listener,B2,noun,경청자
-liter/litre,A2,noun,리터/리터
-literal,B2,adjective,오자
+liter/litre,A2,noun,리터
 literally,B2,adverb,문자 그대로
 literary,B1,adjective,문호
 literature,B1,noun,문학
-litter,B2,noun,깃
+litter,B2,noun,쓰레기
 little,A1,adjective,작은
 live,B1,adjective,살다
 lively,A2,adjective,기운찬
@@ -3555,7 +3528,6 @@ luxurious,B2,adjective,호화로운
 luxury,B2,adjective,사치
 lyric,A2,adjective,서정시
 lyrics,B2,noun,가사
-'m,A1,be-verb,'중
 machine,A1,noun,기계
 mad,A2,adjective,미친
 madam,B2,noun,부인
@@ -3584,7 +3556,7 @@ malady,B2,noun,질병
 malaria,B2,noun,말라리아
 male,B1,adjective,남성
 mall,A2,noun,쇼핑 센터
-mama/mamma,B2,noun,엄마/맘마
+mama/mamma,B2,noun,엄마
 man,A1,noun,남성
 manage,A2,verb,관리하다
 management,B1,noun,관리
@@ -3614,7 +3586,7 @@ marriage,B1,noun,결혼
 married,A2,adjective,기혼
 marry,A2,verb,결혼하다
 martial art,B2,noun,무술
-marvelous/marvellous,A2,adjective,놀라운/놀라운
+marvelous/marvellous,A2,adjective,놀라운
 mash,B1,verb,으깨다
 mask,B2,noun,마스크
 mass,B1,adjective,대량의
@@ -3628,7 +3600,7 @@ mastery,B2,noun,지배
 match,A1,noun,성냥
 mate,B2,noun,친구
 material,A2,noun,재료
-math/maths,A1,noun,수학/수학
+math/maths,A1,noun,수학
 mathematical,B2,adjective,매우 정확한
 mathematician,B1,noun,수학자
 mathematics,B1,noun,수학
@@ -3645,7 +3617,7 @@ me,A1,pronoun,나
 meal,A1,noun,식사
 mean,A2,adjective,평균
 meaning,A2,noun,의미
-meaningful,B1,adjective,의미가 있습니다
+meaningful,B1,adjective,의미가 있는
 means,B2,noun,수단
 meanwhile,B1,adverb,그 동안에
 measure,B1,noun,측정하다
@@ -3653,13 +3625,13 @@ measurement,B1,noun,측정
 meat,A1,noun,고기
 mechanic,B1,noun,정비공
 mechanical,B1,adjective,기계적
-mechanize/mechanise,B2,verb,기계화/기계공
+mechanize/mechanise,B2,verb,기계화
 medal,A2,noun,메달
 media,B2,noun,미디어
 medical,A2,adjective,의료
 medication,B2,noun,약물
 medicine,A1,noun,약
-medieval/mediaeval,B2,adjective,중세/중세
+medieval/mediaeval,B2,adjective,중세
 mediocre,B2,adjective,평범한
 meditate,B1,verb,꾀하다
 meditation,B1,noun,심사 숙고
@@ -3672,9 +3644,9 @@ melon,A2,noun,멜론
 melt,B1,verb,녹다
 member,A2,noun,회원
 membership,B1,noun,멤버십
-memorable,B1,adjective,기억에 남습니다
+memorable,B1,adjective,기억에 남는
 memorial,B2,noun,기념물
-memorize/memorise,B1,verb,암기/암기
+memorize/memorise,B1,verb,암기
 memory,A1,noun,메모리
 mend,B1,verb,수선
 mental,B1,adjective,정신적인
@@ -3697,13 +3669,13 @@ messenger,B2,noun,전령
 messy,B1,adjective,지저분한
 metal,A2,noun,금속
 metaphor,B2,noun,은유
-meter/metre,A2,noun,미터/미터
+meter/metre,A2,noun,미터
 method,A2,noun,방법
 metric,B2,adjective,메트릭
 micro,B2,noun,마이크로
 microbe,B2,noun,미생물
 microcomputer,B2,noun,초소형 컴퓨터
-micrometer/micrometre,B2,noun,마이크로 미터/마이크로 미터
+micrometer/micrometre,B2,noun,마이크로미터
 microorganism,B2,noun,미생물
 microphone,B2,noun,마이크로폰
 microscope,B2,noun,현미경
@@ -3723,7 +3695,7 @@ mile,B1,noun,마일
 military,A2,adjective,군대
 milk,A1,noun,우유
 mill,B2,noun,밀
-millimeter/millimetre,B2,noun,밀리미터/밀리미터
+millimeter/millimetre,B2,noun,밀리미터
 million,A2,number,백만
 millionaire,B2,noun,백만 장자
 mimic,B2,noun,모방
@@ -3732,7 +3704,7 @@ mine,B2,noun,내 거
 mineral,B1,noun,광물
 mineral water,A2,noun,광천수
 miniature,B2,adjective,세밀화
-minimize/minimise,B1,verb,최소화/최소화
+minimize/minimise,B1,verb,최소화
 minimum,B1,adjective,최저한의
 minister,B2,noun,장관
 minor,B1,adjective,미성년자
@@ -3757,7 +3729,7 @@ mission,B1,noun,사명
 mist,B2,noun,안개
 mistake,A2,noun,실수
 mistreat,B2,verb,학대
-mistrustful,B2,adjective,의심 많은
+mistrustful,B2,adjective,안개가 짙은
 misty,B1,adjective,미스티
 misunderstand,B2,verb,오해
 misunderstanding,B1,noun,오해
@@ -3768,25 +3740,24 @@ mobile,A2,adjective,이동하는
 mobile phone,A1,noun,휴대 전화
 mobility,B2,noun,유동성
 mock,B2,adjective,모조품
-modal verb/modal,B1,noun,모달 동사/모달
 model,B1,adjective,모델
 modem,B1,noun,모뎀
 moderate,B1,adjective,보통의
 modern,A2,adjective,현대의
-modernization/modernisation,B2,noun,현대화/현대화
-modernize/modernise,B2,verb,현대화/현대화
+modernization/modernisation,B2,noun,현대화
+modernize/modernise,B2,verb,현대화하다
 modest,B2,adjective,보통의
 modification,B2,noun,가감
 modify,B1,verb,수정하다
 mogul,B2,noun,무굴 사람
 moisture,B1,noun,수분
-mold/mould,B2,noun,곰팡이/금형
+mold/mould,B2,noun,곰팡이
 molecule,B1,noun,분자
 mom,A1,noun,엄마
 moment,A1,noun,순간
 momentarily,B2,adverb,즉시
 momentary,B2,adjective,순간
-mommy/mommie,A1,noun,엄마/엄마
+mommy/mommie,A1,noun,엄마
 monastery,B2,noun,수도원
 Monday,A1,noun,월요일
 money,A1,noun,돈
@@ -3821,7 +3792,7 @@ mother,A1,noun,어머니
 mother-in-law,B2,noun,시어머니
 motherland,B1,noun,모국
 motion,B2,noun,운동
-motionless,B1,adjective,움직이지 않습니다
+motionless,B1,adjective,움직이지 않는
 motivate,B1,verb,동기 부여
 motivated,B2,adjective,동기 부여
 motivation,B1,noun,동기 부여
@@ -3836,7 +3807,7 @@ mount,B1,noun,산
 mountain,A1,noun,산
 mountaintop,B1,noun,산 꼭대기
 mourn,B1,verb,애도
-mournful,B2,adjective,슬퍼합니다
+mournful,B2,adjective,슬퍼하는
 mouse,A1,noun,생쥐
 mouth,A1,noun,입
 move,A1,noun,이동하다
@@ -3858,14 +3829,14 @@ murder,A2,noun,살인
 murderer,B1,noun,살인자
 murmur,B2,noun,어렴풋한 말소리
 muscle,B1,noun,근육
-muse,B2,verb,뮤즈 신
+muse,B2,verb,뮤즈
 museum,A2,noun,박물관
 mushroom,A2,noun,버섯
 music,A1,noun,음악
 musical,A2,adjective,뮤지컬
 musician,A1,noun,음악가
 must,A1,modal auxiliary,~ 해야 하다
-mustache/moustache,B2,noun,콧수염/콧수염
+mustache/moustache,B2,noun,콧수염
 mustard,B1,noun,머스타드
 mutability,B2,noun,돌연변이
 mutable,B2,adjective,변하기 쉬운
@@ -3925,17 +3896,16 @@ negatively,B2,adverb,부정적인
 neglect,B2,noun,소홀히 하다
 negotiate,B1,verb,협상
 negotiation,B1,noun,협상
-neighbor/neighbour,A1,noun,이웃/이웃
-neighborhood/neighbourhood,B1,noun,이웃/이웃
-neighboring/neighbouring,B2,adjective,이웃/이웃
-neither,B2,adverb,어느 것도 아니다
+neighbor/neighbour,A1,noun,이웃
+neighborhood/neighbourhood,B1,noun,이웃
+neighboring/neighbouring,B2,adjective,이웃
+neither,B2,adverb,어느 것도 아닌
 nephew,B1,noun,조카
 nerve,B2,noun,신경 이상
 nerves,B2,noun,신경
 nervous,A2,adjective,불안한
-nervously,B2,adverb,신경 질적으로
+nervously,B2,adverb,신경질적으로
 nervousness,B1,noun,신경질
-ness,B1,noun,네스 호
 net,A2,adjective,그물
 network,B1,noun,회로망
 neurosis,B2,noun,신경증
@@ -3995,8 +3965,7 @@ northward,B2,adverb,북방
 northwest,B1,adjective,북서
 northwestern,B1,adjective,북서부
 nose,A1,noun,코
-nostril,B2,noun,콧 구멍
-not,A1,adverb,~ 아니다
+nostril,B2,noun,콧구멍
 note,A1,noun,메모
 notebook,A1,noun,공책
 nothing,A1,pronoun,아무것도 아님
@@ -4015,7 +3984,7 @@ novelty,B2,noun,진기함
 November,A1,noun,십일월
 now,A1,adverb,지금
 nowadays,A2,adverb,요즘에는
-nowhere,B1,adverb,아무데도 없습니다
+nowhere,B1,adverb,아무데도 없는
 nuclear,B1,adjective,핵무기
 nucleus,B1,noun,핵
 nuisance,B2,noun,폐가 되는 행위
@@ -4043,8 +4012,8 @@ observation,B1,noun,관찰
 observe,B1,verb,관찰하다
 observer,B2,noun,관찰자
 obsess,B2,verb,들리다
-obsession,B2,noun,강박 관념
-obsessive,B2,adjective,강박 적
+obsession,B2,noun,강박관념
+obsessive,B2,adjective,강박적
 obstacle,B1,noun,장애
 obtain,B1,verb,얻다
 obvious,B1,adjective,분명한
@@ -4063,7 +4032,7 @@ of,A1,preposition,~의
 off,A1,adjective,끄다
 offend,B2,verb,공격하다
 offender,B2,noun,범죄자
-offense/offence,B2,noun,범죄/범죄
+offense/offence,B2,noun,범죄
 offensive,B1,adjective,공격
 offer,A2,noun,권하다
 offhand,B2,adverb,아무렇게나
@@ -4076,7 +4045,6 @@ often,A1,adverb,자주
 oil,A2,noun,기름
 oily,B1,adjective,기름진
 ointment,B2,noun,연고
-OK/okay,A1,adjective,좋아/좋아
 old,A1,adjective,오래된
 old-fashioned,B1,adjective,구식
 olive,B2,noun,올리브
@@ -4085,7 +4053,7 @@ Olympia,B2,noun,올림피아
 Olympiad,B2,noun,국제 올림픽 경기 대회
 Olympic,A2,adjective,국제 올림픽 경기 대회
 Olympics,A1,noun,올림픽
-omelet/omelette,A2,noun,오믈렛/오믈렛
+omelet/omelette,A2,noun,오믈렛
 on,A2,adverb,~에
 once,A1,adverb,한 번
 oneself,B1,pronoun,자신
@@ -4127,15 +4095,15 @@ ordinary,B1,adjective,평범한
 organ,B1,noun,오르간
 organic,B1,adjective,본질적인
 organism,B1,noun,유기체
-organization/organisation,B1,noun,조직/조직
-organize/organise,A2,verb,조직/조직
-organized/organised,A2,adjective,조직/조직
-organizer/organiser,B2,noun,주최자/주최자
+organization/organisation,B1,noun,조직
+organize/organise,A2,verb,조직
+organized/organised,A2,adjective,조직
+organizer/organiser,B2,noun,주최자
 origin,B1,noun,기원
 original,A2,adjective,원래의
 originality,B2,noun,독창성
 originally,B2,adverb,원래
-originate,B2,verb,출발합니다
+originate,B2,verb,출발하다
 ornament,B2,noun,장식
 orphan,A2,noun,유아
 otherwise,B1,adverb,그렇지 않으면
@@ -4159,7 +4127,7 @@ outing,B2,noun,나들이
 outlaw,B1,noun,무법자
 outlet,B2,noun,콘센트
 outline,B2,noun,개요
-outlive,B2,verb,무시합니다
+outlive,B2,verb,무시하다
 outlook,B2,noun,시야
 out-of-date,B1,adjective,오래되지 않은
 outpatient,B2,noun,외래 환자
@@ -4182,17 +4150,16 @@ overboard,B2,adverb,배 밖으로
 overbook,B2,verb,오버 북
 overcoat,B2,noun,외투
 overcome,B1,verb,극복하다
-overemphasize/overemphasise,B2,verb,지나치게 강조/과도하게 강조하십시오
+overemphasize/overemphasise,B2,verb,지나치게 강조하다
 overestimate,B2,verb,과대 평가
 overhear,B2,verb,우연히 듣다
-overjoyed,B1,adjective,너무 기뻐했습니다
-overlap,B2,noun,겹치십시오
-overlook,B2,verb,간과하십시오
+overjoyed,B1,adjective,기쁨에 넘친
+overlap,B2,noun,겹치다
+overlook,B2,verb,간과하다
 overly,B2,adverb,지나치게
 overnight,B1,adjective,밤새
 overseas,B2,adjective,해외
-overshadow,B2,verb,오버 샷
-oversize,B2,adjective,특대
+oversize,B2,adjective,특대의
 overstep,B2,verb,지나쳐 가다
 overtake,B2,verb,추월
 overthrow,B2,verb,타도
@@ -4200,7 +4167,7 @@ overtime,B2,adverb,시간 외에
 overturn,B2,verb,전복
 overweight,A2,adjective,초과 중량
 overwhelm,B1,verb,압도
-overwhelming,B1,adjective,압도적입니다
+overwhelming,B1,adjective,압도적인
 overwork,B1,noun,지나치게 일하다
 ow,B2,noun,"오,"
 owe,B1,verb,빚지다
@@ -4231,7 +4198,7 @@ paintbrush,B2,noun,화필
 painter,A2,noun,화가
 painting,A1,noun,그림
 pair,A1,noun,쌍
-pajamas/pyjamas,B2,noun,소득/pyjam
+pajamas/pyjamas,B2,noun,소득
 pal,A2,noun,단짝
 palace,A1,noun,궁전
 pale,B1,adjective,창백한
@@ -4239,7 +4206,7 @@ pallet,B2,noun,짚자리
 palm,B1,noun,손바닥
 pan,A2,noun,팬
 pancake,B2,noun,팬케이크
-pandemic,B2,adjective,감염병 세계적 유행
+pandemic,B2,adjective,감염병의 세계적 유행
 panel,B2,noun,패널
 panic,A2,noun,공황
 pants,A1,noun,바지
@@ -4253,7 +4220,7 @@ paradise,B1,noun,파라다이스
 paradox,B2,noun,역설
 paragraph,A1,noun,절
 paralysis,B2,noun,마비
-paralyze/paralyse,B1,verb,마비/마비
+paralyze/paralyse,B1,verb,마비
 paramedic,B2,adjective,낙하산 부대 군의관
 paratrooper,B2,noun,낙하산
 parcel,B1,noun,소포
@@ -4330,12 +4297,12 @@ peep,B2,noun,나타나다
 peer,B2,noun,또래
 peg,B2,noun,못
 pen,A1,noun,펜
-penalize/penalise,B2,verb,처벌/처벌
+penalize/penalise,B2,verb,처벌
 penalty,B2,noun,패널티
 pence,A2,noun,펜스
 pencil,A1,noun,연필
-penetrate,B2,verb,침투하십시오
-penfriend/pen friend,A2,noun,펜 친구/펜 친구
+penetrate,B2,verb,침투하다
+penfriend/pen friend,A2,noun,펜팔
 penguin,B2,noun,펭귄
 penicillin,B2,noun,페니실린
 penniless,B1,adjective,무모한
@@ -4410,10 +4377,10 @@ physics,B1,noun,물리학
 piano,A1,noun,피아노
 pick,B1,noun,선택하다
 pickle,B2,noun,간물
-picky,B2,adjective,까다 롭다
+picky,B2,adjective,까다롭다
 picnic,A1,noun,피크닉
 picture,A1,noun,그림
-picturesque,B2,adjective,그림 같은
+picturesque,B2,adjective,그림같은
 pie,B1,noun,파이
 piece,A1,noun,조각
 piety,B1,noun,경건
@@ -4449,7 +4416,7 @@ plate,A2,noun,그릇
 platform,B1,noun,플랫폼
 play,A1,noun,놀다
 player,A1,noun,플레이어
-playful,A2,adjective,유쾌합니다
+playful,A2,adjective,유쾌한
 playground,A2,noun,운동장
 playmate,B2,noun,놀이 친구
 playwright,B2,noun,극작가
@@ -4507,9 +4474,9 @@ pool,A1,noun,수영장
 poor,A1,adjective,가난한
 pop,A1,noun,팝
 popcorn,B1,noun,팝콘
-popular,A2,adjective,인기 있는
+popular,A2,adjective,인기있는
 popularity,B2,noun,인기
-popularize/popularise,B2,verb,대중화/대중화
+popularize/popularise,B2,verb,대중화
 population,A2,noun,인구
 porch,B2,noun,현관
 pork,B1,noun,돼지고기
@@ -4522,7 +4489,7 @@ position,A2,noun,위치
 positive,B1,adjective,긍정적인
 positively,B1,adverb,전적으로
 possess,B1,verb,붙잡다
-possessed,B2,adjective,소유 한
+possessed,B2,adjective,소유한
 possession,B1,noun,소유
 possessive,B1,adjective,소유
 possibility,B1,noun,가능성
@@ -4552,7 +4519,7 @@ practical,B1,adjective,현실적인
 practicality,B2,noun,실용적인 사항
 practically,B2,adverb,거의
 practice,A1,noun,관행
-practice/practise,A1,verb,연습/연습
+practice/practise,A1,verb,연습
 praise,B1,noun,칭찬
 prance,B2,noun,도약
 prawn,B2,noun,왕새우
@@ -4580,7 +4547,7 @@ pregnant,B1,adjective,임신한
 prehistoric,B2,adjective,선사 시대
 prehuman,B2,noun,인간
 preindustrial,B2,adjective,사전 산업
-prejudge,B2,verb,미리 판사
+prejudge,B2,verb,미리 판단하다
 prejudice,B1,noun,편견
 preliminary,B2,adjective,예비의
 preoccupy,B2,verb,선입견
@@ -4648,7 +4615,7 @@ problem,A1,noun,문제
 procedure,B2,noun,절차
 proceed,B1,verb,진행하다
 process,B1,noun,프로세스
-proclaim,B1,verb,선포하십시오
+proclaim,B1,verb,선포하다
 procrastination,B1,noun,지연
 produce,A2,verb,생산하다
 producer,B1,noun,생산자
@@ -4661,7 +4628,7 @@ professor,B1,noun,교수
 profile,B2,noun,프로필
 profit,B2,noun,이익
 profitable,B2,adjective,유리한
-program/programme,A1,noun,프로그램/프로그램
+program/programme,A1,noun,프로그램
 programmer,B2,noun,프로그램 제작자
 programming,B2,noun,프로그램 작성
 progress,B1,noun,진전
@@ -4678,7 +4645,7 @@ promote,B1,verb,홍보하다
 promotion,B1,noun,홍보
 prompt,B2,adjective,즉각적인
 promptly,B2,adverb,즉시
-pronoun,B1,noun,그들은 제안합니다
+pronoun,B1,noun,제안하다
 pronounce,A2,verb,발음
 pronunciation,A2,noun,발음
 proof,B1,noun,증거
@@ -4688,7 +4655,7 @@ property,B1,noun,재산
 proponent,B2,noun,제안자
 proportion,B1,noun,비율
 proposal,B1,noun,제안
-propose,B1,verb,제안합니다
+propose,B1,verb,제안하다
 proposed,B2,adjective,제안
 prose,B2,noun,산문
 prosecute,B2,verb,기소
@@ -4703,7 +4670,7 @@ protest,B1,noun,항의
 proud,B1,adjective,자랑스러운
 proudly,B2,adverb,자랑스럽게
 prove,B1,verb,입증하다
-proven,B2,adjective,입증되었습니다
+proven,B2,adjective,입증되다
 proverb,B1,noun,속담
 provide,A2,verb,제공하다
 provided,B1,conjunction,제공
@@ -4719,7 +4686,7 @@ public,B1,adjective,공공의
 public transport,B1,noun,대중 교통
 publication,B2,noun,출판
 publicity,B2,noun,널리 알려짐
-publicize/publicise,B2,verb,홍보/홍보
+publicize/publicise,B2,verb,홍보
 publicly,B1,adverb,공개적으로
 publish,A2,verb,게시
 publisher,B1,noun,발행자
@@ -4739,10 +4706,10 @@ pupil,B1,noun,학생
 puppy,B1,noun,강아지
 purchase,B2,noun,구입
 pure,B1,adjective,순수한
-purify,B1,verb,정화하십시오
+purify,B1,verb,정화하다
 purple,A2,adjective,보라
 purpose,A2,noun,목적
-purposeful,B2,adjective,목적이 있습니다
+purposeful,B2,adjective,목적이 있는
 purse,B1,noun,지갑
 pursue,A2,verb,추구하다
 pursuit,B2,noun,추구
@@ -4753,7 +4720,7 @@ puzzled,B2,adjective,어찌할 바를 모르는
 quake,B1,noun,지진
 qualification,B2,noun,자격
 qualified,B1,adjective,자격 있는
-qualify,B1,verb,자격을 갖추십시오
+qualify,B1,verb,자격을 갖추다
 quality,B1,adjective,품질
 quantify,B2,verb,정량화
 quantity,B1,noun,수량
@@ -4775,7 +4742,7 @@ quietly,A2,adverb,조용히
 quit,B2,adjective,그만두다
 quite,A2,adverb,상당히
 quiz,A2,noun,퀴즈
-quotable,B2,adjective,견적 가능
+quotable,B2,adjective,인용할 수 있는
 quotation,B2,noun,인용
 quote,B2,noun,인용하다
 rabbit,A1,noun,토끼
@@ -4804,7 +4771,7 @@ raincoat,A2,noun,비옷
 rainfall,B1,noun,강우
 rainforest,B1,noun,열대 우림
 rainstorm,B2,noun,비바람
-rainy,A1,adjective,비가 오세요
+rainy,A1,adjective,비가오는
 raise,A2,verb,들어올리다
 rally,B2,noun,랠리
 ram,B2,noun,램
@@ -4831,7 +4798,6 @@ ravage,B2,noun,파괴
 raw,A2,adjective,날것의
 ray,A2,noun,레이
 razor,B1,noun,면도칼
-'re,A1,be-verb,'답장
 reach,B1,noun,도달하다
 react,B1,verb,반응
 reaction,B2,noun,반응
@@ -4842,10 +4808,10 @@ reading,A1,noun,독서
 ready,A1,adjective,준비가 된
 real,A1,adjective,진짜
 real estate,B2,noun,부동산
-realistic,B1,adjective,현실적입니다
+realistic,B1,adjective,현실적인
 reality,B1,noun,현실
-realization/realisation,B2,noun,실현/실현
-realize/realise,A2,verb,실현/실현
+realization/realisation,B2,noun,실현
+realize/realise,A2,verb,실현
 really,A1,adverb,정말
 rear,B2,adjective,뒤쪽
 rearrange,B1,verb,재 배열
@@ -4861,18 +4827,18 @@ receive,A2,verb,받다
 recent,A2,adjective,최근의
 recently,A2,adverb,최근에
 reception,B1,noun,리셉션
-receptionist,A2,noun,접수 원
+receptionist,A2,noun,접수원
 recession,B2,noun,경기 후퇴
 recipe,B2,noun,레시피
 recite,B1,verb,암송
 reckon,B2,verb,세다
 reclaim,B1,verb,개심
 recognition,B2,noun,인식
-recognize/recognise,B1,verb,인식/인식
+recognize/recognise,B1,verb,인식
 recollect,B2,verb,생각해 내다
 recollection,B2,noun,회상
 recommend,B1,verb,추천하다
-recommendable,B2,adjective,추천 가능
+recommendable,B2,adjective,추천 할만한
 recommendation,B2,noun,추천
 reconsider,B2,verb,재고
 record,B1,noun,기록
@@ -4932,7 +4898,7 @@ reinforce,B2,verb,강화
 reinforcement,B2,noun,보강
 reject,B1,verb,거부하다
 rejection,B2,noun,배제
-rejoin,B2,verb,다시 합류하십시오
+rejoin,B2,verb,재합류하다
 relate,B1,verb,말하다
 related,B2,adjective,관련된
 relation,B1,noun,관계
@@ -4958,7 +4924,7 @@ reluctant,B2,adjective,주저하는
 rely,B1,verb,의존하다
 remain,A2,verb,유지하다
 remainder,B1,noun,나머지
-remaining,B2,adjective,남아 있습니다
+remaining,B2,adjective,남아 있다
 remains,B2,noun,유적
 remark,B2,noun,주목
 remarkable,B1,adjective,놀랄 만한
@@ -4974,7 +4940,7 @@ remove,B1,verb,제거하다
 renew,B1,verb,고쳐 쓰다
 rent,A2,noun,임차료
 rental,B2,noun,임대
-reorganize/reorganise,B2,verb,재구성/재구성
+reorganize/reorganise,B2,verb,재구성
 repaint,B2,noun,리피트
 repair,A2,noun,수리하다
 repay,B1,verb,갚다
@@ -5020,7 +4986,7 @@ resort,B1,noun,의지
 resource,B1,noun,자원
 respect,B1,noun,존경
 respectable,B1,adjective,상당한
-respectably,B2,adverb,존경합니다
+respectably,B2,adverb,존경하다
 respected,B2,adjective,존경받는
 respiration,B2,noun,호흡
 respiratory,B2,adjective,호흡기
@@ -5040,8 +5006,8 @@ retailer,B2,noun,소매 업체
 retain,B1,verb,유지하다
 retard,B2,verb,지체
 retina,B2,noun,망막
-retire,A2,verb,은퇴하십시오
-retired,A2,adjective,은퇴했습니다
+retire,A2,verb,은퇴하다
+retired,A2,adjective,은퇴한
 retirement,B2,noun,퇴직
 retreat,B2,noun,후퇴
 retrieve,B2,verb,검색하다
@@ -5063,7 +5029,7 @@ revival,B2,noun,회복
 revive,B2,verb,부활
 revolution,B2,noun,혁명
 revolutionary,B2,adjective,혁명적
-revolutionize/revolutionise,B2,verb,혁명/혁명
+revolutionize/revolutionise,B2,verb,혁명
 revolve,B2,verb,회전
 reward,B1,noun,보상
 rewrite,B1,verb,고쳐 쓰기
@@ -5142,7 +5108,7 @@ ruin,B1,noun,망치다
 ruinous,B2,adjective,파멸
 rule,A1,noun,규칙
 ruler,A1,noun,자
-rumor/rumour,A2,noun,소문/소문
+rumor/rumour,A2,noun,소문
 run,A1,noun,달리다
 runaway,B1,noun,도망자
 runner,A2,noun,달리는 사람
@@ -5152,7 +5118,6 @@ rural,B2,adjective,시골의
 rush,A2,noun,서두르다
 rush hour,B2,noun,러시 아워
 rusty,B2,adjective,녹슨
-'s,A1,be-verb,'에스
 sack,B2,verb,해고
 sacred,B1,adjective,신성한
 sad,A1,adjective,슬퍼
@@ -5192,7 +5157,7 @@ sanitary,B2,adjective,위생
 sanitation,B2,noun,위생
 satellite,B1,noun,위성
 satisfaction,B1,noun,만족
-satisfactory,B2,adjective,만족 스럽습니다
+satisfactory,B2,adjective,만족스러운
 satisfied,B1,adjective,만족하는
 satisfy,A2,verb,풀다
 Saturday,A1,noun,토요일
@@ -5201,7 +5166,7 @@ saucepan,B1,noun,소스 냄비
 saucer,B1,noun,받침 접시
 sausage,A2,noun,소시지
 save,A1,verb,구하다
-saving/savings,B2,noun,저축/저축
+saving/savings,B2,noun,저축
 saw,A1,noun,봤다
 say,B2,noun,말하다
 scale,A2,noun,규모
@@ -5341,7 +5306,6 @@ shade,A2,noun,그늘
 shadow,A2,noun,그림자
 shadowy,B1,adjective,공허한
 shake,A1,noun,떨림
-shaken,B2,adjective,쉐이킹 식
 Shakespearean,B2,adjective,셰익스피어
 shaky,B2,adjective,흔들리는
 shall,A2,modal auxiliary,~일 것이다
@@ -5382,14 +5346,14 @@ shooting,B2,noun,촬영
 shop,A1,noun,가게
 shop assistant,A2,noun,상점 보조원
 shopkeeper,B2,noun,가게 주인
-shoplift,B2,verb,좀 도둑질
+shoplift,B2,verb,좀도둑질
 shoplifter,B2,noun,가게 좀도둑
 shoplifting,B2,noun,좀도둑
 shopper,B1,noun,무료 신문
 shopping,A1,noun,쇼핑
 shore,A2,noun,지주
 short,A1,adjective,짧은
-short/shorts,A2,noun,짧은/반바지
+short,A2,noun,짧은
 shortage,B1,noun,부족
 shortly,B1,adverb,곧
 shortness,B2,noun,단점
@@ -5420,7 +5384,7 @@ signature,B1,noun,서명
 significance,B1,noun,중요성
 significant,A2,adjective,중요한
 significantly,B2,adverb,중요하게
-signify,B2,verb,의미합니다
+signify,B2,verb,의미하다
 signpost,B1,noun,푯말
 silence,A2,noun,고요
 silent,B1,adjective,조용한
@@ -5468,9 +5432,9 @@ sketch,B2,verb,스케치
 ski,A2,noun,스키
 skiing,A2,noun,스키 타기
 skill,A1,noun,기술
-skilled,B2,adjective,숙련 된
-skillful/skilful,B2,adjective,숙련/능숙합니다
-skillfully/skilfully,B2,adverb,능숙하고 능숙하게
+skilled,B2,adjective,숙련된
+skillful/skilful,B2,adjective,숙련된
+skillfully/skilfully,B2,adverb,능숙하게
 skim,B2,verb,웃더껑이
 skin,B1,noun,피부
 skip,B2,verb,건너뛰다
@@ -5490,7 +5454,7 @@ sleepless,A2,adjective,잠 못 이루는
 sleepy,A2,adjective,졸린
 sleeve,B1,noun,소매
 slice,A2,noun,일부분
-slide,A2,noun,미끄러지 다
+slide,A2,noun,미끄러지다
 slight,B2,adjective,근소한
 slightly,B1,adverb,약간
 slim,A2,adjective,날씬한
@@ -5507,7 +5471,6 @@ smart,A1,adjective,똑똑한
 smash,B2,verb,스매시
 smell,A1,noun,냄새가 나다
 smile,A1,noun,웃다
-smith,A1,noun,스미스
 smoke,A1,noun,연기
 smoker,B1,noun,흡연자
 smokestack,B2,noun,굴뚝
@@ -5527,11 +5490,11 @@ snowball,B2,noun,스노볼
 snowboard,B1,noun,스노우 보드
 snowboarding,A2,noun,스노우 보드
 snowstorm,B1,noun,눈보라
-snowy,A1,adjective,눈이 내리
+snowy,A1,adjective,눈이 내리는
 so,A2,adverb,그래서
 soak,B2,noun,담그다
 soaked,B2,adjective,담근
-soaking,B2,adjective,몸을 담그십시오
+soaking,B2,adjective,흠뻑 젖는
 soap,A2,noun,비누
 soap opera,B1,noun,드라마
 soar,B2,verb,날기
@@ -5541,7 +5504,7 @@ soccer,A1,noun,축구
 sociable,B2,adjective,간친회
 social,A1,adjective,사회의
 social networking,B1,noun,소셜 네트워킹
-socialize/socialise,B2,verb,사교/사교
+socialize,B2,verb,사교
 socially,B1,adverb,사회적으로
 society,A2,noun,사회
 sock,A2,noun,양말
@@ -5613,13 +5576,13 @@ speak,A1,verb,말하다
 speaker,A2,noun,스피커
 special,A1,adjective,특별한
 specialist,B1,noun,전문가
-specialize/specialise,B1,verb,전문화/전문화
+specialize/specialise,B1,verb,전문화
 specially,B1,adverb,특별히
 specialty,B2,noun,전문
 species,B2,noun,종
 specific,A2,adjective,특정한
 specifically,B2,adverb,구체적으로
-specify,B2,verb,지정하십시오
+specify,B2,verb,지정하다
 spectacle,B2,noun,안경
 spectacular,B1,adjective,장관
 spectator,B1,noun,구경꾼
@@ -5652,7 +5615,7 @@ sponsor,B1,noun,스폰서
 spoon,A2,noun,숟가락
 sport,A1,noun,스포츠
 sports,B1,adjective,스포츠
-sports center/sports centre,A2,noun,스포츠 센터/스포츠 센터
+sports center/sports centre,A2,noun,스포츠 센터
 sportsmanship,B1,noun,운동가 정신
 spot,A1,noun,점
 spray,B2,noun,스프레이
@@ -5710,7 +5673,7 @@ steel,B1,noun,강철
 steely,B2,adjective,견고한
 steep,B1,adjective,험한
 steer,B2,verb,조종하다
-steering wheel,B2,noun,스티어링 휠
+steering wheel,B2,noun,핸들
 stem,B1,verb,줄기
 step,A2,noun,단계
 stepfather,B2,noun,의붓 아버지
@@ -5768,7 +5731,7 @@ strength,A2,noun,힘
 strengthen,B1,verb,강하게 하다
 stress,B1,noun,스트레스
 stressed,B1,adjective,스트레스
-stressful,B1,adjective,스트레스가 많습니다
+stressful,B1,adjective,스트레스가 많은
 stretch,B1,verb,뻗기
 stricken,B1,adjective,맞은
 strict,A1,adjective,엄격한
@@ -5818,7 +5781,7 @@ subtle,B2,adjective,미묘한
 subtract,B2,verb,덜다
 suburb,B2,noun,근교
 subway,A1,noun,지하철
-succeed,A2,verb,성공하십시오
+succeed,A2,verb,성공하다
 success,A2,noun,성공
 successful,A1,adjective,성공적인
 successfully,A2,adverb,성공적으로
@@ -5840,9 +5803,9 @@ suit,A2,noun,정장
 suitable,A2,adjective,적합한
 suitably,B2,adverb,적절하게
 suitcase,A2,noun,가방
-sulfur/sulphur,B2,noun,황/황
+sulfur/sulphur,B2,noun,유황의
 sum,A1,noun,합집합
-summarize/summarise,B1,verb,요약/요약
+summarize/summarise,B1,verb,요약
 summary,A2,noun,요약
 summer,A1,noun,여름
 summit,B1,noun,정상 회담
@@ -5876,7 +5839,7 @@ supplier,B2,noun,공급 업체
 supply,B1,noun,공급
 support,A2,noun,지원하다
 supporter,B1,noun,서포터
-supportive,B1,adjective,지지 적
+supportive,B1,adjective,지지적
 suppose,B1,verb,가정하다
 supposedly,B1,adverb,아마도
 suppress,B2,verb,막다
@@ -5934,7 +5897,7 @@ syllable,B2,noun,음절
 symbol,A2,noun,상징
 symbolic,B2,adjective,상징적
 sympathetic,B2,adjective,교감 신경
-sympathize/sympathise,B2,verb,동정/동정
+sympathize/sympathise,B2,verb,동정
 sympathy,B1,noun,동정
 symphony,A2,noun,교향곡
 symptom,B1,noun,징후
@@ -5955,7 +5918,7 @@ tag,B2,noun,꼬리표
 tail,B2,noun,꼬리
 take,B1,noun,가져가다
 takeaway,B1,noun,테이크 아웃
-takeoff/take-off,B1,noun,이륙/이륙
+takeoff/take-off,B1,noun,이륙
 tale,B1,noun,이야기
 talent,A2,noun,재능
 talented,B1,adjective,재간 있는
@@ -6042,10 +6005,9 @@ text message,A2,noun,문자 메세지
 textbook,A2,noun,교과서
 than,A1,conjunction,~보다
 thank,A1,verb,감사하다
-thankful,B1,adjective,감사합니다
+thankful,B1,adjective,감사한
 thanks,A1,noun,감사해요
-that,B2,adverb,저것
-theater/theatre,A1,noun,극장/극장
+theater/theatre,A1,noun,극장
 theft,B1,noun,훔침
 theirs,A2,pronoun,그들의 것
 them,A1,pronoun,그들을
@@ -6091,7 +6053,7 @@ threaten,B2,verb,위협
 threatening,B1,adjective,험악한
 three,A1,number,삼
 thrill,B2,noun,스릴
-thrilled,B2,adjective,감격했습니다
+thrilled,B2,adjective,감격한
 thriller,B1,noun,스릴러
 thrilling,B2,adjective,떨리는
 throat,B2,noun,목
@@ -6146,7 +6108,7 @@ toenail,B2,noun,발톱
 together,A1,adverb,함께
 toil,B2,verb,수고
 toilet,A1,noun,화장실
-tolerant,B2,adjective,관대 한
+tolerant,B2,adjective,관대한
 tolerate,B2,verb,참다
 toll,B2,noun,통행료
 tomato,A1,noun,토마토
@@ -6178,7 +6140,7 @@ tour guide,A2,noun,여행 가이드
 tourism,B1,noun,관광 여행
 tourist,A2,noun,관광객
 tournament,B1,noun,토너먼트
-toward/towards,A2,preposition,쪽으로/쪽으로
+toward/towards,A2,preposition,쪽으로
 towel,A1,noun,수건
 tower,A1,noun,탑
 town,A1,noun,도시
@@ -6230,7 +6192,7 @@ trap,A2,noun,덫
 trash,B1,noun,쓰레기
 travel,A2,noun,여행하다
 travel agent,B1,noun,여행사
-traveler/traveller,A2,noun,여행자/여행자
+traveler/traveller,A2,noun,여행자
 traverse,B2,noun,횡단
 tray,B2,noun,쟁반
 tread,B2,verb,흘레
@@ -6265,7 +6227,7 @@ trouble,A2,noun,문제
 troublesome,B2,adjective,귀찮은
 trousers,A1,noun,바지
 truck,A1,noun,트럭
-true,A1,adjective,진실
+TRUE,A1,adjective,진실
 truly,A2,adverb,진심으로
 trumpet,B1,noun,트럼펫
 trunk,B2,noun,트렁크
@@ -6276,7 +6238,7 @@ truth,A2,noun,진실
 truthful,B2,adjective,거짓말 안하는
 truthfulness,B2,noun,박진성
 try,A1,noun,노력하다
-T-shirt/tee-shirt,A1,noun,티셔츠/티셔츠
+T-shirt/tee-shirt,A1,noun,티셔츠
 tub,B2,noun,통
 tube,A1,noun,튜브
 tuberculosis,B2,noun,결핵
@@ -6285,7 +6247,7 @@ tug,B2,noun,예인선
 tuition,B2,noun,수업료
 tulip,B2,noun,튤립
 tumble,B1,verb,공중제비
-tumor/tumour,B2,noun,종양/종양
+tumor/tumour,B2,noun,종양
 tuna,B1,noun,참치
 tune,A2,noun,곡조
 tunnel,B2,noun,터널
@@ -6315,23 +6277,23 @@ ultimate,B2,adjective,궁극적인
 ultimately,B2,adverb,궁극적으로
 umbrella,A1,noun,우산
 unable,B1,adjective,할 수 없는
-unacceptable,B2,adjective,용납 할 수 없습니다
-unafraid,B1,adjective,두려워하지 않습니다
+unacceptable,B2,adjective,용납 할 수 없는
+unafraid,B1,adjective,두려워하지 않는
 unashamedly,B2,adverb,부끄럽게
-unattractive,B2,adjective,매력적이지 않습니다
-unauthorized/unauthorised,B2,adjective,무단/무단
+unattractive,B2,adjective,매력적이지 않은
+unauthorized/unauthorised,B2,adjective,무단
 unavailable,B2,adjective,없는
 unaware,B2,adjective,알지 못하는
 unbearable,B2,adjective,견딜 수 없는
-unbeatable,B2,adjective,타의 추종을 불허합니다
+unbeatable,B2,adjective,타의 추종을 불허하는
 unbelievable,B1,adjective,믿을 수 없는
 uncertain,A2,adjective,불확실한
 uncertainty,B1,noun,불확실성
 unchanged,B2,adjective,변하지 않은
-uncharacteristic,B2,adjective,특징이 없습니다
+uncharacteristic,B2,adjective,특징이 없는
 uncle,A1,noun,삼촌
-unclear,B1,adjective,불분명합니다
-unclearly,B2,adverb,불분명합니다
+unclear,B1,adjective,불분명한
+unclearly,B2,adverb,불분명하게
 uncomfortable,A2,adjective,불편한
 uncomfortably,B2,adverb,불편하게
 uncommon,B2,adjective,드문
@@ -6341,7 +6303,7 @@ uncontrollable,B1,adjective,통제 할 수없는
 uncover,B1,verb,발견
 under,A1,preposition,아래에
 underage,B1,adjective,부족
-underestimate,B2,verb,싼 견적
+underestimate,B2,verb,과소평가하다
 undergo,B1,verb,받다
 undergraduate,B2,noun,대학 재학생
 underground,B2,adjective,지하철
@@ -6357,15 +6319,14 @@ underwater,A2,adjective,수중
 underwear,B2,noun,속옷
 undo,B1,verb,실행 취소
 undoubtedly,B2,adverb,의심 할 여지없이
-undreamed,B2,adjective,실수하지 않았습니다
+undreamed,B2,adjective,예기치 않은
 undress,B1,verb,알몸 상태
-undressed,B2,adjective,붕대 감지 않은
 unease,B2,noun,불안
-uneasily,B2,adverb,불안합니다
+uneasily,B2,adverb,불안하게
 uneasy,A2,adjective,불안한
 unemployed,B1,adjective,한가한
 unemployment,B1,noun,실업
-unenthusiastic,B2,adjective,비 열정적입니다
+unenthusiastic,B2,adjective,열정적이지 않은
 uneven,B2,adjective,고르지 않은
 unexpected,B1,adjective,예기치 않은
 unexpectedly,B1,adverb,뜻밖에
@@ -6373,7 +6334,7 @@ unfair,A2,adjective,불공정
 unfairly,B1,adverb,부당하게
 unfamiliar,B2,adjective,생소한
 unfashionable,B2,adjective,유행성
-unfit,B1,adjective,부적합합니다
+unfit,B1,adjective,부적합한
 unfold,B1,verb,펴다
 unforeseen,B2,adjective,Unfori에게
 unforgettable,A2,adjective,잊을 수 없는
@@ -6388,8 +6349,8 @@ unhelpful,B2,adjective,도움이되지 않는
 uniform,A2,adjective,제복
 unify,B1,verb,하나로 하다
 unimaginable,B2,adjective,상상할 수 없는
-unimaginably,B2,adverb,상상할 수 없습니다
-unimportant,A2,adjective,중요하지 않습니다
+unimaginably,B2,adverb,상상할 수 없는
+unimportant,A2,adjective,중요하지 않은
 uninterested,B1,adjective,무관심한
 uninteresting,B1,adjective,시시한
 union,B1,noun,노동 조합
@@ -6412,37 +6373,37 @@ unlock,B2,verb,터놓다
 unlucky,B1,adjective,불길한
 unmistakable,B2,adjective,틀림없이
 unmistakably,B2,adverb,틀림없이
-unnatural,B2,adjective,부자연 스럽습니다
+unnatural,B2,adjective,부자연스러운
 unnecessary,A2,adjective,불필요한
 unofficial,B2,adjective,비공식
-unpack,B1,verb,짐 등에서 꺼내다
+unpack,B1,verb,꺼내다
 unpleasant,A2,adjective,불쾌한
 unpopular,B2,adjective,인기 없는
-unpredictable,B1,adjective,예측할 수 없습니다
-unrealistic,B2,adjective,비현실적입니다
+unpredictable,B1,adjective,예측할 수 없는
+unrealistic,B2,adjective,비현실적인
 unreasonable,B2,adjective,무모한
-unrelated,B1,adjective,관련이 없습니다
+unrelated,B1,adjective,관련이 없는
 unreliable,B2,adjective,신뢰할 수 없는
 unrest,B2,noun,불안
 unsafe,B2,adjective,위험한
 unsatisfactory,B2,adjective,불만족
-unselfish,B2,adjective,비 이기적
-unstoppable,B2,adjective,막을 수없는
+unselfish,B2,adjective,이기적이지 않은
+unstoppable,B2,adjective,막을 수 없는
 unsuccessful,B2,adjective,실패
-unsuitable,B2,adjective,부적합합니다
+unsuitable,B2,adjective,부적합한
 unsure,B2,adjective,불안정한
-untalented,B2,adjective,부적절합니다
-unthinkably,B2,adverb,생각할 수 없습니다
+untalented,B2,adjective,부적절한
+unthinkably,B2,adverb,생각할 수 없는
 untidy,B1,adjective,어수선한
 untie,B2,verb,풀다
 until,B1,conjunction,~까지
-untreated,B2,adjective,치료받지 않았습니다
-untrimmed,B2,adjective,트림되지 않은
+untreated,B2,adjective,치료받지 않은
+untrimmed,B2,adjective,장식을 달지 않은
 unusual,A2,adjective,특이한
 unusually,B1,adverb,비정상적으로
 unusualness,B2,noun,특이함
 unwanted,B1,adjective,불필요한
-unwell,B1,adjective,몸이 좋지 않습니다
+unwell,B1,adjective,몸이 좋지 않은
 unwilling,B2,adjective,마음 내키지 않는
 unwise,B2,adjective,지혜 없는
 unworldly,B2,adjective,이 세상 것이 아닌
@@ -6507,19 +6468,18 @@ vein,B1,noun,정맥
 venture,B2,noun,투기
 venue,B2,noun,장소
 verb,A2,noun,동사
-verbal,B2,adjective,언어 적
+verbal,B2,adjective,언어적
 verbally,B2,adverb,말로
 verse,B2,noun,절
 version,B2,noun,버전
 versus,B2,preposition,~ 대
-very,B2,adjective,매우
 vessel,B1,noun,선박
 vet,B1,noun,수의사
-veteran,B2,noun,그들은 베테랑입니다
+ㅊ,B2,noun,베테랑
 via,B1,preposition,~을 통해
 vibrate,B2,verb,떨리다
 vibration,B2,noun,진동
-vice,B1,adjective,바이스
+vice,B1,adjective,악덕
 vice president,B1,noun,부통령
 victim,B1,noun,피해자
 victory,B1,noun,승리
@@ -6529,7 +6489,7 @@ video game,A2,noun,비디오 게임
 view,A2,noun,보다
 viewer,B2,noun,뷰어
 viewpoint,B1,noun,견해
-vigor/vigour,B2,noun,활력/활력
+vigor/vigour,B2,noun,활력
 vigorous,B2,adjective,원기 왕성한
 vigorously,B2,adverb,격렬하게
 villa,B2,noun,별장
@@ -6601,7 +6561,6 @@ warranty,B1,noun,보증
 warrior,B1,noun,전사
 warship,B2,noun,군함
 wartime,B2,noun,전시
-was,A1,be-verb,~였다
 wash,A1,noun,씻다
 washbowl,B1,noun,세면기
 washing machine,A2,noun,세탁기
@@ -6649,12 +6608,11 @@ welcome,B1,adjective,환영
 welfare,B2,noun,복지
 well,A1,adjective,잘
 well-balanced,B2,adjective,균형 잡힌
-well-built,B2,adjective,잘 지어졌습니다
+well-built,B2,adjective,잘 지어진
 well-dressed,B1,adjective,옷을 잘 차려 입은
 well-known,A2,adjective,잘 알려진
-well-organized/well-organised,B2,adjective,잘 조직/잘 조직되었습니다
+well-organized/well-organised,B2,adjective,잘 조직된
 well-paid,B2,adjective,우수한 수당
-were,A1,be-verb,~이었다
 west,A2,adjective,서쪽
 western,B2,adjective,서부 사람
 westward,B1,adverb,서부 제국
@@ -6672,7 +6630,7 @@ wherever,B1,conjunction,대체 어디로
 whether,B1,conjunction,~이든
 while,A2,conjunction,~하는 동안
 whip,B2,verb,채찍
-whiskey/whisky,B2,noun,위스키/위스키
+whiskey/whisky,B2,noun,위스키
 whisper,B1,noun,속삭임
 whistle,B1,noun,휘파람
 white,A1,adjective,하얀색
@@ -6750,7 +6708,7 @@ worldview,B2,noun,세계관
 worldwide,B2,adjective,세계적인
 worm,B2,noun,벌레
 worn,B1,adjective,착용
-wornout/worn out/worn-out,B2,adjective,마모/마모/마모
+wornout/worn out/worn-out,B2,adjective,낡아빠진
 worried,A2,adjective,걱정하는
 worry,A1,noun,걱정하다
 worrying,B2,adjective,걱정
@@ -6765,7 +6723,7 @@ worthy,B1,adjective,가치 있는
 would,A1,modal auxiliary,~일 것이다
 wound,B1,noun,상처
 wrap,B1,noun,포장하다
-wrapping,B1,noun,쌈
+wrapping,B1,noun,포장
 wreck,B2,noun,난파선
 wrist,B1,noun,손목
 wristwatch,B1,noun,손목 시계
@@ -6779,7 +6737,6 @@ X-ray,B2,noun,엑스레이
 yacht,B2,noun,요트
 yard,A1,noun,마당
 yawn,B2,noun,하품
-yeah,A2,adverb,응
 year,A1,noun,년도
 yearn,B2,verb,불쌍히 여기다
 yell,B1,noun,소리치다
@@ -6789,7 +6746,7 @@ yesterday,A1,adverb,어제
 yet,A1,adverb,아직
 yield,B2,verb,생산하다
 yoga,B1,noun,요가
-yogurt/yoghurt,A1,noun,요거트/요거트
+yogurt/yoghurt,A1,noun,요거트
 you,A1,pronoun,너
 young,A1,adjective,어린
 yours,A1,pronoun,당신 것
@@ -6806,7 +6763,7 @@ exterior,C1,noun,외부
 cloak,C1,noun,망토
 timid,C1,adjective,소심한
 reluctantly,C1,adverb,마지 못해
-concur,C1,verb,동의합니다
+concur,C1,verb,동의하다
 avid,C1,adjective,욕심 많은
 marvel,C1,verb,마블
 enviable,C1,adverb,부러워
@@ -6829,13 +6786,13 @@ conform,C1,verb,순응하다
 norms,C1,noun,규범
 quirk,C1,noun,경구
 oddity,C1,noun,괴벽
-compel,C1,verb,강요하십시오
+compel,C1,verb,강요하다
 compulsion,C1,noun,강제
 assertion,C1,noun,역설
 individuality,C1,noun,개성
 psyche,C1,noun,프시케
 conformity,C1,noun,적합성
-unconventional,C1,adjective,비 전통적인
+unconventional,C1,adjective,비전통적인
 congregate,C1,verb,모이다
 resent,C1,verb,화내다
 self-conscious,C1,adjective,자의식
@@ -6846,29 +6803,29 @@ hostess,C1,noun,안주인
 perpetuate,C1,verb,영속
 naturalness,C1,noun,자연
 exhibitionist,C1,noun,전시 학자
-isolate,C1,verb,분리하십시오
+isolate,C1,verb,분리하다
 isolated,C1,adjective,외딴
 refreshingly,C1,adverb,상쾌하게
-effortless,C1,adjective,힘들지 않습니다
+effortless,C1,adjective,힘들지않은
 vegetation,C1,noun,초목
 respite,C1,noun,유예
 suffice,C1,verb,충분하다
 purity,C1,noun,청정
-gruelling,C1,adjective,잔인합니다
+gruelling,C1,adjective,잔인한
 comprise,C1,verb,이루다
 plaster,C1,noun,벽토
 darkroom,C1,noun,암실
 induct,C1,verb,유도
 induction,C1,noun,유도
 fossil,C1,noun,화석
-geological,C1,adjective,지질 학적
-geologically,C1,adverb,지질 학적으로
+geological,C1,adjective,지질학적
+geologically,C1,adverb,지질학적으로
 specimen,C1,noun,표본
 enormously,C1,adverb,엄청나게
 gem,C1,noun,보석
 explanatory,C1,adjective,설명
 vertical,C1,adjective,수직의
-knowledgeable,C1,adjective,지식이 풍부합니다
+knowledgeable,C1,adjective,지식이 풍부한
 ordinarily,C1,adverb,일반적으로
 formulate,C1,verb,공식
 resin,C1,noun,수지
@@ -6891,7 +6848,7 @@ saloon,C1,noun,큰 홀
 beforehand,C1,adverb,미리
 slob,C1,noun,진흙
 coverage,C1,noun,적용 범위
-unplug,C1,verb,플러그를 뽑으십시오
+unplug,C1,verb,플러그를 뽑다
 gadget,C1,noun,간단한 기계 장치
 rediscover,C1,verb,재발견
 subtly,C1,adverb,미묘하게
@@ -6902,7 +6859,7 @@ malfunction,C1,verb,부조
 wayside,C1,noun,길가
 expire,C1,verb,내쉬다
 con,C1,verb,범죄자
-damply,C1,adverb,축축합니다
+damply,C1,adverb,축축한
 ghostly,C1,adjective,아리송한
 carrier,C1,noun,담체
 washtub,C1,noun,세탁 대야
@@ -6962,14 +6919,14 @@ depict,C1,verb,설명
 depiction,C1,noun,묘사
 upheaval,C1,noun,대변동
 shortlist,C1,verb,후보자
-uneventful,C1,adjective,사건이 없습니다
+uneventful,C1,adjective,별 볼일 없는
 pertinent,C1,adjective,적절한
 pertain to,C1,verb,관련
 daydream,C1,noun,백일몽
 protagonist,C1,noun,주역
 simplicity,C1,noun,간단
 blockbuster,C1,noun,블록버스터
-resonate,C1,verb,공명하십시오
+resonate,C1,verb,공명하다
 sequel,C1,noun,계속
 irony,C1,noun,반어
 acidic,C1,adjective,산성
@@ -6983,13 +6940,13 @@ persuasively,C1,adverb,설득력있게
 confinement,C1,noun,제한
 minutiae,C1,noun,사소한 점
 peasant,C1,noun,농부
-inexplicable,C1,adjective,설명 할 수 없습니다
-inexplicably,C1,adverb,설명 할 수 없습니다
+inexplicable,C1,adjective,설명 할 수 없는
+inexplicably,C1,adverb,설명 할 수 없게
 pigeon,C1,noun,비둘기
 harass,C1,verb,괴롭히다
 harassment,C1,noun,괴롭힘
 believably,C1,adverb,믿을 수 없을 정도로
-readable,C1,adjective,읽을 수 있습니다
+readable,C1,adjective,읽을 수 있는
 cleverness,C1,noun,영리
 persecute,C1,verb,박해
 persecution,C1,noun,박해
@@ -7005,7 +6962,7 @@ ruthless,C1,adjective,무자비한
 ruthlessness,C1,noun,무자비 함
 clan,C1,noun,씨족
 privileged,C1,adjective,특권
-crumble,C1,verb,무너졌습니다
+crumble,C1,verb,무너지다
 crumb,C1,noun,빵 부스러기
 closeness,C1,noun,근사
 rarity,C1,noun,희박
@@ -7023,12 +6980,12 @@ citation,C1,noun,소환
 ecstatically,C1,adverb,황홀하게
 pleasurable,C1,adjective,유쾌한
 substantially,C1,adverb,대체로
-favorably/favourably,C1,adverb,호의적으로/호의적으로
+favorably/favourably,C1,adverb,호의적으로
 diversity,C1,noun,다양성
 elitist,C1,noun,엘리트 주의자
 grumble,C1,verb,불평
 rumble,C1,verb,끓다
-neglectful,C1,adjective,무시합니다
+neglectful,C1,adjective,방임의
 roundup,C1,noun,모으다
 conscientious,C1,adjective,양심적
 conscientiously,C1,adverb,양심적으로
@@ -7048,8 +7005,8 @@ swap,C1,verb,교환
 remotely,C1,adverb,떨어져서
 violet,C1,adjective,제비꽃
 bubbly,C1,adjective,샴페인
-chaotically,C1,adverb,혼돈 적으로
-apprehensive,C1,adjective,불안합니다
+chaotically,C1,adverb,혼돈적으로
+apprehensive,C1,adjective,불안한
 settee,C1,noun,긴 의자
 trampoline,C1,noun,트램폴린
 stamina,C1,noun,내구력
@@ -7103,18 +7060,18 @@ superficial,C1,adjective,피상적
 superficially,C1,adverb,피상적으로
 aesthetic,C1,adjective,미적인
 aesthetically,C1,adverb,미적으로
-scrutinize/scrutinise,C1,verb,면밀히 조사/면밀히 조사합니다
+scrutinize/scrutinise,C1,verb,면밀히 조사하다
 scrutiny,C1,noun,정밀한 조사
 quip,C1,noun,경구
 woo,C1,verb,우
 criteria,C1,noun,기준
 plausible,C1,adjective,그럴듯한
 plausibility,C1,noun,타당성
-plausibly,C1,adverb,그럴듯합니다
+plausibly,C1,adverb,그럴듯한
 instinctive,C1,adjective,본능
 instinctively,C1,adverb,본능적으로
 stylistic,C1,adjective,문체
-stylistically,C1,adverb,문체 적으로
+stylistically,C1,adverb,문체적으로
 inheritance,C1,noun,계승
 inherent,C1,adjective,고유
 inherently,C1,adverb,본질적으로
@@ -7145,8 +7102,8 @@ provocatively,C1,adverb,도발적으로
 clench,C1,verb,꽉 쥐다
 haggle,C1,verb,흥정
 scorn,C1,noun,경멸
-scornful,C1,adjective,경멸 적
-scornfully,C1,adverb,경멸 적으로
+scornful,C1,adjective,경멸적
+scornfully,C1,adverb,경멸적으로
 animatedly,C1,adverb,애니메이션
 obscure,C1,verb,모호
 obscurely,C1,adverb,모호하게
@@ -7173,7 +7130,7 @@ insecure,C1,adjective,불안정한
 insecurely,C1,adverb,불안하게
 reassure,C1,verb,안심
 reassurance,C1,noun,안심
-insensitive,C1,adjective,무감각합니다
+insensitive,C1,adjective,무감각한
 insensitively,C1,adverb,무감각하게
 profess,C1,verb,공언
 drawback,C1,noun,약점
@@ -7203,12 +7160,12 @@ frostily,C1,adverb,서리
 unmanned,C1,adjective,무인
 impersonal,C1,adjective,비인간적
 impersonally,C1,adverb,비인간적으로
-impersonate,C1,verb,가장합니다
+impersonate,C1,verb,가장하다
 impersonator,C1,noun,가장 한 사람
 impersonation,C1,noun,인격화
 buzzer,C1,noun,버저
 desertion,C1,noun,황폐
-unoccupied,C1,adjective,비어 있지 않습니다
+unoccupied,C1,adjective,사람이 없는
 stuffy,C1,adjective,답답한
 stuffily,C1,adverb,더 많은
 stuffiness,C1,noun,답답함
@@ -7235,12 +7192,12 @@ inclusion,C1,noun,포함
 inclusive,C1,adjective,포함한
 inclusively,C1,adverb,포괄적으로
 unconvincing,C1,adjective,납득 시킬 수 없는
-unconvincingly,C1,adverb,불신 적으로
+unconvincingly,C1,adverb,불신적으로
 recharge,C1,verb,재충전
 facilitation,C1,noun,간편하게 함
 conditional,C1,adjective,가정 어구
 conditionally,C1,adverb,조건부
-supple,C1,adjective,유연합니다
+supple,C1,adjective,유연한
 manicure,C1,noun,매니큐어
 pedicure,C1,noun,페디큐어
 facial,C1,adjective,얼굴 마사지
@@ -7256,7 +7213,7 @@ conserve,C1,verb,보존
 conservatory,C1,noun,온실
 disquieting,C1,adjective,불쾌한
 fiercely,C1,adverb,사납게
-grapefruit,C1,noun,그레이프 프루트
+grapefruit,C1,noun,포도
 exotically,C1,adverb,이국적으로
 flask,C1,noun,플라스크
 spacious,C1,adjective,널찍한
@@ -7267,19 +7224,18 @@ sauna,C1,noun,찜질방
 remedial,C1,adjective,치료
 posture,C1,noun,자세
 sedate,C1,verb,차분한
-sedately,C1,adverb,신뢰할 수 있습니다
+sedately,C1,adverb,침착하게
 clutch,C1,verb,클러치
 staggering,C1,adjective,비틀 거리는
-dutiful,C1,adjective,충실합니다
+dutiful,C1,adjective,충실한
 dutifully,C1,adverb,정직하게
 calorie,C1,noun,칼로리
 fabulously,C1,adverb,훌륭하게
 premises,C1,noun,가옥
 eclectic,C1,adjective,절충주의
-eclectically,C1,adverb,절충 적으로
-revere,C1,verb,존경합니다
-recognizable/recognisable,C1,adjective,인식 가능/인식 가능
-recognizably/recognisably,C1,adverb,인식적으로/인식 할 수 있습니다
+eclectically,C1,adverb,절충적으로
+revere,C1,verb,존경하다
+recognizable/recognisable,C1,adjective,인식 가능한
 batter,C1,verb,반죽
 unreliably,C1,adverb,틀림없이
 waterfront,C1,noun,해안가
@@ -7289,7 +7245,7 @@ battered,C1,adjective,오래 써서 낡은
 comply,C1,verb,응하다
 compliance,C1,noun,규정 준수
 compliant,C1,adjective,준수
-compliantly,C1,adverb,준수합니다
+compliantly,C1,adverb,준수하게
 blankness,C1,noun,공백
 exuberant,C1,adjective,무성한
 exuberance,C1,noun,충일
@@ -7314,7 +7270,7 @@ impish,C1,adjective,작은 악마 같은
 impishly,C1,adverb,욕설
 wicked,C1,adjective,사악한
 wickedly,C1,adverb,나쁘게
-macabre,C1,adjective,무시 무시한
+macabre,C1,adjective,무시무시한
 gusto,C1,noun,맛
 tantamount,C1,adjective,동등한
 antics,C1,noun,장난
@@ -7324,7 +7280,7 @@ impediment,C1,noun,방해
 taut,C1,adjective,긴장된
 tautly,C1,adverb,팽팽하게
 jersey,C1,noun,저지
-startling,C1,adjective,놀랍습니다
+startling,C1,adjective,놀라운
 startlingly,C1,adverb,놀랍게도
 slack,C1,verb,느슨하게
 slackly,C1,adverb,느슨하게
@@ -7338,7 +7294,7 @@ blithely,C1,adverb,어리석게
 stray,C1,verb,흩어진
 mythological,C1,adjective,신화
 mythology,C1,noun,신화학
-venerate,C1,verb,존경합니다
+venerate,C1,verb,존경하다
 veneration,C1,noun,존경
 ethical,C1,adjective,윤리적
 ethically,C1,adverb,윤리적으로
@@ -7365,13 +7321,13 @@ sentimentally,C1,adverb,감상적으로
 tangle,C1,verb,얽힘
 tangled,C1,adjective,얽힌
 untangle,C1,verb,풀다
-untangled,C1,adjective,풀링
-perceptive,C1,adjective,지각 적
-perceptively,C1,adverb,지각 적으로
+untangled,C1,adjective,풀린
+perceptive,C1,adjective,지각하는
+perceptively,C1,adverb,지각적으로
 outset,C1,noun,시초
 tycoon,C1,noun,대군
 engross,C1,verb,그로스
-engrossing,C1,adjective,매력적입니다
+engrossing,C1,adjective,매력적인
 detritus,C1,noun,암설
 detriment,C1,noun,상해
 detrimental,C1,adjective,해로운
@@ -7383,15 +7339,15 @@ eccentrically,C1,adverb,편심
 render,C1,verb,세우다
 rendering,C1,noun,표현
 tailor,C1,noun,재단사
-personalize/personalise,C1,verb,개인화/개인화
-personalization/personalisation,C1,noun,개인화/개인화
+personalize/personalise,C1,verb,개인화하다
+personalization/personalisation,C1,noun,개인화
 limitless,C1,adjective,무한
 apprentice,C1,noun,도제
 apprenticeship,C1,noun,견습
 precision,C1,noun,정도
 silhouette,C1,noun,실루엣
 nondescript,C1,adjective,정체 모를 것
-negligible,C1,adjective,무시할 수 있습니다
+negligible,C1,adjective,무시할 수 없는
 negligent,C1,adjective,과실
 negligently,C1,adverb,부주의하게
 principally,C1,adverb,주로
@@ -7408,10 +7364,10 @@ paternalistic,C1,adjective,부계주의
 provisions,C1,noun,식량
 injustice,C1,noun,부당
 impoverished,C1,adjective,빈곤층
-unsustainable,C1,adjective,지속 불가능합니다
-unsustainably,C1,adverb,지속적으로
+unsustainable,C1,adjective,지속 불가능한
+unsustainably,C1,adverb,지속할 수 없게
 sustainable,C1,adjective,지속 가능한
-sustainably,C1,adverb,지속 가능합니다
+sustainably,C1,adverb,지속 가능하게
 bypass,C1,verb,우회로
 cynic,C1,noun,비꼬는 사람
 cynical,C1,adjective,냉소적
@@ -7436,31 +7392,30 @@ conviction,C1,noun,확신
 latent,C1,adjective,숨어있는
 snooze,C1,verb,선잠
 classy,C1,adjective,고급
-wrench,C1,verb,렌치
+wrench,C1,verb,"비틀기, 꼬기"
 reminisce,C1,verb,회상
 reminiscent,C1,adjective,회상
 intuit,C1,verb,직관
 intuition,C1,noun,직관
-intuitive,C1,adjective,직관적입니다
+intuitive,C1,adjective,직관적인
 intuitively,C1,adverb,직관적으로
-marginal,C1,adjective,가장자리 가의
+marginal,C1,adjective,가장자리의
 marginally,C1,adverb,조금
 crude,C1,adjective,조잡한
-crudely,C1,adverb,크루드
+crudely,C1,adverb,조잡하게
 strap,C1,noun,견장
 strapping,C1,adjective,반창고
 scoff,C1,verb,비웃다
-fiddly,C1,adjective,충실합니다
+fiddly,C1,adjective,충실하게
 fiddler,C1,noun,바이올리니스트
-fiddle,C1,verb,깡깡이
-unmusical,C1,adjective,비정상적입니다
-unmusically,C1,adverb,의심 할 여지없이
+unmusical,C1,adjective,비음악적인
+unmusically,C1,adverb,비음악적으로
 repertory,C1,noun,레퍼토리
 concerto,C1,noun,콘체르토
 premier,C1,adjective,수상
 fanatic,C1,noun,광신자
 fanatically,C1,adverb,광신적으로
-acoustically,C1,adverb,음향 적
+acoustically,C1,adverb,음향적으로
 acoustic,C1,adjective,음향학
 acoustics,C1,noun,음향학
 compromised,C1,adjective,타협
@@ -7484,7 +7439,7 @@ naivety,C1,noun,해군
 impervious,C1,adjective,통하지 않는
 ludicrous,C1,adjective,쑥스러운
 ludicrously,C1,adverb,우스꽝스럽게
-cost-effective,C1,adjective,비용 효율적입니다
+cost-effective,C1,adjective,비용 효율적인
 gruesome,C1,adjective,끔찍한
 gruesomely,C1,adverb,끔찍하게
 envisage,C1,verb,구상
@@ -7529,10 +7484,10 @@ muscular,C1,adjective,근육
 versatile,C1,adjective,변하기 쉬운
 versatility,C1,noun,다재
 stimuli,C1,noun,자극
-uninspiring,C1,adjective,영감을 얻지 못합니다
+uninspiring,C1,adjective,영감을 얻지 못하는
 mutually,C1,adverb,서로
-somber/sombre,C1,adjective,어둡고/졸음
-somberly/sombrely,C1,adverb,어둡고/멍청합니다
+somber,C1,adjective,어두침침한
+sombrely,C1,adverb,침울하게
 clutter,C1,noun,어지럽게 흩어져 있는 것
 dislodge,C1,verb,탈퇴
 carpenter,C1,noun,목수
@@ -7547,7 +7502,7 @@ demographically,C1,adverb,인구 통계 학적
 phenomenal,C1,adjective,경이로운
 phenomenally,C1,adverb,경이롭게
 prophet,C1,noun,예언자
-prophetic,C1,adjective,예언 적
+prophetic,C1,adjective,예언적
 firewall,C1,noun,방화벽
 invoice,C1,noun,송장
 demolition,C1,noun,파괴
@@ -7558,7 +7513,7 @@ antiquity,C1,noun,유물
 antiquated,C1,adjective,구식
 restoration,C1,noun,복구
 restorative,C1,adjective,강장제
-rotate,C1,verb,회전합니다
+rotate,C1,verb,회전하다
 coupled,C1,adjective,결합
 itinerary,C1,noun,여정
 charter,C1,verb,전세
@@ -7570,7 +7525,7 @@ integral,C1,adjective,완전한
 canoe,C1,noun,카누
 magnetic,C1,adjective,자기
 magnetism,C1,noun,자기
-magnetically,C1,adverb,자기 적으로
+magnetically,C1,adverb,자기적으로
 credible,C1,adjective,신뢰할 수 있는
 credibly,C1,adverb,확실하게
 credibility,C1,noun,믿을 수 있음
@@ -7613,10 +7568,10 @@ primitively,C1,adverb,원시적으로
 embark,C1,verb,태우다
 expedite,C1,verb,촉진
 contextual,C1,adjective,맥락
-contextually,C1,adverb,맥락 적으로
+contextually,C1,adverb,맥락적으로
 whilst,C1,conjunction,...하는 동안
-maneuver/manoeuvre,C1,verb,기동/기동
-riveting,C1,adjective,리벳 팅
+maneuver/manoeuvre,C1,verb,기동
+riveting,C1,adjective,매혹적인
 plunge,C1,verb,돌진
 debut,C1,noun,데뷔
 turmoil,C1,noun,소란
@@ -7653,7 +7608,7 @@ unsettle,C1,verb,뒤흔들다
 suburban,C1,adjective,교외
 suburbia,C1,noun,교외
 dramatist,C1,noun,극작가
-characterization/characterisation,C1,noun,특성화/특성화
+characterization/characterisation,C1,noun,특성화
 quirky,C1,adjective,기발한
 sprawl,C1,noun,쭉 뻗다
 ingenuity,C1,noun,독창성
@@ -7665,10 +7620,10 @@ explosively,C1,adverb,폭발적으로
 bequeath,C1,verb,남기다
 legacy,C1,noun,유산
 synthetic,C1,adjective,인조
-synthetically,C1,adverb,합성 적으로
-lackluster/lacklustre,C1,adjective,부족한/부족
+synthetically,C1,adverb,합성적으로
+lackluster/lacklustre,C1,adjective,부족한
 elastic,C1,noun,탄력있는
-appall/appal,C1,verb,진짜/appal
+appall/appal,C1,verb,진짜
 appalling,C1,adjective,질리는
 appallingly,C1,adverb,끔찍하게
 pounce,C1,verb,급습
@@ -7680,32 +7635,31 @@ monotony,C1,noun,단음
 turn to ,C1,verb,로 전환
 ingenious,C1,adjective,영리한
 plaque,C1,noun,액자
-neutralize/neutralise,C1,verb,중화/중화
-neutralization/neutralisation,C1,noun,중화/중화
+neutralize/neutralise,C1,verb,중화하다
 salivate,C1,verb,타액
 cessation,C1,noun,중지
 remorse,C1,noun,자책감
 remorseless,C1,adjective,무자비한
-remorsefully,C1,adverb,후회합니다
+remorsefully,C1,adverb,뉘우치는 마음으로
 remorselessly,C1,adverb,무자비하게
-inexcusable,C1,adjective,변명 할 수 없습니다
+inexcusable,C1,adjective,변명 할 수 없는
 inexcusably,C1,adverb,할 수 없을 정도로
-unassisted,C1,adjective,도움이되지 않았습니다
+unassisted,C1,adjective,도움이되지 않는
 heighten,C1,verb,높이다
 fixture,C1,noun,고정물
 bulk,C1,noun,대부분
-bulky,C1,adjective,부피가 커집니다
-bulk up,C1,verb,벌크 위로
-digitalize/digitalise,C1,verb,디지털화/디지털
-digitalization/digitalisation,C1,noun,디지털화/디지털화
+bulky,C1,adjective,부피가 큰
+bulk up,C1,verb,벌크업
+digitalize/digitalise,C1,verb,디지털화
+digitalization/digitalisation,C1,noun,디지털화
 mark-up,C1,noun,마크 업
-complementary,C1,adjective,보완 적
+complementary,C1,adjective,보완적
 complimentary,C1,adjective,무료
-staple,C1,noun,스테이플
+staple,C1,noun,중요상품
 wares,C1,noun,상품
 testament,C1,noun,성서
-succulent,C1,noun,흥미 진진한
-succulently,C1,adverb,즙이 많습니다
+succulent,C1,noun,흥미진진한
+succulently,C1,adverb,모조리
 tranquil,C1,adjective,조용한
 tranquility,C1,noun,평온
 spartan,C1,adjective,스파르타 사람
@@ -7727,12 +7681,12 @@ eccentricity,C2,noun,이심률
 locomotive,C2,noun,기관차
 locomotion,C2,noun,운동
 individualism,C2,noun,개인주의
-enthuse,C2,verb,열망하십시오
+enthuse,C2,verb,열망하다
 belligerent,C2,adjective,교전국
 belligerence,C2,noun,호전성
 stoicism,C2,noun,극기
 recluse,C2,noun,은색
-reclusive,C2,adjective,기억에 남습니다
+reclusive,C2,adjective,기억에 남는
 metalled,C2,adjective,금속
 oblique,C2,adjective,비스듬한
 facsimile,C2,noun,복사
@@ -7752,9 +7706,9 @@ hypothetical,C2,adjective,가상
 parasitic,C2,adjective,기생충
 plumage,C2,noun,깃털
 utilitarian,C2,adjective,실용적인
-utilize,C2,verb,활용하십시오
+utilize,C2,verb,활용하다
 predilection,C2,noun,편견
-commensurate,C2,adjective,적합합니다
+commensurate,C2,adjective,적합한
 commensurately,C2,adverb,기념적으로
 vindicate,C2,verb,입증
 vindication,C2,noun,옹호
@@ -7783,8 +7737,8 @@ indulgence,C2,noun,대사
 indulgently,C2,adverb,제멋대로 하게
 laudatory,C2,adjective,칭찬
 laud ,C2,verb,칭찬
-glitz,C2,noun,화려 함
-glitzy,C2,adjective,화려합니다
+glitz,C2,noun,화려함
+glitzy,C2,adjective,반짝거리는
 automate,C2,verb,자동화
 apprehend,C2,verb,깨닫다
 athleticism,C2,noun,운동성
@@ -7795,7 +7749,7 @@ stipulate,C2,verb,규정
 stipulation,C2,noun,약정
 allot,C2,verb,할당
 allotment,C2,noun,할당
-anticlimactically,C2,adverb,항 기적으로
+anticlimactically,C2,adverb,항기적으로
 forfeiture,C2,noun,상실
 blitz,C2,verb,블리츠
 primeval,C2,adjective,원시
@@ -7803,9 +7757,9 @@ tenacity,C2,noun,끈기
 tenacious,C2,adjective,끈기 있는
 tenaciously,C2,adverb,강력하게
 genomic,C2,adjective,게놈
-genomically,C2,adverb,유전체 적
+genomically,C2,adverb,유전체적
 capacious,C2,adjective,널찍한
-utilization/utilisation,C2,noun,활용/활용
+utilization/utilisation,C2,noun,활용
 unequivocal,C2,adjective,명백한
 unequivocally,C2,adverb,명백하게
 spontaneity,C2,noun,자발성
@@ -7836,8 +7790,8 @@ accrue,C2,verb,생기다
 proliferation,C2,noun,분아 증식
 blandishment,C2,noun,추종
 anthropological,C2,adjective,인류학
-anthropologically,C2,adverb,인류 학적으로
-carbonize/carbonise,C2,verb,탄산/탄산화
+anthropologically,C2,adverb,인류학적으로
+carbonize/carbonise,C2,verb,탄산
 monastic,C2,adjective,수사
 midwifery,C2,noun,산파술
 adornment,C2,noun,장식품
@@ -7858,31 +7812,31 @@ nostalgically,C2,adverb,향수로
 grievance,C2,noun,불만
 residue,C2,noun,잔여물
 residual,C2,adjective,잔여
-physiological,C2,adjective,생리 학적
-physiologically,C2,adverb,생리 학적
+physiological,C2,adjective,생리학적
+physiologically,C2,adverb,생리학적
 methodology,C2,noun,방법론
-methodological,C2,adjective,방법 론적
-methodologically,C2,adverb,방법 론적으로
+methodological,C2,adjective,방법론적
+methodologically,C2,adverb,방법론적으로
 proportional,C2,adjective,비례항
-proportionally,C2,adverb,비례 적으로
+proportionally,C2,adverb,비례적으로
 habitation,C2,noun,거주
 inartistic,C2,adjective,무생물
-ornate,C2,adjective,화려합니다
+ornate,C2,adjective,반짝거리는
 modernism,C2,noun,모더니즘
 presuppose,C2,verb,전제
 presupposition,C2,noun,전제
-centralized/centralised,C2,adjective,중앙 집중식/중앙 집중식
+centralized/centralised,C2,adjective,중앙 집중식
 transmitter,C2,noun,송신기
 regulatory,C2,adjective,규제
 archival,C2,adjective,보관
 diffuse,C2,adjective,퍼지다
 egalitarian,C2,adjective,평등주의
 hindsight,C2,noun,가늠자
-materialize/materialise,C2,verb,구체화/구체화
-materialization/materialisation,C2,noun,구체화/물질화
+materialize/materialise,C2,verb,구체화
+materialization/materialisation,C2,noun,구체화
 disperse,C2,verb,분산
 dispersal,C2,noun,분산
-stabilize/stabilise,C2,verb,안정화/안정화
+stabilize/stabilise,C2,verb,안정화
 pervasive,C2,adjective,퍼지는
 pervasiveness,C2,noun,광범위함
 autonomous,C2,adjective,자발적인
@@ -7899,17 +7853,17 @@ prostrate,C2,verb,엎드린
 haphazard,C2,adjective,우연한
 haphazardly,C2,adverb,우연히
 deficient,C2,adjective,부족한
-deficiently,C2,adverb,부족합니다
+deficiently,C2,adverb,부족하게
 delicatessen,C2,noun,총알
-muscle-bound,C2,adjective,근육에 묶여 있습니다
+muscle-bound,C2,adjective,근육이 경직한
 posit,C2,verb,긍정
 cocoon,C2,verb,고치
 chrysalis,C2,noun,번데기
-ignominious,C2,adjective,무지합니다
+ignominious,C2,adjective,무지한
 ignominiously,C2,adverb,무지하게
 euphoria,C2,noun,행복감
 euphoric,C2,adjective,크게 기쁘게
-euphorically,C2,adverb,완충 적
+euphorically,C2,adverb,완충적
 relegate,C2,verb,물러나게 하다
 succumb,C2,verb,굴복
 treacherous,C2,adjective,믿을 수 없는
@@ -7920,7 +7874,7 @@ palate,C2,noun,구개
 palatable,C2,adjective,맛있는
 hermit,C2,noun,은자
 hermetic,C2,adjective,수밀
-irrelevancy,C2,noun,관련성이 없습니다
+irrelevancy,C2,noun,무관한
 mariner,C2,noun,선원
 rift,C2,noun,지구
 helm,C2,noun,지배
@@ -7928,10 +7882,10 @@ autopilot,C2,noun,자동 조종 장치
 eminence,C2,noun,저명
 eminent,C2,adjective,저명한
 preeminent,C2,adjective,탁월한
-unsuspected,C2,adjective,의심의 여지가 없습니다
-paralyzingly/paralysingly,C2,adverb,마비/마비 적으로
+unsuspected,C2,adjective,의심의 여지가 없는
+paralyzingly/paralysingly,C2,adverb,마비
 glory in,C2,verb,영광
-decentralize/decentralise,C2,verb,분산/분산
+decentralize/decentralise,C2,verb,분산
 preoccupation,C2,noun,선취
 prolong,C2,verb,길게 하다
 drudgery,C2,noun,천역
@@ -7948,17 +7902,17 @@ vocational,C2,adjective,직업
 spatial,C2,adjective,공간
 spatially,C2,adverb,공간적으로
 integration,C2,noun,완성
-extracurricular,C2,adjective,과외의 과외
-encompass,C2,verb,에워 싸다
-all-encompassing,C2,adjective,모든 것을 포괄합니다
+extracurricular,C2,adjective,과외의
+encompass,C2,verb,에워싸다
+all-encompassing,C2,adjective,모든 것을 포괄하는
 accountability,C2,noun,책임
 frolic,C2,verb,장난치며 놀다
 minefield,C2,noun,지뢰밭
 side-step,C2,verb,사이드 단계
 abundantly,C2,adverb,풍부하게
 anarchic,C2,adjective,무정부 상태
-crystallization/crystallisation,C2,noun,결정화/결정화
-prescriptive,C2,adjective,규범 적
+crystallization/crystallisation,C2,noun,결정화
+prescriptive,C2,adjective,규범적
 slab,C2,noun,투수판
 retrospective,C2,adjective,회고
 retrospection,C2,noun,회고
@@ -7978,7 +7932,7 @@ painstaking,C2,adjective,애씀
 painstakingly,C2,adverb,힘들게
 contraption,C2,noun,신안
 mesh,C2,verb,망사
-enabler,C2,noun,인 에이 블러
+enabler,C2,noun,조력자
 fluctuate,C2,verb,변동
 fluctuation,C2,noun,파동
 lyricist,C2,noun,서정가
@@ -7990,12 +7944,12 @@ solicit,C2,verb,요청
 philanthropy,C2,noun,박애
 philanthropist,C2,noun,자선가
 philanthropic,C2,adjective,자선
-philanthropically,C2,adverb,자선 적으로
-precocious,C2,adjective,조숙합니다
+philanthropically,C2,adverb,자선적으로
+precocious,C2,adjective,조숙한
 precociously,C2,adverb,조심스럽게
 wordsmith,C2,noun,단어 제조장
-connote,C2,verb,의미가 있습니다
-connotation,C2,noun,내포
+connote,C2,verb,음미하다
+connotation,C2,noun,함축
 herald,C2,verb,헤럴드
 philistine,C2,noun,속물
 innuendo,C2,noun,풍자
@@ -8018,11 +7972,11 @@ interlude,C2,noun,막간
 beneficiary,C2,noun,수익자
 recuperate,C2,verb,회복
 recuperation,C2,noun,회복
-recuperative,C2,adjective,회복 적
-cultish,C2,adjective,컬트
+recuperative,C2,adjective,회복적
+cultish,C2,adjective,수양의
 seismic,C2,adjective,지진
 irrevocably,C2,adverb,돌이킬 수 없다
-irrevocable,C2,adjective,돌이킬 수 없습니다
+irrevocable,C2,adjective,돌이킬 수 없는
 slither,C2,verb,주르르 미끄러짐
 unnerving,C2,adjective,불안한
 unnervingly,C2,adverb,불필요하게
@@ -8034,10 +7988,10 @@ demystification,C2,noun,탈신
 proprietary,C2,adjective,소유권
 proprietorial,C2,adjective,소유주
 floodgates,C2,noun,수문
-imperceptible,C2,adjective,눈에 띄지 않습니다
+imperceptible,C2,adjective,눈에 띄지 않는
 imperceptibly,C2,adverb,눈에 띄게
 hapless,C2,adjective,불쾌한
-catastrophically,C2,adverb,치명적입니다
+catastrophically,C2,adverb,치명적으로
 wayward,C2,adjective,다루기 힘든
 blurb,C2,noun,추천 광고
 provincial,C2,adjective,지방 분구 관장
@@ -8094,10 +8048,9 @@ mutinously,C2,adverb,무심코
 prissy,C2,adjective,프리시
 reptilian,C2,adjective,비열한
 diminish,C2,verb,줄다
-undiminishing,C2,adjective,무시 무시합니다
+undiminishing,C2,adjective,퇴색하지 않는
 contagion,C2,noun,전염병
 homestead,C2,noun,주택
-computerize/computerise,C2,verb,컴퓨터 화/컴퓨터
 incumbent,C2,noun,쑥 내민
 recumbent,C2,adjective,가로 누운
 nonchalant,C2,adjective,무심한
@@ -8105,7 +8058,7 @@ nonchalantly,C2,adverb,무의미하게
 stultifyingly,C2,adverb,엄청나게
 wallow,C2,verb,빠지다
 ponderous,C2,adjective,매우 무거운
-ponderously,C2,adverb,숙고합니다
+ponderously,C2,adverb,곰곰이 생각하다
 lassitude,C2,noun,나른함
 vicinity,C2,noun,부근
 ebb,C2,verb,썰물
@@ -8118,10 +8071,10 @@ undemonstrative,C2,adjective,의심스러운
 undemonstratively,C2,adverb,의심 할 여지없이
 menace,C2,noun,위협
 menacing,C2,adjective,위협
-menacingly,C2,adverb,협박 적으로
+menacingly,C2,adverb,협박적으로
 calamity,C2,noun,재난
 calamitous,C2,adjective,불행한
-calamitously,C2,adverb,재앙 적으로
+calamitously,C2,adverb,재앙적으로
 nigh,C2,adverb,가까이
 austere,C2,adjective,남풍
 austerely,C2,adverb,엄청나게
@@ -8132,11 +8085,11 @@ idiomatic,C2,adjective,관용
 idiomatically,C2,adverb,관용적으로
 kinetic,C2,adjective,운동
 kinetically,C2,adverb,동역적으로
-unmediated,C2,adjective,중재되지 않았습니다
+unmediated,C2,adjective,중재되지 않은
 mediate,C2,verb,중재
 mediation,C2,noun,중개
-unharried,C2,adjective,성공하지 못했습니다
-figuratively,C2,adverb,비 유적으로
+unharried,C2,adjective,성공하지 못한
+figuratively,C2,adverb,비유적으로
 exorcism,C2,noun,퇴마
 exorcist,C2,noun,엑소시스트
 mundanity,C2,noun,평범함
@@ -8145,13 +8098,13 @@ dubiously,C2,adverb,사소하게
 curate,C2,verb,보좌 신부
 curator,C2,noun,관리자
 antithesis,C2,noun,대조법
-antithetical,C2,adjective,반 테티 적
+antithetical,C2,adjective,정반대의
 parameter,C2,noun,매개 변수
 detract,C2,verb,떨어지다
 interrogate,C2,verb,심문
 interrogation,C2,noun,질문
 interrogative,C2,adjective,심문
-interrogatively,C2,adverb,심문 적으로
+interrogatively,C2,adverb,심문적으로
 perverse,C2,adjective,왜곡
 perversity,C2,noun,비뚤어진 성미
 opaque,C2,adjective,불투명체
@@ -8172,33 +8125,33 @@ snippet,C2,noun,단편
 practitioner,C2,noun,실무자
 ephemeral,C2,adjective,임시
 ephemera,C2,noun,하루살이
-ephemerality,C2,noun,임시 성
+ephemerality,C2,noun,임시의
 summarily,C2,adverb,요약
 infallibly,C2,adverb,무자비하게
-infallible,C2,adjective,불가능합니다
+infallible,C2,adjective,불가능한
 infallibility,C2,noun,오류 없음
 depravity,C2,noun,타락
 depraved,C2,adjective,타락한
 deprecate,C2,verb,더 이상
-deprecatingly,C2,adverb,감가 상징적으로
+deprecatingly,C2,adverb,비난하듯이
 revile,C2,verb,부흥
 revulsion,C2,noun,격변
-meager/meagre,C2,adjective,빈약/빈약
+meager/meagre,C2,adjective,빈약
 arcane,C2,adjective,비전
 porten,C2,noun,포르틴
 divination,C2,noun,점
 flit,C2,verb,훨훨 날다
 hitch,C2,verb,걸다
-prone,C2,adjective,경향이 있습니다
+prone,C2,adjective,경향이 있는
 scavenger,C2,noun,찾아 헤매다
 vermin,C2,noun,해충
-totemic,C2,adjective,토템
-emulate,C2,verb,에뮬레이션
-emulation,C2,noun,에뮬레이션
+totemic,C2,adjective,토템(신앙)의
+emulate,C2,verb,…와 경쟁하다
+emulation,C2,noun,경쟁
 avian,C2,adjective,조류
 vestigial,C2,adjective,흔적
 vestigially,C2,adverb,흔적
-brouhaha,C2,noun,브루하하
+brouhaha,C2,noun,난리 법석
 magnate,C2,noun,고관
 magnanimous,C2,adjective,대단한
 magnanimously,C2,adverb,웅장하게
@@ -8208,13 +8161,13 @@ secular,C2,adjective,속가
 secularly,C2,adverb,세속적으로
 euphemism,C2,noun,완곡 어법
 euphemistic,C2,adjective,완화
-euphemistically,C2,adverb,완화 적으로
+euphemistically,C2,adverb,완곡히
 condensation,C2,noun,응축
 redundancy,C2,noun,중복성
 redundantly,C2,adverb,중복
 colloquial,C2,adjective,구어체
 colloquium,C2,noun,콜로키움
-colloquially,C2,adverb,구어체 적
+colloquially,C2,adverb,구어체로
 allusion,C2,noun,암시
 allude,C2,verb,암시하다
 disparage,C2,verb,얕보다
@@ -8227,7 +8180,7 @@ topographical,C2,adjective,지형
 topographically,C2,adverb,지형적으로
 confabulate,C2,verb,대화
 confabulation,C2,noun,간담
-surrealist,C2,noun,초현실주의 자
+surrealist,C2,noun,초현실주의자
 surrealism,C2,noun,초현실주의
 contrive,C2,verb,꾸미다
 malice,C2,noun,악의
@@ -8237,7 +8190,7 @@ cinematography,C2,noun,영화 촬영법
 cinematographer,C2,noun,촬영 감독
 maverick,C2,noun,매버릭
 diligently,C2,adverb,부지런히
-turret,C2,noun,터릿
+turret,C2,noun,포탑
 impressionistic,C2,adjective,인상파
 impressionistically,C2,adverb,인상적으로
 snobbery,C2,noun,속물 근성
@@ -8257,8 +8210,7 @@ sulphur,C2,noun,황
 sulphuric,C2,adjective,황의
 moor,C2,noun,황무지
 solitary,C2,adjective,외로운
-solitariness,C2,noun,솔리치
-solitude,C2,noun,고독
+solitariness,C2,noun,고독
 adhere,C2,verb,준수하다
 adhesion,C2,noun,부착
 proscribe,C2,verb,엎드려
@@ -8282,7 +8234,7 @@ rhetoric,C2,noun,수사학
 rhetorical,C2,adjective,수사
 rhetorically,C2,adverb,수사적
 flighty,C2,adjective,들뜬
-flightiness,C2,noun,비행 성
+flightiness,C2,noun,비행성
 brimstone,C2,noun,유황
 impeccable,C2,adjective,완벽한
 impeccably,C2,adverb,완벽하게
@@ -8299,7 +8251,7 @@ cull,C2,verb,따다
 swivel,C2,verb,받침
 quiver,C2,verb,떨림
 sandwiched,C2,adjective,샌드위치
-mottled,C2,adjective,얼룩덜룩 한
+mottled,C2,adjective,얼룩덜룩한
 epoxy,C2,noun,에폭시
 angular,C2,adjective,모난
 angularity,C2,noun,모남
@@ -8312,10 +8264,10 @@ cordon,C2,verb,장식 리본
 fabled,C2,adjective,전설
 infernal,C2,adjective,지독한
 infernally,C2,adverb,지옥으로
-presentational,C2,adjective,프리젠 테이션
+presentational,C2,adjective,프리젠테이션
 embed,C2,verb,포함시키다
 plume,C2,noun,깃털
-happenstance,C2,noun,발생합니다
+happenstance,C2,noun,우연한 일
 reconcile,C2,verb,조정하다
 reconciliation,C2,noun,화해
 conciliatory,C2,adjective,달래는
@@ -8328,11 +8280,11 @@ elephantine,C2,adjective,코끼리
 condone,C2,verb,용서
 commodity,C2,noun,상품
 commode,C2,noun,옷장
-unobtrusive,C2,adjective,눈에 띄지 않습니다
-unobtrusively,C2,adverb,눈에 잘 띄지 않습니다
+unobtrusive,C2,adjective,눈에 띄지 않는
+unobtrusively,C2,adverb,눈에 띄지 않게
 unobtrusiveness,C2,noun,무질서함
 compellingly,C2,adverb,강력하게
-hauntingly,C2,adverb,잊혀지지 않습니다
+hauntingly,C2,adverb,잊혀지지 않는
 brim,C2,verb,가장자리
 authenticity,C2,noun,확실성
 scholarly,C2,adjective,학문적
@@ -8344,7 +8296,7 @@ besiege,C2,verb,괴롭히다
 cloister,C2,noun,회랑
 cloistered,C2,adjective,회랑
 annex,C2,noun,신관
-resuscitate,C2,verb,소생하십시오
+resuscitate,C2,verb,소생하다
 resuscitation,C2,noun,소생술
 ravish,C2,verb,까마귀
 fabricate,C2,verb,만들다
@@ -8356,8 +8308,8 @@ resoundingly,C2,adverb,울퉁불퉁하게
 resound,C2,verb,울리다
 ordain,C2,verb,정하다
 inchoate,C2,adjective,방금 시작한
-elated,C2,adjective,의기 양양한
-elation,C2,noun,의기 양양
+elated,C2,adjective,의기양양한
+elation,C2,noun,의기양양
 hysteria,C2,noun,히스테리
 hysterical,C2,adjective,히스테리
 hysterically,C2,adverb,히스테리
@@ -8366,7 +8318,7 @@ suffuse,C2,verb,뒤덮다
 totter,C2,verb,넝마주이
 pyre,C2,noun,파이어
 contemptuous,C2,adjective,경멸
-contemptuously,C2,adverb,경멸 적으로
+contemptuously,C2,adverb,경멸적으로
 forlorn,C2,adjective,고독한
 forlornly,C2,adverb,예외적으로
 rebuke,C2,verb,합법적인
@@ -8388,21 +8340,21 @@ stringent,C2,adjective,절박한
 astringent,C2,noun,수렴성
 stringently,C2,adverb,엄격하게
 standing,C2,noun,서 있는
-economize/economise,C2,verb,경제학/경제
+economize/economise,C2,verb,경제학
 breadwinner,C2,noun,생업
 cosset,C2,verb,물린
 counsel,C2,noun,조언
-misdemeanor/misdemanour,C2,noun,경범죄/경범죄
+misdemeanor/misdemanour,C2,noun,경범죄
 aptitude,C2,noun,적성
 torrential,C2,adjective,심한
 banish,C2,verb,덜어 없애다
 banishment,C2,noun,추방
 knack,C2,noun,기교
 fruition,C2,noun,결실
-tantalize/tantalise,C2,verb,교화/교환
+tantalize/tantalise,C2,verb,교화
 maelstrom,C2,noun,큰 소용돌이
 vortex,C2,noun,와동
-depressive,C2,adjective,우울합니다
+depressive,C2,adjective,우울한
 shoal,C2,noun,얕은
 scroll,C2,noun,스크롤
 collide,C2,verb,충돌
@@ -8411,38 +8363,38 @@ thicket,C2,noun,덤불
 leaven,C2,verb,효모
 leavening,C2,noun,감화
 ethos,C2,noun,기풍
-interweave,C2,verb,섞어 짜다
+interweave,C2,verb,섞어짜다
 burgeoning,C2,adjective,급성장
 indiscrete,C2,adjective,무분별한
 indiscretion,C2,noun,무분별
 telescopic,C2,adjective,텔레스코픽
 telescopically,C2,adverb,망원경
 amorphous,C2,adjective,비정질
-amorphously,C2,adverb,비정질 적으로
+amorphously,C2,adverb,비정질적으로
 hamper,C2,verb,광주리
 deterrent,C2,noun,억제력
 selectivity,C2,noun,선택성
-fractious,C2,adjective,열광적입니다
+fractious,C2,adjective,열광적인
 mystique,C2,noun,신비감
 assimilate,C2,verb,동화
 assimilation,C2,noun,동화
-intersperse,C2,verb,산재합니다
+intersperse,C2,verb,흩어지다
 verbatim,C2,adjective,구두
 verily,C2,adverb,진실로
 veritable,C2,adjective,진실성
 verisimilitude,C2,noun,있을 법함
 artifice,C2,noun,기교
-unfeasible,C2,adjective,불가능합니다
+unfeasible,C2,adjective,실행할 수 없는
 unfeasibly,C2,adverb,적절하게
 behest,C2,noun,명령
 virtuoso,C2,noun,거장
 virtuosity,C2,noun,미술 애호가
 crippling,C2,adjective,무서운
 nascent,C2,adjective,초기
-smattering,C2,noun,스터 링
+smattering,C2,noun,겉핥기
 corpus,C2,noun,신체
 wheeze,C2,verb,끓다
-neophyte,C2,noun,신 생물
+neophyte,C2,noun,초심자
 coax,C2,verb,동축 케이블
 formidably,C2,adverb,강력하게
 squint,C2,verb,곁눈질
@@ -8466,23 +8418,23 @@ etching,C2,noun,에칭
 rapture,C2,noun,황홀경
 rapturous,C2,adjective,기뻐 날뛰는
 rapturously,C2,adverb,간결하게
-improvisational,C2,adjective,즉흥적 인
-acrobatics,C2,noun,재주 넘기
-acrobatically,C2,adverb,곡예 적
-acrobatic,C2,adjective,재주 넘기 같은
+improvisational,C2,adjective,즉흥적인
+acrobatics,C2,noun,재주넘기
+acrobatically,C2,adverb,곡예적
+acrobatic,C2,adjective,재주넘기 같은
 arduous,C2,adjective,어려운
 arduously,C2,adverb,힘들게
 counterproductive,C2,adjective,비생산적
-counterproductively,C2,adverb,역전 적으로
+counterproductively,C2,adverb,역전적으로
 proverbial,C2,adjective,유명한
 instantaneous,C2,adjective,동시에 일어나는
 instantaneously,C2,adverb,순간적으로
 mull over,C2,verb,숙고하다
 ruminate,C2,verb,새기다
 rumination,C2,noun,반추
-ruminant,C2,adjective,반추 동물
-ruminative,C2,adjective,반추 적
-armory/armoury,C2,noun,무기고/무기고
+ruminant,C2,adjective,반추동물
+ruminative,C2,adjective,반추적
+armory/armoury,C2,noun,무기고
 apostle,C2,noun,사도
 blubber,C2,noun,두툼한
 trifle,C2,noun,시시한 것
@@ -8517,23 +8469,23 @@ allegory,C2,noun,우화
 allegorical,C2,adjective,우화
 seedy,C2,adjective,초라한
 punitive,C2,adjective,처벌
-punitively,C2,adverb,처벌 적으로
+punitively,C2,adverb,처벌적으로
 milieu,C2,noun,환경
-self-aggrandizement/self-aggrandisement,C2,noun,자기 공격/자기 악화
+self-aggrandizement/self-aggrandisement,C2,noun,자기 공격
 unadulterated,C2,adjective,완전한
 adulterate,C2,verb,간음
-patronize/patronise,C2,verb,후원/후원
-patronizing/patronising,C2,adjective,후원/후원
-patronizingly/patronisingly,C2,adverb,후원 적으로/후원 적으로
+patronize/patronise,C2,verb,후원
+patronizing/patronising,C2,adjective,후원
+patronizingly/patronisingly,C2,adverb,후원적으로
 cogently,C2,adverb,웅장하게
-incongruous,C2,adjective,부적절합니다
+incongruous,C2,adjective,부적절한
 incongruously,C2,adverb,부적절하게
 incongruity,C2,noun,부조화
 deaden,C2,verb,죽은
 attuned,C2,adjective,조율
 attributive,C2,adjective,명사 수식어
 ecotourism,C2,noun,생태 관광
-incise,C2,verb,새겨 져 있습니다
+incise,C2,verb,절개하다
 incipient,C2,adjective,초기
 echolocation,C2,noun,반향
 echolocate,C2,verb,반향
@@ -8548,11 +8500,11 @@ salivary,C2,adjective,타액
 hypnotherapy,C2,noun,최면 요법
 wholly,C2,adverb,전적으로
 remorseful,C2,adjective,후회
-remonstrate,C2,vern,회상하십시오
+remonstrate,C2,vern,회상하다
 remonstrance,C2,noun,충고
 unexceptionally,C2,adverb,예외적으로
-unexceptional,C2,adjective,비 예거아
+unexceptional,C2,adjective,예고되지 않은
 inexorable,C2,adjective,무정한
 inexorably,C2,adverb,불가분의
 inexorability,C2,noun,무정함
-tranquilize/tranquilise,C2,verb,고요한/고요함
+tranquilize/tranquilise,C2,verb,고요한
