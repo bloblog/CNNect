@@ -148,7 +148,7 @@ public class UserService {
     }
 
     public void sendCodeToEmail(String toEmail) throws MessagingException {
-        String title = "Cnnect 이메일 인증 번호입니다.";
+        String title = "CNNect 이메일 인증 번호입니다.";
         String authCode = createCode();
         emailService.sendEmail(toEmail, title, authCode);
         // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
