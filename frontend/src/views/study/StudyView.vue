@@ -4,8 +4,10 @@ import Script from '@/components/study/Script.vue';
 import Shadowing from '@/components/study/Shadowing.vue';
 import Voca from '@/components/study/Voca.vue';
 import VideoPlayer from '@/components/study/VideoPlayer.vue';
+import DoughnutChart from '@/components/study/DoughnutChart.vue';
+import BarChart from '@/components/study/BarChart.vue';
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { getStudy } from '@/api/study';
 import { updateScore } from '@/api/sentence';
 import { updateLastSentence } from '@/api/history';
@@ -27,6 +29,38 @@ const curSentence = ref({
     content: "",
     score: null
 })
+
+const completeCount = computed(() => {
+  return videoData.value.sentenceList.filter(item => item.score !== null).length;
+});
+
+const incompleteCount = computed(() => {
+    return videoData.value.sentenceList.filter(item => item.score === null).length;
+});
+
+const averageScore = computed(() => {
+    const filteredScores = videoData.value.sentenceList.filter(item => item.score !== null);
+    const sum = filteredScores.reduce((acc, cur) => acc + cur.score, 0);
+    const count = filteredScores.length;
+    const average = (count > 0) ? (sum / count) : 0;
+    return Math.round(average * 10) / 10;
+});
+
+const minScore = computed(() => {
+  const scores = videoData.value.sentenceList
+    .filter(item => item.score !== null)
+    .map(item => item.score);
+  const min = scores.length > 0 ? Math.min(...scores) : null;
+  return min !== null ? Math.round(min * 10) / 10 : null;
+});
+
+const maxScore = computed(() => {
+  const scores = videoData.value.sentenceList
+    .filter(item => item.score !== null)
+    .map(item => item.score);
+    const max = scores.length > 0 ? Math.max(...scores) : null;
+  return max !== null ? Math.round(max * 10) / 10 : null;
+});
 
 const setCurSentence = (curOrder) => {
     const { order, startTime, content, mean, score } = videoData.value.sentenceList[curOrder-1];
@@ -138,6 +172,14 @@ onUnmounted(() => {
                                 <Voca :wordMeanings="wordMeanings" :isFinishedFetching="isFinishedFetching"/>
                             </div>
                         </li>
+                        <li id="tab3" class="btnCon">
+                            <input type="radio" name="tabmenu" id="tabmenu3">
+                            <label for="tabmenu3">학습통계</label>
+                            <div class="tabCon tabCon3">
+                                <DoughnutChart v-if="videoData.videoId" :completeCount="completeCount" :incompleteCount="incompleteCount"></DoughnutChart>
+                                <BarChart v-if="videoData.videoId" :averageScore="averageScore" :minScore="minScore" :maxScore="maxScore"></BarChart>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -178,6 +220,7 @@ body {
 .tabmenu{ 
     margin: 0 auto;
     height: 300px;
+    min-width: 450px;
 }
 .tabmenu ul{
     position: relative;
@@ -220,11 +263,11 @@ body {
     overflow-y: auto;
 }
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+    width: 0;
+    height: 0;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 .tabmenu input:checked ~ label{
     font-weight: 800;
