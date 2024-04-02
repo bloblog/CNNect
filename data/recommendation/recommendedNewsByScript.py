@@ -139,7 +139,7 @@ def fetch_user_history_news_from_mysql(user_id):
 # mongoDB와 연결
 def connect_to_mongodb():
     try:
-        mongodb_uri = f"mongodb://{mongodb_config['USERNAME']}:{mongodb_config['PASSWORD']}@{mongodb_config['HOST']}:{mongodb_config['PORT']}/?authSource=admin"
+        mongodb_uri = f"mongodb://{mongodb_config['USERNAME']}:{mongodb_config['PASSWORD']}@{mongodb_config['HOST']}:{mongodb_config['PORT']}/?authSource=admin&directConnection=true"
         print(mongodb_uri)
         client = MongoClient(mongodb_uri)
         db = client[mongodb_config['DATABASE_NAME']]

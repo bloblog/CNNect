@@ -16,7 +16,7 @@ mongodb_config = get_mongodb_config(config)
 
 
 def connect_to_mongodb():
-    mongodb_uri = f"mongodb://{mongodb_config['USERNAME']}:{mongodb_config['PASSWORD']}@{mongodb_config['HOST']}:{mongodb_config['PORT']}/?authSource=admin"
+    mongodb_uri = f"mongodb://{mongodb_config['USERNAME']}:{mongodb_config['PASSWORD']}@{mongodb_config['HOST']}:{mongodb_config['PORT']}/?authSource=admin&directConnection=true"
     client = MongoClient(mongodb_uri)
     db = client[mongodb_config['DATABASE_NAME']]
     return db
