@@ -101,7 +101,7 @@ public class VideoService {
         Sort sort = Sort.by(Sort.Direction.DESC, "video_date"); // 날짜 최신순 정렬
         PageRequest pageRequest = PageRequest.of(0, 4, sort);
 
-        for(int i = 1; i <= 7; i++){
+        for(int i = 0; i < 7; i++){
             videoList.addAll(videoRepository.findByCategoryIdOrderByVideoDateDesc((long) i, pageRequest));
         }
         Collections.shuffle(videoList);
