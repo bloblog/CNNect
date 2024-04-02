@@ -30,6 +30,11 @@
               alt="video-image"
               class="object-fit rounded-md video-img-item img-container"
             />
+            <div class="overlay flex items-end">
+                <div class="text-lg font-bold m-2 text-white" id="videoName">
+                    {{video.videoName}}
+                </div>
+            </div>
             <span class="badge absolute top-3 left-3">
               <div
                 id="badge"
@@ -38,11 +43,7 @@
                 Lv. {{ video.videoLevel }}
               </div>
             </span>
-            <div class="overlay flex items-end">
-                <div class="text-lg font-bold m-2" id="videoName">
-                    {{video.videoName}}
-                </div>
-            </div>
+            
           </div>
 
         </div>
@@ -152,10 +153,8 @@ const goToStudy = (videoId) => {
 <style scoped>
 
 
-.img-container {
-  overflow: hidden;
-  height: 30vh;
-  object-fit: cover;
+#content-area {
+  transition: transform 0.3s ease;
 }
 
 .overlay {
@@ -164,11 +163,10 @@ const goToStudy = (videoId) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5); /* 투명한 검은색 배경 */
   opacity: 0; /* 초기에는 숨김 */
   transition: opacity 0.3s ease; /* 변화 시 부드럽게 전환 */
   border-radius: 10px;
-  z-index: 1;
 }
 
 .relative:hover .overlay {
@@ -180,7 +178,13 @@ const goToStudy = (videoId) => {
   transform: scale(1.02);
   color: white;
 }
-#videoName {
+
+.img-container {
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#video-name {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4em;
@@ -189,8 +193,9 @@ const goToStudy = (videoId) => {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   transition: text-decoration 0.3s ease;
-  font: white;
-  z-index: 2;
+  color: white;
 }
+
+
 
 </style>
