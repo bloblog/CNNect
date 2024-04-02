@@ -131,7 +131,13 @@
 
 <script setup>
 import { ref } from "vue";
-import { registUser, emailCheck, emailSend, loginUser, codeValidate } from "@/api/user";
+import {
+  registUser,
+  emailCheck,
+  emailSend,
+  loginUser,
+  codeValidate,
+} from "@/api/user";
 import { userStore } from "@/stores/userStore";
 import Swal from "sweetalert2";
 
@@ -139,7 +145,7 @@ const uStore = userStore();
 const { setUserId, setNickname, setLevel } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
-const authCheck = ref(false); // 이메일 인증 여부
+const authCheck = ref(true); // 이메일 인증 여부
 
 const authCode = ref("");
 
@@ -150,9 +156,9 @@ const formData = ref({
 });
 
 const checkValue = ref({
-  email : "",
-  authCode : ""
-})
+  email: "",
+  authCode: "",
+});
 const passworConfirm = ref("");
 
 const msg = Swal.mixin({
@@ -273,20 +279,20 @@ const codeSend = () => {
       icon: "warning",
       title: "이메일 중복 확인을 <br>먼저 진행해주세요!",
     });
-  }else{
+  } else {
     emailSend(
-    formData.value.userEmail,
-    ({ data }) => {
-      Swal.fire({
-        icon: "info",
-        title: "인증 코드가 전송되었습니다!",
-      });
-      authCheck.value = true;
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+      formData.value.userEmail,
+      ({ data }) => {
+        Swal.fire({
+          icon: "info",
+          title: "인증 코드가 전송되었습니다!",
+        });
+        authCheck.value = true;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 };
 

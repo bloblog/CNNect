@@ -127,6 +127,7 @@ import { userStore } from "@/stores/userStore";
 
 const uStore = userStore();
 const { userId } = storeToRefs(uStore);
+const { setLevel } = uStore;
 
 const isDropdownOpen = ref(false);
 const steps = ref([true, false, false]);
@@ -147,17 +148,12 @@ const nextStep = (input) => {
 
 const handleFinishRegister = () => {
   registerSwitch.value = RegisterResult;
-  if (localStorage.getItem("accessToken")) {
-    setUserLevelToken({
-      level: level.value,
-    });
-  } else {
-    console.log(userId.value);
-    setUserLevelNotToken({
-      userId: userId.value,
-      level: level.value,
-    });
-  }
+  console.log(userId.value);
+  setUserLevelNotToken({
+    userId: userId.value,
+    level: level.value,
+  });
+  setLevel(level.value);
 };
 
 const handleUpdateLevel = (newLevel) => {
