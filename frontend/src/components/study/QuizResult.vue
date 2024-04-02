@@ -81,7 +81,7 @@ const goNum = (num) => {
 }
 
 
-// const videoId = route.params.videoId;
+const videoId = route.params.videoId;
 
 // const quit = () => {
 //     // 뱃지 획득 여부 체크
