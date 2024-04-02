@@ -131,7 +131,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { registUser, emailCheck, emailSend, loginUser } from "@/api/user";
+import { registUser, emailCheck, emailSend, loginUser, codeValidate } from "@/api/user";
 import { userStore } from "@/stores/userStore";
 import Swal from "sweetalert2";
 
@@ -149,6 +149,10 @@ const formData = ref({
   userNickname: "",
 });
 
+const checkValue = ref({
+  email : "",
+  authCode : ""
+})
 const passworConfirm = ref("");
 
 const msg = Swal.mixin({
@@ -277,6 +281,7 @@ const codeSend = () => {
         icon: "info",
         title: "인증 코드가 전송되었습니다!",
       });
+      authCheck.value = true;
     },
     (error) => {
       console.log(error);
@@ -286,8 +291,11 @@ const codeSend = () => {
 };
 
 const codeCheck = () => {
-  emailCheck(
-    authCode.value,
+  checkValue.value.email = formData.value.userEmail;
+  checkValue.value.authCode = authCode.value;
+  // console.log(checkValue.value);
+  codeValidate(
+    checkValue.value,
     ({ data }) => {
       if (data.data) {
         Swal.fire({
