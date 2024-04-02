@@ -294,6 +294,7 @@ const codeCheck = () => {
           icon: "success",
           title: "인증이 성공되었습니다!",
         });
+        authCheck.value = true;
       } else {
         Swal.fire({
           icon: "warning",
