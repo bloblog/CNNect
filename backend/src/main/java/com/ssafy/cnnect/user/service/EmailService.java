@@ -1,10 +1,13 @@
 package com.ssafy.cnnect.user.service;
 
+import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +21,10 @@ public class EmailService {
 
     public void sendEmail(String toEmail,
                           String title,
-                          String text) {
-        SimpleMailMessage emailForm = createEmailForm(toEmail, title, text);
+                          String text) throws MessagingException {
+        MimeMessage message = createEmailForm(toEmail, title, text);
         try {
-            emailSender.send(emailForm);
+            emailSender.send(message);
         } catch (RuntimeException e) {
             log.debug("MailService.sendEmail exception occur toEmail: {}, " +
                     "title: {}, text: {}", toEmail, title, text);
@@ -30,10 +33,10 @@ public class EmailService {
     }
 
     // 발신할 이메일 데이터 세팅
-    private SimpleMailMessage createEmailForm(String toEmail,
+    private MimeMessage createEmailForm(String toEmail,
                                               String title,
-                                              String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
+                                              String text) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
 
         String msgg="";
         msgg+= "<div align='center' style='margin:30px; color:black;'>";
@@ -53,9 +56,10 @@ public class EmailService {
         msgg+= "<div style='font-size:130%;'>";
         msgg+= "<strong>"+text+"</strong><div><br/></div>";
 
-        message.setTo(toEmail);
+        message.addRecipients(Message.RecipientType.TO, toEmail);
+//        message.setTo(toEmail);
         message.setSubject(title);
-        message.setText(msgg);
+        message.setText(msgg, "utf-8", "html");
 
         return message;
     }
