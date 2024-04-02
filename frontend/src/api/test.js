@@ -27,18 +27,19 @@ function setUserLevelToken(param, success, fail) {
   local.patch(`user/update/level`, param, config)
     .then(() => {
       if (success) {
-      handleVideoClick();
-        success(); 
+        success();
+        handleVideoClick();
       }
     })
     .catch(fail);
 }
 function setUserLevelNotToken(param, success, fail) {
+  console.log(param);
   local.patch(`user/update/level/register`, param)
   .then(() => {
     if (success) {
+      success();
       handleVideoClick();
-      success(); 
     }
   })
   .catch(fail);
