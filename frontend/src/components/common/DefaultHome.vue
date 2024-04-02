@@ -13,7 +13,7 @@
             >
             <div id="container-layer" class="rounded-xl"></div>
             <div class="bg-black col-span-2" id="video-img-container">
-              <img id="now-video-img" :src="`https://img.youtube.com/vi/${now_video.videoId}/maxresdefault.jpg`" alt="Now Video Image">
+              <img id="now-video-img" :src="`https://img.youtube.com/vi/${now_video.videoId}/mqdefault.jpg`" alt="Now Video Image">
             </div>
             <div class="p-8 flex flex-col justify-between sm:col-span-3 mb-3" id="now-video-info">
               <div class="text-2xl font-bold font-[GmarketSansMedium]" id="video-name">[ Lv.{{ now_video.videoLevel }} ] {{ now_video.videoName }}</div>
