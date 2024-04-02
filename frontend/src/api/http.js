@@ -18,6 +18,36 @@ function localAxios() {
     },
   });
 
+  instance.interceptors.response.use(
+    function (response) {   
+      return response
+    },
+    async (error) => {
+      const {
+        config,
+        response: { status }
+      } = error
+
+      if (status === 401) {
+        const originalRequest = config
+        const refreshToken = localStorage.getItem('refreshToken')
+
+        if (refreshToken) {
+          await instance
+            .get('/user/refreshtoken', {
+              refreshToken: localStorage.getItem('refreshToken')
+            })
+            .then((response) => {
+              const newAccessToken = response.data.accessToken
+              localStorage.setItem('accessToken', newAccessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
+
+              return instance(originalRequest)
+            })
+        }
+      }
+    }
+  )
   return instance;
 }
 

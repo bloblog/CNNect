@@ -129,8 +129,6 @@ const logout = () => {
 };
 
 const search = () => {
-  console.log("enter : ");
-  console.log(searchInput.value);
   const keyword = searchInput.value;
   router.push({ path: "/search", query: { keyword } });
   searchInput.value = "";
@@ -147,7 +145,6 @@ watch(
 
 onMounted(() => {
   imgUrl.value = "/level/level" + level.value + ".png";
-  console.log(level.value + " " + imgUrl.value);
   currentURL.value = window.location.href;
 });
 

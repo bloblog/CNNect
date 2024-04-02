@@ -38,7 +38,7 @@ import { ref, shallowRef } from "vue";
 import { setUserLevelToken, setUserLevelNotToken } from "@/api/test";
 import { storeToRefs } from "pinia";
 import { userStore } from "@/stores/userStore";
-
+import { handleVideoClick } from "@/api/user.js";
 import RegisterLevel from "@/components/user/RegisterLevelComponent.vue";
 import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
@@ -61,6 +61,7 @@ const handleFinishRegister = () => {
       level: level.value,
     });
   }
+  handleVideoClick();
 };
 
 const handleUpdateLevel = (newLevel) => {

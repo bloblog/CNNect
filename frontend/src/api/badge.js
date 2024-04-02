@@ -19,9 +19,12 @@ async function myBadges(success, fail){
     local.get(`${url}/mylist`, config).then(success).catch(fail);
 }
 
-  
+async function checkBadge(param, success, fail){
+    local.get(`${url}/newbadge?categoryId=${param}`, config).then(success).catch(fail);
+}
 
 export {
     allBadges,
-    myBadges
+    myBadges,
+    checkBadge,
 }
