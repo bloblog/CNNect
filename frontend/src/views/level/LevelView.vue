@@ -44,6 +44,7 @@ import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
 const uStore = userStore();
 const { userId } = storeToRefs(uStore);
+const { setLevel } = uStore;
 
 const level = ref(1);
 const registerSwitch = shallowRef(RegisterLevel);
@@ -61,6 +62,7 @@ const handleFinishRegister = () => {
       level: level.value,
     });
   }
+  setLevel(level.value);
   handleVideoClick();
 };
 
