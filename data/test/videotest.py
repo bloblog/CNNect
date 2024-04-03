@@ -30,7 +30,7 @@ def showUserId(videoId):  # 4
     word_list = video_data['word_list']
     sentence_list = video_data['sentence_list']
 
-    selected_words = random.sample(word_list, 10)
+    selected_words = random.sample(word_list, 15)
     selected_sentences = []
     answerList = []
 
