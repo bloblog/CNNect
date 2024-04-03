@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="absolute top-[10vh] w-full">
     <div class="text-xl m-5 ml-10 font-[GmarketSansMedium]">
       <span class="font-semibold highlight">'{{ searchInput }}'</span>에 대한 제목
       검색 결과
@@ -23,7 +23,7 @@
             {{ buttonLabel }}
           </button>
         </div>
-        <div class="grid grid-cols-4 gap-1 w-[90%] h-[70vh] justify-center ml-[5%]">
+        <div class="grid grid-cols-4 gap-1 w-[90%] h-[] justify-center ml-[5%]">
           <div v-for="(video, index) in videoViewList" :key="index" class="relative m-2">
               <div class="flex flex-col" id="content-area" @click="goToStudy(video.videoId)">
                 <img :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`" alt="video-image" class="max-h-50 rounded-md video-img-item img-container">

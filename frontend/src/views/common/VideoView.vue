@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center m-5">
+  <div class="flex flex-col items-center m-5 absolute top-[10vh] w-full">
       <ul class="flex flex-wrap text-center text-gray-500 dark:text-gray-400">
         <li v-for="(tab, index) in tabs" :key="index" class="me-2 font-[GmarketSansMedium]">
           <a href="#" @click="changeTab(index)"

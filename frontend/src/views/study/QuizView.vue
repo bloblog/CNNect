@@ -36,7 +36,7 @@ const categoryId = history.state.categoryId;
 </script>
 
 <template>
-    <div class="m-10">
+    <div class="p-10 w-full absolute top-[10vh]">
         <div v-if="resultList.length == 0">
             <div v-if="quizData.length > 0 && correctList.length > 0">
                 <Quiz :quizData="quizData" :resultList="resultList" :answerList="answerList" :correctList="correctList"/>

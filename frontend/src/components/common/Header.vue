@@ -3,7 +3,7 @@
     v-if="
       (isLogin == true && !$route.meta.hideHeader) || $route.meta.isRegister
     "
-    class="header-frame top-0 z-20 sticky flex justify-between"
+    class="header-frame top-0 z-40 fixed w-full flex justify-between"
   >
     <div class="flex items-center font-[GmarketSansMedium] text-lg">
       <RouterLink to="/">
@@ -28,7 +28,7 @@
     <div class="flex items-center">
       <!-- Search button -->
       <div class="search-area relative" v-if="isLogin">
-        <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
+        <input class="custom-input" placeholder="뉴스를 검색해보세요!" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,8 @@ const toggleSearch = () => {
 
 <style scoped>
 .header-frame {
-  @apply h-[] bg-black shadow-md;
+  /* @apply bg-black shadow-md; */
+  background-color: black;
   min-height: fit-content;
 }
 
@@ -214,7 +215,6 @@ const toggleSearch = () => {
 
 .search-area {
   display: flex;
-  /* justify-content: center; */
 }
 
 .c-height {

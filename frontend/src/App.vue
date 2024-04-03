@@ -8,5 +8,6 @@ import Header from './components/common/Header.vue';
 </template>
 
 <style scoped>
+    
 
 </style>

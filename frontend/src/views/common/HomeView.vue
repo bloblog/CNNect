@@ -1,6 +1,6 @@
 <template>
   
-  <div v-if="isLogin == true">
+  <div v-if="isLogin == true" class="absolute top-[10vh] w-full">
     <DefaultHome/>
   </div>
   <div v-else>

@@ -115,16 +115,6 @@ onUnmounted(() => {
     </div>
     
   </div>
-  <ul class="mean_list">
-    <li
-      class="mean_item"
-      v-for="meaning in props.selectedWordMeanings"
-      :key="meaning.num"
-    >
-      <span class="num">{{ meaning.num }}. </span>
-      <p class="mean">{{ meaning.mean }}</p>
-    </li>
-  </ul>
   <div
     class="notConnected"
     v-if="
@@ -138,8 +128,8 @@ onUnmounted(() => {
 
 <style scoped>
 .popup {
-  margin-top: 10px;
   position: absolute;
+  bottom: 1vh;
   padding: 10px 15px;
   line-height: 25px;
   border-radius: 10px;

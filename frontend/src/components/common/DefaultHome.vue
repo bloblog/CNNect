@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center">
     <div id="now-video" class="mb-5">
-      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3  ml-10">
-        학습 진행중인 뉴스
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 pt-5 ml-10">
+        최근 학습한 뉴스
       </h1>
       <div v-if="now_video.videoId" class="">
         <div class="flex justify-center">
@@ -66,7 +66,7 @@
         </div>
         <div class="text-center">
           <div class="z-20 text-lg font-bold highlight pl-2 pr-2">
-              학습 진행중인 뉴스가 없습니다
+              최근 학습한 뉴스가 없습니다
           </div>
           <div class="z-20">
               둘러보기 탭에서 CNN 뉴스를 구경해보세요 👀
@@ -77,7 +77,7 @@
     
     
     <div id="recomm-video">
-      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 pt-5 ml-10">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 pt-10 ml-10">
         추천 뉴스
       </h1>
       <div id="recomm-video-container">
