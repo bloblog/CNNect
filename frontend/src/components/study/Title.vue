@@ -64,6 +64,7 @@ header {
     font-weight: 800;
     padding: 0 10px;
 }
+
 .level {
     margin: auto;
     border: #9f9f9f solid 1px;

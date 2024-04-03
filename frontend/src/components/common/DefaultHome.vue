@@ -117,8 +117,6 @@ onMounted(() => {
     ({ data }) => {
       if (data.data) {
         now_video.value = data.data;
-        console.log("찍어 보기 : ", now_video.value);
-        console.log("찍어 보기 : ", now_video);
       }
     },
     (error) => {

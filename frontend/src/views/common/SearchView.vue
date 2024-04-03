@@ -6,19 +6,19 @@
     </div>
 
     <div
-      class="search-frame h-[75vh] overflow-y-auto scrollbar-hide"
+      class="search-frame overflow-y-auto scrollbar-hide"
       ref="titleContainer"
     >
       <div
         v-if="videoViewList.length == 0"
         class="text-center flex items-center justify-center"
       >
-        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[10%]">
+        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 m-[10%]">
           검색 결과가 없습니다 👀
         </div>
       </div>
       <div v-else>
-        <div class="fixed bottom-4 z-10 left-1/2 transform -translate-x-1/2">
+        <div class="fixed bottom-4 z-10 left-1/2 transform -translate-x-1/2 ">
           <button @click="scrollTo" class="bg-theme-red hover:bg-theme-redbrown text-white font-bold py-4 px-6 rounded-full shadow-lg">
             {{ buttonLabel }}
           </button>
@@ -54,7 +54,7 @@
         v-if="scriptViewList.length == 0"
         class="text-center flex items-center justify-center"
       >
-        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[2%]">
+        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 m-[10%]">
           검색 결과가 없습니다 👀
         </div>
       </div>
@@ -66,15 +66,16 @@
             @click="goToStudy(script.videoId)"
           >
             <div
-            class="rounded-md font-semibold flex flex-col justify-center shadow-md px-5 py-3 hover:bg-red-200 h-32"
+            class="rounded-md font-semibold flex flex-col justify-top shadow-md px-5 py-2 hover:bg-red-200 h-[9em]"
             >
-              <div class="font-bold underline hover:cursor-pointer">
+              <div class="font-bold hover:cursor-pointer mb-[0.5em]" id="video-name">
                 <span class="inline-block bg-theme-red text-white text-xs px-2 py-1 rounded-full mr-1">
                   Lv. {{ script.videoLevel }}
                 </span>
                 {{ script.videoName }}
               </div>
-              <span class="text-sm" v-html="highlightText(script.sentence, searchInput)"></span>
+              <div class='divider'></div>
+              <span id="script-content" class="text-sm" v-html="highlightText(script.sentence, searchInput)"></span>
             </div>
           </div>
         </div>
@@ -108,7 +109,7 @@ const titleContainer = ref(null);
 const scriptContainer = ref(null);
 
 const reachedResult = ref(false);
-const buttonLabel = ref('문장 검색 결과');
+const buttonLabel = ref('문장 검색 결과 ⬇︎');
 
 const scrollTo = () => {
   if (!reachedResult.value) {
@@ -122,11 +123,10 @@ const scrollTo = () => {
 }
 
 const updateButtonLabel = () => {
-  // const button = document.querySelector('#move-btn');
   if (reachedResult.value) {
-    buttonLabel.value = '제목 검색 결과';
+    buttonLabel.value = '제목 검색 결과 ⬆︎';
   } else {
-    buttonLabel.value = '문장 검색 결과';
+    buttonLabel.value = '문장 검색 결과 ⬇︎';
   }
 }
 
@@ -181,8 +181,9 @@ const searchTime = () => {
             index + searchInput.value.length + 40
           );
           script.sentence =
-            "..." + script.sentence.substring(start, end) + "...";
-          console.log("변경한 text : " + script.sentence);
+            // "..." + script.sentence.substring(start, end) + "...";
+            script.sentence.substring(start, end);
+          // console.log("변경한 text : " + script.sentence);
         }
       });
       scriptAllList.value = data.data;
@@ -261,6 +262,29 @@ const goToStudy = (videoId) => {
     padding: 5px;
   }
 }
+
+#video-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  height: 2.9em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: text-decoration 0.3s ease;
+}
+
+#script-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  height: 4.3em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  transition: text-decoration 0.3s ease;
+}
+
 
 .overlay {
   position: absolute;
