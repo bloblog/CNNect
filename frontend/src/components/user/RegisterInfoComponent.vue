@@ -145,7 +145,7 @@ const uStore = userStore();
 const { setUserId, setNickname, setLevel } = uStore;
 
 const dupliCheck = ref(false); // 이메일 중복 확인 여부
-const authCheck = ref(true); // 이메일 인증 여부
+const authCheck = ref(false); // 이메일 인증 여부
 
 const authCode = ref("");
 
