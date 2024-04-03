@@ -233,7 +233,7 @@ const login = () => {
       Swal.fire({
       icon: "error",
       html: 
-        "<h3>b>로그인에 실패했습니다.</b></h3>" + 
+        "<h3><b>로그인에 실패했습니다.</b></h3>" + 
         "아이디 및 비밀번호를 확인해주세요!",
       confirmButtonColor: '#cc0000',
 
