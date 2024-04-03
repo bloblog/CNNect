@@ -23,7 +23,7 @@
             {{ buttonLabel }}
           </button>
         </div>
-        <div class="grid grid-cols-4 gap-1 w-[90%] justify-center ml-[5%]">
+        <div class="grid grid-cols-4 gap-1 w-[90%] h-[70vh] justify-center ml-[5%]">
           <div v-for="(video, index) in videoViewList" :key="index" class="relative m-2">
               <div class="flex flex-col" id="content-area" @click="goToStudy(video.videoId)">
                 <img :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`" alt="video-image" class="max-h-50 rounded-md video-img-item img-container">
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="grid grid-cols-4 gap-7 w-[90%] ml-[5%]">
+        <div class="grid grid-cols-4 gap-3 h-[70vh] w-[90%] ml-[5%]">
           <div
             v-for="(script, index) in scriptViewList"
             :key="index"
@@ -95,7 +95,7 @@ const route = useRoute();
 const router = useRouter();
 const searchInput = ref("");
 const videoAllList = ref([]); // api로 받아온 전체 검색 결과
-const videoViewList = ref([]); // 스크롤 내릴때마다 +12개씩
+const videoViewList = ref([]); // 스크롤 내릴때마다 +16개씩
 const scriptAllList = ref([]);
 const scriptViewList = ref([]);
 
@@ -161,7 +161,7 @@ const searchTime = () => {
     searchInput.value,
     ({ data }) => {
       videoAllList.value = data.data;
-      videoViewList.value = [...videoAllList.value.slice(0, 12)];
+      videoViewList.value = [...videoAllList.value.slice(0, 16)];
       console.log(data);
     },
     (error) => {
@@ -187,7 +187,7 @@ const searchTime = () => {
         }
       });
       scriptAllList.value = data.data;
-      scriptViewList.value = [...scriptAllList.value.slice(0, 12)];
+      scriptViewList.value = [...scriptAllList.value.slice(0, 16)];
       console.log(data);
     },
     (error) => {
@@ -214,7 +214,7 @@ const handleTitleScroll = (e) => {
     console.log("title - 맨 아래로 스크롤했습니다!");
     videoViewList.value = [
       ...videoViewList.value,
-      ...videoAllList.value.slice(curTitlePage * 12, curTitlePage * 12 + 12),
+      ...videoAllList.value.slice(curTitlePage * 16, curTitlePage * 16 + 16),
     ];
     curTitlePage++;
   }
@@ -228,7 +228,7 @@ const handleScriptScroll = (e) => {
     console.log("script - 맨 아래로 스크롤했습니다!");
     scriptViewList.value = [
       ...scriptViewList.value,
-      ...scriptAllList.value.slice(curScriptPage * 12, curScriptPage * 12 + 12),
+      ...scriptAllList.value.slice(curScriptPage * 16, curScriptPage * 16 + 16),
     ];
     curScriptPage++;
   }
@@ -244,7 +244,7 @@ const goToStudy = (videoId) => {
 <style scoped>
 @media screen and (min-width: 400px) {
   #badge {
-    font-size: 12px; /* 적절한 크기로 조정 */
+    font-size: 16px; /* 적절한 크기로 조정 */
     padding: 1px;
   }
 }
