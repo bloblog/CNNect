@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center min-h-[90vh]">
+  <div class="flex items-center justify-center h-[90vh] overflow-hidden">
     <div class="w-2/4 mx-4">
       <div class="flex items-center mb-5">
         <div class="w-1/4">

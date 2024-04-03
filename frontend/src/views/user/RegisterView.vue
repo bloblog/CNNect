@@ -1,12 +1,12 @@
 <template>
-  <div class="flex w-full top-[10vh] relative">
+  <div class="flex w-full top-[10vh] h-fit relative">
     <!--stepper start-->
     <div
       id="sidebar-multi-level-sidebar"
-      class="w-1/5 transition-transform -translate-x-full sm:translate-x-0"
+      class="z-10 w-1/5 transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
-      <div class="h-[100vh] min-h-full px-3 py-4 bg-gray-50">
+      <div class="h-[100%] max-h-fit px-3 py-4 bg-gray-50 ">
         <ul class="sticky top-[15vh] font-[GmarketSansMedium] font-medium">
           <li>
             <a
@@ -102,7 +102,7 @@
       </div>
     </div>
     <!--stepper end-->
-    <div class="w-4/5 h-fit">
+    <div class="w-4/5">
       <component
         :is="registerSwitch"
         :level="level"

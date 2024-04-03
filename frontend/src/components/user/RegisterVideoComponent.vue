@@ -1,17 +1,16 @@
 <template>
-  <div class="h-fit">
-    <div class="flex flex-col items-center justify-center">
+  <div class="">
+    <div class=" overflow-y-scroll flex flex-col items-center justify-center">
       <div class="font-[GmarketSansMedium] text-xl font-bold mt-7 ">
         CNNect에서 학습하고 싶은 영상을 골라주세요!
       </div>
       <!-- 영상 목록 출력(3x3 한번에 9개씩 보여주기 -> 스크롤 내리면 다음 영상 목록 로드하기)-->
       <div class="px-3 py-5 flex justify-center items-center" ref="videoBox">
-        <div class="w-5/6 grid grid-cols-3 gap-1">
+        <div class="w-5/6 grid grid-cols-3 gap-3 h-[90vh]">
           <div
             :key="index"
             v-for="(video, index) in videoViewList"
           >
-            
             <!--hear icon-->
             <div class="flex flex-col items-center justify-center pt-2">
               <div
@@ -41,7 +40,7 @@
                   ></iframe>
                 </div>
               </div>
-              <div class="flex justify-center m-3">
+              <div class="flex justify-center m-2">
                 <div class="text-start mr-1 font-[] font-semibold" id="video-name">
                   {{ video.video_name }}
                 </div>
@@ -74,18 +73,20 @@
               
             </div>
           </div>
+          <div class="h-16"></div>
         </div>
       </div>
+      
     </div>
     <div class="flex items-center w-full justify-center">
       <button
         @click="nextStep(2)"
-        class="z-10 fixed bottom-3 items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        class="z-10 fixed bottom-5 items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
       >
         다음
       </button>
+
     </div>
-    <div class="h-5"></div>
   </div>
 </template>
 
@@ -152,8 +153,7 @@ const nextStep = async (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>최소 하나의 관심 영상을<b><h4>' + 
-        '<h4><b>선택해주세요!<b><h4>',
+        '<h4><b>관심 영상을 하나 이상 선택해주세요!<b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else {
