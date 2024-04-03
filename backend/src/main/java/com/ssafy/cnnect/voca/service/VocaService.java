@@ -8,6 +8,7 @@ import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,6 +51,8 @@ public class VocaService {
                     .wordDate(LocalDate.now())
                     .build();
             wordHistoryRepository.save(voca);
+        }else{
+            throw new RuntimeException();
         }
     }
 
