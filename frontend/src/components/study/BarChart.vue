@@ -45,6 +45,11 @@ function createChart() {
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        scales: {
+          x: {
+            max: 100,
+          }
+        }
       }
     });
   }
