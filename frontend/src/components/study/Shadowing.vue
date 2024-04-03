@@ -127,22 +127,34 @@ const openApiURL = '/naverapi/recog/v1/stt';
 
 const startRecording = async () => {
     isSectionPlaying.value = false;
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices?.getUserMedia) {
         // console.log('녹음 시작');
         isRecording.value = true;
         EventBus.emit('pause-video');
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder.value = new MediaRecorder(stream);
-        audioChunks.value = [];
-        
-        mediaRecorder.value.ondataavailable = (event) => {
-            audioChunks.value.push(event.data);
-        };
-        
-        mediaRecorder.value.start();
-
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder.value = new MediaRecorder(stream);
+            audioChunks.value = [];
+            
+            mediaRecorder.value.ondataavailable = (event) => {
+                audioChunks.value.push(event.data);
+            };
+            mediaRecorder.value.start();
+        } catch (error) {
+            console.error('마이크 권한이 거부되었습니다.', error);
+            Swal.fire({
+                icon: "error",
+                title: "마이크 권한 거부",
+                text: "브라우저 설정에서 마이크 권한을 허용해주세요.",
+            });
+            isRecording.value = false;
+        }
     } else {
-        console.error('브라우저가 오디오 녹음을 지원하지 않습니다.');
+        Swal.fire({
+            icon: "error",
+            title: "마이크 권한 거부",
+            text: "브라우저가 오디오 녹음을 지원하지 않습니다.",
+        });
     }
 };
 
@@ -195,24 +207,24 @@ const stopSectionPlay = () => {
 const sendPronunciationRequest = (audioBlob) => {
     let timerInterval;
     Swal.fire({
-    title: "발음 점수 채점 중",
-    html: "측정이 완료되면 자동으로 닫힙니다.",
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup().querySelector("b");
-        timerInterval = setInterval(() => {
-        timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-    },
-    willClose: () => {
-        clearInterval(timerInterval);
-    }
-    }).then((result) => {
-    if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-    }
+        title: "발음 점수 채점 중",
+        html: "측정이 완료되면 자동으로 닫힙니다.",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+            timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        }
+        }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            // console.log("I was closed by the timer");
+        }
     });
 
     axios.post(openApiURL, audioBlob, {
@@ -263,9 +275,11 @@ const sendPronunciationRequest = (audioBlob) => {
                 </div>
             </div>
             <div class="top-right-box">
-                <div class="score" :class="{'noScore': props.curSentence.score === null}">
-                    {{ props.curSentence.score != null ?  props.curSentence.score : "도전"}}
-                </div>
+                <span class="score" :class="{'noScore': props.curSentence.score === null}" 
+                    v-html="props.curSentence.score != null 
+                        ? '당신의 발음 점수는 <span style=&quot;color: #CC0000; font-size: 18px; font-weight: 600;&quot;>' + props.curSentence.score + '</span>점 입니다' 
+                        : '발음을 들은 후 쉐도잉 해보세요'">
+                </span>
             </div>
         </div>
         <div class="bottom-box">
@@ -302,6 +316,7 @@ const sendPronunciationRequest = (audioBlob) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 }
 .top-left-box {
     display: flex;
@@ -313,101 +328,76 @@ const sendPronunciationRequest = (audioBlob) => {
 }
 /* listen */
 .listen {
+    white-space: nowrap;
     margin: 10px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 5px;
-    border: 2px solid transparent;
-    background-color: #f2f2f2;
-    color: #8d8d8d;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #363636;
+    background-color: #ececec;
+    border: 1px solid #363636;
+    font-weight: 600;
 }
 .listen:hover {
-    animation: listenBorderFadeIn 0.5s forwards;
+    box-shadow: 0 0 10px rgba(26, 26, 26, 0.5);
+    transform: scale(1.05);
 }
 .listen.is-section-playing {
     color: #ffffff;
-    background-color: #0000CC;
+    background-color: #535353;
     animation: listenPulseAnimation 1s infinite;
 }
-@keyframes listenBorderFadeIn {
-    from {
-        border-color: transparent;
-    }
-    to {
-        color: #0000CC;
-        background-color: #ecedff;
-        border-color: #0000CC;
-    }
-}
+
 @keyframes listenPulseAnimation {
-    0% {
-        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(0, 0, 204, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0);
-    }
+    0% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0); }
 }
 /* speak */
 .speak{
+    white-space: nowrap;
     margin: 10px 10px 10px 0;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 5px;
-    border: 2px solid transparent;
-    background-color: #f2f2f2;
-    color: #8d8d8d;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #CC0000;
+    border: 1px solid #CC0000;
+    background-color: #ffefef;
+    font-weight: 600;
 }
 .speak:hover {
-    animation: speakBorderFadeIn 0.5s forwards;
+    box-shadow: 0 0 10px rgba(177, 9, 9, 0.5);
+    transform: scale(1.05);
 }
 .speak.recording {
     color: #ffffff;
     background-color: #cc0000;
     animation: speakPulseAnimation 1s infinite;
 }
-@keyframes speakBorderFadeIn {
-    from {
-        border-color: transparent;
-    }
-    to {
-        color: #CC0000;
-        background-color: #fff2f2;
-        border-color: #CC0000;
-    }
-}
 @keyframes speakPulseAnimation {
-    0% {
-        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(204, 0, 0, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0);
-    }
+    0% { box-shadow: 0 0 0 0px rgba(204, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(204, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(204, 0, 0, 0); }
 }
 /* score */
 .top-right-box .score {
-    border: #c8c8c8 1px solid;
-    border-radius: 20px;
-    padding: 5px 20px;
-    margin-right: 15px;
-    color: #CC0000;
+    white-space: nowrap;
+    margin-right: 20px;
+    color: #272727;
+    font-size: 18px;
     font-weight: 600;
-    width: 80px;
-    text-align: center;
+    display: inline;
+    box-shadow: inset 0 -10px 0 #cc000040; 
 }
 .top-right-box .noScore {
-    color: #b3b3b3;
+    margin-right: 20px;
+    color: #818181;
+    box-shadow: inset 0 -10px 0 #47474740; 
 }
-
 /* shadowing / bottom-box */
 .bottom-box {
     margin: 10px;
