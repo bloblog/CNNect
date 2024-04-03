@@ -24,25 +24,18 @@ async function getUserLevelTestList(level, success, fail) {
 
 function setUserLevelToken(param, success, fail) {
   console.log(param);
-  local.patch(`user/update/level`, param, config)
-    .then(() => {
-      if (success) {
-        success();
-        handleVideoClick();
-      }
-    })
-    .catch(fail);
+  local.patch(`user/update/level`, param, config).then((response) => {
+    handleVideoClick(); 
+    success(response);
+  }).catch(fail);
 }
+
 function setUserLevelNotToken(param, success, fail) {
   console.log(param);
-  local.patch(`user/update/level/register`, param)
-  .then(() => {
-    if (success) {
-      success();
-      handleVideoClick();
-    }
-  })
-  .catch(fail);
+  local.patch(`user/update/level/register`, param).then((response) => {
+    handleVideoClick(); 
+    success(response);
+}).catch(fail);
 }
 
 function getQuiz(param, success, fail) {

@@ -55,6 +55,7 @@ const handleFinishRegister = () => {
     setUserLevelToken({
       level: level.value,
     });
+    handleVideoClick();
   } else {
     console.log(userId.value);
     setUserLevelNotToken({
