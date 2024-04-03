@@ -240,7 +240,7 @@ const goToStudy = (videoId) => {
 
 </script>
 
-<style>
+<style scoped>
 @media screen and (min-width: 400px) {
   #badge {
     font-size: 12px; /* 적절한 크기로 조정 */

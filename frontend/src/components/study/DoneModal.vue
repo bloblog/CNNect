@@ -32,15 +32,11 @@
             </button>
         </div>
         <!-- Modal body -->
-        <div class=" flex flex-col text-lg font-[GmarketSansMedium] items-center">
-            <div class="pb-3">
+        <div class=" flex flex-col text-lg font-[GmarketSansMedium] items-center p-10 pl-20 pr-20">
+            <div class="pb-3 ">
                 학습을 종료하시겠습니까?
             </div>
-            <!-- Modal body -->
-            <div class="flex flex-col items-center p-3">
-                <div class="mb-3 text-lg">
-                    학습을 종료하시겠습니까?
-                </div>
+            
                 <div class="flex justify-center">
                     <button
                         @click="quit"
@@ -62,7 +58,6 @@
                 
             </div>
         </div>
-        </div>
     </div>
 </template>
 
@@ -71,60 +66,39 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 
-import { initFlowbite, Modal } from "flowbite";
-import { updateStatus } from '@/api/history'
 import { checkBadge } from '@/api/badge'
 
 const props = defineProps({
-    videoId: Number,
+    videoId: String,
     categoryId: Number,
     answerCnt: Number,
-
+    isBadge: Boolean,
+    badgeItem: Array,
+    
 })
 
+const emit = defineEmits(['toggleBadge']);
+
+const toggleBadge = (badgeItem) => {
+  emit('toggleBadge', badgeItem);
+};
+
+
 const router = useRouter();
-
-const badgeItem = ref([]);
-
-const $targetEl = document.getElementById("badge-modal");
-
-
-const options = {
-    placement: "bottom-right",
-    backdrop: "dynamic",
-    backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
-    closable: true,
-    onHide: () => {
-        console.log("modal is hidden");
-    },
-    onShow: () => {
-        console.log("modal is shown");
-    },
-    onToggle: () => {
-        console.log("modal has been toggled");
-    },
-};
-
-// instance options object
-const instanceOptions = {
-    id: "badge-modal",
-    override: false,
-};
-
-const modal = new Modal($targetEl, options, instanceOptions); // 뱃지 획득 모달
-
-const isBadge = ref(false);
 
 const quit = () => {
     // 뱃지 획득 여부 체크
     checkBadge(
         props.categoryId,
         ({data}) => {
-            if (data.data) {
+            if (data.data.length > 0) {
                 // 뱃지 데이터에 추가
-                badgeItem.value = data.data;
-                console.log(badgeItem.value)
-                isBadge.value = true;
+                const badgeItem = [];
+                for (const badge of data.data) {
+                    badgeItem.push(badge);
+                }
+                // props.isBadge = true;
+                toggleBadge(badgeItem);
             }
 
             // pass 인 경우
@@ -142,8 +116,7 @@ const quit = () => {
             } else {
                 // fail 시 반영안됨 안내해주기
             }
-
-            router.push('/');
+            // router.push('/');
 
         },
         (error) => {

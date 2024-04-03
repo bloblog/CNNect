@@ -193,7 +193,7 @@ const blank = ref("");
             </div>
             <div class="divider"></div>
             <div class="">
-                <div class="m-10">
+                <div class="m-10 min-h-[25vh]">
                     <div class="flex items-start space-x-2">
                         <div class="text-lg font-bold">Q{{ activeIndex }}.</div>
                         <div class="text-lg font-bold">

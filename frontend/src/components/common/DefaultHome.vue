@@ -1,22 +1,9 @@
 <template>
-  <div>
-    
-    <!-- badge modal -->
-    <div
-        
-        id="badge-modal"
-        tabindex="-1"
-        aria-hidden="true"
-        class="overflow-y-auto fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full"
-    >
-        <BadgeModal class=" relative w-full max-w-md max-h-full" :badgeItem="badgeItem"/>
-    </div>
-    <div class="flex flex-col items-center p-5">
-      <div id="now-video" class="mb-5">
-        <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
-          학습 진행중인 뉴스
-        </h1>
-  
+  <div class="flex flex-col items-center">
+    <div id="now-video" class="mb-5">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3  ml-10">
+        학습 진행중인 뉴스
+      </h1>
       <div v-if="now_video.videoId" class="">
         <div class="flex justify-center">
           <div
@@ -24,7 +11,7 @@
             @mouseover="handleMouseOver"
             @mouseleave="handleMouseLeave"
             id="now-video-container"
-            class="relative rounded-xl grid grid-cols-5 w-[70vw]"
+            class="relative rounded-xl grid grid-cols-5 w-[70vw] h-[35vh]"
             :class="{ 'opacity-80': hovered }"
           >
             <div id="container-layer" class="rounded-xl"></div>
@@ -90,22 +77,19 @@
     
     
     <div id="recomm-video">
-      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 pt-5 ml-10">
         추천 뉴스
       </h1>
       <div id="recomm-video-container">
         <RecommVideoList />
       </div>
-      <!-- 여백용 -->
-      <div class="h-10"></div>
     </div>
   </div>
   </div>
-</div>
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { initFlowbite, Modal } from "flowbite";
 import { useRoute, useRouter } from "vue-router";
 import { userStore } from "@/stores/userStore";
@@ -113,7 +97,6 @@ import { storeToRefs } from "pinia";
 import { getLastVideo } from "@/api/history";
 
 import RecommVideoList from "@/components/common/RecommVideoList.vue";
-import BadgeModal from '@/components/study/BadgeModal.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -128,7 +111,6 @@ const { setLogin, setLogout, setNickname, setLevel } = uStore;
 const { isLogin } = storeToRefs(uStore);
 
 onMounted(() => {
-  
   initFlowbite();
 
   getLastVideo(
@@ -198,7 +180,7 @@ const goToStudy = (videoId) => {
 }
 
 #now-video-img {
-  width: 70rem;
+  width: 95%;
   height: 100%;
   border-radius: 10px;
   object-fit: contain;
