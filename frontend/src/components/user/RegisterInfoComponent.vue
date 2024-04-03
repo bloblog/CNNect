@@ -165,6 +165,7 @@ const msg = Swal.mixin({
   position: "center",
   showConfirmButton: true,
   confirmButtonText: "확인",
+  confirmButtonColor: '#CC0000',
   backdrop: true,
 }); // alert창 기본틀
 
@@ -173,13 +174,16 @@ const nextStep = (input) => {
   if (!dupliCheck.value) {
     Swal.fire({
       icon: "warning",
-      title: "이메일 중복 확인을 해주세요!",
+      html: 
+        '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     });
-    // alert("이메일 중복 확인을 해주세요!");
   } else if (!authCheck.value) {
     Swal.fire({
       icon: "warning",
-      title: "이메일 인증을 진행해주세요!",
+      html: 
+        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     });
   } else if (
     formData.value.userNickname.length > 10 ||
@@ -187,20 +191,27 @@ const nextStep = (input) => {
   ) {
     Swal.fire({
       icon: "warning",
-      title: "닉네임을 확인해주세요!",
-      text: "닉네임은 2자 이상 10자 이하로 작성해주세요.",
+      html: 
+        '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
+        '닉네임은 2자 이상 10자 이하로 작성해주세요.',
+      confirmButtonColor: '#cc0000',
+    
     });
-    // alert("닉네임을 2자 이상 10자 이하로 작성해주세요!")
   } else if (passworConfirm.value != formData.value.userPassword) {
     Swal.fire({
       icon: "warning",
-      title: "비밀번호가 일치하지 않습니다!",
+      html: 
+        '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
+      confirmButtonColor: '#cc0000',
+    
     });
-    // alert("비밀번호가 일치하지 않습니다!");
   } else if (!authCheck.value) {
     Swal.fire({
       icon: "warning",
-      title: "이메일 인증을 진행해주세요!",
+      html: 
+        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
+    
     });
   } else {
     // 1. 다음 단계 이동
@@ -243,30 +254,35 @@ const emailDuplCheck = () => {
   if (formData.value.userEmail.length == 0) {
     Swal.fire({
       icon: "warning",
-      title: "이메일을 입력해주세요!",
+      html: 
+            '<h4><b>이메일을 입력해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     });
-    // alert("이메일을 입력해주세요!");
   } else if (!emailRegex.test(formData.value.userEmail)) {
     Swal.fire({
       icon: "warning",
-      title: "이메일 형식을 확인해주세요!",
+      html: 
+        '<h4><b>이메일 형식을 확인해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     });
-    // alert("이메일 형식을 확인해주세요!");
   } else {
     emailCheck(formData.value.userEmail, ({ data }) => {
       if (data.data) {
         Swal.fire({
           icon: "warning",
-          title: "중복된 이메일입니다!",
+          html: 
+            '<h4><b>중복된 이메일입니다!<b><h4>',
+          confirmButtonColor: '#cc0000',
+
         });
-        // alert("중복된 이메일입니다!");
         formData.value.userEmail = "";
       } else {
         Swal.fire({
           icon: "success",
-          title: "사용 가능한 이메일입니다!",
+          html: 
+            '<h4><b>사용 가능한 이메일입니다!<b><h4>',
+          confirmButtonColor: '#cc0000',
         });
-        // alert("가능한 이메일입니다!");
         dupliCheck.value = true;
       }
     });
@@ -277,7 +293,11 @@ const codeSend = () => {
   if (!dupliCheck.value) {
     Swal.fire({
       icon: "warning",
-      title: "이메일 중복 확인을 <br>먼저 진행해주세요!",
+      html: 
+            '<h4><b>이메일 중복 확인을<b><h4>' + 
+            '<h4><b>먼저 진행해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
+              
     });
   } else {
     emailSend(
@@ -285,7 +305,9 @@ const codeSend = () => {
       ({ data }) => {
         Swal.fire({
           icon: "info",
-          title: "인증 코드가 전송되었습니다!",
+          html: 
+            '<h4><b>인증 코드가 전송되었습니다!<b><h4>' ,
+          confirmButtonColor: '#cc0000',
         });
         authCheck.value = true;
       },
@@ -306,13 +328,17 @@ const codeCheck = () => {
       if (data.data) {
         Swal.fire({
           icon: "success",
-          title: "인증이 성공되었습니다!",
+          html: 
+            '<h4><b>인증이 성공되었습니다!<b><h4>',
+          confirmButtonColor: '#cc0000',
         });
         authCheck.value = true;
       } else {
         Swal.fire({
           icon: "warning",
-          title: "인증번호를 확인해주세요!",
+          html: 
+            '<h4><b>인증번호를 확인해주세요!<b><h4>',
+          confirmButtonColor: '#cc0000',
         });
       }
     },
