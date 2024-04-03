@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center w-[80vw]">
     <button
       @click="prevPage"
       id="prevButton"
@@ -22,7 +22,7 @@
       </svg>
     </button>
     <div class="flex" v-if="videoList.length > 0">
-      <div class="grid grid-cols-3 gap-14" ref="imageContainer">
+      <div class="grid grid-cols-3 gap-3" ref="imageContainer">
         <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
           <div class="flex flex-col" @click="goToStudy(video.videoId)">
             <img
