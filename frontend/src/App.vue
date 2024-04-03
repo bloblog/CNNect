@@ -4,7 +4,7 @@ import Header from './components/common/Header.vue';
 
 <template>
   <Header></Header>
-  <RouterView/>
+  <RouterView class="absolute top-[10vh] w-full"/>
 </template>
 
 <style scoped>

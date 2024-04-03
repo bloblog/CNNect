@@ -28,7 +28,7 @@
     <div class="flex items-center">
       <!-- Search button -->
       <div class="search-area relative" v-if="isLogin">
-        <input class="custom-input" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
+        <input class="custom-input" placeholder="뉴스를 검색해보세요!" @keyup.enter="search()" v-model="searchInput" type="text" name="" ref="customInput" />
         <button class="single-search icon-area" @click="toggleSearch()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +215,6 @@ const toggleSearch = () => {
 
 .search-area {
   display: flex;
-  /* justify-content: center; */
 }
 
 .c-height {

@@ -1,132 +1,133 @@
 <template>
   <div class="flex items-center justify-center h-[90vh] overflow-hidden">
-    <div class="w-2/4 mx-4">
-      <div class="flex items-center mb-5">
-        <div class="w-1/4">
-          <label
-            for="email"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >이메일</label
-          >
+      <div v-if="isSending" class="loader z-10 absolute"></div>
+      <div class="w-2/4 mx-4">
+        <div class="flex items-center mb-5">
+          <div class="w-1/4">
+            <label
+              for="email"
+              class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
+              >이메일</label
+            >
+          </div>
+          <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
+            <input
+              type="email"
+              id="email"
+              v-model="formData.userEmail"
+              class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
+              placeholder="example@google.com"
+              required
+            />
+            <button
+              type="button"
+              @click="emailDuplCheck()"
+              class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              중복확인
+            </button>
+          </div>
         </div>
-        <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
-          <input
-            type="email"
-            id="email"
-            v-model="formData.userEmail"
-            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
-            placeholder="example@google.com"
-            required
-          />
+        <div class="flex items-center mb-5">
+          <div class="w-1/4">
+            <label
+              for="email"
+              class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+              >인증코드</label
+            >
+          </div>
+          <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
+            <input
+              type="text"
+              id="authCode"
+              v-model="authCode"
+              class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
+              required
+            />
+  
+            <button
+              v-if="!authCheck"
+              type="button"
+              @click="codeSend()"
+              class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              인증전송
+            </button>
+            <button
+              v-else
+              type="button"
+              @click="codeCheck()"
+              class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              인증확인
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center mb-5">
+          <div class="w-1/4">
+            <label
+              for="password"
+              class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
+              >비밀번호</label
+            >
+          </div>
+          <div class="w-3/4">
+            <input
+              type="password"
+              id="password"
+              v-model="formData.userPassword"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
+              required
+            />
+          </div>
+        </div>
+        <div class="flex items-center mb-5">
+          <div class="w-1/4">
+            <label
+              for="password"
+              class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
+              >비밀번호 확인</label
+            >
+          </div>
+          <div class="w-3/4">
+            <input
+              type="password"
+              id="passworConfirm"
+              v-model="passworConfirm"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
+              required
+            />
+          </div>
+        </div>
+        <div class="flex items-center mb-5">
+          <div class="w-1/4">
+            <label
+              for="nickname"
+              class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
+              >닉네임</label
+            >
+          </div>
+          <div class="w-3/4">
+            <input
+              type="text"
+              id="nickname"
+              v-model="formData.userNickname"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
+              required
+            />
+          </div>
+        </div>
+        <div class="flex items-center w-full justify-center">
           <button
             type="button"
-            @click="emailDuplCheck()"
-            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            @click="nextStep(1)"
+            class="min-w-fit items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            중복확인
+            다음
           </button>
         </div>
-      </div>
-      <div class="flex items-center mb-5">
-        <div class="w-1/4">
-          <label
-            for="email"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
-            >인증코드</label
-          >
-        </div>
-        <div class="w-3/4 gird grid-cols-2 gap-6 flex h-10">
-          <input
-            type="text"
-            id="authCode"
-            v-model="authCode"
-            class="bg-gray-50 w-2/3 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 p-2.5"
-            required
-          />
-
-          <button
-            v-if="!authCheck"
-            type="button"
-            @click="codeSend()"
-            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            인증전송
-          </button>
-          <button
-            v-else
-            type="button"
-            @click="codeCheck()"
-            class="min-w-fit text-theme-red hover:text-white border border-theme-red hover:bg-theme-red focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          >
-            인증확인
-          </button>
-        </div>
-      </div>
-      <div class="flex items-center mb-5">
-        <div class="w-1/4">
-          <label
-            for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >비밀번호</label
-          >
-        </div>
-        <div class="w-3/4">
-          <input
-            type="password"
-            id="password"
-            v-model="formData.userPassword"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
-        </div>
-      </div>
-      <div class="flex items-center mb-5">
-        <div class="w-1/4">
-          <label
-            for="password"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >비밀번호 확인</label
-          >
-        </div>
-        <div class="w-3/4">
-          <input
-            type="password"
-            id="passworConfirm"
-            v-model="passworConfirm"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
-        </div>
-      </div>
-      <div class="flex items-center mb-5">
-        <div class="w-1/4">
-          <label
-            for="nickname"
-            class="mb-2 mr-3 mt-2 text-sm font-medium whitespace-nowrap text-gray-900"
-            >닉네임</label
-          >
-        </div>
-        <div class="w-3/4">
-          <input
-            type="text"
-            id="nickname"
-            v-model="formData.userNickname"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-red-300 w-full p-2.5"
-            required
-          />
-        </div>
-      </div>
-      <div class="flex items-center w-full justify-center">
-        <button
-          type="button"
-          @click="nextStep(1)"
-          class="min-w-fit items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
-          다음
-        </button>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -171,81 +172,81 @@ const msg = Swal.mixin({
 
 const emit = defineEmits(["nextStep"]);
 const nextStep = (input) => {
-  // if (!dupliCheck.value) {
-  //   Swal.fire({
-  //     icon: "warning",
-  //     html: 
-  //       '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
-  //     confirmButtonColor: '#cc0000',
-  //   });
-  // } else if (!authCheck.value) {
-  //   Swal.fire({
-  //     icon: "warning",
-  //     html: 
-  //       '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
-  //     confirmButtonColor: '#cc0000',
-  //   });
-  // } else if (
-  //   formData.value.userNickname.length > 10 ||
-  //   formData.value.userNickname.length < 2
-  // ) {
-  //   Swal.fire({
-  //     icon: "warning",
-  //     html: 
-  //       '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
-  //       '닉네임은 2자 이상 10자 이하로 작성해주세요.',
-  //     confirmButtonColor: '#cc0000',
+  if (!dupliCheck.value) {
+    Swal.fire({
+      icon: "warning",
+      html: 
+        '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
+    });
+  } else if (!authCheck.value) {
+    Swal.fire({
+      icon: "warning",
+      html: 
+        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
+    });
+  } else if (
+    formData.value.userNickname.length > 10 ||
+    formData.value.userNickname.length < 2
+  ) {
+    Swal.fire({
+      icon: "warning",
+      html: 
+        '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
+        '닉네임은 2자 이상 10자 이하로 작성해주세요.',
+      confirmButtonColor: '#cc0000',
     
-  //   });
-  // } else if (passworConfirm.value != formData.value.userPassword) {
-  //   Swal.fire({
-  //     icon: "warning",
-  //     html: 
-  //       '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
-  //     confirmButtonColor: '#cc0000',
+    });
+  } else if (passworConfirm.value != formData.value.userPassword) {
+    Swal.fire({
+      icon: "warning",
+      html: 
+        '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
+      confirmButtonColor: '#cc0000',
     
-  //   });
-  // } else if (!authCheck.value) {
-  //   Swal.fire({
-  //     icon: "warning",
-  //     html: 
-  //       '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
-  //     confirmButtonColor: '#cc0000',
+    });
+  } else if (!authCheck.value) {
+    Swal.fire({
+      icon: "warning",
+      html: 
+        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     
-  //   });
-  // } else {
+    });
+  } else {
     // 1. 다음 단계 이동
     emit("nextStep", input);
 
     // 2. 기본 user 정보 insert api 호출
-  //   registUser(
-  //     formData.value,
-  //     ({ data }) => {
-  //       setUserId(data.data);
-  //       loginUser(
-  //         {
-  //           userEmail: formData.value.userEmail,
-  //           userPassword: formData.value.userPassword,
-  //         },
-  //         ({ data }) => {
-  //           localStorage.setItem(
-  //             "refreshToken",
-  //             data.data.jwtToken.refreshToken
-  //           );
-  //           localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
-  //           setLevel(data.data.level);
-  //           setNickname(data.data.nickName);
-  //         },
-  //         (error) => {
-  //           console.log(error);
-  //         }
-  //       );
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+    registUser(
+      formData.value,
+      ({ data }) => {
+        setUserId(data.data);
+        loginUser(
+          {
+            userEmail: formData.value.userEmail,
+            userPassword: formData.value.userPassword,
+          },
+          ({ data }) => {
+            localStorage.setItem(
+              "refreshToken",
+              data.data.jwtToken.refreshToken
+            );
+            localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
+            setLevel(data.data.level);
+            setNickname(data.data.nickName);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 };
 
 const emailDuplCheck = () => {
@@ -289,6 +290,8 @@ const emailDuplCheck = () => {
   }
 };
 
+const isSending = ref(false);
+
 const codeSend = () => {
   if (!dupliCheck.value) {
     Swal.fire({
@@ -300,11 +303,13 @@ const codeSend = () => {
               
     });
   } else {
+    isSending.value = true;
     emailSend(
       formData.value.userEmail,
       ({ data }) => {
+        isSending.value = false;
         Swal.fire({
-          icon: "info",
+          icon: "success",
           html: 
             '<h4><b>인증 코드가 전송되었습니다!<b><h4>' ,
           confirmButtonColor: '#cc0000',
@@ -330,7 +335,7 @@ const codeCheck = () => {
         Swal.fire({
           icon: "success",
           html: 
-            '<h4><b>인증이 성공되었습니다!<b><h4>',
+            '<h4><b>인증에 성공하였습니다!<b><h4>',
           confirmButtonColor: '#cc0000',
         });
         authCheck.value = true;
@@ -348,4 +353,24 @@ const codeCheck = () => {
 };
 </script>
 
-<style></style>
+<style>
+.loader {
+  border: 5px solid #ffd5d5;
+  border-top: 5px solid #cc0000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+</style>

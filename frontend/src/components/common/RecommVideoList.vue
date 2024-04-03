@@ -39,7 +39,7 @@
               </div>
             </span>
             <div class="overlay flex items-end">
-                <div class="text-lg font-bold m-2" id="videoName">
+                <div class="text-white text-lg font-bold m-2" id="videoName">
                     {{video.videoName}}
                 </div>
             </div>
@@ -49,8 +49,8 @@
       </div>
     </div>
     <div v-else class="grid grid-cols-3 flex space-x-2">
-      <div v-for="n in 3" :key="n" class="animate-pulse rounded-md video-img-item img-container">
-        <div class="rounded w-72 h-48 bg-gray-200"></div>
+      <div v-for="n in 3" :key="n" class="animate-pulse bg-gray-200 rounded-md video-img-item img-container">
+        <div class="rounded w-72 h-48"></div>
       </div>
     </div>
 
