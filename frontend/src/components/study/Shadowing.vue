@@ -275,9 +275,11 @@ const sendPronunciationRequest = (audioBlob) => {
                 </div>
             </div>
             <div class="top-right-box">
-                <div class="score" :class="{'noScore': props.curSentence.score === null}">
-                    {{ props.curSentence.score != null ?  props.curSentence.score : "도전"}}
-                </div>
+                <span class="score" :class="{'noScore': props.curSentence.score === null}" 
+                    v-html="props.curSentence.score != null 
+                        ? '당신의 발음 점수는 <span style=&quot;color: #CC0000; font-size: 18px; font-weight: 600;&quot;>' + props.curSentence.score + '</span>점 입니다' 
+                        : '발음을 들은 후 쉐도잉 해보세요'">
+                </span>
             </div>
         </div>
         <div class="bottom-box">
@@ -314,6 +316,7 @@ const sendPronunciationRequest = (audioBlob) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 }
 .top-left-box {
     display: flex;
@@ -382,19 +385,19 @@ const sendPronunciationRequest = (audioBlob) => {
 }
 /* score */
 .top-right-box .score {
-    border: #c8c8c8 1px solid;
-    border-radius: 20px;
-    padding: 5px 20px;
-    margin-right: 15px;
-    color: #CC0000;
+    white-space: nowrap;
+    margin-right: 20px;
+    color: #272727;
+    font-size: 18px;
     font-weight: 600;
-    width: 80px;
-    text-align: center;
+    display: inline;
+    box-shadow: inset 0 -10px 0 #cc000040; 
 }
 .top-right-box .noScore {
-    color: #b3b3b3;
+    margin-right: 20px;
+    color: #818181;
+    box-shadow: inset 0 -10px 0 #47474740; 
 }
-
 /* shadowing / bottom-box */
 .bottom-box {
     margin: 10px;
