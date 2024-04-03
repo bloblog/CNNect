@@ -171,49 +171,49 @@ const msg = Swal.mixin({
 
 const emit = defineEmits(["nextStep"]);
 const nextStep = (input) => {
-  if (!dupliCheck.value) {
-    Swal.fire({
-      icon: "warning",
-      html: 
-        '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
-      confirmButtonColor: '#cc0000',
-    });
-  } else if (!authCheck.value) {
-    Swal.fire({
-      icon: "warning",
-      html: 
-        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
-      confirmButtonColor: '#cc0000',
-    });
-  } else if (
-    formData.value.userNickname.length > 10 ||
-    formData.value.userNickname.length < 2
-  ) {
-    Swal.fire({
-      icon: "warning",
-      html: 
-        '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
-        '닉네임은 2자 이상 10자 이하로 작성해주세요.',
-      confirmButtonColor: '#cc0000',
+  // if (!dupliCheck.value) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     html: 
+  //       '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
+  //     confirmButtonColor: '#cc0000',
+  //   });
+  // } else if (!authCheck.value) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     html: 
+  //       '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+  //     confirmButtonColor: '#cc0000',
+  //   });
+  // } else if (
+  //   formData.value.userNickname.length > 10 ||
+  //   formData.value.userNickname.length < 2
+  // ) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     html: 
+  //       '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
+  //       '닉네임은 2자 이상 10자 이하로 작성해주세요.',
+  //     confirmButtonColor: '#cc0000',
     
-    });
-  } else if (passworConfirm.value != formData.value.userPassword) {
-    Swal.fire({
-      icon: "warning",
-      html: 
-        '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
-      confirmButtonColor: '#cc0000',
+  //   });
+  // } else if (passworConfirm.value != formData.value.userPassword) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     html: 
+  //       '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
+  //     confirmButtonColor: '#cc0000',
     
-    });
-  } else if (!authCheck.value) {
-    Swal.fire({
-      icon: "warning",
-      html: 
-        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
-      confirmButtonColor: '#cc0000',
+  //   });
+  // } else if (!authCheck.value) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     html: 
+  //       '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+  //     confirmButtonColor: '#cc0000',
     
-    });
-  } else {
+  //   });
+  // } else {
     // 1. 다음 단계 이동
     emit("nextStep", input);
 
@@ -246,7 +246,7 @@ const nextStep = (input) => {
       }
     );
   }
-};
+// };
 
 const emailDuplCheck = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -315,6 +315,7 @@ const codeSend = () => {
         console.log(error);
       }
     );
+    
   }
 };
 
