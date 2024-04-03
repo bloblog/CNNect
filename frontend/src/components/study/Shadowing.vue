@@ -325,85 +325,60 @@ const sendPronunciationRequest = (audioBlob) => {
 }
 /* listen */
 .listen {
+    white-space: nowrap;
     margin: 10px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 5px;
-    border: 2px solid transparent;
-    background-color: #f2f2f2;
-    color: #8d8d8d;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #363636;
+    background-color: #ececec;
+    border: 1px solid #363636;
+    font-weight: 600;
 }
 .listen:hover {
-    animation: listenBorderFadeIn 0.5s forwards;
+    box-shadow: 0 0 10px rgba(26, 26, 26, 0.5);
+    transform: scale(1.05);
 }
 .listen.is-section-playing {
     color: #ffffff;
-    background-color: #0000CC;
+    background-color: #535353;
     animation: listenPulseAnimation 1s infinite;
 }
-@keyframes listenBorderFadeIn {
-    from {
-        border-color: transparent;
-    }
-    to {
-        color: #0000CC;
-        background-color: #ecedff;
-        border-color: #0000CC;
-    }
-}
+
 @keyframes listenPulseAnimation {
-    0% {
-        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(0, 0, 204, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0);
-    }
+    0% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0); }
 }
 /* speak */
 .speak{
+    white-space: nowrap;
     margin: 10px 10px 10px 0;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 5px;
-    border: 2px solid transparent;
-    background-color: #f2f2f2;
-    color: #8d8d8d;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #CC0000;
+    border: 1px solid #CC0000;
+    background-color: #ffefef;
+    font-weight: 600;
 }
 .speak:hover {
-    animation: speakBorderFadeIn 0.5s forwards;
+    box-shadow: 0 0 10px rgba(177, 9, 9, 0.5);
+    transform: scale(1.05);
 }
 .speak.recording {
     color: #ffffff;
     background-color: #cc0000;
     animation: speakPulseAnimation 1s infinite;
 }
-@keyframes speakBorderFadeIn {
-    from {
-        border-color: transparent;
-    }
-    to {
-        color: #CC0000;
-        background-color: #fff2f2;
-        border-color: #CC0000;
-    }
-}
 @keyframes speakPulseAnimation {
-    0% {
-        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(204, 0, 0, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0);
-    }
+    0% { box-shadow: 0 0 0 0px rgba(204, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(204, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(204, 0, 0, 0); }
 }
 /* score */
 .top-right-box .score {
