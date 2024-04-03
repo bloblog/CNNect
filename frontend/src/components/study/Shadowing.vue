@@ -118,6 +118,7 @@ const script = ref(props.curSentence.content);
 const openApiURL = '/naverapi/recog/v1/stt';
 
 const startRecording = async () => {
+    isSectionPlaying.value = false;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('녹음 시작');
         isRecording.value = true;
@@ -148,9 +149,9 @@ const stopRecording = () => {
     mediaRecorder.value.stop();
     console.log('녹음 중지');
     isRecording.value = false;
-    };
+};
 
-    const toggleRecording = () => {
+const toggleRecording = () => {
     if (isRecording.value) {
         stopRecording();
     } else {
@@ -159,12 +160,25 @@ const stopRecording = () => {
 };
 const isSectionPlaying = ref(false);
 
-const sectionPlay = () => {
+const startPlaying = async () => {
     const startTime = props.curSentence.startTime;
     const stopTime = props.videoData.sentenceList[props.curSentence.order].startTime;
     isSectionPlaying.value = true;
     EventBus.emit('section-play', { startTime, stopTime, callback: () => isSectionPlaying.value = false });
-}
+};
+
+const stopPlaying = () => {
+    EventBus.emit('pause-video');
+    isSectionPlaying.value = false;
+};
+
+const togglePlaying = () => {
+    if (isSectionPlaying.value) {
+        stopPlaying();
+    } else {
+        startPlaying();
+    }
+};
 
 const stopSectionPlay = () => {
     isSectionPlaying.value = false;
@@ -199,24 +213,11 @@ const sendPronunciationRequest = (audioBlob) => {
     <div class="shadowing">
         <div class="top-box">
             <div class="top-left-box">
-                <div class="listen" @click="sectionPlay" :class="{ 'is-section-playing': isSectionPlaying }">
-                    <!-- 스피커 아이콘 -->
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                        <path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/>
-                    </svg>
+                <div class="listen" @click="togglePlaying" :class="{ 'is-section-playing': isSectionPlaying }">
+                    {{ isSectionPlaying ? '일시정지' : '구간재생' }}
                 </div>
-                <div class="speack" @click="toggleRecording" :class="{'recording': isRecording}">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                        <template v-if="isRecording">
-                            <!-- 정지 아이콘 -->
-                            <path d="M320-640v320-320Zm-80 400v-480h480v480H240Zm80-80h320v-320H320v320Z"/>
-                        </template>
-                        <template v-else>
-                            <!-- 마이크 아이콘 -->
-                            <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z"/>
-                        </template>
-                    </svg>
+                <div class="speak" @click="toggleRecording" :class="{'recording': isRecording}">
+                    {{ isRecording ? '제출하기' : '발음평가' }}
                 </div>
             </div>
             <div class="top-right-box">
@@ -243,7 +244,7 @@ const sendPronunciationRequest = (audioBlob) => {
 <style scoped>
 /* shadowing */
 .shadowing {
-    width: 100%;
+    width: 90%;
     height: 100%;
     background-color: #ffffff;
     border: 1px solid #CDCDCD;
@@ -256,7 +257,6 @@ const sendPronunciationRequest = (audioBlob) => {
 /* shadowing / top-box */
 .top-box {
     border-bottom: #E3E3E3 solid 1px;
-    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -269,23 +269,89 @@ const sendPronunciationRequest = (audioBlob) => {
     align-items: center;
     color: #797979;
 }
+/* listen */
 .listen {
+    margin: 10px;
     padding: 10px 20px;
-    border-right: #E3E3E3 1px solid;
-    fill: #8d8d8d;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-color: #f2f2f2;
+    color: #8d8d8d;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.listen:hover {
+    animation: listenBorderFadeIn 0.5s forwards;
 }
 .listen.is-section-playing {
-    fill: #cc0000
+    color: #ffffff;
+    background-color: #0000CC;
+    animation: listenPulseAnimation 1s infinite;
 }
-.speack {
+@keyframes listenBorderFadeIn {
+    from {
+        border-color: transparent;
+    }
+    to {
+        color: #0000CC;
+        background-color: #ecedff;
+        border-color: #0000CC;
+    }
+}
+@keyframes listenPulseAnimation {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 204, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 204, 0);
+    }
+}
+/* speak */
+.speak{
+    margin: 10px 10px 10px 0;
     padding: 10px 20px;
-    border-right: #E3E3E3 1px solid;
-    fill: #8d8d8d;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-color: #f2f2f2;
+    color: #8d8d8d;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-.speack.recording {
-    fill: #cc0000
+.speak:hover {
+    animation: speakBorderFadeIn 0.5s forwards;
 }
-
+.speak.recording {
+    color: #ffffff;
+    background-color: #cc0000;
+    animation: speakPulseAnimation 1s infinite;
+}
+@keyframes speakBorderFadeIn {
+    from {
+        border-color: transparent;
+    }
+    to {
+        color: #CC0000;
+        background-color: #fff2f2;
+        border-color: #CC0000;
+    }
+}
+@keyframes speakPulseAnimation {
+    0% {
+        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(204, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0px rgba(204, 0, 0, 0);
+    }
+}
+/* score */
 .top-right-box .score {
     border: #c8c8c8 1px solid;
     border-radius: 20px;

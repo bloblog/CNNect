@@ -29,6 +29,10 @@ function userInfo(success, fail){
     local.get(`${url}/mypage/info`, config).then(success).catch(fail);
 }
 
+function codeValidate(params, success, fail){
+    local.get(`${url}/email/verification?email=${params.email}&authCode=${params.authCode}`).then(success).catch(fail);
+}
+
 async function handleVideoClick() {
     try {
         config = {
@@ -64,5 +68,6 @@ export {
     emailCheck,
     emailSend,
     userInfo,
-    handleVideoClick
+    handleVideoClick,
+    codeValidate
 }

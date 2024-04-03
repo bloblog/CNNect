@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <!-- badge modal -->
     <div
         
@@ -15,6 +16,8 @@
         <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
           학습 진행중인 뉴스
         </h1>
+  
+      <div v-if="now_video.videoId" class="">
         <div class="flex justify-center">
           <div
             @click="goToStudy(now_video.videoId)"
@@ -28,7 +31,7 @@
             <div class="bg-black col-span-2" id="video-img-container">
               <img
                 id="now-video-img"
-                :src="`https://img.youtube.com/vi/${now_video.videoId}/maxresdefault.jpg`"
+                :src="`https://img.youtube.com/vi/${now_video.videoId}/mqdefault.jpg`"
                 alt="Now Video Image"
               />
             </div>
@@ -67,19 +70,38 @@
             </div>
           </div>
         </div>
-      </div>
-      <div id="recomm-video">
-        <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
-          추천 뉴스
-        </h1>
-        <div id="recomm-video-container">
-          <RecommVideoList />
+    </div>
+    <div v-else class="flex justify-center">
+      <div id="no-content" class=" rounded-xl bg-gray-200 w-[70vw] h-[35vh] flex items-center justify-center overflow-hidden">
+        <!-- <div class="animate-pulse flex items-center justify-center"> -->
+        <div class="flex items-center justify-center">
+            <!-- 배경 애니메이션을 위한 요소 -->
         </div>
+        <div class="text-center">
+          <div class="z-20 text-lg font-bold highlight pl-2 pr-2">
+              학습 진행중인 뉴스가 없습니다
+          </div>
+          <div class="z-20">
+              둘러보기 탭에서 CNN 뉴스를 구경해보세요 👀
+          </div>
+        </div>
+    </div>
+    </div>
+    
+    
+    <div id="recomm-video">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
+        추천 뉴스
+      </h1>
+      <div id="recomm-video-container">
+        <RecommVideoList />
       </div>
       <!-- 여백용 -->
       <div class="h-10"></div>
     </div>
   </div>
+  </div>
+</div>
 </template>
 
 <script setup>
@@ -180,6 +202,7 @@ const goToStudy = (videoId) => {
   height: 100%;
   border-radius: 10px;
   object-fit: contain;
+  padding: 10px;
 }
 
 #container-layer {

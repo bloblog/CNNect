@@ -106,6 +106,8 @@ function onPlayerStateChange(event) {
                 clearInterval(interval);
             }
         });
+    } else if (event.data == YT.PlayerState.PAUSED) {
+        EventBus.emit('stop-section-play');
     }
 }
 
@@ -120,8 +122,8 @@ function onPlayerStateChange(event) {
 <style scope>
 #player-container {
     position: relative;
-    width: 100%;
-    padding-top: 56.25%;
+    width: 90%;
+    padding-top: 50.625%;
     margin-bottom: 15px;
     overflow: hidden;
 }

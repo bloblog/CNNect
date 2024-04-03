@@ -1,18 +1,23 @@
 <template>
   <div>
     <div v-if="paginatedVideos && paginatedVideos.length > 0">
-        <div class="px-3 py-5 z-10 flex justify-center items-center" ref="videoBox">
-        <div class="w-5/6 grid grid-cols-3 gap-4">
+        <div class="px-3 py-5 z-10 flex justify-center" ref="videoBox">
+        <div class="grid grid-cols-3 gap-2">
             <div :key="index" class="relative" v-for="(video, index) in paginatedVideos" @click="goToStudy(video.videoId)">
                 <div class="video-img">
-                    <img :src="`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`" class="w-full h-auto" />
-                    <span class="badge absolute top-1 left-1">
-                        <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-lg p-0.5 pl-1 pr-1">
-                            Lv. {{video.videoLevel}}
+                    <img :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`" class="w-full h-auto rounded-lg" />
+                    <span class="badge absolute top-[5%] left-[5%]">
+                        <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-xs pl-1 pr-1">
+                            Lv. {{ video.videoLevel }}
                         </div>
-                    </span>
+                        </span>
                 </div>
-                <div class="title text-1xl font-bold" id="video-title">{{ video.videoName }}</div>
+                <div class="overlay flex items-end">
+                    <div class="text-lg font-bold m-2 text-white" id="video-name">
+                        {{video.videoName}}
+                    </div>
+                </div>
+                <!-- <div class="title text-1xl font-bold" id="video-title">{{ video.videoName }}</div> -->
             </div>
         </div>
         </div>
@@ -30,7 +35,8 @@
                     <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
                 </svg>
             </div>  
-        </div>
+        </div>  
+        <div class="h-3"></div>
     </div>
     <div v-else class="grid-cols-3 flex space-x-2">
         <div class="rounded-xl w-[70vw] border-2 border-gray-200 text-center p-14 font-[GmarketSansMedium]">학습 완료한 뉴스가 없습니다.</div>
@@ -50,7 +56,7 @@ const props = defineProps({
     const router = useRouter();
 
     const currentPage = ref(0);
-    const videodPerPage = 9;
+    const videodPerPage = 6;
 
     const totalPages = computed(() => Math.ceil(props.completedVideoList.length / videodPerPage));
     const paginatedVideos = computed(() => {
@@ -123,6 +129,64 @@ const props = defineProps({
 </script>
 
 <style scoped>
+@media screen and (min-width: 400px) {
+  #badge {
+    font-size: 12px; /* 적절한 크기로 조정 */
+    padding: 1px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #badge {
+    font-size: 15px;
+    padding: 3px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #badge {
+    font-size: 18px;
+    padding: 5px;
+  }
+}
+
+.page-container{
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    text-align: center;
+    min-width: 10vw;
+}
+.page{
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    /* bottom: 8%; */
+    left: 50%;
+    width: 100%; /* 페이지 네비게이션의 너비를 조정할 수 있습니다. */
+    background-color: #fff; /* 필요에 따라 배경색을 지정하세요 */
+    padding-top: 2%;
+
+}
+.page-item {
+  margin: 0 10px; 
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 투명한 검은색 배경 */
+  opacity: 0; /* 초기에는 숨김 */
+  transition: opacity 0.3s ease; /* 변화 시 부드럽게 전환 */
+  border-radius: 10px;
+}
+
+.relative:hover .overlay {
+  opacity: 1; /* 호버 시 레이어를 표시 */
+}
 
 .video-img,
 .title {

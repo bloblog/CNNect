@@ -12,6 +12,7 @@
                 class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="done-modal"
                 >
+                
                 <svg
                     class="w-3 h-3"
                     aria-hidden="true"
@@ -27,8 +28,13 @@
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                     />
                 </svg>
-                <span class="sr-only">Close modal</span>
-                </button>
+            <span class="sr-only">Close modal</span>
+            </button>
+        </div>
+        <!-- Modal body -->
+        <div class=" flex flex-col text-lg font-[GmarketSansMedium] items-center">
+            <div class="pb-3">
+                학습을 종료하시겠습니까?
             </div>
             <!-- Modal body -->
             <div class="flex flex-col items-center p-3">
@@ -55,6 +61,7 @@
                 </div>
                 
             </div>
+        </div>
         </div>
     </div>
 </template>

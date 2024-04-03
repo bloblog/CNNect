@@ -5,7 +5,7 @@
     "
     class="header-frame top-0 z-20 sticky flex justify-between"
   >
-    <div class="flex items-center font-[GmarketSansMedium]">
+    <div class="flex items-center font-[GmarketSansMedium] text-lg">
       <RouterLink to="/">
         <img src="@/assets/logo.png" class="h-8 m-5">
       </RouterLink>
@@ -33,7 +33,7 @@
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="icon icon-tabler icon-tabler-search"
-            viewBox="0 0 25 25"
+            viewBox="0 0 27 27"
             stroke-width="3"
             stroke="#CC0000"
             fill="none"
@@ -52,13 +52,13 @@
         v-if="isLogin"
         id="dropdownDividerButton"
         data-dropdown-toggle="dropdownDivider"
-        class="text-white font-semibold text-center inline-flex items-center pl-3 relative"
+        class="text-white font-semibold text-lg text-center inline-flex items-center pl-3 relative mr-5"
         type="button"
       >
         <img
           alt="profile"
           :src="imgUrl"
-          class="rounded-full w-10 h-10 border-2 border-gray-400 shadow-md mx-3"
+          class="rounded-full w-12 h-12 border-2 border-gray-400 shadow-md mx-3"
         />
         {{ nickName }}님 어서오세요!
 
@@ -80,7 +80,7 @@
         <!-- Dropdown menu -->
         <div
           id="dropdownDivider"
-          class="font-[GmarketSansMedium] hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md absolute !top-[-10%] !left-[10%] !w-36 border"
+          class="font-[GmarketSansMedium] hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md absolute !top-[-10%] !left-[10%] !w-44 border"
         >
           <div class="hover:bg-red-300 rounded-t-lg">
             <RouterLink to="/mypage"
@@ -91,7 +91,7 @@
           </div>
 
           <div class="rounded-b-lg hover:bg-red-300">
-            <a @click="logout()" class="block px-5 py-3 text-sm text-theme-red"
+            <a @click="logout()" class="block px-5 py-3 text-theme-red"
               >로그아웃</a
             >
           </div>

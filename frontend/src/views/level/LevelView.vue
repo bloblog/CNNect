@@ -7,7 +7,7 @@
       aria-label="Sidebar"
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <ul class="space-y-2 font-medium">
+        <ul class="space-y-2 font-medium font-[GmarketSansMedium]">
           <li v-for="i in 6" :key="i">
             <a
               href="#"
@@ -44,6 +44,7 @@ import RegisterResult from "@/components/user/RegisterLevelResultComponent.vue";
 
 const uStore = userStore();
 const { userId } = storeToRefs(uStore);
+const { setLevel } = uStore;
 
 const level = ref(1);
 const registerSwitch = shallowRef(RegisterLevel);
@@ -54,6 +55,7 @@ const handleFinishRegister = () => {
     setUserLevelToken({
       level: level.value,
     });
+    handleVideoClick();
   } else {
     console.log(userId.value);
     setUserLevelNotToken({
@@ -61,6 +63,7 @@ const handleFinishRegister = () => {
       level: level.value,
     });
   }
+  setLevel(level.value);
   handleVideoClick();
 };
 

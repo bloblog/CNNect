@@ -9,19 +9,11 @@
                         <div class="tabCon">
                             <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 진행중인 뉴스</h1>
                             <div class="learning-video">
-                                <!-- <div class="Carousel-btn">
-                                    <svg class="sysmbol-btn" xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('fore')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                                        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
-                                    </svg>
-                                </div>    -->
+                                
                                 <div>
                                     <LearningVideo :curVideo="curVideo" />
                                 </div>
-                                <!-- <div class="Carousel-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" @click="changeVideoOrder('back')" height="24" viewBox="0 -960 960 960" width="24" fill="#CC0000">
-                                        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-                                    </svg>
-                                </div> -->
+                                
                             </div>
                             <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10 mt-3">학습 완료한 뉴스</h1>
                             <div class="learning-video">

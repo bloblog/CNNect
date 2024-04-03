@@ -23,7 +23,7 @@
     </div>
     <!-- router 추후 수정 -->
     <button
-      class="ml-4 mt-7 text-white bg-theme-red hover:bg-theme-redbrown focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+      class="ml-4 mt-7 text-white bg-theme-red hover:bg-theme-redbrown font-medium rounded-lg px-5 py-2.5"
       data-modal-hide="stop-modal"
       @click="finishRegister()"
     >

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { localAxios } from "./http";
+import { handleVideoClick } from "@/api/user.js";
 
 const local = localAxios();
 const config = {
@@ -23,11 +24,18 @@ async function getUserLevelTestList(level, success, fail) {
 
 function setUserLevelToken(param, success, fail) {
   console.log(param);
-  local.patch(`user/update/level`, param, config).then(success).catch(fail);
+  local.patch(`user/update/level`, param, config).then((response) => {
+    handleVideoClick(); 
+    success(response);
+  }).catch(fail);
 }
 
 function setUserLevelNotToken(param, success, fail) {
-  local.patch(`user/update/level/register`, param).then(success).catch(fail);
+  console.log(param);
+  local.patch(`user/update/level/register`, param).then((response) => {
+    handleVideoClick(); 
+    success(response);
+}).catch(fail);
 }
 
 function getQuiz(param, success, fail) {
