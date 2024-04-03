@@ -10,7 +10,6 @@ const config = {
 }
 
 function updateScore(param, success, fail) {
-  console.log(param);
   local.patch(`${url}`, param, config).then(success).catch(fail);
 }
 
