@@ -72,14 +72,21 @@ onUnmounted (() => {
     EventBus.off('seek-to', handleSeek);
     EventBus.off('pause-video', pauseVideo);
     EventBus.off('section-play', sectionPlay);
+    clearInterval(intervalId);
+    clearInterval(interval);
     player.value = null;
 })
 
 let currentSentenceOrder;
+let interval = null;
 
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         const checkTime = () => {
+            if (!player.value) {
+                clearInterval(interval);
+                return;
+            }
             const currentTime = player.value.getCurrentTime();
 
             const nextSentence = props.videoData.sentenceList.find(sentence => {
@@ -99,7 +106,8 @@ function onPlayerStateChange(event) {
             }
         };
         
-        const interval = setInterval(checkTime, 250);
+        clearInterval(interval);
+        interval = setInterval(checkTime, 250);
 
         event.target.addEventListener('onStateChange', function(e) {
             if (e.data != YT.PlayerState.PLAYING) {

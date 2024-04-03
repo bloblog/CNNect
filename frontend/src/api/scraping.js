@@ -56,7 +56,6 @@ const getDict = async (searchWord, retryCount = 0, signal) => {
         } else if (retryCount < 5) {
             return await getDict(searchWord, retryCount + 1, signal);
         } else {
-            console.log("너냐");
             return null;
         }
     }
