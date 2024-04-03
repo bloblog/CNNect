@@ -1,11 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import DoneModal from '@/components/study/DoneModal.vue'
 
 import { initFlowbite, Modal } from "flowbite";
 import { updateStatus } from '@/api/history'
 import { checkBadge } from '@/api/badge'
+import BadgeModal from './BadgeModal.vue';
 
 
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
@@ -31,6 +32,7 @@ onMounted(() => {
 });
 
 const $targetEl = document.getElementById("done-modal");
+const $targetEl2 = document.getElementById("badge-modal");
 
 const options = {
     placement: "bottom-right",
@@ -53,9 +55,13 @@ const instanceOptions = {
     id: "done-modal",
     override: false,
 };
+const instanceOptions2 = {
+    id: "badge-modal",
+    override: false,
+};
 
 const modal = new Modal($targetEl, options, instanceOptions);
-
+const modal2 = new Modal($targetEl2, options, instanceOptions2);
 
 const answer = ref('');
 
@@ -66,6 +72,32 @@ const props = defineProps({
     correctList: Array, // 답지
     categoryId: Number,
   });
+
+const isBadge = ref(false);
+const badgeItem = ref([]);
+
+const toggleBadgeModal = (badges) => {
+    const badgeModalElement = document.getElementById("badge-modal");
+    const badgeModalBackElement = document.getElementById("badge-modal-backdrop");
+
+    if (isBadge.value == true) {
+        badgeModalElement.classList.remove("hidden");
+        badgeModalBackElement.classList.remove("hidden");
+        badgeItem.value = badges;
+        console.log(badgeItem.value)
+    } else {
+        badgeModalBackElement.classList.add("hidden");
+        badgeModalElement.classList.add("hidden");
+        badgeItem.value = [];
+    }
+};
+
+
+const toggleBadge = (badgeItem) => {
+    isBadge.value = !isBadge.value;
+    toggleBadgeModal(badgeItem);
+};
+
 
 const goNum = (num) => {
     activeIndex.value = num;
@@ -136,15 +168,25 @@ const answerCnt = props.resultList.filter(result => result === true).length;
 
 <template>
     <div>
-        <!-- login modal -->
-      <div
-        id="done-modal"
-        tabindex="-1"
-        aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-      >
-        <DoneModal :videoId="videoId" :categoryId="categoryId" :answerCnt="answerCnt"/>
-      </div>
+        <!-- done modal -->
+        <div
+            id="done-modal"
+            tabindex="-1"
+            aria-hidden="true"
+            class="hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full"
+        >
+            <DoneModal class="relative w-full max-w-md max-h-full" :videoId="videoId" :categoryId="categoryId" :answerCnt="answerCnt" :isBadge="isBadge" :badgeItem="badgeItem" @toggleBadge="toggleBadge"/>
+        </div>
+        <!-- badge modal -->
+        <div
+            id="badge-modal"
+            tabindex="-1"
+            aria-hidden="true"
+            class="hidden overflow-y-auto flex fixed z-50 justify-center item-center items-center w-full md:inset-0 max-h-full"
+        >
+            <BadgeModal class="relative w-full max-w-md max-h-full" :badgeItem="badgeItem"  @toggleBadge="toggleBadge"/>
+        </div>
+        <div id="badge-modal-backdrop" class="hidden"></div>
         <div class="p-3 relative">
             <div id="quiz-container" class="border-gray-400 border-2">
                 <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
@@ -200,6 +242,17 @@ const answerCnt = props.resultList.filter(result => result === true).length;
 </template>
 
 <style scoped>
+
+#badge-modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+}
+
 
 .divider {
     border: 1px rgba(160, 158, 158, 0.603) solid;

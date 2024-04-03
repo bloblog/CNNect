@@ -20,6 +20,7 @@ const props = defineProps({
   });
 
   onMounted(() => {
+
     setQuestion();
     console.log(props.correctList);
 })
@@ -177,51 +178,50 @@ const addToAnswerList = () => {
 
 const blank = ref("");
 
+
 </script>
 
 <template>
-    <div>
-        <div class="p-3 min-w-fit relative">
-            <div id="quiz-container" class="border-gray-400 border-2">
-                <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
-                    <div v-for="index in 10" :key="index" @click="goNum(index)" class="flex flex-col hover:cursor-pointer items-center space-x-2.5 rtl:space-x-reverse">
-                        <span :class="getClass(index)" class="flex items-center justify-center w-10 h-10 rounded-full shrink-0">
-                            {{ index }}
-                        </span>
+    <div class="p-3 min-w-fit relative">
+        <div id="quiz-container" class="border-gray-400 border-2">
+            <div id='step-container' class="flex justify-center sm:space-x-6 p-3 bg-gray-200">
+                <div v-for="index in 10" :key="index" @click="goNum(index)" class="flex flex-col hover:cursor-pointer items-center space-x-2.5 rtl:space-x-reverse">
+                    <span :class="getClass(index)" class="flex items-center justify-center w-10 h-10 rounded-full shrink-0">
+                        {{ index }}
+                    </span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="">
+                <div class="m-10 min-h-[25vh]">
+                    <div class="flex items-start space-x-2">
+                        <div class="text-lg font-bold">Q{{ activeIndex }}.</div>
+                        <div class="text-lg font-bold">
+                            {{ q1 }} <span class="text-theme-red font-extrabold">{{ blank }}</span> {{ q2 }}
+                        </div>
+                    </div>
+
+                    <div class="flex ml-10 mt-3">
+                        {{ translatedContent }}
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="">
-                    <div class="m-10">
-                        <div class="flex items-start space-x-2">
-                            <div class="text-lg font-bold">Q{{ activeIndex }}.</div>
-                            <div class="text-lg font-bold">
-                                {{ q1 }} <span class="text-theme-red font-extrabold">{{ blank }}</span> {{ q2 }}
-                            </div>
-                        </div>
-
-                        <div class="flex ml-10 mt-3">
-                            {{ translatedContent }}
-                        </div>
+                
+                <div id="answer" class="flex justify-end m-5">
+                    <div class="flex w-1/3 items-center">
+                        <label class="block mb-2 text-lg font-bold text-gray-900 ">A.</label>
+                        <input v-model="answer" @keyup.enter="handleEnter()" type="text" class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="type your answer">
                     </div>
-                    <div class="divider"></div>
-                    
-                    <div id="answer" class="flex justify-end m-5">
-                        <div class="flex w-1/3 items-center">
-                            <label class="block mb-2 text-lg font-bold text-gray-900 ">A.</label>
-                            <input v-model="answer" @keyup.enter="handleEnter()" type="text" class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="type your answer">
-                        </div>
 
-                    </div>
                 </div>
             </div>
-            <div id="button-container" class="w-[100%] flex justify-end mt-2">
-                <button @click="goPrev" class="btn back">이전</button>
-                <button v-if="activeIndex != 10" @click="goNext" class="btn next">다음</button>
-                <button v-else @click="submit()" class="btn finish">제출</button>
-            </div>
-            
         </div>
+        <div id="button-container" class="w-[100%] flex justify-end mt-2">
+            <button @click="goPrev" class="btn back">이전</button>
+            <button v-if="activeIndex != 10" @click="goNext" class="btn next">다음</button>
+            <button v-else @click="submit()" class="btn finish">제출</button>
+        </div>
+        
     </div>
 
 </template>

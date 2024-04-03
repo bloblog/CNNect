@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col items-center p-5">
+  <div class="flex flex-col items-center">
     <div id="now-video" class="mb-5">
-      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3  ml-10">
         학습 진행중인 뉴스
       </h1>
       <div v-if="now_video.videoId" class="">
@@ -11,7 +11,7 @@
             @mouseover="handleMouseOver"
             @mouseleave="handleMouseLeave"
             id="now-video-container"
-            class="relative rounded-xl grid grid-cols-5 w-[70vw]"
+            class="relative rounded-xl grid grid-cols-5 w-[70vw] h-[35vh]"
             :class="{ 'opacity-80': hovered }"
           >
             <div id="container-layer" class="rounded-xl"></div>
@@ -77,15 +77,13 @@
     
     
     <div id="recomm-video">
-      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
+      <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 pt-5 ml-10">
         추천 뉴스
       </h1>
       <div id="recomm-video-container">
         <RecommVideoList />
       </div>
     </div>
-    <!-- 여백용 -->
-    <div class="h-10"></div>
   </div>
   </div>
 </template>
@@ -182,7 +180,7 @@ const goToStudy = (videoId) => {
 }
 
 #now-video-img {
-  width: 70rem;
+  width: 95%;
   height: 100%;
   border-radius: 10px;
   object-fit: contain;
