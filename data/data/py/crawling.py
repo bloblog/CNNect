@@ -154,7 +154,7 @@ def set_script(video):
 
         for data in new_data:
             if data['video_id'] == video['video_id']:
-                data['sentenceList'] = time_match(script, script_sentence)
+                data['sentence_list'] = time_match(script, script_sentence)
                 data['full_script'] = full_script
                 data['video_level'] = level
                 data['word_list'] = word_list
