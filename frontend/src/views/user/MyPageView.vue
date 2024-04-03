@@ -1,5 +1,5 @@
 <template>
-  <div class="view-frame flex items-start overflow-y-scroll scrollbar-hide">
+  <div class="view-frame flex items-start overflow-y-scroll scrollbar-hide w-full absolute top-[10vh]">
     <div id="profile" class="w-1/3 sticky top-0">
       <!-- <span class="nav-title"> 프로필 </span> -->
       <div

@@ -1,5 +1,5 @@
 <template>
-    <div class="section-box">
+    <div class="section-box absolute top-[10vh] w-full">
         <div class="section mx-20">
             <div class="tabmenu out-tabmenu">
                 <ul>

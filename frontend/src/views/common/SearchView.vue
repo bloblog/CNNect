@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="absolute top-[10vh] w-full">
     <div class="text-xl m-5 ml-10 font-[GmarketSansMedium]">
       <span class="font-semibold highlight">'{{ searchInput }}'</span>에 대한 제목
       검색 결과

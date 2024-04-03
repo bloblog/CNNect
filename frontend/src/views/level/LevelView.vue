@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full relative">
+  <div class="flex w-full absolute top-[10vh]">
     <!--stepper start-->
     <div
       id="sidebar-multi-level-sidebar"

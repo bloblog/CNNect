@@ -1,5 +1,5 @@
 <template>
-  <div id="background">
+  <div id="background" class="">
     <div>
       <img src="@/assets/logo.png" class="w-48 absolute top-10 left-10" />
     </div>
