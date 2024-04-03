@@ -1,79 +1,78 @@
 <template>
-  <div>
-    <div class="flex items-center justify-center">
+  <div class="h-fit">
+    <div class="flex flex-col items-center justify-center">
       <div class="font-[GmarketSansMedium] text-xl font-bold mt-7 ">
         CNNect에서 학습하고 싶은 영상을 골라주세요!
       </div>
-    </div>
-    <!-- 영상 목록 출력(3x3 한번에 9개씩 보여주기 -> 스크롤 내리면 다음 영상 목록 로드하기)-->
-    <div class="px-3 py-5 flex justify-center items-center" ref="videoBox">
-      <div class="w-5/6 grid grid-cols-3 gap-1">
-        <div
-          :key="index"
-          class="relative"
-          v-for="(video, index) in videoViewList"
-        >
-          
-          <!--hear icon-->
-          <div class="flex flex-col items-center justify-center pt-2">
-            <div
-              class="flex flex-col items-center px-4 mr-3 font-semibold text-sm h-fit text-center rounded-lg shadow-md"
-            >
-              <div
-              class="relative"
-              @mouseover="showVideoPopup(index)"
-              @mouseleave="hideVideoPopup(index)"
-            >
-              <!-- :class="changeThumbnail(index)" -->
-              <img
-                class="w-full h-auto"
-                @click="addLike(index)"
-                :src="`https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg`"
-              />
-              <div
-                v-if="isVideoPopup[index]"
-                class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
-              >
-                <iframe
-                  :src="`https://www.youtube.com/embed/${video.video_id}?autoplay=1`"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                  allowfullscreen
-                  class="absolute top-0 left-0 w-full h-full"
-                ></iframe>
-              </div>
-            </div>
-            <div class="flex justify-center m-3">
-              <div class="text-start mr-1" id="video-name">
-                {{ video.video_name }}
-              </div>
-              <div>
-                <div class="rounded-full border px-1 py-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    :fill="videoLike[index] == true ? 'red' : 'white'"
-                    :transform="videoLike[index] == true ? 'scale(1.0)' : 'scale(0.9)'"
-                    @click="addLike(index)"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      :stroke="videoLike[index] == true ? 'none' : 'lightgray'"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                    />
-                  </svg>
-                </div>
-
-              </div>
-
-            </div>
-
-            </div>
+      <!-- 영상 목록 출력(3x3 한번에 9개씩 보여주기 -> 스크롤 내리면 다음 영상 목록 로드하기)-->
+      <div class="px-3 py-5 flex justify-center items-center" ref="videoBox">
+        <div class="w-5/6 grid grid-cols-3 gap-1">
+          <div
+            :key="index"
+            v-for="(video, index) in videoViewList"
+          >
             
+            <!--hear icon-->
+            <div class="flex flex-col items-center justify-center pt-2">
+              <div
+                class="flex flex-col items-center px-4 mr-3 font-semibold text-sm h-fit text-center rounded-lg shadow-md"
+              >
+                <div
+                class="relative"
+                @mouseover="showVideoPopup(index)"
+                @mouseleave="hideVideoPopup(index)"
+              >
+                <!-- :class="changeThumbnail(index)" -->
+                <img
+                  class="w-full h-auto"
+                  @click="addLike(index)"
+                  :src="`https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg`"
+                />
+                <div
+                  v-if="isVideoPopup[index]"
+                  class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+                >
+                  <iframe
+                    :src="`https://www.youtube.com/embed/${video.video_id}?autoplay=1`"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                    class="absolute top-0 left-0 w-full h-full"
+                  ></iframe>
+                </div>
+              </div>
+              <div class="flex justify-center m-3">
+                <div class="text-start mr-1 font-[] font-semibold" id="video-name">
+                  {{ video.video_name }}
+                </div>
+                <div>
+                  <div class="rounded-full border px-1 py-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      :fill="videoLike[index] == true ? 'red' : 'white'"
+                      :transform="videoLike[index] == true ? 'scale(1.0)' : 'scale(0.9)'"
+                      @click="addLike(index)"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        :stroke="videoLike[index] == true ? 'none' : 'lightgray'"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                        d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                      />
+                    </svg>
+                  </div>
+  
+                </div>
+  
+              </div>
+  
+              </div>
+              
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +80,7 @@
     <div class="flex items-center w-full justify-center">
       <button
         @click="nextStep(2)"
-        class="items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        class="z-10 fixed bottom-3 items-center text-white bg-theme-red hover:bg-theme-redbrown focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
       >
         다음
       </button>
@@ -124,6 +123,7 @@ let page = 1;
 onMounted(() => {
   registerVideo(
     ({ data }) => {
+      console.log(data.data);
       videoAllList.value = data.data.slice(0, 27);
       for (let i = 0; i < videoAllList.value.length; i++) {
         if (videoAllList.value[i].video_name.length > 60) {
@@ -131,7 +131,7 @@ onMounted(() => {
             videoAllList.value[i].video_name.slice(0, 60) + "...";
         }
       }
-      videoViewList.value = [...videoAllList.value.slice(0, 9)];
+      videoViewList.value = [...videoAllList.value.slice(0,9)];
     },
     (error) => {
       console.log(error);
@@ -151,7 +151,10 @@ const nextStep = async (input) => {
   if (!flag) {
     Swal.fire({
       icon: "warning",
-      title: "최소 하나의 관심 영상을 <br>선택해주세요!",
+      html: 
+        '<h4><b>최소 하나의 관심 영상을<b><h4>' + 
+        '<h4><b>선택해주세요!<b><h4>',
+      confirmButtonColor: '#cc0000',
     });
   } else {
     emit("nextStep", input);

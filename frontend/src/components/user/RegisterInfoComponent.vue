@@ -218,35 +218,35 @@ const nextStep = (input) => {
     emit("nextStep", input);
 
     // 2. 기본 user 정보 insert api 호출
-    registUser(
-      formData.value,
-      ({ data }) => {
-        setUserId(data.data);
-        loginUser(
-          {
-            userEmail: formData.value.userEmail,
-            userPassword: formData.value.userPassword,
-          },
-          ({ data }) => {
-            localStorage.setItem(
-              "refreshToken",
-              data.data.jwtToken.refreshToken
-            );
-            localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
-            setLevel(data.data.level);
-            setNickname(data.data.nickName);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-// };
+  //   registUser(
+  //     formData.value,
+  //     ({ data }) => {
+  //       setUserId(data.data);
+  //       loginUser(
+  //         {
+  //           userEmail: formData.value.userEmail,
+  //           userPassword: formData.value.userPassword,
+  //         },
+  //         ({ data }) => {
+  //           localStorage.setItem(
+  //             "refreshToken",
+  //             data.data.jwtToken.refreshToken
+  //           );
+  //           localStorage.setItem("accessToken", data.data.jwtToken.accessToken);
+  //           setLevel(data.data.level);
+  //           setNickname(data.data.nickName);
+  //         },
+  //         (error) => {
+  //           console.log(error);
+  //         }
+  //       );
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+};
 
 const emailDuplCheck = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

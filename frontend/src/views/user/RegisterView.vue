@@ -1,13 +1,13 @@
 <template>
-  <div class="flex w-full relative">
+  <div class="flex w-full top-[10vh] relative">
     <!--stepper start-->
     <div
       id="sidebar-multi-level-sidebar"
-      class="fixed top-[] left-0 z-40 w-[20vw] h-full overflow-auto transition-transform -translate-x-full sm:translate-x-0"
+      class="w-1/5 transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
-      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <ul class="space-y-2 font-medium">
+      <div class="h-[100vh] min-h-full px-3 py-4 bg-gray-50">
+        <ul class="sticky top-[15vh] font-[GmarketSansMedium] font-medium">
           <li>
             <a
               href="#"
@@ -102,7 +102,7 @@
       </div>
     </div>
     <!--stepper end-->
-    <div class="ml-[20vw] w-3/4 h-full">
+    <div class="w-4/5 h-fit">
       <component
         :is="registerSwitch"
         :level="level"
