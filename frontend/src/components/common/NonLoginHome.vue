@@ -232,8 +232,11 @@ const login = () => {
     (error) => {
       Swal.fire({
       icon: "error",
-      title: "로그인에 실패했습니다.",
-      text : "아이디 및 비밀번호를 확인해주세요!"
+      html: 
+        "<h3>b>로그인에 실패했습니다.</b></h3>" + 
+        "아이디 및 비밀번호를 확인해주세요!",
+      confirmButtonColor: '#cc0000',
+
     });
       // alert("아이디 및 비밀번호를 확인해주세요!");
       loginData.value.userPassword = "";

@@ -195,8 +195,10 @@ const stopSectionPlay = () => {
 const sendPronunciationRequest = (audioBlob) => {
     let timerInterval;
     Swal.fire({
-    title: "발음 점수 채점 중",
-    html: "측정이 완료되면 자동으로 닫힙니다.",
+    html: 
+        "<h3><b>발음 점수  중</h3>" +
+        "<p>측정이 완료되면 자동으로 닫힙니다.<p>",
+    
     timer: 2000,
     timerProgressBar: true,
     didOpen: () => {
@@ -233,9 +235,12 @@ const sendPronunciationRequest = (audioBlob) => {
         updatePronunciationScore(pronunciationScore.value);
         clearInterval(timerInterval);
         Swal.fire({
-            title: "채점 완료",
-            text: `당신의 발음 점수는 ${response.data.assessment_score}점 입니다.`,
-            icon: "success"
+            html:
+                "<h3><b>채점 완료</h3>" + 
+                `<p>당신의 발음 점수는 ${response.data.assessment_score}점 입니다.</p>`,
+            icon: "success",
+            confirmButtonColor: '#cc0000',
+
         });
     })
     .catch((error) => {
@@ -243,8 +248,11 @@ const sendPronunciationRequest = (audioBlob) => {
         clearInterval(timerInterval);
         Swal.fire({
             icon: "error",
-            title: "채점 실패",
-            text: "다시 시도해보십시오.",
+            html:
+                '<h3><b>채점 실패</b><h3>' + 
+                '다시 시도해보십시오.',
+            confirmButtonColor: '#cc0000',
+            
         });
     });
 };

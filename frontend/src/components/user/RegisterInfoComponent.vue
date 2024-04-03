@@ -166,7 +166,7 @@ const msg = Swal.mixin({
   position: "center",
   showConfirmButton: true,
   confirmButtonText: "확인",
-  confirmButtonColor: '#CC0000',
+  confirmButtonColor: '#cc0000',
   backdrop: true,
 }); // alert창 기본틀
 

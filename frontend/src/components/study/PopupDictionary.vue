@@ -43,14 +43,20 @@ async function addWordbook(meanings, word) {
     );
     Swal.fire({
       icon: "success",
-      title: `${wordContent} 추가 완료`,
-      text: "내 단어장에 추가되었습니다.",
+      html:
+        `<h3><b>${wordContent} 추가 완료</b><h3>` +
+        '내 단어장에 추가되었습니다.',
+      confirmButtonColor: '#cc0000',
+
     });
   } catch (error) {
     Swal.fire({
         icon: "error",
-        title: `${wordContent} 추가 실패`,
-        text: "내 단어장에 이미 추가된 단어입니다.",
+        html: 
+          `<h3><b>${wordContent} 추가 실패</b><h3>` + 
+          '내 단어장에 이미 추가된 단어입니다.',
+      confirmButtonColor: '#cc0000',
+        
     });
   }
 }
