@@ -38,7 +38,7 @@ public class VocaService {
     }
 
     @Transactional
-    public void saveWord(VocaRequestDto word) {
+    public boolean saveWord(VocaRequestDto word) {
         User user = customUserDetailsService.getUserByAuthentication();
 
         Voca study = wordHistoryRepository.findByWordContentAndUser(word.getWordContent() , user);
@@ -51,8 +51,9 @@ public class VocaService {
                     .wordDate(LocalDate.now())
                     .build();
             wordHistoryRepository.save(voca);
+            return true;
         }else{
-            throw new RuntimeException();
+            return false;
         }
     }
 
