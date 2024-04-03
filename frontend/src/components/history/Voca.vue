@@ -2,8 +2,8 @@
     <div class="">
         <div class="word-list" v-if="currentPageWordList.length !== 0 ">
             <ul class="flex flex-col items-center min-h-[65vh]">
-                <li v-for="wordData in currentPageWordList" :key="wordData.word" class ="item">
-                    <div class="word-item">
+                <li v-for="wordData in currentPageWordList" :key="wordData.word" class ="item" :class="{ 'delete-animation': wordData.isDeleting }">
+                    <div class="word-item h-[10vh] flex items-center">
                         <div class="word font-bold text-lg text-center"> {{ wordData.wordContent }} </div>
                         <div class="mean"> {{ wordData.wordMean }} </div>
                     </div>
@@ -120,7 +120,11 @@
 function delWord(wordListId) {
     const index = props.wordHistory.findIndex(item => item.wordListId === wordListId);
     if (index !== -1) {
-        props.wordHistory.splice(index, 1); // 배열에서 삭제
+        const deletedWordData = props.wordHistory[index];
+        deletedWordData.isDeleting = true; // 애니메이션을 위한 플래그 설정
+        setTimeout(() => {
+            props.wordHistory.splice(index, 1); // 배열에서 삭제
+        }, 300);
         if (props.wordHistory.slice(currentPage.value * wordPerPage, currentPage.value * wordPerPage + wordPerPage).length === 0 && currentPage.value > 0) {
             currentPage.value--;
         }
@@ -132,6 +136,21 @@ function delWord(wordListId) {
 </script>
 
 <style scoped>
+.delete-animation {
+    animation: deleteItem 1s forwards; /* 0.3초 동안 deleteItem 애니메이션 적용 */
+}
+
+@keyframes deleteItem {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateX(-100%); 
+    }
+}
+
 .item{
     display: flex;
     flex-direction: row;

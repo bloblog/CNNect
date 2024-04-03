@@ -32,8 +32,9 @@ async function addWordbook(meanings, word) {
     );
     Swal.fire({
       icon: "success",
-      title: `${wordContent} 추가 완료`,
-      text: "내 단어장에 추가되었습니다.",
+      html: 
+        `<h1><b>"${wordContent}" 추가 완료<b><h1>` + 
+        '<p>내 단어장에 추가되었습니다.</p>'
     });
   } catch (error) {
     Swal.fire({
