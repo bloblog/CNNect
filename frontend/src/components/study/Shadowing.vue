@@ -127,22 +127,34 @@ const openApiURL = '/naverapi/recog/v1/stt';
 
 const startRecording = async () => {
     isSectionPlaying.value = false;
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices?.getUserMedia) {
         // console.log('녹음 시작');
         isRecording.value = true;
         EventBus.emit('pause-video');
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder.value = new MediaRecorder(stream);
-        audioChunks.value = [];
-        
-        mediaRecorder.value.ondataavailable = (event) => {
-            audioChunks.value.push(event.data);
-        };
-        
-        mediaRecorder.value.start();
-
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder.value = new MediaRecorder(stream);
+            audioChunks.value = [];
+            
+            mediaRecorder.value.ondataavailable = (event) => {
+                audioChunks.value.push(event.data);
+            };
+            mediaRecorder.value.start();
+        } catch (error) {
+            console.error('마이크 권한이 거부되었습니다.', error);
+            Swal.fire({
+                icon: "error",
+                title: "마이크 권한 거부",
+                text: "브라우저 설정에서 마이크 권한을 허용해주세요.",
+            });
+            isRecording.value = false;
+        }
     } else {
-        console.error('브라우저가 오디오 녹음을 지원하지 않습니다.');
+        Swal.fire({
+            icon: "error",
+            title: "마이크 권한 거부",
+            text: "브라우저가 오디오 녹음을 지원하지 않습니다.",
+        });
     }
 };
 
@@ -195,24 +207,24 @@ const stopSectionPlay = () => {
 const sendPronunciationRequest = (audioBlob) => {
     let timerInterval;
     Swal.fire({
-    title: "발음 점수 채점 중",
-    html: "측정이 완료되면 자동으로 닫힙니다.",
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup().querySelector("b");
-        timerInterval = setInterval(() => {
-        timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-    },
-    willClose: () => {
-        clearInterval(timerInterval);
-    }
-    }).then((result) => {
-    if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-    }
+        title: "발음 점수 채점 중",
+        html: "측정이 완료되면 자동으로 닫힙니다.",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+            timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        }
+        }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            // console.log("I was closed by the timer");
+        }
     });
 
     axios.post(openApiURL, audioBlob, {
