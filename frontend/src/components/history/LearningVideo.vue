@@ -12,7 +12,7 @@
         @mouseover="handleMouseOver"
         @mouseleave="handleMouseLeave"
         id="now-video-container"
-        class="relative rounded-xl grid grid-cols-3 w-[70vw]"
+        class="relative rounded-xl grid grid-cols-3 w-[65vw]"
         :class="{ 'opacity-80': hovered }"
       >
         <div id="container-layer" class="rounded-xl"></div>
@@ -27,24 +27,24 @@
           class="p-10 flex flex-col justify-between col-span-3 sm:col-span-2 mb-3"
           id="now-video-info"
         >
-          <div class="text-3xl font-bold font-[GmarketSansMedium]" id="video-name">
+          <div class="text-2xl font-bold font-[GmarketSansMedium]" id="video-name">
             [ Lv. {{ curVideo.videoLevel }} ] {{ curVideo.videoName }}
           </div>
           <div>
             <div class="flex">
-              <div class="text-xl font-bold text-white z-10">문장 수</div>
-              <div class="relative text-xl left-16" id="sentence-count">
+              <div class="text-lg font-bold text-white z-10">문장 수</div>
+              <div class="relative text-lg left-14" id="sentence-count">
                 {{ curVideo.completedSentenceNum }} /
                 {{ curVideo.totalSentenceNum }}
               </div>
             </div>
             <div class="flex">
-              <div class="text-xl whitespace-nowrap font-bold text-white z-10">
+              <div class="text-lg whitespace-nowrap font-bold text-white z-10">
                 마지막 문장
               </div>
               <div
                 id="last-sentence"
-                class="relative text-xl left-5 whitespace-nowrap text-ellipsis overflow-hidden"
+                class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden"
               >
                 {{ curVideo.lastSentence }}
               </div>
@@ -168,6 +168,7 @@ const goToStudy = (videoId) => {
   height: 100%;
   border-radius: 10px;
   object-fit: contain;
+  padding: 10px;
 }
 
 #container-layer {

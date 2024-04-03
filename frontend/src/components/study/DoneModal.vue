@@ -30,8 +30,8 @@
             </button>
         </div>
         <!-- Modal body -->
-        <div class="flex flex-col items-center">
-            <div>
+        <div class=" flex flex-col text-lg font-[GmarketSansMedium] items-center">
+            <div class="pb-3">
                 학습을 종료하시겠습니까?
             </div>
             <div class="flex justify-center">

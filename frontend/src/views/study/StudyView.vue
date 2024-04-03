@@ -156,7 +156,7 @@ onUnmounted(() => {
             </div>
 
             <div class="section2">
-                <div class="tabmenu out-tabmenu">
+                <div class="tabmenu out-tabmenu p-3">
                     <ul>
                         <li id="tab1" class="btnCon">
                             <input type="radio" checked name="tabmenu" id="tabmenu1">
@@ -199,23 +199,27 @@ body {
     flex: 1;
     display: flex;
     flex-flow: wrap;
+    /* width: 90vw; */
+    justify-content: center;
+    /* margin: 0 auto; */
+
 }
 
 /* section-box / section1 */
 .section1 {
     padding: 20px;
     flex-grow: 1;
-    flex-basis: 480px;
+    flex-basis: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 /* section-box / section2 */
 .section2 {
-    margin-top: 5px;
-    flex-grow: 1;
-    flex-basis: 300px;
     padding: 20px;
+    flex-grow: 1;
+    flex-basis: 200px;
+    padding: 5px;
 }
 .tabmenu{ 
     margin: 0 auto;

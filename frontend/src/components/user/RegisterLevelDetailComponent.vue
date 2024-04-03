@@ -2,12 +2,12 @@
   <div
     v-for="item in question"
     :key="item.word_id"
-    class="w-[60%] flex mb-4 border border-gray-300 rounded-lg p-4"
+    class="w-[60%] h-[20vh] flex mb-1 border border-gray-300 rounded-lg p-3"
   >
     <div class="w-1/2 text-center text-lg font-bold">
       {{ item.word_content }}
     </div>
-    <div class="w-1/2 flex items-center justify-center">
+    <div class="w-1/2 flex items-center h-fit">
       <p class="w-3/8 h-1"></p>
       <div class="w-5/8 text-center">
         <label

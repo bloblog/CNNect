@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-center h-full w-full items-center">
-    <h3 class="font-bold mb-6 text-lg">
-      [ Lv.{{ level }} ] 제시 된 단어의 의미를 선택해주세요
+    <h3 class="font-bold m-7 text-lg font-[GmarketSansMedium]">
+      Q. 제시된 단어의 의미를 선택해주세요
     </h3>
     <RegisterLevelDetail :stage="currentStage" ref="registerLevelDetail" />
 
@@ -53,11 +53,11 @@
             <div class="modal-body">
               <div class="flex justify-center items-center">
                 <div class="p-4 md:p-5 text-center">
-                  <div class="font-bold text-lg mb-5">
+                  <div class="font-bold text-lg mb-1">
                     정말 그만두시겠습니까?
                   </div>
                   <div class="mb-5">종료 시 지금 레벨로 확정됩니다.</div>
-                  <div>
+                  <div class="mb-5">
                     <button
                       class="mr-4 text-gray-400 border-b-2"
                       data-modal-hide="stop-modal"

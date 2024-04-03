@@ -1,82 +1,86 @@
 <template>
-  <div
-    class="search-frame h-[50%] overflow-y-auto scrollbar-hide"
-    ref="titleContainer"
-  >
-    <div class="text-xl mb-5">
-      <span class="text-xl font-semibold highlight">'{{ searchInput }}'</span>에 대한 제목
+  <div>
+    <div class="text-xl m-5 ml-10 font-[GmarketSansMedium]">
+      <span class="font-semibold highlight">'{{ searchInput }}'</span>에 대한 제목
       검색 결과
     </div>
+
     <div
-      v-if="videoViewList.length == 0"
-      class="text-center flex items-center justify-center"
+      class="search-frame h-[75vh] overflow-y-auto scrollbar-hide"
+      ref="titleContainer"
     >
-      <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[5%]">
-        검색 결과가 없습니다 👀
+      <div
+        v-if="videoViewList.length == 0"
+        class="text-center flex items-center justify-center"
+      >
+        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[10%]">
+          검색 결과가 없습니다 👀
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <div class="grid grid-cols-4 gap-8 w-[90%] justify-center ml-[5%]">
-        <div v-for="(video, index) in videoViewList" :key="index" class="">
-          <div class="relative" @click="goToStudy(video.videoId)">
-            <img
-              class="w-full h-auto shadow-lg border border-gray-400"
-              :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`"
-            />
-            <div
-              class="absolute top-1 left-1 border-red-500 border-2 rounded-md text-red-500 bg-white w-1/5"
-            >
-              <div class="text-center font-semibold">
-                Lv.{{ video.videoLevel }}
+      <div v-else>
+        <div class="fixed bottom-4 z-10 left-1/2 transform -translate-x-1/2">
+          <button @click="scrollTo" class="bg-theme-red hover:bg-theme-redbrown text-white font-bold py-4 px-6 rounded-full shadow-lg">
+            {{ buttonLabel }}
+          </button>
+        </div>
+        <div class="grid grid-cols-4 gap-1 w-[90%] justify-center ml-[5%]">
+          <div v-for="(video, index) in videoViewList" :key="index" class="relative m-2">
+              <div class="flex flex-col" id="content-area" @click="goToStudy(video.videoId)">
+                <img :src="`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`" alt="video-image" class="max-h-50 rounded-md video-img-item img-container">
+                <div class="overlay flex items-end">
+                  <div class="text-lg font-bold m-2 text-white" id="video-name">
+                      {{video.videoName}}
+                  </div>
+                </div>
+                <span class="badge absolute top-[5%] left-[5%]">
+                  <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-xs pl-1 pr-1">
+                    Lv. {{ video.videoLevel }}
+                  </div>
+                </span>
               </div>
             </div>
+        </div>
+      </div>
+    </div>
+    <div id="sentence-result" class="font-[GmarketSansMedium] text-xl mb-5 ml-10">
+      <span class="font-semibold highlight">'{{ searchInput }}'</span>에 대한 문장
+      검색 결과
+    </div>
+    <div
+      class="search-frame overflow-y-auto scrollbar-hide"
+      ref="scriptContainer"
+    >
+      <div
+        v-if="scriptViewList.length == 0"
+        class="text-center flex items-center justify-center"
+      >
+        <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[2%]">
+          검색 결과가 없습니다 👀
+        </div>
+      </div>
+      <div v-else>
+        <div class="grid grid-cols-4 gap-7 w-[90%] ml-[5%]">
+          <div
+            v-for="(script, index) in scriptViewList"
+            :key="index"
+            @click="goToStudy(script.videoId)"
+          >
             <div
-              class="mt-3 h-20 text-center flex items-center justify-center font-semibold rounded-lg shadow-md pl-1 bg-gray-100"
+            class="rounded-md font-semibold flex flex-col justify-center shadow-md px-5 py-3 hover:bg-red-200 h-32"
             >
-              {{ video.videoName }}
+              <div class="font-bold underline hover:cursor-pointer">
+                <span class="inline-block bg-theme-red text-white text-xs px-2 py-1 rounded-full mr-1">
+                  Lv. {{ script.videoLevel }}
+                </span>
+                {{ script.videoName }}
+              </div>
+              <span class="text-sm" v-html="highlightText(script.sentence, searchInput)"></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="search-frame h-[30%] overflow-y-auto scrollbar-hide"
-    ref="scriptContainer"
-  >
-    <div class="text-xl mb-5">
-      <span class="text-xl font-semibold highlight">'{{ searchInput }}'</span>에 대한 문장
-      검색 결과
-    </div>
-    <div
-      v-if="scriptViewList.length == 0"
-      class="text-center flex items-center justify-center"
-    >
-      <div class="z-20 text-lg font-bold highlight pl-2 pr-2 mt-[2%]">
-        검색 결과가 없습니다 👀
-      </div>
-    </div>
-    <div v-else>
-      <div class="grid grid-cols-4 gap-3 w-[90%] justify-center ml-[5%]">
-        <div
-          class="mb-[5%]"
-          v-for="(script, index) in scriptViewList"
-          :key="index"
-          @click="goToStudy(script.videoId)"
-        >
-          <div
-            class="rounded-md font-semibold text-center flex items-center justify-center bg-gray-100 shadow-md px-1 py-1 mb-3 h-20"
-          >
-            {{ script.videoName }}
-          </div>
-          <div
-            class="rounded-md font-semibold text-center flex items-center justify-center bg-red-100 shadow-md px-1 py-1 mb-3 h-32"
-          >
-            <span v-html="highlightText(script.sentence, searchInput)"></span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="h-5"></div>
   </div>
 </template>
 
@@ -94,11 +98,38 @@ const videoViewList = ref([]); // 스크롤 내릴때마다 +12개씩
 const scriptAllList = ref([]);
 const scriptViewList = ref([]);
 
+const categoryMapping = ref(['정치', '비즈니스', '스포츠', '스타일','엔터테인먼트', '건강']);
+
+
 let curTitlePage = 1;
 let curScriptPage = 1;
 
 const titleContainer = ref(null);
 const scriptContainer = ref(null);
+
+const reachedResult = ref(false);
+const buttonLabel = ref('문장 검색 결과');
+
+const scrollTo = () => {
+  if (!reachedResult.value) {
+    window.scrollBy({top: document.getElementById('sentence-result').getBoundingClientRect().top, behavior: 'smooth'});
+    reachedResult.value = true;
+  } else {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    reachedResult.value = false;
+  }
+  updateButtonLabel();
+}
+
+const updateButtonLabel = () => {
+  // const button = document.querySelector('#move-btn');
+  if (reachedResult.value) {
+    buttonLabel.value = '제목 검색 결과';
+  } else {
+    buttonLabel.value = '문장 검색 결과';
+  }
+}
+
 
 watch(
   () => route.query,
@@ -210,6 +241,43 @@ const goToStudy = (videoId) => {
 </script>
 
 <style>
+@media screen and (min-width: 400px) {
+  #badge {
+    font-size: 12px; /* 적절한 크기로 조정 */
+    padding: 1px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #badge {
+    font-size: 15px;
+    padding: 3px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #badge {
+    font-size: 18px;
+    padding: 5px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 투명한 검은색 배경 */
+  opacity: 0; /* 초기에는 숨김 */
+  transition: opacity 0.3s ease; /* 변화 시 부드럽게 전환 */
+  border-radius: 10px;
+}
+
+.relative:hover .overlay {
+  opacity: 1; /* 호버 시 레이어를 표시 */
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;

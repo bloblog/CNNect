@@ -15,12 +15,12 @@
           <div v-for="(video, index) in videoList" :key="index" class="relative m-2">
             
             <div class="flex flex-col" id="content-area" @click="goToStudy(video.video_id)">
-              <img :src="video.video_thumbnail" alt="video-image" class="rounded-md video-img-item img-container">
+              <img :src="`https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg`" alt="video-image" class="max-h-50 rounded-md video-img-item img-container">
               <div class="overlay flex items-end">
                 <div class="text-lg font-bold m-2" id="video-name">
                     {{video.video_name}}
                 </div>
-            </div>
+              </div>
               <span class="badge absolute top-[5%] left-[5%]">
                 <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-xs pl-1 pr-1">
                   Lv. {{ video.video_level }}
