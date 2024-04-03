@@ -103,6 +103,7 @@ import { storeToRefs } from "pinia";
 import { insertRegistHistory } from "@/api/history";
 import { handleVideoClick } from "@/api/user.js";
 import { registerVideo } from "@/api/video";
+import Swal from "sweetalert2";
 
 const uStore = userStore();
 
@@ -117,6 +118,13 @@ const isVideoPopup = ref([]);
 const videoBox = ref(null); // 스크롤 인식을 위한 컨테이너
 let flag = false;
 
+const msg = Swal.mixin({
+  position: "center",
+  showConfirmButton: true,
+  confirmButtonText: "확인",
+  backdrop: true,
+}); // alert창 기본틀
+
 let page = 1;
 
 onMounted(() => {
@@ -130,8 +138,6 @@ onMounted(() => {
         }
       }
       videoViewList.value = [...videoAllList.value.slice(0, 9)];
-      console.log(videoAllList);
-      console.log(videoViewList);
     },
     (error) => {
       console.log(error);
@@ -148,38 +154,46 @@ const emit = defineEmits(["nextStep"]);
 
 // 다음 단계로 이동
 const nextStep = async (input) => {
-  emit("nextStep", input);
-  for (let i = 0; i < videoAllList.value.length; i++) {
-    if (videoLike.value[i]) {
-      addList.value.push({
-        userId: userId.value,
-        videoId: videoAllList.value[i].video_id,
-        historyStatus: false,
-        historySentence: "register",
-      });
+  if (!flag) {
+    Swal.fire({
+      icon: "warning",
+      title: "최소 하나의 관심 영상을 <br>선택해주세요!",
+    });
+  } else {
+    emit("nextStep", input);
+    for (let i = 0; i < videoAllList.value.length; i++) {
+      if (videoLike.value[i]) {
+        addList.value.push({
+          userId: userId.value,
+          videoId: videoAllList.value[i].video_id,
+          historyStatus: false,
+          historySentence: "register",
+        });
+      }
     }
   }
-  console.log(addList)
 
-  console.log(addList.value);
+
 
   try {
     await new Promise((resolve, reject) => {
-      insertRegistHistory(addList.value, ({ data }) => {
-        console.log(data);
-        resolve(); 
-      }, (error) => {
-        console.log(error)
-        reject(error); 
-      });
+      insertRegistHistory(
+        addList.value,
+        ({ data }) => {
+          resolve();
+        },
+        (error) => {
+          console.log(error);
+          reject(error);
+        }
+      );
     });
-    
+
     await handleVideoClick();
   } catch (error) {
     console.error("오류 발생:", error);
   }
 };
-
 
 const handleScroll = (e) => {
   let scrollPosition =
@@ -192,7 +206,6 @@ const handleScroll = (e) => {
 
   if (scrollPosition + windowHeight + 100 >= pageHeight) {
     // 페이지가 맨 아래로 스크롤되었을 때 실행할 동작
-    console.log("맨 아래로 스크롤됨");
     videoViewList.value = [
       ...videoViewList.value,
       ...videoAllList.value.slice(page * 9, page * 9 + 9),
@@ -212,8 +225,8 @@ const handleScroll = (e) => {
 };
 
 const addLike = (index) => {
+  if (!flag) flag = true;
   videoLike.value[index] = !videoLike.value[index];
-
 };
 
 const changeThumbnail = (index) => {
