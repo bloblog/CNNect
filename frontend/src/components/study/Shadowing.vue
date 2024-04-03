@@ -4,6 +4,14 @@ import { getDict } from '@/api/scraping';
 import { ref, onMounted, defineProps, watch, computed } from 'vue'
 import { EventBus } from '@/api/eventBus.js';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
+const msg = Swal.mixin({
+  position: "center",
+  showConfirmButton: true,
+  confirmButtonText: "확인",
+  backdrop: true,
+}); // alert창 기본틀
 
 const { VITE_GT_ACCESS_KEY, VITE_CLOVASPEECH_API_KEY } = import.meta.env;
 
@@ -106,7 +114,7 @@ function translateText(textToTranslate) {
 }
 
 
-// 발음 평가 API
+// NAVER CLOVA Speech API
 const audioFile = ref(null);
 const mediaRecorder = ref(null);
 const audioChunks = ref([]);
@@ -128,7 +136,7 @@ const startRecording = async () => {
         audioChunks.value = [];
         
         mediaRecorder.value.ondataavailable = (event) => {
-        audioChunks.value.push(event.data);
+            audioChunks.value.push(event.data);
         };
         
         mediaRecorder.value.start();
@@ -185,10 +193,32 @@ const stopSectionPlay = () => {
 }
 
 const sendPronunciationRequest = (audioBlob) => {
+    let timerInterval;
+    Swal.fire({
+    title: "발음 점수 채점 중",
+    html: "측정이 완료되면 자동으로 닫힙니다.",
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+        timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+    },
+    willClose: () => {
+        clearInterval(timerInterval);
+    }
+    }).then((result) => {
+    if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("I was closed by the timer");
+    }
+    });
+
     axios.post(openApiURL, audioBlob, {
         headers: {
-        'Content-Type': 'application/octet-stream',
-        'X-CLOVASPEECH-API-KEY': VITE_CLOVASPEECH_API_KEY
+            'Content-Type': 'application/octet-stream',
+            'X-CLOVASPEECH-API-KEY': VITE_CLOVASPEECH_API_KEY
         },
         params: {
             utterance: props.curSentence.content,
@@ -198,15 +228,26 @@ const sendPronunciationRequest = (audioBlob) => {
         },
     })
     .then((response) => {
-        console.log('response = ', response.data.assessment_score);
-        console.log('response = ', response.data);
+        console.log('response 1 = ', response.data.assessment_score);
+        console.log('response 2 = ', response.data);
         pronunciationScore.value = response.data.assessment_score;
         updatePronunciationScore(pronunciationScore.value);
+        Swal.fire({
+            title: "채점 완료",
+            text: `당신의 발음 점수는 ${response.data.assessment_score}점 입니다.`,
+            icon: "success"
+        });
     })
     .catch((error) => {
         console.error('Error:', error);
+        Swal.fire({
+            icon: "error",
+            title: "채점 실패",
+            text: "다시 시도해보십시오.",
+        });
     });
 };
+
 </script>
 
 <template>
