@@ -105,7 +105,7 @@ const controller = new AbortController();
 
 const fetchWordMeanings = async () => {
     for (const word of videoData.value.wordList) {
-        const result = await getDict(word);
+        const result = await getDict(word, 0, controller.signal);
         if (result !== null) {
             wordMeanings.value[word] = result;
         }
