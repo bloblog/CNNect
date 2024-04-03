@@ -33,7 +33,8 @@ public class VideoService {
     private final UserSentenceService userSentenceService;
 
     public Page<Video> findByCategory_idAndPage(int categoryId, int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+//        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "video_date"));
         return videoRepository.findByCategoryId(categoryId, pageable);
     }
 
