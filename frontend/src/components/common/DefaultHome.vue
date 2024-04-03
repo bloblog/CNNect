@@ -4,59 +4,78 @@
       <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
         학습 진행중인 뉴스
       </h1>
-      <div class="flex justify-center">
-        <div
-          @click="goToStudy(now_video.videoId)"
-          @mouseover="handleMouseOver"
-          @mouseleave="handleMouseLeave"
-          id="now-video-container"
-          class="relative rounded-xl grid grid-cols-5 w-[70vw]"
-          :class="{ 'opacity-80': hovered }"
-        >
-          <div id="container-layer" class="rounded-xl"></div>
-          <div class="bg-black col-span-2" id="video-img-container">
-            <img
-              id="now-video-img"
-              :src="`https://img.youtube.com/vi/${now_video.videoId}/mqdefault.jpg`"
-              alt="Now Video Image"
-            />
-          </div>
+      <div v-if="now_video.videoId" class="">
+        <div class="flex justify-center">
           <div
-            class="p-8 flex flex-col justify-between sm:col-span-3 mb-3"
-            id="now-video-info"
+            @click="goToStudy(now_video.videoId)"
+            @mouseover="handleMouseOver"
+            @mouseleave="handleMouseLeave"
+            id="now-video-container"
+            class="relative rounded-xl grid grid-cols-5 w-[70vw]"
+            :class="{ 'opacity-80': hovered }"
           >
-            <div
-              class="text-2xl font-bold font-[GmarketSansMedium]"
-              id="video-name"
-            >
-              [ Lv.{{ now_video.videoLevel }} ] {{ now_video.videoName }}
+            <div id="container-layer" class="rounded-xl"></div>
+            <div class="bg-black col-span-2" id="video-img-container">
+              <img
+                id="now-video-img"
+                :src="`https://img.youtube.com/vi/${now_video.videoId}/mqdefault.jpg`"
+                alt="Now Video Image"
+              />
             </div>
-            <div>
-              <div class="flex">
-                <div class="text-lg font-bold text-white z-10">문장 수</div>
-                <div class="relative text-lg left-14" id="sentence-count">
-                  {{ now_video.completedSentenceNum }} /
-                  {{ now_video.totalSentenceNum }}
-                </div>
+            <div
+              class="p-8 flex flex-col justify-between sm:col-span-3 mb-3"
+              id="now-video-info"
+            >
+              <div
+                class="text-2xl font-bold font-[GmarketSansMedium]"
+                id="video-name"
+              >
+                [ Lv.{{ now_video.videoLevel }} ] {{ now_video.videoName }}
               </div>
-              <div class="flex">
-                <div
-                  class="text-lg whitespace-nowrap font-bold text-white z-10"
-                >
-                  마지막 문장
+              <div>
+                <div class="flex">
+                  <div class="text-lg font-bold text-white z-10">문장 수</div>
+                  <div class="relative text-lg left-14" id="sentence-count">
+                    {{ now_video.completedSentenceNum }} /
+                    {{ now_video.totalSentenceNum }}
+                  </div>
                 </div>
-                <div
-                  id="last-sentence"
-                  class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden"
-                >
-                  {{ now_video.lastSentence }}
+                <div class="flex">
+                  <div
+                    class="text-lg whitespace-nowrap font-bold text-white z-10"
+                  >
+                    마지막 문장
+                  </div>
+                  <div
+                    id="last-sentence"
+                    class="relative text-lg left-5 whitespace-nowrap text-ellipsis overflow-hidden"
+                  >
+                    {{ now_video.lastSentence }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
+    <div v-else class="flex justify-center">
+      <div id="no-content" class=" rounded-xl bg-gray-200 w-[70vw] h-[35vh] flex items-center justify-center overflow-hidden">
+        <!-- <div class="animate-pulse flex items-center justify-center"> -->
+        <div class="flex items-center justify-center">
+            <!-- 배경 애니메이션을 위한 요소 -->
+        </div>
+        <div class="text-center">
+          <div class="z-20 text-lg font-bold highlight pl-2 pr-2">
+              학습 진행중인 뉴스가 없습니다
+          </div>
+          <div class="z-20">
+              둘러보기 탭에서 CNN 뉴스를 구경해보세요 👀
+          </div>
+        </div>
+    </div>
+    </div>
+    
+    
     <div id="recomm-video">
       <h1 class="text-xl font-[GmarketSansMedium] font-bold p-3 ml-10">
         추천 뉴스
@@ -67,6 +86,7 @@
     </div>
     <!-- 여백용 -->
     <div class="h-10"></div>
+  </div>
   </div>
 </template>
 
@@ -166,6 +186,7 @@ const goToStudy = (videoId) => {
   height: 100%;
   border-radius: 10px;
   object-fit: contain;
+  padding: 10px;
 }
 
 #container-layer {

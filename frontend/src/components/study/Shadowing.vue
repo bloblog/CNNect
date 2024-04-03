@@ -244,7 +244,7 @@ const sendPronunciationRequest = (audioBlob) => {
 <style scoped>
 /* shadowing */
 .shadowing {
-    width: 100%;
+    width: 90%;
     height: 100%;
     background-color: #ffffff;
     border: 1px solid #CDCDCD;

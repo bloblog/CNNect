@@ -7,7 +7,7 @@
       aria-label="Sidebar"
     >
       <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <ul class="space-y-2 font-medium">
+        <ul class="space-y-2 font-medium font-[GmarketSansMedium]">
           <li v-for="i in 6" :key="i">
             <a
               href="#"

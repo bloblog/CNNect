@@ -9,7 +9,7 @@
         xmlns="http://www.w3.org/2000/svg"
         class="icon icon-tabler icon-tabler-chevron-left"
         width="44"
-        height="44"
+        height="38"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="#CC0000"
@@ -22,24 +22,21 @@
       </svg>
     </button>
     <div class="flex" v-if="videoList.length>0">
-      <div class="grid grid-cols-3 gap-14" ref="imageContainer">
+      <div class="grid grid-cols-3 gap-3 w-[70vw]" ref="imageContainer">
         <div v-for="(video, index) in videoList.slice(startIndex, endIndex)" :key="index" class="relative">
-          <div class="flex flex-col" @click="goToStudy(video.videoId)">
+          <div class="flex flex-col" id="content-area" @click="goToStudy(video.videoId)">
             <img
               :src="video.videoThumbnail"
               alt="video-image"
-              class="object-fit rounded-md video-img-item img-container"
+              class="max-h-52 rounded-md video-img-item img-container"
             />
             <div class="overlay flex items-end">
                 <div class="text-lg font-bold m-2 text-white" id="videoName">
                     {{video.videoName}}
                 </div>
             </div>
-            <span class="badge absolute top-3 left-3">
-              <div
-                id="badge"
-                class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-md pl-1 pr-1"
-              >
+            <span class="badge absolute top-[5%] left-[5%]">
+              <div id="badge" class="bg-white border-theme-red border-4 rounded-md font-bold text-theme-red text-xs pl-1 pr-1">
                 Lv. {{ video.videoLevel }}
               </div>
             </span>
@@ -54,7 +51,6 @@
         <div class="rounded w-[20vw] h-52 bg-gray-200"></div>
       </div>
     </div>
-
     <button
       @click="nextPage"
       id="nextButton"
@@ -151,7 +147,33 @@ const goToStudy = (videoId) => {
 </script>
 
 <style scoped>
+#content-area:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  color: white;
+}
 
+
+@media screen and (min-width: 400px) {
+  #badge {
+    font-size: 12px; /* 적절한 크기로 조정 */
+    padding: 1px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #badge {
+    font-size: 15px;
+    padding: 3px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #badge {
+    font-size: 18px;
+    padding: 5px;
+  }
+}
 
 #content-area {
   transition: transform 0.3s ease;
