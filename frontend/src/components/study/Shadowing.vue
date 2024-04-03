@@ -128,7 +128,7 @@ const openApiURL = '/naverapi/recog/v1/stt';
 const startRecording = async () => {
     isSectionPlaying.value = false;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log('녹음 시작');
+        // console.log('녹음 시작');
         isRecording.value = true;
         EventBus.emit('pause-video');
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -155,7 +155,7 @@ const stopRecording = () => {
     };
 
     mediaRecorder.value.stop();
-    console.log('녹음 중지');
+    // console.log('녹음 중지');
     isRecording.value = false;
 };
 
@@ -228,10 +228,10 @@ const sendPronunciationRequest = (audioBlob) => {
         },
     })
     .then((response) => {
-        console.log('response 1 = ', response.data.assessment_score);
-        console.log('response 2 = ', response.data);
+        // console.log('발음평가결과:', response.data);
         pronunciationScore.value = response.data.assessment_score;
         updatePronunciationScore(pronunciationScore.value);
+        clearInterval(timerInterval);
         Swal.fire({
             title: "채점 완료",
             text: `당신의 발음 점수는 ${response.data.assessment_score}점 입니다.`,
@@ -240,6 +240,7 @@ const sendPronunciationRequest = (audioBlob) => {
     })
     .catch((error) => {
         console.error('Error:', error);
+        clearInterval(timerInterval);
         Swal.fire({
             icon: "error",
             title: "채점 실패",

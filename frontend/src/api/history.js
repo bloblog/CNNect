@@ -29,12 +29,10 @@ function getLastVideo(success, fail) {
 }
 
 function updateLastSentence(param, success, fail) {
-  console.log(param);
   local.patch(`${url}`, param, config).then(success).catch(fail);
 }
 
 function updateStatus(param, success, fail) {
-  console.log(config);
   local.patch(`${url}/pass/${param}`, null, config).then(success).catch(fail);
 }
 
