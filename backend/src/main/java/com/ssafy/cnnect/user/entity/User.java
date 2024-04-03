@@ -1,5 +1,6 @@
 package com.ssafy.cnnect.user.entity;
 
+import com.ssafy.cnnect.recommendation.entity.RecommendedNews;
 import com.ssafy.cnnect.userHistory.entity.UserHistory;
 import com.ssafy.cnnect.voca.entity.Voca;
 import jakarta.persistence.*;
@@ -37,17 +38,16 @@ public class User implements UserDetails {
     @Column(name = "user_level")
     private int userLevel;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<UserBadge> userBadgeList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<UserHistory> userHistoryList;
 
-    public void updateUserLevel(int userLevel){
-        this.userLevel = userLevel;
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<RecommendedNews> userRecommendedNews;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Voca> userVocaList;
 
     @Override
@@ -60,6 +60,10 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    public void updateUserLevel(int userLevel){
+        this.userLevel = userLevel;
+    }
     @Override
     public String getPassword() {
         return userPassword;

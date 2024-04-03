@@ -68,7 +68,7 @@ public class SearchService {
                         .path("sentence_list")
                         .query(QueryBuilders.match().field("sentence_list.text").query(keyword).build()._toQuery())
                         .scoreMode(ChildScoreMode.None).build()._toQuery())
-                .withSourceFilter(new FetchSourceFilter(new String[]{"video_id", "video_name", "video_date"}, null))
+                .withSourceFilter(new FetchSourceFilter(new String[]{"video_id", "video_name", "video_date", "video_level", "category_id"}, null))
                 .withPageable(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, "video_date")))
                 .build();
         SearchHits<SearchDocument> hits  = elasticsearchTemplate.search(nativeQuery, SearchDocument.class);
@@ -82,6 +82,8 @@ public class SearchService {
                     .videoId(hit.getContent().getVideoId())
                     .videoName(hit.getContent().getVideoName())
                     .videoDate(hit.getContent().getVideoDate())
+                    .videoLevel(hit.getContent().getVideoLevel())
+                    .categoryId(hit.getContent().getCategoryId())
                     .sentence(sd.getText())
                     .build();
             list.add(searchScriptResponseDto);

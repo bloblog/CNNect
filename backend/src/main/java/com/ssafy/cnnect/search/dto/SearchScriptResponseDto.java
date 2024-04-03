@@ -13,4 +13,6 @@ public class SearchScriptResponseDto
     private String videoName;
     private String videoDate;
     private String sentence;
+    private Long categoryId;
+    private Long videoLevel;
 }

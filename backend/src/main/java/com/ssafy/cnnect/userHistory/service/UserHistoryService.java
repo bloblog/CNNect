@@ -35,6 +35,8 @@ public class UserHistoryService {
     public void saveRegistHistory(List<UserHistoryRegisterRequestDto> historyList){
         Optional<User> result = userRepository.findById(historyList.get(0).getUserId());
         if(result.isEmpty()) throw new RuntimeException();
+        Long datetime = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(datetime);
 
         User user = result.get();
 
@@ -44,6 +46,7 @@ public class UserHistoryService {
                     .historyStatus(history.isHistoryStatus())
                     .videoId(history.getVideoId())
                     .historySentence(history.getHistorySentence())
+                    .historyDate(timestamp)
                     .build();
             userHistoryRepository.save(saveUserHistory);
         }
