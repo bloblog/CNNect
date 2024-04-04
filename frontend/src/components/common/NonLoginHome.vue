@@ -16,24 +16,24 @@
       <h4 class="z-10 text-2xl text-white pb-10 text-center">
         당신의 관심사와 영어 수준을 바탕으로 추천해드립니다.
       </h4>
-      <!-- <img src="@/assets/thumbnail.png" id="background-img" class="absolute max-w-none inset-y-80"> -->
       <div id="slider">
         <div class="image-box image-box-top">
           <div
             class="swiper-slide flex p-0.5"
-            v-for="(image, index) in imagePaths.slice(0,9)"
+            v-for="(url, index) in imageUrls.slice(0, imageUrls.length / 2)"
             :key="index"
           >
-            <img :src="image" class="w-80" />
+            <img :src="`https://img.youtube.com/vi/${url}/mqdefault.jpg`"class="h-48" />
           </div>
         </div>
         <div class="image-box image-box-bottom">
           <div
             class="swiper-slide flex p-0.5"
-            v-for="(image, index) in imagePaths.slice(1,10)"
+            v-for="(url, index) in imageUrls.slice(imageUrls.length / 2 + 1, imageUrls.length)"
             :key="index"
           >
-            <img :src="image" class="w-80" />
+            <img :src="`https://img.youtube.com/vi/${url}/mqdefault.jpg`"class="h-48" />
+
           </div>
         </div>
       </div>
@@ -170,27 +170,8 @@ const { setLogin, setLogout, setNickname, setLevel } = uStore;
 const { isLogin } = storeToRefs(uStore);
 
 onMounted(() => {
-  // setInterval(resetSlider, 5000);
   initFlowbite();
 });
-
-// const resetSlider = () => {
-//   const slider = document.getElementById('slider');
-//   const imageBox = document.querySelector('.image-box');
-
-//   if (slider && imageBox) {
-//     const sliderWidth = slider.offsetWidth;
-//     const imageBoxWidth = imageBox.offsetWidth;
-//     const distance = sliderWidth - imageBoxWidth;
-
-//     if (slider.scrollLeft >= distance) {
-//       // 배열의 끝에 도달하면 첫 번째 요소를 배열에 추가하여 배열을 원형으로 만들기
-//       imagePaths.push(imagePaths[0]);
-//     }
-
-//     slider.scrollTo({ left: 0, behavior: 'smooth' });
-//   }
-// };
 
 // set the modal menu element
 const $targetEl = document.getElementById("authentication-modal");
@@ -233,7 +214,7 @@ const login = () => {
       Swal.fire({
       icon: "error",
       html: 
-        "<h3>b>로그인에 실패했습니다.</b></h3>" + 
+        "<h3><b>로그인에 실패했습니다.</b></h3>" + 
         "아이디 및 비밀번호를 확인해주세요!",
       confirmButtonColor: '#cc0000',
 
@@ -249,18 +230,9 @@ const register = () => {
   router.push("/register");
 };
 
-const imagePaths = [
-  "https://i.ytimg.com/vi/jsxI0QjxJs8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAWZ1lChDEn0h9YVfSx_JAl0eD-zA",
-  "https://i.ytimg.com/vi/rGMqBoF3hkU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLBxvk7EL2K_kCRfy-QJKeIaQvHg6g",
-  "https://i.ytimg.com/vi/2keAv3W3edw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCEn3b9fTH3MA1Dh8Q_s_d2vBez4Q",
-  "https://i.ytimg.com/vi/7ozPfsLRxZw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAOOEKg7h8HZUeFIf8Adwl2FlmouQ",
-  "https://i.ytimg.com/vi/Q1KbKe2eJaY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAofmgL2v0bY4aaZWRPSprL5-E93Q",
-  "https://i.ytimg.com/vi/ibBNhhhTgMk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLA9abB7-lskAlFlmgjx10cZU8Fy3Q",
-  "https://i.ytimg.com/vi/jsxI0QjxJs8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLAWZ1lChDEn0h9YVfSx_JAl0eD-zA",
-  "https://i.ytimg.com/vi/rGMqBoF3hkU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLBxvk7EL2K_kCRfy-QJKeIaQvHg6g",
-  "https://i.ytimg.com/vi/2keAv3W3edw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCEn3b9fTH3MA1Dh8Q_s_d2vBez4Q",
-  "https://i.ytimg.com/vi/2keAv3W3edw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\\u0026rs=AOn4CLCEn3b9fTH3MA1Dh8Q_s_d2vBez4Q",
-  
+const imageUrls = [
+  'wwg8M7Kypkw', '64ivmhyyRSI', '9AdixAJVTO0', 'mtptFuBAg9Q', '5F6YRQKZX9E', 'yNPM2obgE7g', 'CDphmhaToV4', '65CI8hznDy4', 'xTN1IcqZvOo', 'VyUFobjUTng', 'ei8wkDsxnaY', 'y8Cg3LwIcZk', 'buqKnrMLwVc', 'eT9E4zRwuGY', '4JrhaZrpKBc', 'wFqG62O9kYI', 'DGjSzIhmXRk', '2IXl4qJGrRk', 'W47cFRJ2iI4', 'fJzoicql6Yw', 'dbUkYLU8Z8U', 'P5vyhx3HC1k', '9VExWe3tHfk', 'vHbU9ighePk', 'BKrSjYvpYGg', 'WRlWOmgImBA', 'djCKmQVkftY', 'qcdSuzWRSjo', 'sVv72VtZinc', 'GIUR37P4764'
+  , 'iTrj85LRly0', 'Qmjsl9wPiM4', 'EmxDe77ODBQ', 'eZQBUUYHsn0', 'vKxY6i3X8Es', 'GGMC0CiVxzI', 'jWJpmQgv39Y', 'plHxvb9sd3U', 'gRdXGpnovPg', 'w4CThc7mfEo', 'ZbLwPZWT7hg', 'ALe0rotHLhs', '3a9eC3rTTkU', 'KGaa6GbYhrA', 'OXaCtWxCxng'
 ];
 </script>
 
@@ -277,23 +249,23 @@ const imagePaths = [
 #slider {
   overflow: hidden;
   position: absolute;
-  top: 50vh;
-  /* width: 130vw; */
+  top: 60vh;
+  /* width: 200vw; */
   transform: rotate(-15deg);
 }
 
 .image-box {
-  width: 200vw;
+  width: 450vw;
   height: 100%;
   display: flex;
   flex-wrap: nowrap;
-  animation: bannermove 50s linear infinite;
-  opacity: 0.5;
+  animation: bannermove 150s linear infinite;
+  opacity: 0.3;
 }
 
 .image-box-bottom {
   position: relative;
-  right: 15%;
+  left: 20%;
 }
 
 @keyframes bannermove {

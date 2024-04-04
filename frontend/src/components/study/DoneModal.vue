@@ -96,7 +96,7 @@ const quit = () => {
     checkBadge(
         props.categoryId,
         ({data}) => {
-            if (data.data.length > 0) {
+            if (data && data.data.length > 0) {
                 isBadge.value = true;
                 // 뱃지 데이터에 추가
                 const badgeItem = [];
