@@ -1,6 +1,6 @@
 # :clapper: CNNect
 
-<img src="https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A507/-/raw/master/assets/gifs/NonLoginHome.gif?ref_type=heads" width='600px'>
+![NonLoginHome](/uploads/4c8289545f814be620bb9908ca2b10b0/NonLoginHome.gif)
 
 ## 📚 목차
 - [💬 서비스 소개](#intro)
@@ -36,12 +36,13 @@
 <a name="members"></a>
 ## 🙇 팀원 소개
 
-| <img alt="최동헌" src="/assets/images/dongheon.png"/> | <img alt="김하은" src="/assets/images/haeun.png"/> | <img alt="이민주" src="/assets/images/manju.png"/> |
+| ![dongheon](/uploads/aea86058049fa9071c00129f9315dc92/dongheon.png) | ![haeun](/uploads/ed9e249b198b21c63e3963f8f4ac6283/haeun.png) | ![manju](/uploads/
+d3a6dd01b29d7b7e816ab8faf46e9735/manju.png) |
 |:---:|:---:|:---:|
 |**최동헌(팀장/FS)**|**김하은(팀원/FS)**|**이민주(팀원/FS)**|
 |인프라, 학습 기록 구현|인프라, 레벨 시스템|검색 기능, 회원 관리|
 
-| <img alt="이은지" src="/assets/images/eunji.png"/> | <img alt="유혜승" src="/assets/images/hyeseung.jpg"/> | <img alt="차다운" src="/assets/images/dawun.png"/> |
+| ![eunji](/uploads/036cd9a15faaedaa38f3d707edef8730/eunji.jpg) | ![hyeseung](/uploads/b1ecb6076508c28c9b59eebf5e78c186/hyeseung.jpg) | ![dawun](/uploads/9310bb87e6d44cb20239ca1e87954b87/dawun.PNG) |
 |:---:|:---:|:---:|
 |**이은지(팀원/FS)**|**유혜승(팀원/FS)**|**차다운(팀원/FS)**|
 |학습진행 관련기능 구현|데이터 수집 및 관리|뉴스 추천 알고리즘|
