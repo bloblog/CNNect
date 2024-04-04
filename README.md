@@ -129,6 +129,7 @@ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 �
 <details>
 <summary>FE 폴더 구조</summary>
 <div markdown="1">
+
 ```
 📦frontend
  ┣ 📂.vscode
@@ -210,6 +211,7 @@ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 �
 <details>
 <summary>BE 폴더 구조</summary>
 <div markdown="1">
+
 ```
 📦backend
  ┣ 📂gradle
@@ -292,6 +294,7 @@ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 �
 <details>
 <summary>DATA 폴더 구조</summary>
 <div markdown="1">
+
 ```
 📦data
  ┣ 📂conf
