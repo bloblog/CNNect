@@ -8,6 +8,7 @@ import com.ssafy.cnnect.user.entity.User;
 import com.ssafy.cnnect.user.service.CustomUserDetailsService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,7 +38,7 @@ public class VocaService {
     }
 
     @Transactional
-    public void saveWord(VocaRequestDto word) {
+    public boolean saveWord(VocaRequestDto word) {
         User user = customUserDetailsService.getUserByAuthentication();
 
         Voca study = wordHistoryRepository.findByWordContentAndUser(word.getWordContent() , user);
@@ -50,6 +51,9 @@ public class VocaService {
                     .wordDate(LocalDate.now())
                     .build();
             wordHistoryRepository.save(voca);
+            return true;
+        }else{
+            return false;
         }
     }
 
