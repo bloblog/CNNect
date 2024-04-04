@@ -144,16 +144,22 @@ const startRecording = async () => {
             console.error('마이크 권한이 거부되었습니다.', error);
             Swal.fire({
                 icon: "error",
-                title: "마이크 권한 거부",
-                text: "브라우저 설정에서 마이크 권한을 허용해주세요.",
+                html: 
+                    "<h4><b>마이크 권한 거부</b><h4>" + 
+                    "브라우저 설정에서 마이크 권한을 허용해주세요.",
+                confirmButtonColor: '#cc0000',
+
             });
             isRecording.value = false;
         }
     } else {
         Swal.fire({
             icon: "error",
-            title: "마이크 권한 거부",
-            text: "브라우저가 오디오 녹음을 지원하지 않습니다.",
+            html: 
+                "<h4><b>마이크 권한 거부</b><h4>" + 
+                "브라우저가 오디오 녹음을 지원하지 않습니다.",
+            confirmButtonColor: '#cc0000',
+            
         });
     }
 };
@@ -207,9 +213,11 @@ const stopSectionPlay = () => {
 const sendPronunciationRequest = (audioBlob) => {
     let timerInterval;
     Swal.fire({
-    html: 
-        "<h3><b>발음 점수  중</h3>" +
-        "<p>측정이 완료되면 자동으로 닫힙니다.<p>",
+        html: 
+            "<h3><b>발음 점수 채점 중</b></h3>" +
+            "<p>측정이 완료되면 자동으로 닫힙니다.<p>",
+        confirmButtonColor: '#cc0000',
+        
     
     timer: 2000,
     timerProgressBar: true,
@@ -248,7 +256,7 @@ const sendPronunciationRequest = (audioBlob) => {
         clearInterval(timerInterval);
         Swal.fire({
             html:
-                "<h3><b>채점 완료</h3>" + 
+                "<h3><b>채점 완료</b></h3>" + 
                 `<p>당신의 발음 점수는 ${response.data.assessment_score}점 입니다.</p>`,
             icon: "success",
             confirmButtonColor: '#cc0000',

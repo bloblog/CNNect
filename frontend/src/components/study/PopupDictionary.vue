@@ -39,6 +39,8 @@ async function addWordbook(meanings, word) {
         icon: "success",
         html: `<h4><b>${wordContent} 추가 완료</b><h3>` + 
           "내 단어장에 추가되었습니다.",
+        confirmButtonColor: '#cc0000',
+
       });
     },
     (error) => {

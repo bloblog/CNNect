@@ -153,7 +153,7 @@ const nextStep = async (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>관심 영상을 하나 이상 선택해주세요!<b><h4>',
+        '<h4><b>관심 영상을 하나 이상 선택해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else {

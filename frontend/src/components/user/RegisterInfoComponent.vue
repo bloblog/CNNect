@@ -176,14 +176,14 @@ const nextStep = (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>이메일 중복 확인을 해주세요!<b><h4>',
+        '<h4><b>이메일 중복 확인을 해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else if (!authCheck.value) {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+        '<h4><b>이메일 인증을 진행해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else if (
@@ -193,7 +193,7 @@ const nextStep = (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>닉네임을 확인해주세요!<b><h4>' + 
+        '<h4><b>닉네임을 확인해주세요!</b><h4>' + 
         '닉네임은 2자 이상 10자 이하로 작성해주세요.',
       confirmButtonColor: '#cc0000',
     
@@ -202,7 +202,7 @@ const nextStep = (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>비밀번호가 일치하지 않습니다!<b><h4>',
+        '<h4><b>비밀번호가 일치하지 않습니다!</b><h4>',
       confirmButtonColor: '#cc0000',
     
     });
@@ -210,7 +210,7 @@ const nextStep = (input) => {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>이메일 인증을 진행해주세요!<b><h4>',
+        '<h4><b>이메일 인증을 진행해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     
     });
@@ -256,14 +256,14 @@ const emailDuplCheck = () => {
     Swal.fire({
       icon: "warning",
       html: 
-            '<h4><b>이메일을 입력해주세요!<b><h4>',
+            '<h4><b>이메일을 입력해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else if (!emailRegex.test(formData.value.userEmail)) {
     Swal.fire({
       icon: "warning",
       html: 
-        '<h4><b>이메일 형식을 확인해주세요!<b><h4>',
+        '<h4><b>이메일 형식을 확인해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
     });
   } else {
@@ -272,7 +272,7 @@ const emailDuplCheck = () => {
         Swal.fire({
           icon: "warning",
           html: 
-            '<h4><b>중복된 이메일입니다!<b><h4>',
+            '<h4><b>중복된 이메일입니다!</b><h4>',
           confirmButtonColor: '#cc0000',
 
         });
@@ -281,7 +281,7 @@ const emailDuplCheck = () => {
         Swal.fire({
           icon: "success",
           html: 
-            '<h4><b>사용 가능한 이메일입니다!<b><h4>',
+            '<h4><b>사용 가능한 이메일입니다!</b><h4>',
           confirmButtonColor: '#cc0000',
         });
         dupliCheck.value = true;
@@ -297,8 +297,8 @@ const codeSend = () => {
     Swal.fire({
       icon: "warning",
       html: 
-            '<h4><b>이메일 중복 확인을<b><h4>' + 
-            '<h4><b>먼저 진행해주세요!<b><h4>',
+            '<h4><b>이메일 중복 확인을</b><h4>' + 
+            '<h4><b>먼저 진행해주세요!</b><h4>',
       confirmButtonColor: '#cc0000',
               
     });
@@ -311,7 +311,7 @@ const codeSend = () => {
         Swal.fire({
           icon: "success",
           html: 
-            '<h4><b>인증 코드가 전송되었습니다!<b><h4>' ,
+            '<h4><b>인증 코드가 전송되었습니다!</b><h4>' ,
           confirmButtonColor: '#cc0000',
         });
         authCheck.value = true;
@@ -335,7 +335,7 @@ const codeCheck = () => {
         Swal.fire({
           icon: "success",
           html: 
-            '<h4><b>인증에 성공하였습니다!<b><h4>',
+            '<h4><b>인증에 성공하였습니다!</b><h4>',
           confirmButtonColor: '#cc0000',
         });
         authCheck.value = true;
@@ -343,7 +343,7 @@ const codeCheck = () => {
         Swal.fire({
           icon: "warning",
           html: 
-            '<h4><b>인증번호를 확인해주세요!<b><h4>',
+            '<h4><b>인증번호를 확인해주세요!</b><h4>',
           confirmButtonColor: '#cc0000',
         });
       }
