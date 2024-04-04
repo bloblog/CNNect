@@ -1,6 +1,6 @@
 # :clapper: CNNect
 
-<img src="/assets/gifs/nonLoginHome.PNG" width='600px'>
+<img src="/assets/gifs/nonLoginHome.gif" width='600px'>
 
 ## 📚 목차
 - [💬 서비스 소개](#intro)
@@ -36,12 +36,12 @@
 <a name="members"></a>
 ## 🙇 팀원 소개
 
-|![1](/assets/images/dongheon.png)| <img alt="김하은" src="/assets/images/haeun.png"/> | <img alt="이민주" src="/assets/images/manju.png"/> |
+| <img alt="최동헌" src="/assets/images/dongheon.png"/> | <img alt="김하은" src="/assets/images/haeun.png"/> | <img alt="이민주" src="/assets/images/manju.png"/> |
 |:---:|:---:|:---:|
 |**최동헌(팀장/FS)**|**김하은(팀원/FS)**|**이민주(팀원/FS)**|
 |인프라, 학습 기록 구현|인프라, 레벨 시스템|검색 기능, 회원 관리|
 
-|![4](/assets/images/eunji.jpg)|![5](/assets/images/sad.png)|![6](/assets/images/dawun.PNG)|
+| <img alt="이은지" src="/assets/images/eunji.png"/> | <img alt="유혜승" src="/assets/images/hyeseung.jpg"/> | <img alt="차다운" src="/assets/images/dawun.png"/> |
 |:---:|:---:|:---:|
 |**이은지(팀원/FS)**|**유혜승(팀원/FS)**|**차다운(팀원/FS)**|
 |학습진행 관련기능 구현|데이터 수집 및 관리|뉴스 추천 알고리즘|
