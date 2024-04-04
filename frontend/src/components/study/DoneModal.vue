@@ -96,6 +96,7 @@ const quit = () => {
     checkBadge(
         props.categoryId,
         ({data}) => {
+            console.log(data);
             if (data && data.data.length > 0) {
                 isBadge.value = true;
                 // 뱃지 데이터에 추가
@@ -118,6 +119,9 @@ const quit = () => {
                     }
                 )
             }
+            if (!isBadge.value) {
+                router.push('/');
+            }
 
         },
         (error) => {
@@ -125,9 +129,7 @@ const quit = () => {
         }
     )
     
-    if (!isBadge.value) {
-        router.push('/');
-    }
+    
     
 }
 
