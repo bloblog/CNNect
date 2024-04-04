@@ -1,6 +1,6 @@
 # :clapper: CNNect
 
-<img src="/assets/gifs/nonLoginHome.gif" width='600px'>
+<img src="https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A507/-/raw/master/assets/gifs/NonLoginHome.gif?ref_type=heads" width='600px'>
 
 ## 📚 목차
 - [💬 서비스 소개](#intro)
