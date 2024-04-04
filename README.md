@@ -112,6 +112,7 @@ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 �
 
 <a name="installation"></a>
 ## 🚀 포팅 메뉴얼
+[포팅 메뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A507/-/blob/master/exec/CNNect_A507_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf?ref_type=heads)   
 
 
 <a name="features"></a>
