@@ -1,19 +1,21 @@
 # :clapper: CNNect
-
+![cnnect](/uploads/8c94053c1dd0ce99859d754c9e50ac65/cnnect.PNG)
 
 ## 📚 목차
 - [💬 서비스 소개](#intro)
 - [🎯 기획 배경](#plans)
 - [🙇 팀원 소개](#members)
-- [🔨 기술 스택](#skills)
-- [🚀 포팅 메뉴얼](#installation)
+- [🔑 기술 소개](#technology)
 - [💡 주요 기능](#features)
+- [🔨 개발 환경](#skills)
+- [🚀 포팅 메뉴얼](#installation)
 - [📂 폴더 구조](#folder)
 
 <a name="intro"></a>
 ## 💬 서비스 소개
 
-사용자의 관심사와 테스트를 통한 영어 실력을 기반으로 CNN 뉴스를 추천해주고 학습을 지원합니다.
+**사용자의 관심사와 테스트를 통한 영어 실력을 기반으로 CNN 뉴스를 추천해주고 학습을 지원합니다.**
+
 1. 뉴스 속 문장의 발음을 듣고 쉐도잉하며 스피킹 실력 향상
 2. 발음 점수 측정을 통해 영어 발음 개선
 3. 뉴스 스크립트의 해석본를 제공하여 독해 역량 향상
@@ -35,83 +37,53 @@
 <a name="members"></a>
 ## 🙇 팀원 소개
 
-|**최동헌(팀장/FS)**|**김하은(팀원/FS)**|**이민주(팀원/FS)**|
+|**최동헌 (팀장/FS)**|**김하은 (팀원/FS)**|**이민주 (팀원/FS)**|
 |:---:|:---:|:---:|
 |인프라, 학습 기록 구현|인프라, 레벨 시스템|검색 기능, 회원 관리|
 
-
-|**이은지(팀원/FS)**|**유혜승(팀원/FS)**|**차다운(팀원/FS)**|
+|**이은지 (팀원/FS)**|**유혜승 (팀원/FS)**|**차다운 (팀원/FS)**|
 |:---:|:---:|:---:|
 |학습 진행 관련 기능|데이터 수집 및 관리|뉴스 추천 알고리즘|
 
 ---
 
-<a name="skills"></a>
-## 🔨 기술 스택
-### IDE
-<img src="https://img.shields.io/badge/intellij idea-000000?style=for-the-badge&logo=intellij idea&logoColor=white">
-<img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+<a name="technology"></a>
+## 🔑 기술 소개
 
-### Frontend
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/vue 3.4.15-4FC98D?style=for-the-badge&logo=vue&logoColor=white">
-<img src="https://img.shields.io/badge/node.js 20.11.0-339933?style=for-the-badge&logo=node.js&logoColor=white">
-<img src="https://img.shields.io/badge/axios 1.6.5-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
-<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-<img src="https://img.shields.io/badge/cheerio-E88C1F?style=for-the-badge&logo=cheerio&logoColor=white">
-
-
-### Backend
-<img src="https://img.shields.io/badge/java 17-E84135?style=for-the-badge&logo=y&logoColor=white">
-<img src="https://img.shields.io/badge/spring boot 3.2.1-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white">
-<img src="https://img.shields.io/badge/spring data jpa 3.2.1-6DB33F?style=for-the-badge&logo=t&logoColor=white">
-<img src="https://img.shields.io/badge/spring security 6.2.1-6DB33F?style=for-the-badge&logo=spring security&logoColor=white">
-<img src="https://img.shields.io/badge/swagger 2.0.2-5EA2D?style=for-the-badge&logo=spring security&logoColor=white">
-<img src="https://img.shields.io/badge/jwt 0.8.0-000000?style=for-the-badge&logo=y&logoColor=white">
-<img src="https://img.shields.io/badge/mysql 8.0.35-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-
-
-### Infra
-<img src="https://img.shields.io/badge/jenkins 2.426.3-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
-<img src="https://img.shields.io/badge/docker 25.0.0-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-<img src="https://img.shields.io/badge/nginx 1.25.3-009639?style=for-the-badge&logo=nginx&logoColor=white">
-<img src="https://img.shields.io/badge/aws ec2-FF9900?style=for-the-badge&logo=amazon ec2&logoColor=white">
-
-### Version control
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/gitlab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white">
-
-
-### Management Tools
-<img src="https://img.shields.io/badge/jira software-0052CC?style=for-the-badge&logo=jira software&logoColor=white">
-<img src="https://img.shields.io/badge/mattermost-0058CC?style=for-the-badge&logo=mattermost&logoColor=white">
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+### 📈 데이터 수집
+- **scrapetube**를 사용하여 **16만개**의 CNN 유튜브 영상 크롤링
+- **selenium**, **apscheduler**를 통해 새로 올라온 CNN 유튜브 영상을 하루 단위로 **자동 크롤링**
 
 ---
 
-<a name="skills"></a>
-
-## 🔨 기술 소개
-
-### 데이터 수집
-- scrapetube를 사용하여 16만개의 CNN 유튜브 영상 크롤링
-- selenium, apscheduler를 통해 새로 올라온 CNN 유튜브 영상을 하루 단위로 자동 크롤링
-
-### 데이터 전처리
+### 📉 데이터 전처리
 - 스크립트 없는 데이터 제거
-- nltk.sent_tokenize를 통해 발화 단위의 스크립트 타임라인을 문장 단위로 변경
-
-### 카테고리 모델링
-CNN 홈페지의 카테고리 기반 카테고라이징 모델
-CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 편차
+- **nltk.sent_tokenize**를 통해 발화 단위의 스크립트 타임라인을 **문장 단위**로 변경
 
 ---
 
-<a name="installation"></a>
-## 🚀 포팅 메뉴얼
-[포팅 메뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A507/-/blob/master/exec/CNNect_A507_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf?ref_type=heads)   
+### 📊 카테고리 모델링
 
+_CNN 홈페지의 카테고리 기반 카테고라이징 모델_
+
+➡ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 편차
+
+➡ 데이터 증강을 통해 기사 양 늘리고 편차 극복
+
+➡ 임베딩을 통해 단어를 밀집 벡터로 매핑
+
+➡ 평균 풀링을 통해 고정 크기의 벡터 생성, 완전 연결 레이어를 통해 분류 수행
+
+---
+
+### 🥇 난이도 선정
+
+_아래의 두가지 지표를 혼합하여 난이도 선정_
+
+| 단어 난이도 | 영상 난이도 |
+|:-------:|:-------:|
+| **CEFR** 유럽연합 공통언어 표준등급 | **Flesh-Reading Ease Score** |
+| A1 - A2 <br/>- B1 - B2 <br/>- C1 - C2 | **범위** 0~100 <br/> **계산식** 206.835 - 1.015* (문장당 평균 단어 길이) - 84.6 * (평균 단어 수) |   
 
 <a name="features"></a>
 
@@ -192,6 +164,53 @@ CNN 홈페이지에서 제공하는 기사 양이 한정적 + 카테고리 별 �
 |:---------:|
 | ![커스텀단어장](/uploads/878c855a71ae41f293f32b746f5d4df8/커스텀단어장.gif) |
 
+<a name="skills"></a>
+## 🔨 개발 환경
+
+#### Frontend
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/vue 3.4.15-4FC98D?style=for-the-badge&logo=vue&logoColor=white">
+<img src="https://img.shields.io/badge/node.js -339933?style=for-the-badge&logo=node.js&logoColor=white">
+<img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+<img src="https://img.shields.io/badge/cheerio-E88C1F?style=for-the-badge&logo=cheerio&logoColor=white">
+
+#### Backend
+<img src="https://img.shields.io/badge/java 17-E84135?style=for-the-badge&logo=y&logoColor=white">
+<img src="https://img.shields.io/badge/spring boot 3-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white">
+<img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=t&logoColor=white">
+<img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=spring security&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white">
+<img src="https://img.shields.io/badge/swagger-5EA2D?style=for-the-badge&logo=spring security&logoColor=white">
+<img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=y&logoColor=white">
+
+#### Infra
+<img src="https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+<img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white">
+<img src="https://img.shields.io/badge/aws ec2-FF9900?style=for-the-badge&logo=amazon ec2&logoColor=white">
+
+#### IDE
+<img src="https://img.shields.io/badge/intellij idea-000000?style=for-the-badge&logo=intellij idea&logoColor=white">
+<img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+
+#### Version control
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/gitlab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white">
+
+#### Management Tools
+<img src="https://img.shields.io/badge/jira software-0052CC?style=for-the-badge&logo=jira software&logoColor=white">
+<img src="https://img.shields.io/badge/mattermost-0058CC?style=for-the-badge&logo=mattermost&logoColor=white">
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
+
+<a name="installation"></a>
+## 🚀 포팅 메뉴얼
+[포팅 메뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22A507/-/blob/master/exec/CNNect_A507_%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf?ref_type=heads)
+
+<a name="folder"></a>
 ## 📂 폴더 구조
 <details>
 <summary>FE 폴더 구조</summary>
