@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/S10P22A507.iml" filepath="$PROJECT_DIR$/.idea/S10P22A507.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cnnect.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cnnect.main.iml" />
     </modules>
   </component>
 </project>
