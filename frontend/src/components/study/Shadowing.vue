@@ -207,10 +207,8 @@ const stopSectionPlay = () => {
 const sendPronunciationRequest = (audioBlob) => {
     let timerInterval;
     Swal.fire({
-    html: 
-        "<h3><b>발음 점수  중</h3>" +
-        "<p>측정이 완료되면 자동으로 닫힙니다.<p>",
-    
+    title: "발음 점수 채점 중",
+    html: "측정이 완료되면 자동으로 닫힙니다.",
     timer: 2000,
     timerProgressBar: true,
     didOpen: () => {
